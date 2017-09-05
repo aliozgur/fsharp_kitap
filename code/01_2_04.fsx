@@ -1,4 +1,4 @@
-(* 01_04.fsx *)
+(* 01_2_04.fsx *)
 let f(x)  = x + 1 // bir arttırma fonksiyonu tanımı
 let g(x) = x * x // kare alma fonksiyonu tanımı
 

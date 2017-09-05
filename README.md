@@ -3,12 +3,13 @@
 # İçindekiler 
 
 * 1.Bölüm : Giriş
-    * 1.1 Fonksiyonlara Matematiskel Bakış
-    * 1.2 Fonksiyonların İlginç Özellikleri
-    * 1.3 Fonksiyonel Programlama Nedir?
-    * 1.4 Kısa F# Tarihçesi
-    * 1.5 Neden F#?
-    * 1.6 F# Sözdizimine Hızlı Bakış
+    * 1.1 Kısa F# Tarihçesi
+    * 1.2 Neden F#?
+    * 1.3 F# Sözdizimine Hızlı Bakış
+    * 1.4 Fonksiyonlara Matematiskel Bakış
+    * 1.5 Fonksiyonların İlginç Özellikleri
+    * 1.6 Fonksiyonel Programlama Nedir?
+   
 * 2.Bölüm : Kurulum ve Hazırlık
     * F# Geliştirme Platformu Temel Bileşenleri 
     * Windows ve Visual Studio 
@@ -69,7 +70,7 @@
 
 Bu bölümün ilk kısmında matematiksel anlamda fonksiyonları ve fonksiyonların bazı ilginç özelliklerini ele alacağız. Bölümün ikinci kısmında ise fonksiyonel programlamanın tanımını yaparak F#'ın kısa tarihçesini aktarıp "Neden F#?" ve "F# programlama dili neye benzer?" sorularının cevaplarını arayacağız.
 
-## 1.1 Fonksiyonlara Matematiksel Bakış
+## 1.4 Fonksiyonlara Matematiksel Bakış
 
 Fonksiyonel programlamanın temeli matematiksel fonksiyonlar ve fonksiyonların bazı özellikleri üzerine inşa edilmiştir. Matematiksel açıdan **fonksiyon** tanımlarından bir tanesi aşağıdaki gibi yapılır
 
@@ -100,7 +101,7 @@ Yukarıdaki örnekte
 
 f fonksiyonunu da  f(A) = {(1,a),(2,a),(3,d)} şeklindeki eşleştirmelerin kümesi olarak tanımlarız.
 
-## 1.2 Fonksiyonların İlginç Özellikleri
+## 1.5 Fonksiyonların İlginç Özellikleri
 
 Matematiksel fonksiyonların fonksiyonel programlama dillerinin yapısını yakından etkileyen belirleyici iki önemli özelliğinden bahsedebiliriz, bunlar
 
@@ -112,7 +113,7 @@ Matematiksel fonksiyonların fonksiyonel programlama dillerinin yapısını yak�
 f(x) = x * x fonksiyonunun F# ile matematiksel tanımına uygun olarak basit bir eşleştirme dönüşümü olarak aşağıdaki gibi ifade edebiliriz. 
 
 ```fsharp
-(* 01_01.fsx *)
+(* 01_2_01.fsx *)
 
 let f (x) =
     match x with
@@ -128,7 +129,7 @@ Dikkat ederseniz fonksiyonları bu noktaya kadar hep *eşleştirme yapan birer d
 Ancak, switch/case benzeri yapılar yazım açısından zahmetli olup genellemeye uygun değildirler. Tanım kümesinin tüm elemanlarının switch/case ile değer kümesinden bir eleman ile eşleştirilmesi pratik olarak mümkün değildir. Bu nedenle fonksiyonları, bir hesaplama yaptığı izlenimine kapılmamıza da neden olan, aşağıdaki şekilde yazarak genelleştirilebilir.
 
 ```fsharp
-(* 01_02.fsx *)
+(* 01_2_02.fsx *)
 
 let f (x) = x * x
 ```
@@ -138,7 +139,7 @@ Fonksiyonların ikinci ilginç özelliği ise yan etkilerinin olmamasıdır. **Y
 Örneğin **f(x) = x * x** fonksiyonuna girdi olarak verilen değer kümesindeki **x = 5** değerinin **y = f 5** ifadesi ile yapılan dönüşüm işlemi sonrasında hala 5'e eşit olması f(x) fonksiyonunun yan etkisi olmadığını gösterir.
 
 ```fsharp
-(* 01_03.fsx *)
+(* 01_2_03.fsx *)
 
 let f(x) = x * x   // fonksiyon tanımı
 
@@ -169,7 +170,7 @@ Fonksiyonların ikinci özelliğine istinaden fonksiyonları istediğimiz sırad
 Fonksiyonların çalıştırma sırasını önemli olduğuğunu aşağıdaki örnek programımızda da hızlıca görebiliriz. Sıralama değiştirildiğinde sonuç da kaçınılmaz olarak değişebilmektedir. 
 
 ```fsharp
-(* 01_04.fsx *)
+(* 01_2_04.fsx *)
 let f(x)  = x + 1 // bir arttırma fonksiyonu tanımı
 let g(x) = x * x // kare alma fonksiyonu tanımı
 
@@ -222,7 +223,7 @@ Bu iki özellik ilk başta çok önemli değilmiş hatta biraz da kısıtlayıc�
 >
 > F# programlama dilinde aslında **değişken (variable)** terimi yerine **değer ifadesi (value expression)** terimi kullanılır. Örneğin aşağıdaki a,b ve pi değer ifadeleri değişken değildir çünkü değerlerini bir defa tanımlandıktan sonra değiştiremeyiz (*değişmezlik - immutability*) 
 > ```fsharp
-> (* 01_05.fsx *)
+> (* 01_2_05.fsx *)
 >
 >let a = 42
 >a = 43 // Hata
@@ -236,7 +237,7 @@ Bu iki özellik ilk başta çok önemli değilmiş hatta biraz da kısıtlayıc�
 >
 >Ancak F# dilinde dilin yaklaşımı nedeni (multi paradigm bir dil) ile değeri değiştirilebilen (mutable) değer ifadeleri tanımlamak da mümkündür
 >```fsharp
->(* 01_06.fsx *)
+>(* 01_2_06.fsx *)
 >let mutable a = 42
 >printfn "a = %d" a
 >
@@ -255,7 +256,7 @@ Bu iki özellik ilk başta çok önemli değilmiş hatta biraz da kısıtlayıc�
 >printfn "pi = %f" pi
 >```
 
-## 1.3 Fonksiyonel Programlama Nedir?
+## 1.6 Fonksiyonel Programlama Nedir?
 
 Fonksiyonel programlama, saf fonksiyonları (pure functions) ve değeri sonradan değiştirilemeyen değer ifadelerini (value expressions) kullanarak paylaşılan program durumuna (shared program state) ve yan etkilere (side effect) mahal vermeden yapılan kodlama faaliyetidir. Bazı kaynaklar fonksiyonel programlamayı fonksiyonların birinci sınıf vatandaş (first class citizen) olarak kabul edildiği kodlama faliyeti olarak da tanımlamaktadır. Fonksiyonel programlama bir araç veya dile bağlı değildir ve bir paradigma (yaklaşım) olarak değerlendirilir. Fonksiyonel olmayan programlama dilleri ile de (eğer dilin yapısı müsait ise) fonksiyonel programlama yaklaşımına ve ilkelerine uygun kod yazmak mümkün olabilir.
 
@@ -268,7 +269,7 @@ Fonksiyonel programlama yaklaşımına göre tasarlanmış programlama dilleri *
 Şimdi gelin basit bir F# kod parçası ile fonksiyonel programlama dili ile geliştirilen kodun neye benzediğini hızlıca deneyimleyelim
 
 ```fsharp
-(* 01_07.fsx *)
+(* 01_2_07.fsx *)
 
 let liste = [1..10] // 1 ile 10 arasındaki sayıları barındıran liste
 let kare x = x * x  // Bir sayının karesini alan fonksiyon tanımı
@@ -289,3 +290,49 @@ Yukarıdaki kod parçasında **list** isimli bir değer ifadesi ve **kare** isim
 > **BİLGİ**
 >
 > Yüksek dereceli fonksiyonlar başka bir fonksiyonu girdi parametresi olarak kabul eden fonksiyonlardır. Yukarıdaki örnekte kullanılan **List.map** fonksiyonu **kare** fonksiyonunu parametre olarak alabildiği için **yüksek dereceli (higher order)** bir fonksiyondur.
+
+### Bildirim ve Şart Odaklı Programlama Yaklaşımları 
+
+F#, OCaml, Scala, Haskell gibi fonksiyonel programlama dilleri bildirim odaklı (declarative) diller sınıfında yer alan dillerdir. C,C#, Java, Pascal ve Cobol gibi diller ise ana yaklaşımları nedeni ile şart odaklı (imperative) diller sınıfında yer alır. Ancak programlama dillerinin bu iki yaklaşıma göre hangi sınıfta yer aldığının belirlenmesi için çok net kriterler yoktur. Bazı diller (örneğin JavaScript, C# veya Java 8) destekledikleri programlama yapılarına göre her iki sınıfta da yer alabilmektedir. Tüm bu kriter belirsizliği ve karmaşasına reğmen bir programcı olarak bu iki sınıf arasındaki temel farkları bilmeniz hem F# öğrenirken hem de diğer diller ile çalışırken sizin için oldukça faydalı olacaktır. 
+
+Şimdi gelin her iki yaklaşımın tanımını yaparak aralarındaki farkları ortaya koyalım.
+
+Şart odaklı programlama dillerinde yazdığınız kod bir işlemin **nasıl (how)** yapılacağını tarif eder. Bu yüzden bu tür dillerin temel yapı taşları **tümcelerdir (sentence)**. Bu tümceler ile adım adım programın hangi işlemi **nasıl** yapması gerektiği tarif edilir ve bilgisayar bu adımları takip ederek programı çalıştırır. Bu sınıftaki dillere prosedürel diller de denir. Bu tür dillerde adım adım bir tarif söz konusu olduğu için genellikle akış kontrolü için **while** ve **for** gibi döngü yapıları, koşullu dallanma için **if/else** ve **switch** yapıları ve her bir adım sonrasında ulaşılan durumun takip edilmesi ve kayıt altına alınması için de **değişkenler** kullanılır. 
+
+Bildirim odaklı programlama dillerinde ise yazdığınız kod bir işlemin nasıl yapılacağına değil işlem sonucunun **ne olacağına(what)** odaklanmıştır. Bu sınıftaki dillere fonksiyonel diller de denir. Bu tür dillerin temel yapı taşı **değer ifadeleridir (expression)** ve bilgisayar programınızdaki bu değer ifadelerini çalıştırarak sonucun üretilmesini sağlar. Bildirim odaklı dillerde akış kontrolü için **öz yinelemeli (recursive) fonksiyonlar**, koşullu dallanma için **yüksek dereceli fonksiyonlar (higher order functions)** ve **match** benzeri yapılar kullanılır. Bildirim odaklı dillerde işlem sonucuna odaklanılır ve önceki adımlarda ulaşılan durumun takip edilmesi için değişkenlere ihtiyaç duyulmaz. Bu nedenle daha önce de değindiğimiz gibi bu dillerde doğrudan değişken tanımı yapılmasına izin verilmez.
+
+F# ağırlıklı olarak bildirim odaklı fonksiyonel bir dil olmakla birlikte şart odaklı yapıları da desteklediği için gelin şimdi örnekler ile her iki yaklaşım için yazmamız gereken kodunun nasıl görüneceğine bakalım
+
+```fsharp
+(* 01_2_08.1.fsx *)
+(* Şart odaklı stil *)
+let liste = [1..10]
+
+let mutable ikiyeBölünenler = []
+let mutable ikiyeBölünmeyenler = []
+
+for d in liste do
+    if d % 2 = 0 then
+        ikiyeBölünenler <- ikiyeBölünenler @ [d]
+    else
+        ikiyeBölünmeyenler <- ikiyeBölünmeyenler @ [d]
+printfn "İkiye bölüneneler = %A" ikiyeBölünenler
+printfn "İkiye bölünmeyenler = %A" ikiyeBölünmeyenler
+```  
+
+```fsharp
+(* 01_2_08.1.fsx *)
+(* Bildirim odaklı stil *)
+let liste = [1..10]
+let ikiyeBolünebilirMi x = x % 2 = 0
+
+let ikiyeBölünenler = liste |> List.filter ikiyeBolünebilirMi
+printfn "İkiye bölüneneler = %A" ikiyeBölünenler
+
+let ikiyeBölünmeyenler = liste |> List.filter (ikiyeBolünebilirMi >> not)
+printfn "İkiye bölünmeyenler = %A" ikiyeBölünmeyenler
+
+```
+
+Yukarıdaki kod örneklerini de göz önünde bulundurarak her iki yaklaşım arasındaki temel farkları şöyle ifade edebiliriz
+

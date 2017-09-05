@@ -1,4 +1,4 @@
-(* 01_06.fsx *)
+(* 01_2_06.fsx *)
 let mutable a = 42
 printfn "a = %d" a
 
