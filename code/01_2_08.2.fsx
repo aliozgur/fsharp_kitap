@@ -1,5 +1,5 @@
 (* 01_2_08.1.fsx *)
-(* Bildirim odaklı stil *)
+(* Bildirimsel (fonskyionel) yaklaşım *)
 let liste = [1..10]
 let ikiyeBolünebilirMi x = x % 2 = 0
 

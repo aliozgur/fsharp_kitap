@@ -1,5 +1,6 @@
 (* 01_2_08.1.fsx *)
-(* Şart odaklı stil *)
+(* Yordamsal (fonksiyonel olmayan) yaklaşım *)
+
 let liste = [1..10]
 
 let mutable ikiyeBölünenler = []
