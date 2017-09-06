@@ -54,6 +54,11 @@ let küplerinToplamı2 =
 let küplerinToplamı3 =
    [1..100] |> List.map (fun x->x*x*x) |> List.sum // fun x -> x * x * x anonim bir fonksiyon tanımıdır
 
+// Öz yinelemeli fonksiyon tanımlamak için "rec" anahtar kelimesi kullanılır
+// Aşağıdaki fonksiyon öz yinelemeli olarak faktöriyel hesabı yapar
+let rec fact x = 
+    if x <= 1 then 1 else x * fact (x - 1)
+
 // F#'da fonksiyonların dönüş değerleri dolayılı olarak belirlenir bu nedenle "return" benzeri bir anahtar kelimeye ihtiyaç yoktur
 // Bir fonksiyon bloğundaki son ifade her zaman dönüş değerini oluşturur
 

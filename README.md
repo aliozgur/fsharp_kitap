@@ -75,45 +75,6 @@ Bu bölümün ilk kısmında F#'ın kısa tarihçesini aktarıp "Neden F#?" ve "
 Programlama dili kitapları ve kaynakları ekrana  "Merhaba Dünya!" yazdırmak için kullanılan kod parçası ile başlar. Biz de kitabımıza bu klasik ile başlıyoruz. 
 
 ```fsharp
-(* 01_0_1.fsx *)
-
-printfn "Merhaba Dünya!"
-```
-Yukarıdaki kod parçasında gördüğümüz **printfn** fonksiyonu F# standard kütüphanesinde yer alan ve ekrana metin çıktısı göndermemizi sağlayan standard bir fonksiyondur.
-
-Şimdi gelin bir adım daha atalım. Aşağıdaki kod parçası ile bir fonksiyon tanımlayacağız ve bu fonksiyonu çalıştırarak sonucunu ekrana göndereceğiz
-
-```fsharp
-(* 01_0_2.fsx *)
-
-let kare x = x * x
-let girdi = 4
-let sonuç = kare girdi
-
-printfn "Sonuç = %d" sonuç
-```
-Yukarıdaki kod parçasında 
-* **let kare x = x * x** satırı ile *kare* isimli bir fonksiyon tanımlanır. 
-* **let girdi = 4** satırı ile *girdi* isimli bir değer ifadesi tanımlayıp değeri 4 yapılıyor.
-* **let sonuç = kare girdi** çağırısı ile de *kare* fonksiyonunu *girdi* paremetresi ile çalıştırıp sonucunu *sonuç* değer ifadesine atanıyor.
-* **printfn "Sonuç = %d" sonuç** ifadesi ile de *Sonuç = 16* şeklindeki ifadenin ekrana yazılması sağlanıyor. Bu satırdaki **%d** ifadesi tam sayılar için kullanılan bir yer tutucudur. İfade çalıştırıldığında %d olan yerde printfn fonksiyonuna girdi olarak verilen tam sayı parametresinin değeri otomatik olarak yazılır. 
-
-> **BİLGİ**
->
->Bu bölümdeki F# kod örneklerini kod parçasını bilgisayarınıza herhangi bir kurulum yapmadan jdoodle.com/compile-fsharp-online adresinden oline olarak çalıştırabilirsiniz.
-
-Bu örnek kod parçalarında dikkatinizi çekeceğini umduğum birkaç önemli özelliği sıralayarak tanışma faslını kapatacağız.
-
-* Bolca **let** kullanımı 
-* Parantez, süslü parantez veya noktalı virgül gibi karakterler yok
-* Fonksiyon parametreleri ve çıktısını veya değişkenleri tanımlamak için *tam sayı*, *metin* vb tip tanımı yapmaya gerek yok
-
-## 1.2 F# Söz Dizimine Hızlı Bakış
-F# genel olarak yazması ve okuması kolay bir dil olarak değerlendirilir. Kitabın geri kalanında ve günlük F# kodunuzda yoğun olarak kullanacağınız F# yapılarını aşağıda bulabilirsiniz.
-
-Aşağıdaki kodu kitabımızın GitHub deposundan erişip (!! Link Here !!)  https://www.jdoodle.com/compile-fsharp-online adresinde herhangi bir kuruluma gerek duymadan online çalıştırabilirsiniz.
-
-```fsharp
 // tek satırlık yorumlar için // kullanılır
 (* 
     Birden fazla satırlı yorumlar için  (* *) çifti kullanılır
@@ -169,6 +130,11 @@ let küplerinToplamı2 =
 // "fun" anahtar kelimesini kullanarak adsız (anonim) fonksiyonlar tanımlayabilirsiniz
 let küplerinToplamı3 =
    [1..100] |> List.map (fun x->x*x*x) |> List.sum // fun x -> x * x * x anonim bir fonksiyon tanımıdır
+
+// Öz yinelemeli fonksiyon tanımlamak için "rec" anahtar kelimesi kullanılır
+// Aşağıdaki fonksiyon öz yinelemeli olarak faktöriyel hesabı yapar
+let rec fact x = 
+    if x <= 1 then 1 else x * fact (x - 1)
 
 // F#'da fonksiyonların dönüş değerleri dolayılı olarak belirlenir bu nedenle "return" benzeri bir anahtar kelimeye ihtiyaç yoktur
 // Bir fonksiyon bloğundaki son ifade her zaman dönüş değerini oluşturur
@@ -240,6 +206,7 @@ printfn "ikili=%A,\nkişi=%A,\nişçi=%A"  ikili kişi işçi
 let çıktı1 = sprintf "Ekrana bir int %i, bir float %f ve bir bool %b gönderiyorum" 42 3.14 true
 let çıktı2 = sprintf "Ekrana bir metin %s ve tipi ile ilgilenmediğim jenerik bir %A gönderiyorum" "Merhaba Dünya" [1;2;3;4;5]
 let çıktı3 = sprintf "ikili=%A,\nkişi=%A,\nişçi=%A"  ikili kişi işçi
+
 ```
 
 ## 1.3 Kısa F# Tarihçesi
