@@ -4,7 +4,7 @@
 // Kare fonksiyonu tanımı
 let kare x = x * x 
 
-// Liste tanımlamak çok basit
+// Liste tanımlamak çok basit ve tek satır
 // 1 ile 10 arasındaki sayıları barındıran liste
 let sayılar = [1..10] 
 

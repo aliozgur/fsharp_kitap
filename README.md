@@ -3,12 +3,13 @@
 # İçindekiler 
 
 * 1.Bölüm : Giriş
-    * 1.1 Kısa F# Tarihçesi
-    * 1.2 Neden F#?
-    * 1.3 F# Sözdizimine Hızlı Bakış
-    * 1.4 Fonksiyonlara Matematiskel Bakış
-    * 1.5 Fonksiyonların İlginç Özellikleri
-    * 1.6 Fonksiyonel Programlama Nedir?
+    * 1.1 F# ile Tanışma
+    * 1.2 F# Sözdizimine Hızlı Bakış
+    * 1.3 Kısa F# Tarihçesi
+    * 1.4 Neden F#?
+    * 1.5 Fonksiyonlara Matematiskel Bakış
+    * 1.6 Fonksiyonların İlginç Özellikleri
+    * 1.7 Fonksiyonel Programlama Nedir?
    
 * 2.Bölüm : Kurulum ve Hazırlık
     * F# Geliştirme Platformu Temel Bileşenleri 
@@ -27,7 +28,7 @@
     * Desen Eşleştirme (Pattern Matching)
     * Küme Teorisi ve F# Tipleri
         * Değişkenler Grubu (Tuple)
-        * Ayrıcalıklı Bileşim (Discriminated Union)
+        * Ayrışık Bileşim (Discriminated Union)
         * Kayıt (Record) 
     * Gevşek Değerlendirme (Lazy Evaluation)
     * Gevşek Diziler (Sequences)
@@ -70,7 +71,178 @@
 
 Bu bölümün ilk kısmında F#'ın kısa tarihçesini aktarıp "Neden F#?" ve "F# programlama dili neye benzer?" sorularının cevaplarını arayacağız. Bölümün ikinci kısmında ise fonksiyonel programlamanın tanımını yaparak matematiksel anlamda fonksiyonları ve fonksiyonların bazı ilginç özelliklerini ele alacağız.
 
-## 1.1 Kısa F# Tarihçesi
+## 1.1 F# ile Tanışma
+Programlama dili kitapları ve kaynakları ekrana  "Merhaba Dünya!" yazdırmak için kullanılan kod parçası ile başlar. Biz de kitabımıza bu klasik ile başlıyoruz. 
+
+```fsharp
+(* 01_0_1.fsx *)
+
+printfn "Merhaba Dünya!"
+```
+Yukarıdaki kod parçasında gördüğümüz **printfn** fonksiyonu F# standard kütüphanesinde yer alan ve ekrana metin çıktısı göndermemizi sağlayan standard bir fonksiyondur.
+
+Şimdi gelin bir adım daha atalım. Aşağıdaki kod parçası ile bir fonksiyon tanımlayacağız ve bu fonksiyonu çalıştırarak sonucunu ekrana göndereceğiz
+
+```fsharp
+(* 01_0_2.fsx *)
+
+let kare x = x * x
+let girdi = 4
+let sonuç = kare girdi
+
+printfn "Sonuç = %d" sonuç
+```
+Yukarıdaki kod parçasında 
+* **let kare x = x * x** satırı ile *kare* isimli bir fonksiyon tanımlanır. 
+* **let girdi = 4** satırı ile *girdi* isimli bir değer ifadesi tanımlayıp değeri 4 yapılıyor.
+* **let sonuç = kare girdi** çağırısı ile de *kare* fonksiyonunu *girdi* paremetresi ile çalıştırıp sonucunu *sonuç* değer ifadesine atanıyor.
+* **printfn "Sonuç = %d" sonuç** ifadesi ile de *Sonuç = 16* şeklindeki ifadenin ekrana yazılması sağlanıyor. Bu satırdaki **%d** ifadesi tam sayılar için kullanılan bir yer tutucudur. İfade çalıştırıldığında %d olan yerde printfn fonksiyonuna girdi olarak verilen tam sayı parametresinin değeri otomatik olarak yazılır. 
+
+> **BİLGİ**
+>
+>Bu bölümdeki F# kod örneklerini kod parçasını bilgisayarınıza herhangi bir kurulum yapmadan jdoodle.com/compile-fsharp-online adresinden oline olarak çalıştırabilirsiniz.
+
+Bu örnek kod parçalarında dikkatinizi çekeceğini umduğum birkaç önemli özelliği sıralayarak tanışma faslını kapatacağız.
+
+* Bolca **let** kullanımı 
+* Parantez, süslü parantez veya noktalı virgül gibi karakterler yok
+* Fonksiyon parametreleri ve çıktısını veya değişkenleri tanımlamak için *tam sayı*, *metin* vb tip tanımı yapmaya gerek yok
+
+## 1.2 F# Söz Dizimine Hızlı Bakış
+F# genel olarak yazması ve okuması kolay bir dil olarak değerlendirilir. Kitabın geri kalanında ve günlük F# kodunuzda yoğun olarak kullanacağınız F# yapılarını aşağıda bulabilirsiniz.
+
+Aşağıdaki kodu kitabımızın GitHub deposundan erişip (!! Link Here !!)  https://www.jdoodle.com/compile-fsharp-online adresinde herhangi bir kuruluma gerek duymadan online çalıştırabilirsiniz.
+
+```fsharp
+// tek satırlık yorumlar için // kullanılır
+(* 
+    Birden fazla satırlı yorumlar için  (* *) çifti kullanılır
+*)
+
+// "let" anahtar kelimesi ile değeri değiştirilemeyen (immutable) değer ifadeleri tanımlanır
+let sayı = 5
+let ondalıkSayı = 3.14
+let metin = "Merhaba Dünya!"
+
+// ======== Listeler ============
+let pozitifSayılar = [1;2;3;4;5]        // Köşeli parantez ile liste tanımlanır
+                                        // liste elemanlarını da ; ile ayrırırıs
+let doğalSayılar = 0 :: pozitifSayılar   // :: operatörü varolan listenin başına 0 değerini ekleyerek yeni bir liste oluşturur
+// doğalSayılar listesi [0;1;2;3;4;5] şeklinde olacaktır
+
+let tamSayılar = [-5;-4;-3;-2;-1] @ doğalSayılar   // @ operatörü iki listeyi birleştirip yeni bir liste oluşturur
+// tamSayılar listesi [-5;-4;-3;-2;-1;0;1;2;3;4;5] şeklinde olacaktır
+
+// DİKKAT: liste ve dizilerin elemanlarını tanımlarken virgül yerine noktalu virgül kullanılır
+
+// ======== Fonksiyonlar ========
+// "let" anahtar kelimesi ile aynı zamanda ismi olan fonksiyonlar da tanımlanır
+let küp x = x * x * x        // Fonksiyon tanımında parantez, süslü parantez veya noktalı virgül kullanılmıyor
+küp 3                        // Fonksiyonu çalıştıralım, girdi parametrelerini tanımlarken de parantez kullanmıyoruz
+
+let ekle x y = x + y         // ekle fonksiyonunu çağırırken ekle (1,2) şeklinde girdi parametreleri için parantez kullanmayın
+                             // (1,2) 1 ve 2 parametrelerini girdi olarak vermek anlamına gelmez
+ekle 2 3                     // (1,2) şeklindeki ifade ile değer grubu (tuple) tanımlanır
+
+// Birden fazla satıra yayılmış bir fonksiyon tanımlamak için girintiler (indent) kullanılır. Kod satırlarının bitişini belirtmek için ; kullanılmaz
+let çiftSayılar liste =
+   let çiftMi x = x%2 = 0      // çiftMi fonksiyonunu iç fonksiyon olarak tanımla
+   List.filter çiftMi liste    // List.filter standard List modülünde yer alan hazır bir fonksiyon
+                               // List.filter girdi olarak bir fonksiyon parametresi ve bu fonksiyonu çalıştıracağı listeyi alır
+
+çiftSayılar pozitifSayılar     // Fonksiyonu çalıştır
+
+// Parantezleri işlem önceliğini belirtmek için kullanabilirsiniz. Aşağıdaki örnekte
+// önce List.map işleminin yapılmasını sonra da List.sum işleminin yapılmasını belirtiyoruz
+// Parantezler kullanmasaydık "List.map" fonksiyonu "List.sum" fonksiyonuna birinci girdi parametresi olarak geçilecekti
+let küplerinToplamı =
+   List.sum ( List.map küp [1..100] )
+
+// Bir fonksiyonun çıktısını sonraki fonksiyona "|>" operatörü ile aktarabilirsiniz
+// Küplerin toplamı fonksiyonun |> kullanan yeni hali aşağıdaki gibidir
+let küplerinToplamı2 =
+   [1..100] |> List.map küp |> List.sum  // 1 ile 100 arasındaki değer listesini List.map fonksiyonuna 
+                                         // ikinci girdi parametresi olacak şekilde aktar
+                                         // List.map fonksyonunun birinci girdi parametresi ise küp fonksiyonudur
+                                         // List.map sonucunu List.sum fonksiyonuna girdi parametresi olarak aktar 
+
+// "fun" anahtar kelimesini kullanarak adsız (anonim) fonksiyonlar tanımlayabilirsiniz
+let küplerinToplamı3 =
+   [1..100] |> List.map (fun x->x*x*x) |> List.sum // fun x -> x * x * x anonim bir fonksiyon tanımıdır
+
+// F#'da fonksiyonların dönüş değerleri dolayılı olarak belirlenir bu nedenle "return" benzeri bir anahtar kelimeye ihtiyaç yoktur
+// Bir fonksiyon bloğundaki son ifade her zaman dönüş değerini oluşturur
+
+// ======== Desen Eşleme (Pattern Matching) ========
+// Desen eşleştirme için Match..with.. yapısı kullanılır
+let basitDesenEşleme =
+   let x = 1
+   match x with
+    | 1 -> printfn "x'in değer 1"
+    | 2 -> printfn "x'in değeri 2"
+    | _ -> printfn "x'in değeri 1 veya 2 değil"   // _ simgesi herhangi bir değeri eşlemek için yer tutucu olarak kullanılır
+
+// Some(..) ve None C benzeri dillerde null veya 
+// Pascal benzeri dillerde nil olarak ifade edilen değeri de alabilen değer ifadelerini
+// tanımlamak için kullanılır. F#'da Some/None dil yapısına option (opsiyon) denir
+let geçerliDeğer = Some(42)
+let geçersizDeğer = None
+
+// In this example, match..with matches the "Some" and the "None",
+// and also unpacks the value in the "Some" at the same time.
+let optionKullanarakEşleme girdi =
+   match girdi with
+    | Some i -> printfn "Girdi değeri = %d" i
+    | None -> printfn "Girdi değer belirtilmemiş"
+
+optionKullanarakEşleme geçerliDeğer  // Ekrana "Girdi değeri = 42" basılacak
+optionKullanarakEşleme geçersizDeğer // Ekrana "Girdi değer belirtilmemiş" basılacak
+
+// ========= Karmaşık Veri Tipleri  =========
+
+// Değer grupları (tuple) farklı tiplerde değer barındırabilen tiplerdir. Değer grubu tanımlanırken virgül kullanılır
+let ikili = 1,2
+let üçlü = "a",2,true
+
+// Kayıt tiplerinin alanları vardır ve alanları ayrımak için noktalı virgül kullanılır
+type Öğrenci = {Ad:string; Soyad:string; Numara:int}
+let öğrenci1 = {Ad="Arda"; Soyad="Özgür";Numara=124}
+
+// Bileşimler (union) birden fazla seçenek tanımlamamızı sağlar. Bunlara ayrışımlı bileşimler (discriminated union) de denir
+// Bileşimlerin seçenkleri dikine çizgi (|) simgesi ile birbirinden ayrışırlar
+type Derece = 
+	| C of float
+	| F of float
+let dereceSantigrad = C 20.0
+let dereceFahrenheit = F 68.0
+
+type Kişi = {Ad:string;Soyad:string}
+// Tipler öz yinelemeli olarak karmaşık yapılar (örneğin ağaç yapısı) oluşturacak şekilde tanımlanabilir
+// Aşağıdaki örnekte İşçi ve Yönetici'den oluşan ve Yönetici olarak öz yinelemeli bir şekilde Çalışan listesi kullanan 
+// basit bir ağaç tanımı yapılıyor
+type Çalışan = 
+  | İşçi of Kişi
+  | Yönetici of Çalışan list
+
+let kişi = {Kişi.Ad="Ali";Soyad="Özgür"}
+let işçi = İşçi kişi
+
+// ========= Ekrana çıktı gönderme =========
+// F# standard kütüphanesindeki printf/printfn fonksiyonları ekrana metin basmak için kullanılır
+printfn "Ekrana bir int %i, bir float %f ve bir bool %b gönderiyorum" 42 3.14 true
+printfn "Ekrana bir metin %s ve tipi ile ilgilenmediğim jenerik bir %A gönderiyorum" "Merhaba Dünya" [1;2;3;4;5]
+
+// F# tüm karmaşık tipleri ekrana düzgün formatlayarak basar
+printfn "ikili=%A,\nkişi=%A,\nişçi=%A"  ikili kişi işçi
+
+// Formatlanmış metni çıktı olarak döndürürmek için 
+// F# standard kütüphanesindeki sprintf fonksiyonun kullanabilirsiniz
+let çıktı1 = sprintf "Ekrana bir int %i, bir float %f ve bir bool %b gönderiyorum" 42 3.14 true
+let çıktı2 = sprintf "Ekrana bir metin %s ve tipi ile ilgilenmediğim jenerik bir %A gönderiyorum" "Merhaba Dünya" [1;2;3;4;5]
+let çıktı3 = sprintf "ikili=%A,\nkişi=%A,\nişçi=%A"  ikili kişi işçi
+```
+
+## 1.3 Kısa F# Tarihçesi
 
 F#, Türkçe **efşarp** olarak telafuz edilen yabancı kaynaklarda da **FSharp** veya **F Sharp** olarak da rastlayabileceğiniz yordamsal (imperative) ve bildirimsel (declarative) yaklaşımlarının her ikisini de (multi-paradigm) destekleyen fonksyionel bir programlama dilidir. 
 
@@ -122,7 +294,7 @@ fact 5
 >F# kaynak kodunu incelemek isterseniz https://github.com/fsharp/fsharp adresinden GitHub deposuna göz atablirsiniz.
 
 
-## 1.2 Neden F#?
+## 1.4 Neden F#?
 
 Yeni bir programlama dili öğrenmeye başladığınızda, eğer ortada profesyonel bir zorunluluk yoksa, bu dilin zaten bildiğiniz diğer diller ile karşılaştırıldığında kodlama yaklaşımınıza ne tür pozitif katkılar yapacağını veya ne tür zorluklar barındırdığını açık ve seçik olarak mümkün olduğu kadar erken deneyimlemelisiniz. İlk defa bir programlama dilini ayrıntıları ile öğrenmeye çalışıyorsanız da yaptığınız dil tercihinin size uygun ve doğru tercih olup olmadığına büyük bir sabırsılıkla bir an önce karar vermek isteyeceksiniz. 
 
@@ -131,7 +303,7 @@ Bu bölümde F# programlama dilini öğrenmeniz için sizi motive edeceğini umd
 ### Az Seremonili Söz Dizimi
 F# sade ve seremonisi az olan bir söz dizimine (syntax) sahiptir. F#'da süslü parantezlere ({}), noktalı virgüllere ve normal parantezlere çok az sayıdaki bildirimde ihtiyaç duyulur. Kod blokları her bir satırda bırakılan girinti (indentation) miktarı ile belirtilir ve buna bağlı olarak okuması keyifli ve şık görünümlü programlar üretilebilir.
 
-Aşağıdaki kod örneğinde // simgesi ile belirtilen yorum satırlarının hemen altındaki kodlarda bahsettiğimiz özellikleri tek tek görebilirsiniz
+Aşağıdaki kod örneğinde // simgesi ile belirtilen yorum satırlarının hemen altındaki kod satırlarında bahsettiğimiz özellikleri tek tek görebilirsiniz
 
 ```fsharp
 (* 01_1_02.fsx *)
@@ -159,8 +331,310 @@ let tekMiÇiftMi x = // Fonksiyon tanımı başlangıcı
 // Yeni bir kod bloğu
 tekMiÇiftMi 12
 ```
+### Sade ve Şık Tip Tanımları 
+Yazılım geliştirme aktivitelerinden en önemlisi yazdığınız kodun çözmesi gereken problemin modellenmesi aşamasıdır. Modelleme aşamasında problemi oluşturan parçaların büyük bir kısmı için onları daha net tanımlamamızı sağlayan özel tipler oluşturmamız gerekir. Programınızdaki akış ve kontrol koduna ilave olarak tip tanımları için yazılan kodun miktarı harcanan zamanı ve programın içinde oluşabilecek olası hataların sayısını doğrudan etkiler.
 
-## 1.4 Fonksiyonlara Matematiksel Bakış
+F#'da bu gereksinimin karşılanması için oldukça sade ve şık tip tanımı yapıları vardır. Değer grupları (tuple), kayıt (record) ve ayrışık bileşimler (discriminated union) F#'daki temel tip tanımlama yapılarıdır.
+
+
+
+```fsharp
+(* 01_1_03.fsx *)
+
+// Farklı tipte birden fazla değer barındırabilen basit tipler (tuple) 
+let çocuk = ("Arda","Özgür",10)
+let ad,soyad,yaş = çocuk // değerleri çözümleme
+
+// Daha yapısal tipler (record)
+type Kişi = {Ad:string;Soyad:string}
+
+// Yeni kişi kaydı oluşturma
+let arda = {Ad="Arda";Soyad="Özgür"}
+let kuzey = {Ad="Kuzey";Soyad="..."}
+
+// Daha karmaşık tip tanımları (discriminated union)
+type Kullanıcı = 
+    | Öğrenci of Kişi
+    | Yönetici of Kullanıcı list
+
+// Öğrenci ve yönetici oluşturma
+let öğrenci1 = Öğrenci arda
+let öğrenci2 = Öğrenci kuzey
+let yönetici = [öğrenci1;öğrenci2]
+
+```
+
+### Güçlü Tip Sistemi
+Programlama dilleri sınıflandırmasında dinamik tipli diller ve statik tipli diller şeklinde bir ayrım yapılmaktadır. Static tipli dillerde değişkenler, metod girdi parametreleri ve metodun dönüş değeri için tip tanımı yapılması zorunludur ve tip uyumu derleyici tarafından derleme anında sıkı bir şekilde kontrol edilir. Dinamik tipli dillerde ise herhangi bir tip tanımı yapılmasına gerek kalmadan değişken veya metodlar tanımlanabilir ve tip kontrolü derleme anında değil çalışma anında yapılır. Her iki yaklaşımın da avantajları ve dezavantajları var ancak kitabımızda bunlara yer vermeyeceğiz. 
+
+F# derleyici seviyesinde statik tipli diller gibi davranırken kod yazımı sırasında dinamik tipli diller gibi davranır. Bunun anlamı kodunuzu yazarken değer ifadeler ve fonksiyon tanımlarında parametre tiplerinizi çoğunlukla belirtmek zorunda olmasanız da (dinamik dillerdeki gibi) derleme sırasında derleyici biraz akıllı davranarak tip uyumluluğunu (statik dillerdeki gibi) sizin için kontrol edecek ve hata durumunda sizi bilgilendirecektir. F#'ın kullandığı bu mekanizmaya **tip çıkarsama (type inference)** denir. 
+
+Tip çıkarsama yöntemi sayesinde çoğunlukla tip bildirimlerine ihtiyaç duymadan daha kısa ve okunaklı kod yazaral aynı zamanda da kodunuzun tip uyumluluğu anlamında güvenli olması sağlanır.
+
+```fsharp
+(* 01_1_04.fsx *)
+
+let tamSayı = 1 // int
+let metin = "Neden F#" // string
+let pi = 3.14 // float
+let evetHayır = true // bool
+
+// Kare alma fonksiyonu. Girdi parametresi ve çıktının int olduğu çıkarsanır
+let kare x = x * x
+let sonuç1 = kare 12
+//let sonuç2 = kare 3.14 // Hata girdi parametresi int değil
+
+// Ondalık basamaklı sayılar için kare fonksiyonu. Girdi parametresi ve çıktı olarak float olacağını belirttik
+let kare2 (x:float) : float = x * x
+let sonuç3 = kare2 3.14 
+//let sonuç4 = kare2 3 // Hata girdi parametresi float değil
+
+
+// Kişi ve Çalışan tipinde kayıt tanımları
+type Çalışan = {Ad:string;Soyad:string}
+type Kişi = {Ad:string;Soyad:string}
+
+
+// arda ve ali değer ifadelerinin tipini belirtmedik buna rağmen tipinin Kişi olduğu çıkarsanır
+let arda = {Ad="Arda";Soyad="Özgür"}
+let ali = {Ad="Ali";Soyad="Özgür"}
+
+// seniha değer ifadesinin Çalışan tipinden olduğunu biz ifade ettik
+let seniha = {Çalışan.Ad="Seniha";Soyad="Özgür"}
+
+```
+
+Tip çıkarsama yaklaşımı her zaman tutarlı sonuç üretse bile bazen sizin ne ifade etmek istediğinizi net olarak belirtmemeniz nedeni ile varsayımlar yaparak sizi memnun etmeyecek tip çıkarsamaları da yapabilir. Yukarıdaki örnekte yer alan **let seniha = {Çalışan.Ad="Seniha",Soyad="Özgür"}** ifadesini **let seniha = {Ad="Seniha",Soyad="Özgür"}**
+şeklinde yazsaydık **Kişi** tip tanımı kodumuzun içinde **Çalışan** tip tanımından sonra geldiği için *seniha* değer ifadesinin tipinin *Kişi* olduğu çıkarsanacaktı. Bunu engellemek için *seniha* değer ifadesinin değerini oluştururken alanlardan herhangi birinin önüne kayıt tipini **Çalışan.Ad="Seniha"** şeklinde yazılması yeterlidir. Böylece F# derleyicisine bir ipucu vererek tip çıkarsama işleminin istenmeyen bir varsayım yapması engellenir. 
+
+### Sade ve Yetenekli Veri Yapıları
+Çok genel bir tanıma göre yazılım programları akış kontrolü ve veri alma, verme ve işleme kabiliyeti olan akıllı görünümlü otomasyon sistemleri olarak tanımlanır. Bu basit tanıma istinaden programlarımızı geliştirmek için yazdığımız kodun önemli bir miktarının fonksiyonlar arasında, tipler arasında, modüller arasında veya diğer yazılımlar ile veri alış verişini sağlayan ifadelerden oluştuğunu rahatlıkla söyleyebiliriz. Daha kapsayıcı, formel ve gelişmiş yazılım programı tanımları da var ancak kitabımızın kapsamı dışında olduğu için bunları ele almayacağız. 
+
+F#, programlarımızın önemli bir miktarını oluşturan veri alma, verme ve işleme işlemleri için hem dil seviyesinde hem de standard kütüphanesinde çok verimli ve kullanımı kolay yapılar sunar.
+
+Aşağıdaki örnekte F#'da yer alan temel veri yapılarından olan liste, dizi ve sekans (silsile) tipleri için örnekler verilmiştir.
+
+```fsharp
+(* 01_1_05.fsx *)
+open System
+
+// 1 ile 5 arasındaki sayıları barındıran liste
+let list1 = [1;2;3;4;5]
+
+// 6 ile 10 arasındaki sayıları barındıran liste
+let liste2 = [6..10]
+
+// 12 ile 20 arasındaki çift sayıları barındıran liste
+let liste3 = [12..2..20]
+
+// 1 ile 5 arasındaki sayıları barındıran dizi
+let dizi1 = [|1;2;3;4;5|]
+
+// 6 ile 10 arasındaki sayıları barındıran dizi
+let dizi2 = [|6..10|]
+
+// 12 ile 20 arasındaki çift sayıları barındıran dizi
+let dizi3 = [|12..2..20|]
+
+// 1 ile int tipinin en büyük değeri arasındaki sayıları barındıran sekans/silsile
+let sayılar4 = seq{1..System.Int32.MaxValue}
+```
+> **NOT**
+>
+> **seq** (sekans veya silsile) veri tipi fiziksel belleğin izin verdiği ölçüde sınırsız sayıda elemanı barındırabilir. **seq** veri tipi büyük veri işlemlerinde kullanabileceğiniz en optimum performansa sahip veri yapısıdır.
+
+Sade ve yetenekli veri yapılarına ilave olarak F#'ın standard kütüphanesinde yer alan **List**, **Seq** ve **Array** modülleri içinde bu veri yapıları üzerinde kolay bir şekilde işlem yapmanızı sağlayan onlarsa hatta yüzlerce fonksiyon yer alır.
+
+Aşağıdaki kod örneğinde **List** modülü içinde yer alan birkaç fonksiyonun kullanımını görebilirsiniz.
+
+```fsharp
+(* 01_1_06.fsx *)
+
+// 1 ile 100 arasındaki değerleri barındıran liste
+let liste = [1..100]
+
+// List.map 
+// Listedeki değerlerin ondalık değerlere çevirip ve yeni bir liste oluştur 
+let ondalıkSayıListesi = liste |> List.map (fun x -> float(x)) 
+
+// List.average
+// Listedeki değerlerin ortalaması 
+let ortalama = ondalıkSayıListesi |> List.average
+
+// List.choose
+// Listedeki 50'den büyük değerler seçilir
+let büyükSayılar = liste |> List.choose (fun x -> if x > 50 then Some x else None)
+
+// List.chunkBySize
+// Listeyi üçlü gruplar halinde sayıları barındıran listeye çevir
+let üçlüGruplarListesi = liste |> List.chunkBySize 3
+
+// List.filter
+// Listedeki 50'den küçük sayıları filtrele ve yeni bir liste oluştur
+let küçükSayılar = liste |> List.filter (fun x -> x <=50)
+
+// @ iki listeyi ekleme operatörü
+// :: listenin başına eleman ekleme operatörü 
+// 200 ile 300 arasındaki sayıları barındıran liste
+let liste2 = [200..300]
+
+// liste ve liste2'yi birleştir ve yeni bir liste oluştur
+let liste3 = liste @ liste2
+
+
+// liste3'ün başına 0 değerini ekle
+let liste4 = 0 :: liste3
+
+// liste4'ün sonuna 301 ekle
+let liste5 = liste4 @ [301]
+
+// List.iter ve List.iteri
+// liste5'in elemanları üzerinde tek tek ilerle ve her bir elemanı kullanarak değerini ekrana bas
+liste5 |> List.iter (fun x -> printfn "Değer = %d" x)
+
+// liste5'in elemanları üzerinde tek tek ilerle ve her bir eleman ve elemanın indeksini kullanarak pozisyonunu ve değerini ekrana bas
+liste5 |> List.iteri (fun i x -> printfn "Değer %d = %d" i x)
+
+```
+
+> **BİLGİ**
+>
+> **|>** operatörü **pipe forward (ileri aktarım)** olarak adlandırılan ve **let (|>) x f = f x** şeklinde tanımlanan özel bir ikili (unary) operatördür. Bu tanımdaki (|>) ikili operatör fonksiyonunun adı,x normal bir değer parametresi, f de bir fonksiyon parametresidir. Bu operatör ikili bir operatör olduğu için **f x** şeklindeki fonksiyon çağırısını **x |> f** şeklinde yapmanızı sağlar.
+
+### Eş zamanlı ve paralel çalıştırma yapıları
+Bulut teknolojilerinin gelişmesi ve özellikle büyük veri işleme uygulamalarında standard platformlar hale gelmeye başlamaları ile birlikte makul zamanda ve kullanılabilir tüm kaynakları en verimli şekilde kullanabilmek için eş zamanlı ve paralel veri işleme ve işlem yapma kabiliyetleri modern programlama dillerinde büyük önem kazanmaya başlamıştır. 
+
+F#'da eş zamanlı (veya asenkron) ve paralel işlem yapmak için kullanımı oldukça basit dil yapıları ve standard kütüphane içinde yine kullanımı oldukça kolay olan bir kuyruk mekanizması vardır.
+
+```fsharp
+(* 01_1_07.1.fsx *)
+(* 
+    async kullanarak değerleri eş zamanlı olarak ekrana basma 
+*)
+open System
+open System.Net
+open Microsoft.FSharp.Control.CommonExtensions   
+
+// Değeri ekrana basan fonksiyon
+let ekranaBas değer =        
+    async {                             
+        printfn "Değer %d" değer 
+        }
+
+// Basılacak değerler listesi
+let sites = [0..10]
+
+sites 
+|> List.map ekranaBas  // Eş zamanlı görevleri oluştur
+|> Async.Parallel          // Eş zamanlı görevleri paralel çalışacak şekilde ayarla
+|> Async.RunSynchronously  // Görevleri başlat
+
+```
+
+F#'da herhangi bir fonksiyonu asenkron hale getirmek için **async{}** dil yapısının (Örneğimizdeki **indir** fonksiyonu) kullanılması yeterlidir.
+
+```fsharp
+(* 01_1_08.fsx *)
+(*
+    Fibonacci sayılarının paralel olarak hesaplanması
+*)
+
+// Fibonacci sayısını hesaplayan fonksiyon
+let rec fib n =
+    match n with
+    | n when n=0 -> 0
+    | n when n=1 -> 1
+    | n -> fib(n - 1) + fib(n - 2)
+
+// Paralel çalışacak görevleri oluştur
+let işlemler = Async.Parallel [ for i in 0..10 -> async {  return fib i } ]
+
+işlemler 
+|> Async.RunSynchronously // Görevleri çalıştır
+|> Array.iteri ( fun i x -> printfn "fib(%d) = %d" i x) // Sonuçları ekrana yazdır
+```
+
+F# standard kütüphanesinin Async modülü içindeki **Async.Parallel**, **Async.RunSynchronously** gibi fonksiyonlar kullanarak paralel çalışacak görevler oluşturulup bu görevler eş zamanlı olarak çalıştırılır.
+
+> **BİLGİ**
+>
+> **Async.RunSynchronously** fonksiyonun adından görevleri senkron yani ardı ardına çalıştıracakmış gibi bir izlenim oluşabilir. Ancak bu fonksiyon gerçekte paralel çalışacak tüm görevleri eş zamanlı olarak başlatıp hepsi tamamlanana kadar program akışınızı bekletmek için kullanılır. Bu fonksiyonun adındaki senkron ibaresi paralel görevlerin senkron çalıştırılmasına değil görevlerin hepsi bitene kadar program akışının (senkron yani ardışıl) bekletilmesine atıfta bulunur. Tüm görevler bitene kadar program akışınız bir sonraki satıra geçmeyecektir. Eğer farklı bir davranış olarak akışın devam etmesini istenirse **Async.StartImmediate** kullanılabilir
+
+Bu iki yapıya ilave olarak F# standard kütüphanesi ile hazır gelen **MailboxProcessor** modülü kullanılarak programlarımızın içinde asenkron kuyruk (queue) kullanımını gerektiren işlevleri kodlayabiliriz.
+
+```fsharp
+(* 01_1_09.1.fsx *)
+(*
+    MailboxProcessor modülü ile kuyruk örneği
+*)
+
+// Kuyruğu oluştur
+let kuyruk = MailboxProcessor.Start(fun gelenKutusu -> async{
+	let! msg = gelenKutusu.Receive()
+	printfn "Gelen Mesaj: %s" msg
+	})
+
+// Kuyruğua mesaj koy
+kuyruk.Post "F# ile Fonksiyonel Programlama"
+```  
+### Fonksiyonel Olmayan Yöntem Desteği
+F# temelinde ve ağırlıklı olarak fonksiyonel bir dildir. Ancak, .NET Framework üzerinde çalışan ve fonksiyonel olmayan diğer diller ile kütüphane seviyesinde ortak kullanımı mümkün kılmak için fonksiyonel yaklaşıma ters düşen ve daha çok prosedürel ve nesne tabanlı yaklaşımları andıran özellikler de F# tarafından dil seviyesinde desteklenmektedir.
+
+```fsharp
+(* 01_1_10.fsx *)
+open System
+
+// Saf fonksiyonel yaklaşıma aykırı olan değeri değiştirilebilir değer ifadeleri.
+let mutable sayı = 42
+sayı <- 43
+
+let dizi = [|1..100|]
+// Prosedürel programlama dillerindeki for döngü yapısı ve koşullu if yapısı 
+for i in dizi do
+    if i % 2 = 0 then
+        printfn "Çift Sayı = %d" i
+    else
+        printfn "Tek Sayı = %d" i
+
+// printfn saf olmayan bir fonksiyon çünkü yan etki olarak ekrana bir çıktı verir
+printfn "Sayının değeri = %d" sayı
+
+// System.Int32 F#'ın değil .NET'in sağladı tam sayı tipidir
+// Aşağıdaki ifade ile System.Int32 tipi için ÇiftMi isimli yeni bir uzantı metodu tanımlanır
+type System.Int32 with
+    member this.ÇiftMi = this % 2 = 0
+
+// System.Int32 tipinden iki sayı oluşturalım
+let çiftSayı:System.Int32 = 12 
+let tekSayı:System.Int32 = 11 
+
+// Uzantı metodu ile sayıların çift olup olmadığını kontrol edelim
+çiftSayı.ÇiftMi
+tekSayı.ÇiftMi
+
+// Nesne tabanlı programlama dillerindeki gibi sınıf tanımları
+type Şekil = 
+    abstract member Renk : string
+    abstract AlanHesapla : unit -> float 
+```
+Bu çoklu yaklaşım (multi-paradigm) sayesinde fonksiyonel olmayan diller ile tecrübesi olan yazılım geliştiriciler tarzlarını çok fazla değiştirmeden olabildiğince hızlı bir şekilde F# kullanmaya başlayabilirler. Ancak bu yaklaşım sürdürülebilir değildirve uzun vadede F#'ın sağladığı fonksiyonel yapılara adapte olunması tavsiye edilir.
+
+### Geniş Uygulama Yelpazesi
+F# uzun bir geçmişe sahip fonksiyonel bir programlama dilidir. http://fsharp.org/testimonials/ adresindeki başarı hikayelerine bakıldığında enerji, sağlık, finans, sigortacılık, DNA araştırmaları, akademik araştırmalar, genel amaçlı web ve mobil uygulamaları, orta katman uygulamaları, veri analizi ve görselleştirme, kara para aklama tespit uygulamaları, analitik uygulamalar gibi bir çok sektörde kullanım alanı bulduğunu görebiliyoruz. Şimdi sıra sizde! Siz de F#'ı öğrenerek kendi sektörünüzde başarılı uygulamalar geliştirebilir ve başarı hikayeleri sayfasında kendinize yer bulabilirsiniz.
+
+### Aktif Geliştirici Topluluğu
+F#, Microsoft tarafından geliştirilen bir dil olmasına rağmen açık kaynak olarak yayınlanmıştır. Microsoft dilin geliştirilmesine sadece tam zamanlı iş gücü katkısı yapara, bunun dışında dilin tasarımı ve yol haritası ile ilgili kararlar F# geliştiricileri ve kullanıcılarının oluşturduğu topluluk tarafından demokratik bir şekilde alınır ve uygulanır. Microsoft çalışanı olan bir F# geliştiricisi ile bağımsız bir F# geliştiricisinin dile katkı yapma fırsatları eşittir. 
+
+Siz de F#'ın GitHub deposuna (https://github.com/fsharp/fsharp) erişerek kod katkısı, dokümantasyon katkısı yapailir yeni özellik taleplerinizi F# topluluğunun tartışmasına ve değerlendirmesine sunabilirsiniz.
+
+### Hazır Paketler
+F# bir .NET dili olduğu için .NET için geliştirilmiş tüm paket kütüphanelerini Microsoft'un resmi paket yayınlama platformu olan NuGet (https://www.nuget.org) üzerinden indirerek kendi programlarınızda kullanabilirsiniz.
+
+> **İPUCU**
+>
+>NuGet'e alternatif olarak açık kaynak kodlu olarak yayınlanmış Paket (https://github.com/fsprojects/Paket) uygulaması ile de paket kütüphanelerini indirebilirsiniz.
+
+## 1.5 Fonksiyonlara Matematiksel Bakış
 
 Fonksiyonel programlamanın temeli matematiksel fonksiyonlar ve fonksiyonların bazı özellikleri üzerine inşa edilmiştir. Matematiksel açıdan **fonksiyon** tanımlarından bir tanesi aşağıdaki gibi yapılır
 
@@ -191,7 +665,7 @@ Yukarıdaki örnekte
 
 f fonksiyonunu da  f(A) = {(1,a),(2,a),(3,d)} şeklindeki eşleştirmelerin kümesi olarak tanımlarız.
 
-## 1.5 Fonksiyonların İlginç Özellikleri
+## 1.6 Fonksiyonların İlginç Özellikleri
 
 Matematiksel fonksiyonların fonksiyonel programlama dillerinin yapısını yakından etkileyen belirleyici iki önemli özelliğinden bahsedebiliriz, bunlar
 
@@ -346,7 +820,7 @@ Bu iki özellik ilk başta çok önemli değilmiş hatta biraz da kısıtlayıc�
 >printfn "pi = %f" pi
 >```
 
-## 1.6 Fonksiyonel Programlama Nedir?
+## 1.7 Fonksiyonel Programlama Nedir?
 
 Fonksiyonel programlama, saf fonksiyonları (pure functions) ve değeri sonradan değiştirilemeyen değer ifadelerini (value expressions) kullanarak paylaşılan program durumuna (shared program state) ve yan etkilere (side effect) mahal vermeden yapılan kodlama faaliyetidir. Bazı kaynaklar fonksiyonel programlamayı fonksiyonların birinci sınıf vatandaş (first class citizen) olarak kabul edildiği kodlama faliyeti olarak da tanımlamaktadır. Fonksiyonel programlama bir araç veya dile bağlı değildir ve bir paradigma (yaklaşım) olarak değerlendirilir. Fonksiyonel olmayan programlama dilleri ile de (eğer dilin yapısı müsait ise) fonksiyonel programlama yaklaşımına ve ilkelerine uygun kod yazmak mümkün olabilir.
 
