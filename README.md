@@ -18,13 +18,13 @@
     * Linux ve Visual Studio Code
     * Merhaba Dünya!
 * 3.Bölüm : F# Temelleri
+    * Söz dizimi kuralları
     * Basit Veri Tipleri
     * Karşılaştırma ve Eşitlik
     * Fonksiyonlar
     * Temel Veri Tipleri
     * Kod Organizasyonu
 * 4.Bölüm : Fonksiyonel Programlama
-    * Fonksiyonlar ve Özellikleri
     * Desen Eşleştirme (Pattern Matching)
     * Küme Teorisi ve F# Tipleri
         * Değişkenler Grubu (Tuple)
@@ -84,6 +84,17 @@ Programlama dili kitapları ve kaynakları ekrana  "Merhaba Dünya!" yazdırmak 
 let sayı = 5
 let ondalıkSayı = 3.14
 let metin = "Merhaba Dünya!"
+
+// Değer ifadelerini `` `` arasında yazarak F# anahtar kelimelerini de değer ifadesi adı olarak kullanabilirsiniz
+let ``let``= "F# ile Fonksiyonel Programlama"
+
+// `` `` kullanarak boşluk içeren değer ifadesi isimleri oluşturabilirsiniz.
+// Bu kullanım özellikle birim test (unit test) yazıyorsanız oldukça faydalı olacaktır
+let ``Cümle gibi değer``="Cümle gibi değer ifadesinin değeri"
+
+// F# değer ifadelerinin ismi olarak UTF-8 karakterleri kullanılmasına izin verir
+let çÇşŞğĞüÜöÖİı = "Türkçe'ye özel karakterler"
+
 
 // ======== Listeler ============
 let pozitifSayılar = [1;2;3;4;5]        // Köşeli parantez ile liste tanımlanır
@@ -885,3 +896,455 @@ Sizler de bulut tabanlı büyük veri işleme uygulamaları veya benzer uygulama
 > **NOT**
 >
 > Nesne tabanlı (object oriented) diller de günümüzde yordamsal (imperative) ve bildirimsel (declarative,fonksiyonel) dillerden daha fazla popüler olan üçüncü yaklaşımı temsil etmektedir. 
+
+# 3.Bölüm : F# Temelleri
+Bu bölümde önce F#'ın söz dizimi kurallarına formel olarak inceliyoruz. Daha sonra da basit (int,string,bool gibi) ve temel veri (değer grubu, unit, listeler, diziler gibi) tiplerini ele alıp  F#'ın temel yapı taşları olan fonksiyonların ayrıntılarını inceliyoruz. Son olarak kod organizasyonu ile ilgili ipuçları ile de bölümü tamamlıyoruz.
+
+* Söz dizimi kuralları
+* Basit Veri Tipleri
+* Karşılaştırma ve Eşitlik
+* Fonksiyonlar
+* Temel Veri Tipleri
+* Kod Organizasyonu
+
+## 3.1 Söz dizimi kuralları
+F#'ın göze hoş gelen, okuması kolay ve kodunuzun çalışmasına doğrudan etkisi olmayan fazlalıklardan arındırılmış bir söz dizimine sahiptir. F# söz dizimi sade olmakla birlikte oldukça şıktır ve farklı dil yapılarını güzel bir şekilde ifade etmenizi sağlar. Gelin şimdi F# söz diziminin temelini oluşturan kavram ve kuralları inceleyelim
+
+### Girinti Kullanımı (Indentation)
+F#'da kod blokları, ya da daha doğru tabirle kod alanları (scope), girintiler (indentation) ile birbirinden ayrılır. Girintilerin her zaman 4 boşluk karakteri uzunluğunda olmalı. Girintileri oluşturmak için TAB özel karekteri kullanılmaz ancak tüm kod editörleri TAB tuşuna basınca TAB karakteri yerine belirli sayıda boşluk karakteri basacak şekilde ayarlanabilir bu nedenle pratikte TAB tuşunu kullanmanızın önünde bir engel yoktur.
+
+C,C++,C#,Java ve JavaScript gibi dillerde kod alanlarını belirlemek için süslü parantez olarak adlanrılılan {} karakter çifti kullanılırken F#'da özel bir karakter veya karakter çifit kullanımına gerek yoktur. Girintiler kod lanlarını belirlediği için değer ifadelerinin bitişini belirtmek için noktalı virgül (;) benzeri karakterlerin kullanım ihtiyacı da dolaylı olarak ortadan kalkar.
+
+```fsharp
+(* 03_1_01.0.fsx*)
+
+let sayı = 42
+
+// Modül tanımı
+module Modül1 = 
+    // Aşağıdaki satırlar girinti verildiği için Modül1 alanına aittir
+    let sayı' = 43
+    let kırkÜçEkle x = sayı' + x
+
+// Aşağıdaki satırda girinti yok o nedenle Modül1 ile aynı alana yani Global alana ait
+let sayı'' = 44
+
+// Modül1 alan adı ekleyerek kırkÜçEkle fonksiyonunu Global kod alanından kullanabiliriz
+Modül1.kırkÜçEkle 44
+
+// Global kod alanında fonksiyon tanımı
+let birArttırVeKaresiniAl x =
+    // Aşağıdaki satırlar girinti verildiği için birArttırVeKaresiniAl alanına aittir
+    let t = x + 1
+    t * t
+
+// sayı'' değeri birArttırVeKaresiniAl fonksiyonu ile aynı yani Global kod alanında
+birArttırVeKaresiniAl sayı''
+
+// Global kod alanında fonksiyon tanımı
+let çiftMiTekMi x = 
+    // Fonksiyonun kod alanı içinde tanımlı kod
+    if x % 2 = 0 then
+        // If koşulu kod alanı
+        true
+    else
+        // Else koşulu kod alanı
+        false
+
+
+// Yeni bir modül tanımı
+module Modül2 = 
+    // Modül alanı başlangıcı
+    let çiftMiTekMi x = 
+        // Fonksiyon alanı başlangıcı
+        match x with
+        // match alanı başlangıcı
+        | a when a % 2 = 0 -> 
+            // Koşul kod alanı 
+            "Çift"
+        | _ -> 
+            // Koşul kod alanı
+            "Tek"
+
+// Müdül2 kod alanındaki çiftMiTekMi fonksiyon çağırısı
+Modül2.çiftMiTekMi 12
+
+// Global kod alanındaki çiftMiTekMi fonksiyon çağırısı
+çiftMiTekMi 12
+
+```
+
+F#'da modül alan adları **ModüleAdı.** şeklinde kullanılarak modül içindeki değerler veya fonksiyonlara erişilebilir. İlave olarak aynı kod alanına ait değer ifadeleri kendi yerel kod alanlarından bir üst seviyedeki kod alanından değer ifadelerini kullanabilir.
+
+```fsharp
+(* 03_1_01.1fsx *)
+// Global alanda tanımlı değer
+let kırkİki = 42
+ 
+// Global alanda tanımlı fonksiyon
+let kırkİkiEkle x =
+    // Global alandaki kırkİki değerii fonksiyon içinden kullanabiliriz
+    kırkİki + x
+
+// Modül tanımı
+module Modül1 = 
+    // bir değeri Modül1 kod alanında
+    let bir = 1
+
+
+// Modül1 alan adında yer alan bir değerine Modül1.bir şeklinde erişebiliriz
+kırkİkiEkle Modül1.bir
+```
+
+### "let" Anahtar Kelimesi
+F#'da fonksiyonel bir dil olması nedeniyle **değişken**, **değişken tanımlama** ve **değişkenin değerini değiştirme** gibi kavramlar kullanılmaz. Kitabın ilk bölümünde de bahsettiğimiz gibi F#'ın temelinde **değer ifadesi**(expression) dediğimiz kavram vardır. Değer ifadelerinin değerleri değişkenlerde olduğu gibi program akışı sırasında değiştirilemez.
+
+**"let"** anahtar kelimesi F#'da isimlendirilmiş değer ifadelerinin ve fonksiyonların (ki onlar da birer değer ifadesidir) tanımlanması için kullanılır. Genel yapısı şöyledir
+
+```fsharp
+
+// Basit değer ifadesi (tek satır)
+let değerAdı = değer
+
+// Basit değer ifadesi (çoklu satır)
+let değerAdı =
+    değer
+
+// Fonksiyon (tek satır)
+let fonksiyonAdı girdi1 .... girdiN = fonksiyon kodu
+
+// Fonksiyon (çoklu satır)
+let fonksiyonAdı girdi1 .... girdiN =
+    fonksiyon kodu
+
+```
+Şimdi gelin yukarıdaki kurallara göre **let** kullanarak bazı değer ifadeleri tanımlayalım
+
+```fsharp
+(* 03_1_01.fsx *)
+
+// Basit değer ifadesi tanımlama
+let sayı = 12
+let metin = "F# ile fonksiyonel programlama"
+let pi = 3.14
+let cevap = true
+
+// Tek satırda birden fazla değer ifadesi tanımlama
+let a,b,c = 1,2,3
+
+// Daha karmaşık değer grubu tipinden değerler de tanımlanabilir
+let x,y,z = (42,"F# ile Fonksiyonel Programlama", 3.14)
+
+// Fonksiyon tanımlama
+let küp x = x * x * x
+
+// Öz yinelemeli fonksiyon tanımlama
+let rec fib n = if n <= 1 then n else fib(n - 1) + fib(n - 2)
+
+```
+
+"let" anahtar kelimesi bir değer ifadesine değerinin bağlanmasını (binding) sağlar, bu nedenle diğer dillerdeki gibi klasik anlamda bir atama imkanı sağlamaz. Basit değer ifadelerinde bağlanan değer genelde int, string, bool gibi basit veri tipleri olurken fonksiyonlar için bağlanan değerler fonksiyonun çalıştığında yürüteceği işlemleri tanımlayan kod ifadeleridir.
+
+ "let" ile tanımlanan basit veya fonksiyon değer ifadelerine mutlaka ama mutlaka bir değer bağlanmalıdır.
+
+```fsharp
+// Hata! Herhangi bir değer bağlanmamış
+let sayı
+
+//Doğru
+let sayı = 42
+
+// Hata! Herhangi bir fonksiyon ifadesi bağlanmamış
+let fonksiyon girdi 
+
+// Doğru
+let fonksiyon girdi = girdi + 1
+```
+
+"let" anahtar kelimesi modül seviyesinde, sınıf seviyesinde veya fonksiyon tanımı içinde kullanılabilir. Değer ifadelerine tanımlandıkları satırdan sonra aynı alan (scope) içinden (modül, sınıf veya fonksiyon tanımı içinden)erişilip kullanılabilir. 
+
+```fsharp
+(* 03_1_02.fsx *)
+
+// Global alanda (Program) let ile değer tanımlama
+let globalSayı = 42
+
+// Global alanda (Program) let ile fonksiyon tanımlama
+let kare x = x * x 
+
+// Modül tanımı
+module Modül1 =
+    // Modül alanı içinde basit değer tanımlama
+    let modülSayısı = 43
+
+    // Modül alanı içinde fonksiyon tanımlama
+    let kök x = (kare x) * x
+
+
+// Fonksiyon alanında yerel değer ifadeleri tanımlama
+let yerDeğiştir x y = 
+    let ix = y
+    let iy = x
+    (ix,iy) // Değer grubu tipinden fonksiyon çıktısı
+
+
+(* --- Kurgumuzu test edelim --- *)  
+
+kare globalSayı
+
+// modülSayısı global alandan erişilebilir değil
+//kare modülSayısı
+
+// modülSayısı değerine Modül1 alan adı eklenerek erişebiliriz
+kare Modül1.modülSayısı
+
+// Modül1 içindeki kök fonksiyonuna Modül1 alan adı eklenerek global alandan erişebiliriz
+Modül1.kök 12
+
+// yerDeğiştir fonksiyonu çağırısı
+yerDeğiştir 1 2
+
+// Hata! yerDeğiştir yerel alanında tanımlı ix ve iy sadece fonksiyon içinde erişelebilir
+//let tx, ty = ix,iy
+```
+### "do" anahtar kelimesi
+
+"do" anahtar kelimesi kullanılarak değer ifadesi veya fonksiyon tanımı olmasına ihtiyaç duyulmadan kod çalıştırılabilir. Program başlangıcında, modül tanımı başında veya sınıf tanımınız içinde otomatik olarak çalışmasını istediğiniz kod blokları varsa "do" anahtar kelimesini kullanabilirsiniz.
+
+```fsharp
+(* 03_1_03.fsx *)
+
+do printfn "Program çalışmaya başladı"
+
+// .... Program kodunuz
+let kare x = x * x
+printfn "2'nin karesi = %d" (kare 2)
+
+
+module Modül1 =
+    printfn "Modül çalışmaya baladı"
+    let kare x = x * x
+    printfn "Modül çalışması tamamlandı"
+
+do printfn "Program sonlandı"
+```   
+
+Bahsettiğimiz kullanım senaryosuna ihtiyaç duyduğunuz yerlerde "do" kullanımı opsiyoneldir. Yukarıdaki örnek kod parçasında Modül1 içinde "do" kullanılmadan yazılan printfn ifadeleri de çalıştırılır. 
+
+"do" kullanımı ile ilgili en önemli kısıtlama "do" sonrasında yazılan ifadenin dönüş değerinin **unit** tipinden olmasıdır. **unit** tipi F#'da özel bir tiptir ve **hiç birşey** anlamına gelmektedir.
+
+
+> **BİLGİ**
+>
+> **unit** tipini C,C++,Java ve C# dillerindeki **void** tipi ile aynı olduğunu düşünebilirsiniz.
+
+```fsharp
+(* 03_1_04.fsx *)
+
+// Hatalı kullanım
+// 1 + 1 ifadesinin sonucu tam sayı tipinde ve 2
+do 1 + 1 
+
+// Doğru kullanım.
+// 1+1 sonucu olan 2 değeri ignore fonksiyonuna iletilir ve ignore unit tipinde çıktı verir 
+do (1 + 1) |> ignore
+```
+
+> **BİLGİ**
+>
+> **ignore** fonksiyonu F# standard kütüphanesi ile gelen bir fonksiyondur. Girid parametresi olarak tek bir parametre alır ve parametrenin tipi ne olursa olsun her zaman **unit** tipinden bir çıktı üretir.
+
+### Yorum Satırları
+Kodunuza iki şekilde yorum satırı ekleyebilirsiniz
+* Tek satırlık yorumlarınız için // karakterlerini kullanabilirsiniz
+* Birden fazla satırlık yorumlarınız için ise (* *) çiftini kullanabilirsiniz
+
+// karakterleri sonrasında ve (* *) arasında yer alan ifadeler F# derleyicisi tarafından derlenmez ve dolayısıyla programınızın bir parçası olarak çalıştırılmaz
+
+```fsharp
+(* 03_1_05.fsx *)
+
+// Tek satırlık yorum
+// let x = 12
+
+(*
+    Çok satırlı
+    yorum
+*)
+
+(*
+    let kare x 
+        x * x
+*)
+```
+### Koşullu Derleme
+Platforma, işletim sistemine veya çalışma ortamına bağlı olarak aynı işlevi farklı yapılar kullanarak kodlama ihtiyacı duyabilirsiniz. Bu duruma genelde 
+* Mobil ve masaüstü işletim sistemi uygulamalarının 
+* Aynı işletim sisteminin farklı versiyonlarını desteklemek 
+
+ortak kod havuzundan derlenmesi gibi gerekçeler ile ihtiyaç duyulur.
+
+Bu tür durumlarda F#'da **#if #else #endif** derleyici makroları kullanılır.
+
+```fsharp
+(* 03_1_06.fsx *)
+
+//------ ÖRNEK 1 ------//
+#if v1
+// v1 koşulunda çalışması istenen kod parçası
+let kare x = x * x
+
+#else 
+// v1 koşulu haricinde çalışması istenen kod parçası
+let kare x = sprintf "Kare %d" x
+
+#endif
+
+// v1 ortam değişkeni tanımlı olmadığı için çıktı "Kare 4" olacaktır
+kare 2
+
+//------ ÖRNEK 2 ------//
+
+let osx = true
+#if osx
+// osx koşulunda çalışması istenen kod parçası
+let ortam() = "OSX"
+
+#else 
+// osx koşulu haricinde çalışması istenen kod parçası
+let ortam() = "OSX DEĞİL"
+
+#endif
+
+// osx değeri tanımlı ancak yine de çıktı "OSX DEĞİL" olacaktır
+// Ortam değişkenlerini kodunuz içinde tanımlayamazsınız!
+ortam()
+```
+
+Koşullu dallanma durumunu kontrol eden değişkenler **ortam değişkenleridir** ve bunların değeri derleyiciye parametre olarak geçilmelidir. Koşullu derleme derleyici seviyesinde devreye giren bir mekanizmadı, dolayısıyla koşul değişkenlerinize kodunuzun içinde değer ataması yapamazsınız.
+
+F# derleyicisi ve F# interaktif için ortam değişkenlerini **--define** seçeneği ile aşağıdaki gibi tanımlayabilirsiniz.
+
+* **fsharpc --define v1** 
+* **fsharpi --define osx** 
+
+Visual Studio gibi F# destekleyen editörlerde doğrudan derleyici veya interaktif araçlarına erişiminiz olmadığı için ortam değişkenlerinizi editör seçenek ekranlarını kullanarak tanımlayabilirsiniz.
+
+### Tanımlayıcı ve Anahtar Kelimeler
+Değer ifadeleri tanımlarken kullandığımız ifade isimlerini **tanımlayıcılar**, F#'in dili içinde tanımlı özel tanımlayıcılara da **anahtar kelimeler** diyoruz. 
+
+```fsharp
+(* 03_1_07.fsx *)
+
+// sayı bir tanımlayıcı
+// let ise anahtar bir kelime
+let sayı = 42
+
+```
+F#'da anahtar kelimeler dışında kalan tanımlayıcıları kullanırken aşağıdaki kurallara uymak gerekir 
+
+* Sadece herhangi bir harf veya _ ile başlayabilir
+* 0 ve 9 arasında sayısal karakterler ile başlayamaz
+* Harfler, sayılar,_ ,' karakterleri kullanılabilir 
+* Boşluk ve - karakterini içeremez. Bu karakterleri kullanabilmek tanımlayıcı `` `` (iki ters kesme simgesi çifti) arasında yazılmalı
+* `` ``kullanımı durumunda tanımlayıcı adında TAB, satır başı veya `` karakterleri yer alamaz
+* Tip isimleri, bileşim etiketleri, modül isimleri veya kod alanı isimlerinde ‘.', '+', '$', '&', '[', ']', '/', '\\', '*', '\"', '`' karakterleri kullanılamaz
+* F# dilinin anahtar kelimeleri `` `` yöntemi haricinde tanımlayıcı olarak kullanılamaz
+
+
+
+```fsharp
+(* 03_1_08.fsx *)
+
+// Doğru kullanım
+let sayı = 42
+//let -sayı = 42 // Hatalı
+
+let _sayı = 42
+//let 42sayısı = 42 // Hatalı
+
+let mucize_sayı = 42
+//let mucize-sayı = 42 // Hatalı
+
+let kare x = x * x
+//let -kare x = x * x // Hatalı
+
+let _kare x = x * x
+//let 42çarpıKare x = 42 * (x * x) // Hatalı
+
+let kare_fonk x = x * x
+//let kare-alma x = x * x // Hatalı
+
+// Anahtar kelimenin tanımlayıcı olarak kullanımı
+let ``let``= "Let ifadesi"
+//let let = "Let ifadesi" // Hatalı
+
+// Boşluklu tanımlayıcı ismi
+let ``iki ile topla`` x = x + 2
+//let iki ile topla x = x + 2 // Hatalı
+
+//UTF-8 karakterlerin kullanımı
+let çığırAçanSayı = 42
+let π = 3.14
+let cliché = "Klişe"
+
+// f fonksiyonu
+let f (x:float) = 2.0 * x + 4.0
+
+// f' fonksiyonu, f fonksiyonun tersi
+let f' (x:float) = 0.5 * x - 2.0
+```
+
+> **DİKKAT**
+> 
+> F# derleyicisi kod dosyalarının karakter kodlamasının (encoding) UTF-8 olduğunu varsayar. 
+
+
+> **Anahtar Kelimeler (4.1 versiyonu itibariyle)**
+> 
+>abstract and as assert base begin class default delegate do
+done downcast downto elif else end exception extern false finally
+for fun function global if in inherit inline interface internal
+lazy let match member module mutable namespace new null of open or override private public rec return sig static struct then to true try type upcast use val void when while with yield
+
+> **Rezerve Edilmiş Anahtar Kelimeler**
+>
+>*Gelecekte kullanılmak üzere aşağıdaki anahtar kelimeler rezerve edilmiştir.*
+>
+> atomic break checked component const constraint constructor
+continue eager fixed fori functor include measure method mixin object parallel params process protected pure recursive sealed tailcall trait virtual volatile
+
+
+Tüm F# anahtar kelimelerini ve sembollerinin "Ek-1: Anahtar Kelimeler" ve "Ek-2 : Semboller" altında bulabilirsiniz
+
+### Shebang 
+F# kaynak kodu veya script dosyalarınızın başında **#!** ile başlayan ve **shebang (okunuşu şibank)** olarak adlandırılan özel bir karakter kombinasyonu kullanılabilir. Bu kombinasyon Unix konvansiyonu ile uyumluluk için kullanılır ve scriptin yorumlayıcı program yolununun tanımlanabilmesini sağlar.
+
+Örneğin F# script dosyanızın başına aşağıdaki shebang komutunu eklerseniz Unix,Linux ve OSX işletim sistemlerinde dosyanızı komut satırına yazar yazmaz belirttiğiniz yoldaki F# yorumlayıcısı **fsharpi** dosyanızın içindeki kodu çalıştıracaktır 
+
+```fsharp
+#!/bin/usr/env fsharpi --exec
+
+(* 03_1_09.fsx *)
+printfn "Merhaba Dünya!"
+```
+
+```bash
+# Komut satırı
+$ 03_1_09.fsx
+```
+
+## 3.2 Basit Veri Tipleri
+
+## 3.3 Karşılaştırma ve Eşitlik
+
+## 3.4 Fonksiyonlar
+
+
+### İsimsiz/Anonim Fonksiyonlar (Lambda ifadeleri)
+Özellikle girdi parametresi olarak başka bir fonksiyonu alabilen yüksek dereceli fonksiyonlarda basit hesaplamaları yapmak için isimsiz fonksiyon ifadelerini fonksiyon parametresi olarak kullanmak için sıkça anonim fonksiyon oluşturma ihtiyacı duyacaksınız.
+
+
+## 3.5 Temel Veri Tipleri
+
+## 3.6 Kod Organizasyonu

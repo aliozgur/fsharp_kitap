@@ -8,6 +8,17 @@ let sayı = 5
 let ondalıkSayı = 3.14
 let metin = "Merhaba Dünya!"
 
+// Değer ifadelerini `` `` arasında yazarak F# anahtar kelimelerini de değer ifadesi adı olarak kullanabilirsiniz
+let ``let``= "F# ile Fonksiyonel Programlama"
+
+// `` `` kullanarak boşluk içeren değer ifadesi isimleri oluşturabilirsiniz.
+// Bu kullanım özellikle birim test (unit test) yazıyorsanız oldukça faydalı olacaktır
+let ``Cümle gibi değer``="Cümle gibi değer ifadesinin değeri"
+
+// F# değer ifadelerinin ismi olarak UTF-8 karakterleri kullanılmasına izin verir
+let çÇşŞğĞüÜöÖİı = "Türkçe'ye özel karakterler"
+
+
 // ======== Listeler ============
 let pozitifSayılar = [1;2;3;4;5]        // Köşeli parantez ile liste tanımlanır
                                         // liste elemanlarını da ; ile ayrırırıs
