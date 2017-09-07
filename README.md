@@ -1335,6 +1335,76 @@ $ 03_1_09.fsx
 ```
 
 ## 3.2 Basit Veri Tipleri
+Tüm programlama dillerinde herhangi bir verinin mutlaka bir tipi vardır. Sayı, metin, karakter ve evet/hayır şeklinde değer barındıran tiplere basit tipler denir. Programlama dilleri tasarımında tipler daha çok kavramsal büyüklükler olarak ele alınır ve asıl amaçları programlarımızdaki hataları derleme anında veya çalışma anında engellemektir. Tipler, program versinin program akışı sırasında doğru bir şekilde kullanılmasını ve fonksiyonlar arasında veri aktarımının güvenli bir şekilde yapılmasını sağlar. Özetle tipler ile ilgili tüm kaygı kavramsal seviyede veri dönüşümün tutarlılığına odaklanmıştır.
+
+F#'da basit tipler olarak adlandırdığımız 16 veri tipi vardır. F# bir .NET dili olduğu için tiplerden 15 tanesi doğrudan .NEt tip sistemi tarafından tanımlanır, yani F# standard kütüphanesinde bu 15 tip için ayrı bir tanım yoktur. 
+
+Gelin şimdi bu tipleri bir çizelge olarak görelim
+
+![](/img/03_01.png)
+![](/img/03_02.png)
+
+F#'da "let" ile basit değer ifadesi tanımlama formatı şöyledir
+
+```
+let <değer adı>:<değer tipi> = <değer>
+````
+
+```fsharp
+let sayı:int = 42
+let metin:string = "42"
+```
+Değer ifadelerinde tip kullanımı opsiyoneldir. Yukarıdaki ifadeler aşağıdaki gibi de yazılabilir, bu durumda F# **tip çıkarsama (type inference)** mekanizması sayesinde değer ifadesine verdiğiniz değerin tipini otomatik olarak değer ifadesinin tipi olarak çıkarsar
+
+```fsharp
+let sayı  = 42 // sayı değer ifadesinin tipi int olarak çıkarsanır
+
+let metin = "42" // metin değer ifadesini tipi string olarak çıkarsanır
+```
+
+Fonksiyon tanımlarında da hem girdi parametreleri hem de fonksiyonun sonucunun değer tipini aşağıdaki formata uygun olarak belirtebilirsiniz.
+
+```
+let <fonksiyon adı> (girdi1:girdi tipi) (girdi2: girdi tipi): <sonuç tipi> = <kodunuz>
+```
+
+```fsharp
+let topla (x:int) (y:int): string = 
+    sprintf "%d + %d = %d" x y (x+y)
+
+topla 42 0
+```
+
+Fonskiyon girdi parametreleri ve çıktı tanımında da değer tipi kullanımı opsiyoneldir. Tipler kullanılmadan yukarıdaki örneği aşağıdaki gibi de yazabilirdik, bu durumda F# tip çıkarsama ile doğru tipleri çıkarsayacaktır.
+
+```fsharp
+let topla x y = 
+    sprintf "%d + %d = %d" x y (x+y)
+
+let topla' (x:int) y = 
+    sprintf "%d + %d = %d" x y (x+y)
+
+let topla'' x (y:int) = 
+    sprintf "%d + %d = %d" x y (x+y)
+
+let topla''' x y : string = 
+    sprintf "%d + %d = %d" x y (x+y)
+
+topla 42 0
+topla' 42 0
+topla'' 42 0
+topla'' 42 0
+```
+
+> **DİKKAT**
+>
+>Fonksiyon girdi paremetrelerinde değer tiplerini kullanmak isterseniz parametre ifadesini örneklerde de görebileceğiniz gibi () içine almalısınız aksi durumda F# kodunuzu farklı yorumlayabilir veya hata verebilir.
+
+> **İPUCU**
+>
+> İiyaç duymadığınız sürece, özellikler basit değer ve fonksiyon tanımları için, değer tiplerini kullanmamanız tavsiye edilir.
+
+
 
 ## 3.3 Karşılaştırma ve Eşitlik
 
