@@ -1404,7 +1404,33 @@ topla'' 42 0
 >
 > İiyaç duymadığınız sürece, özellikler basit değer ve fonksiyon tanımları için, değer tiplerini kullanmamanız tavsiye edilir.
 
+F# bu basit tiplere ilave olarak değer ifadelerinizi 2'lik ()binary, 8'lik (octal) ve 16'lık (hexadecimal) düzenlerde de tanımlamanıza izin verir
 
+```fsharp
+// 2'lik (binary) ifade formatı
+let değer_ifades = 0b[0 veya 1]
+
+// 8'lik (ocatl) ifade formatı
+let değer_ifades = 0o[0..7]
+
+// 16'lık (hexadecimal) ifade formatı
+let değer_ifadesi_adı = 0x[0..1 A..F]
+```
+
+```fsharp
+(* 03_2_02.fsx *)
+
+// 2'lik (binary) olarak 29
+let ikilik = 0b11101
+
+// 8'lik (ocatl) olarak 29
+let değer_ifades = 0o35
+
+// 16'lık (hexadecimal) olarak 29
+let değer_ifadesi_adı = 0x1D
+```
+
+### Artimetik İşlemler
 
 ## 3.3 Karşılaştırma ve Eşitlik
 
