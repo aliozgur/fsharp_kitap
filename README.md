@@ -10,7 +10,6 @@
     * 1.5 Fonksiyonlara Matematiskel Bakış
     * 1.6 Fonksiyonların İlginç Özellikleri
     * 1.7 Fonksiyonel Programlama Nedir?
-   
 * 2.Bölüm : Kurulum ve Hazırlık
     * F# Geliştirme Platformu Temel Bileşenleri 
     * Windows ve Visual Studio 
@@ -29,8 +28,8 @@
         * Değişkenler Grubu (Tuple)
         * Ayrışık Bileşim (Discriminated Union)
         * Kayıt (Record) 
-    * Gevşek Değerlendirme (Lazy Evaluation)
-    * Gevşek Diziler (Sequences)
+    * Gevşek Değerleme (Lazy Evaluation)
+    * Sekanslar (Sequences)
     * Sorgu İfadeleri (Query Expressions)
 * 5.Bölüm : Genel Amaçlı Programlama
     * Değişken ve Değişmeyen Kavramları (Immutability and Mutability)
@@ -1645,9 +1644,232 @@ let metin = @"Yazar \ Ali Özgür. Kontrol karakterlerimiz şunlar \r \n \t \\"
 
 
 ## 3.3 Fonksiyonlar
+Fonksiyonlar F#'in temelini olan dil yapılarıdır. Fonksiyonların bir adı, girdi parametreleri, gövdesi ve çıktısı vardır. F#'da fonksiyonlar fonksiyonel programlamaya özgü olan değer olarak kullanma, isimsiz fonksiyonlar oluşturma, girdi değerlerinin kısmi  uygulanması ve fonksiyon kompozisyonu gibi işlemleri de destekler.
+
+F#'da fonksiyon tanımları da basit değer ifadeleri gibi "let" anahtar sözcüğü kullanılarak aşağıdaki formata uygun yapılır
+
+```fsharp
+let <fonksiyon adı> <girdi1> <girdi2> ... <girdi N> = 
+    <fonksiyon gövdesi/kodu>
+
+// Örnek fonksiyon tanımı
+let topla x y = 
+    x + y 
+```  
+Yukarıdaki fonksiyon tanımında fonksiyonun girdi parametrelerinin ve çıktısının tipini tanımlamadık çünkü F# **tip çıkarsama** mekanizması sayesinde bu tipleri otomatik olarak çıkarsayabilir. Ancak tipleri kullanmak istenirse fonksiyon tanımlama formatı aşağıdaki şekilde yapılmalıdır.
+
+```fsharp
+let <fonksiyon adı> (<girdi1:tip>) (<girdi2:tip>) ... (<girdi N:tip>) : <çıktı tipi> = 
+    <fonksiyon gövdesi/kodu>
+
+// Örnek fonksiyon tanımı
+let topla (x:int) (y:int) : string =
+    sprintf "x + y = %d" (x+y)
+```
+Her iki yaklaşım da aynı anda tek bir fonksiyon tanımı için kullanılabilir. Örneğin girdi parametrelerinden sadece birkaçının tipi tanımlanabilir veya girdi parametre tipleri tanımlanmaz sadece çıktı değerinin tipi tanımlanabilir.
+
+```fsharp
+let topla (x:int) y : string =
+    sprintf "x + y = %d" (x+y)
+
+let topla' x y : string =
+    sprintf "x + y = %d" (x+y)
+```
+
+F#'da bir fonksiyonun çıktısını çağıran kod bloğuna döndürmek için diğer bazı dillerde olduğu gibi **return** benzeri bir anahtar kelime kullanımına ihtiyaç duyulmaz. Fonksiyonların çıktısı her zaman fonksiyon gövdesindeki son değer ifadesinin değeridir.
+
+```fsharp
+let toplaVeÜçEkle x y = 
+    let yerel_değer = 3
+    x + y + yerel_değer // Fonksiyon çıktısı, fonksiyon gövdesindeki son ifade
+```
+
+Pekiyi fonksiyonların çıktısı her zaman fonksiyon gövdesindeki son ifade ise herhangi bir çıktısı olmayan ve sadece yan etkisi için tasarladığımız fonksiyonların çıktısı ve çıktı tipi ne olcaktır? Bunun için F#'da **unit** adı verilen özel bir tip kullanılır. Bu tipi C,C++,C# ve Java gibi dillerdeki **void** tipi ile aynı olduğunu düşünebilirsiniz.
+
+**unit** tipinden bir değer ifade etmek için boş çift parantez (**()**) kullanılır.
+
+```fsharp
+let toplaVeSadeceBas x y = 
+    let toplam = x + y
+    printfn " İşlem sonucu x + y = %d" toplam
+    ()
+```
+Yukarıdaki fonksiyon gövdesinde son ifade **()** olduğu için fonksiyonun çıktısı unit tipinden olacaktır. Aslında **()** ifadesini kaldırsak bile **printfn** ifadesi de unit tipinden bir değer döndürdüğü için dolaylı olarak fonksiyonumuzun dönüş tipi de unit olacaktır.
+
+Fonksiyon gövdenizdeki son ifade her zaman unit döndürmeyebilir veya fonksiyon gövdenizi unit döndürmek istediğiniz için her zaman **()** değerini kullanmak istemeyebilirsiniz. Bu gibi durumlarda F# standard kütüphanesi içinde gelen **ignore** fonksiyonunu kullanabilirsiniz.
+
+```fsharp
+let topla x y = 
+    x + y |> ignore
+```
+Yukarıdaki örnekte **x + y** ifadesi hesaplanmasına ve int tipinde çıktı vermesine rağmen sonuç **|>** operatörü ile **ignore** fonksiyonuna aktarılır. Bu durumda fonksiyon gövdenizdeki son ifade **ignore** fonksiyonu çağırısı olur ve bu fonksiyon her zaman **unit** döndürecektir.
+
+### Fonksiyonların İmzası
+Bir fonksiyonun imzası fonksiyonun girdi parametrelerinin ve çıktısının tiplerini tanımlamak için kullanılır. F#'da **->** simgesi fonksiyonları matematiksel açıdan ele aldığımız bölümde tanımını yaptığımız **Tanım Kümesi**'nden **Değer Kümesi**'ne olan dönüşümü simgelemek için kullanılır. F# derleyicisinin veya etkileşimli yorumlayıcısını (FSI) çıktılarında fonksiyon imzaları aşağıdaki formata uygun olarak gösterilir. 
+
+**val fonksiyonAdı : tanım_kümesi -> değer_kümesi**  
+
+```fsharp
+// Tek parametreli fonksiyon
+let kare x = sprintf "Karesi %f" (x**2.0)
+
+// Çok parametreli fonksiyon
+let topla x y = sprintf "Karesi %f" (x + y)
+
+```
+Yukarıdaki kod örneğinde ilk fonksiyon tanımını seçip Alt+ENTER kombinasyonu ile FSI'ya gönderdiğinizde 
+
+**val kare : x:float -> string** şeklinde bir çıktı alacaksınız. 
+
+Bu çıktı şu şekilde okunur; **kare** fonksiyonu **x** isimli **float** tipinden bir girdi parametresi alıp **string** tipinden bir çıktı üretir. İkinci fonksiyon tanımı için ise
+
+**val topla : x:float -> y:float -> string** şeklinde bir çıktı üretilir. Dikkat ederseniz girdi parametre sayısının artması çok fazla bir değişikliğe neden olmadı, sadece ifadenin solunda ilave bir parametre tanımı yer alıyor.
+
+>**KURAL**
+>
+>Bu iki örneği genelleştirecek olursak; fonksiyon imzalarının sağındaki en son tip fonksyionun çıktısının tipini ifade eder, sağada yer alan diğer tipler ise girdi parametrelerini ifade eder.
+
+Şimdi gelin biraz daha karmaşık bir fonksiyon imzası örneği olarak  **List.map**  ifadesini FSI'da çalıştırdıktan sonra ürettiği çıktıyı inceleyelim. Çıktı olarak 
+
+**val it : (('a -> 'b) -> 'a list -> 'b list)** 
+
+şeklinde bir fonksiyon imzası ile karşılaşırsınız. Bu imzayı önce sağdan sola şöyle okuyalım;List.map öyle bir fonksiyondur ki 
+
+* En sondaki **'b list** ifadesine istinaden; çıktı olarak 'b tipinden elemanlar içeren bir liste döndürür
+* **('a -> 'b)** ifadesine istinaden; ilk girdi paremetresi olarak 'a tipinden girdi alıp 'b tipinden çıktı üreten bir fonksiyon tipinde değer
+* **'a list** ifadesine istinaden; ikinci girdi parametresi olarak ise 'a tipinden değerler içeren bir liste alır
+
+Fonksiyon imzalarında fonksiyon tipinden parametreler çift parantez ile gruplanarak gösterilir.  
+
+>**İPUCU**
+>
+>Bir fonksiyonun girdi parametre sayısı imza ifadesindeki -> simgesi sayısı kadardır. -> simgeleri sayılırken () ile gruplanmış fonksiyon tipi ifadelerindeki -> simgeleri sayılmaz.
+
+### Değer Tipi Olarak Fonksiyonlar
+F#'da ve diğer tüm fonksiyonel programlama dillerinde fonksiyonler birinci sınıf vatandaştırlar ve diğer basit ve karmaşık tipler gibi değer ifadelerinde tip olarak kullanılıp fonksiyonların girdisi veya çıktısı olarak tanımlanabilirler.
+
+Fonksiyon tipli bir değer ifadesi tanımlamak için bir önceki başlıkta ayrıntılı bir şekilde ele aldığımız fonksiyon imzalarının formatına çok benzeyen aşağıdaki format kullanılır.
+
+```fsharp
+let <değer_adı> : <tanım_kümesi> -> <değer_kümesi> = <>
+```
+
+Aşağaıdaki örnek kod parçasında **birArttır** isimli bir fonksiyon tanımlıyoruz. Bu fonksiyonun ilk parametresi string tipinden girdi alan ve hiçbirşey (unit) döndüren bir fonksiyon (string -> unit tanımına istinaden) ikinci parametresi de x isimli int tipinden bir değer. Fonksiyonun gövdesinde toplama işlemine başlamadan önce ve toplama yapıldıktan sonra **loglayıcı** parametresi ile geçilen fonksiyon çalıştırılarak loglama işlemi yapılır. 
+
+```fsharp
+(* 03_3_02.fsx *)
+let birArttır (loglayıcı: string->unit) x = 
+    loglayıcı "İşleme başladım"
+    let s = x + 1
+    loglayıcı "İşlem tamam"
+    s
+let ekranaLogla (x:string)  = 
+    printfn "Log : %s" x
+
+let dosyayaLogla (x:string) = 
+    // Dosyaya loglama kodu
+    ()
+birArttır ekranaLogla 42
+birArttır dosyayaLogla 42
+// sonuç değeri 3 olur
+```
+
+**birArttır** fonksiyonun **loglayıcı** fonksiyonunu parametre olarak almasındaki tasarımsal amaç fonksiyon kodunu değiştirmeden farklı loglama mekanizmalarının parametre olarak geşilebilen fonksiyonlar ile desteklenebilmesinin sağlanması. Bu amaca uygun olarak **ekranaLogla** ve **dosyayaLogla** isimli iki fonksiyon tanımlanıyor. Bu fonksiyonların imzası (aslında tipi de denilebilir) **string -> unit** şeklinde ve **birArttır** fonksiyonun ilk parametresi olarak kullanılmaya uygundur. Örnek kodda her iki loglama fonksiyonun parametrik olarak kullanımı son iki satırda grebilirsiniz.
+
+Fonksiyon tiplerinin nasıl tanımlandığını ve kullanıldığını öğrendiğimize göre standard kütüphanedeki List modülü içinde bulunan **map** fonksiyonunu kendimiz oluşturmayı deneyelim. List.map fonksiyonun imzası şöyledir
+
+**val it : (('a -> 'b) -> 'a list -> 'b list)** 
+
+Bu imzaya göre List.map fonksiyonu sonuç olarak da yeni bir liste döndürür ve ilk parametre olarak da bir fonksiyon alır. Bu imzada henüz değinmediğimiz tek konu **'a** ve **'b** şeklindeki ifadeler. Şimdilik bu ifadelerin **herhangi bir tip** veya **jenerik bir tip** anlamına geldiğini bilmeniz yeterli olacaktır. 
+
+```fsharp
+(* 03_3_03.fsx *)
+
+let map  (f:'a->'b) (liste : 'a list) : 'b list =    
+    let sonuç = seq{for x in liste -> (f x)}
+    sonuç |> List.ofSeq
+
+[1..10] |> map (fun x -> x * x)
+```
+Yukarıdaki örnek **map** kodumuzda map fonksiyonu **'a->'b** imzasına sahip ve **f** isimli bir fonksiyonu ilk parametre olarak alır, ikinci parametre ise **liste** isimli ve tipi **'a list** ('a herhangi bir tipte değer barındıran liste). Fonksiyonumuzun çıktısı **'b list** tipinde olacaktır. Fonksiyon gövdesinde ise **liste** içindeki tüm değerler için girdi olarak verilen **f** fonksiyonunu çalıştırıp sonuçta **f** fonksiyonun çıktısının tipinde ('b) elemanlar değerler barındıran yeni bir liste döndürüyoruz.
+
+>**İPUCU**
+>
+>Kitabımızın online Git deposundaki 03_3_03.fsx dosyası içinde map fonksiyonun öz yinelemeli fonksiyonlar kullanılarak daha fonksiyonel bir tarzda yazılmış halini inceleyebilirsiniz.
+
+
+### Parmetresiz Fonksiyon Tanımları
+
+F#'da hiç bir girdi parametresi almayan fonksiyonları tanımlarken çok dikkatli olmanız gerekir. Programlama dillerinin çoğunda girdi parametresi almayan bir fonksiyon tanımlarken basitçe parametrelerin olmaması yeterlidir. Ancak F#'da parametresiz fonksiyonları tanımlarken **unit** tipinden en az bir girdi parametresi belirtmeniz gerekir. Benzer şekilde parametresiz fonksiyonları **fonksiyon_adı()** formatına uygun olarak unit tipinin değeri olan boş çift parantez ile çağırmalısınız. 
+
+Aşağıdaki kod örneğnde **kare** ve **ikininKaresiniAl** isimli iki fonkisyon tanımlamaya çalıştığımızı düşünelim.
+
+```fsharp
+let kare x = x * x
+let ikininKaresiniAl = kare 2
+```
+Yukarıdaki örnek kod parçasındaki iki satırı Alt+Enter ile FSI'da seçip çalıştırdığımızda aşağıdaki gibi bir çıktı göreceğiz
+
+**val kare : x:int -> int**
+
+**val ikininKaresiniAl : int = 4**
+
+İlk ifade açıkça bir fonksiyon imzası ve daha önce gördüğümüz formata uygun. Ancak, ikinci ifade bir fonksiyon ifadesi değil. İkinci ifade bir değerin imzasıdır. Değer imzaları formatı **val değer_ifadesi_adı : değer_tipi = değer** formatındadır. Değer ifadelerinde fonksiyonel manada tanım ve değer kümeleri arasında bir dönüşüm yapılmadığı için **->** sembolü yer almaz.
+
+Gelin şimdi hatalı olan **ikininKaresiniAl** fonksiyonunu **unit** değerini kullanarak doğru bir şekilde tanımlayalım.
+
+```fsharp
+let kare x = x * x
+let ikininKaresiniAl() = kare 2
+ikininKaresiniAl() // Fonkisyon çağırısı
+```
+
+Bu ifadeleri FSI'da çalıştırdığımızda niyetimize uygun olarak aşağıdaki çıktıyı alırız
+
+**val kare : x:int -> int**
+
+**val ikininKaresiniAl : unit -> int**
+
+**val it : int = 4**
+
+**ikininKaresiniAl** fonksiyonunu unit değeri **()** kullanmadan FSI kullanarak çağırmayı deneyelim
+```fsharp
+ikininKaresiniAl
+```
+Yukarıdaki çağırı sonrasında FSI aşağıdaki çıktıyı üretir
+
+**val it : (unit -> int) = <fun:it@11-6>** 
+
+Bu çıktı fonksiyon imzasına benziyor ama aynı zamanda değer ifadesi imzasını da andırıyor değil mi? Gerçekte bu ifade bir fonksiyon değerinin ifadesidir, çünkü F#'da fonksiyonlar da birer değer ifadesi olarak kullanılabilir yani dilin birinci sınıf vatandaşlarıdır. Bu ifadede **it** otomatik üretilen ve varsayılan bir değerin adını ifade eder, **(unit -> int)** ifadesi değer tipinin girdi olarak unit alan çıktı olarak da int döndüren bir fonksiyon tipi olduğunu belirtir, **<fun:it@11-6>** ifadesi ise **ikininKaresiniAl** fonksiyonun bellekteki adresini simgeleyen otomatik üretilmiş bir yer tutucu değerdir.
+
+Gördüğünüz gibi F#'da hiç bir girdi parametresi almayan fonksiyonları hem tanımlarken hem de kullanırken çok dikkatli olmalısınız. Aksi durumda derleyicinin veya FSI'in verdiği kriptik hata mesajlarını çözümlemeye çalışarak zaman kaybedebilirsiniz. Daha da kötüsü derleyici veya FSI herhangi bir hata mesajı vermeyeceği için hatalı çalışan kod yazmış olabilirsiniz.
 
 ### İsimsiz/Anonim Fonksiyonlar (Lambda ifadeleri)
-Özellikle girdi parametresi olarak başka bir fonksiyonu alabilen yüksek mertebeli fonksiyonlarda basit hesaplamaları yapmak için isimsiz fonksiyon ifadelerini fonksiyon parametresi olarak kullanmak için sıkça anonim fonksiyon oluşturma ihtiyacı duyacaksınız.
+Girdi parametresi olarak başka bir fonksiyonu alabilen yüksek dereceli fonksiyonları çağırırken basit hesaplamaları için isimsiz fonksiyon ifadelerini parametre olarak kullanabilirsiniz. Bu tür isimsiz fonksiyonlara **anonomi** fonksiyonlar denir. 
+
+Anonim fonksiyonlar aşağıdaki formata uygun oluşturulur
+```fsharp
+fun <girdi1> <girdi2> ... <girdiN> -> <fonksiyon gövdesi> 
+```
+Ananonim fonksiyonlarda girdi değerleri ve çıktı değerinin tiplerinin kullanılması ile ilgili kurallar isimli fonksiyonlar ile aynıdır.
+
+```fsharp
+(* 03_3_01.fsx *)
+
+// 1.0 ile 10.0 arasındaki sayıların listesi
+let list = [1.0..10.0]
+
+// Kare fonksiyonu
+let kare x = x**2.0
+
+// Kare fonksiyonu kullanarak listedeki elemanların karesini alma
+list |> List.map kare
+
+// Anonim fonksiyon kullanarak listedeki elemanların karesini alma
+list |> List.map (fun x -> x**2.0)
+```
+
+List modülündeki **map** fonksiyonu yüksek dereceli bir fonksiyondur çünkü ilk girdi parametresi olarak başka bir fonksiyon alır ve ikinci girdi parametresi olarak verilen listedeki tüm elemanları için ilk girdi parametresi olan fonksiyonu çalıştırır.
 
 
 ## 3.4 Temel Veri Tipleri

@@ -46,7 +46,7 @@
 * **repository** -> depo
 * **safely typed** -> güvenli tipli
 * **sentence** -> tümce
-* **sequence** -> sekans, silsile
+* **sequence** -> sekans, silsile, gevşek dizi
 * **scope** -> alan, kod alanı
 * **side effect** -> yan etki
 * **stack** -> yığın
