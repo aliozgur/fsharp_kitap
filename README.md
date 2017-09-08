@@ -20,7 +20,6 @@
 * 3.Bölüm : F# Temelleri
     * Söz dizimi kuralları
     * Basit Veri Tipleri
-    * Karşılaştırma ve Eşitlik
     * Fonksiyonlar
     * Temel Veri Tipleri
     * Kod Organizasyonu
@@ -263,7 +262,7 @@ fact 5
 
 2017 yılı itibariyle F# versiyon tarihçesini ve dieğer ayrıntıları aşağıdaki çizelgede inceleybilirsiniz.
 
-![](/img/01_01_01.png)
+<img src="./img/01_01_01.png"/>
 
 > **BİLGİ**
 >
@@ -482,7 +481,7 @@ liste5 |> List.iteri (fun i x -> printfn "Değer %d = %d" i x)
 ### Eş zamanlı ve paralel çalıştırma yapıları
 Bulut teknolojilerinin gelişmesi ve özellikle büyük veri işleme uygulamalarında standard platformlar hale gelmeye başlamaları ile birlikte makul zamanda ve kullanılabilir tüm kaynakları en verimli şekilde kullanabilmek için eş zamanlı ve paralel veri işleme ve işlem yapma kabiliyetleri modern programlama dillerinde büyük önem kazanmaya başlamıştır. 
 
-F#'da eş zamanlı (veya asenkron) ve paralel işlem yapmak için kullanımı oldukça basit dil yapıları ve standard kütüphane içinde yine kullanımı oldukça kolay olan bir kuyruk mekanizması vardır.
+F#'da eş zamanlı (asenkron) ve paralel işlem yapmak için kullanımı oldukça basit dil yapıları ve standard kütüphane içinde yine kullanımı oldukça kolay olan bir kuyruk mekanizması vardır.
 
 ```fsharp
 (* 01_1_07.1.fsx *)
@@ -595,7 +594,7 @@ type Şekil =
     abstract member Renk : string
     abstract AlanHesapla : unit -> float 
 ```
-Bu çoklu yaklaşım (multi-paradigm) sayesinde fonksiyonel olmayan diller ile tecrübesi olan yazılım geliştiriciler tarzlarını çok fazla değiştirmeden olabildiğince hızlı bir şekilde F# kullanmaya başlayabilirler. Ancak bu yaklaşım sürdürülebilir değildirve uzun vadede F#'ın sağladığı fonksiyonel yapılara adapte olunması tavsiye edilir.
+Bu çoklu yaklaşım (multi-paradigm) sayesinde fonksiyonel olmayan diller ile tecrübesi olan yazılım geliştiriciler tarzlarını çok fazla değiştirmeden olabildiğince hızlı bir şekilde F# kullanmaya başlayabilirler. Ancak bu yaklaşım sürdürülebilir değildir ve uzun vadede F#'ın sağladığı fonksiyonel yapılara adapte olunması tavsiye edilir.
 
 ### Geniş Uygulama Yelpazesi
 F# uzun bir geçmişe sahip fonksiyonel bir programlama dilidir. http://fsharp.org/testimonials/ adresindeki başarı hikayelerine bakıldığında enerji, sağlık, finans, sigortacılık, DNA araştırmaları, akademik araştırmalar, genel amaçlı web ve mobil uygulamaları, orta katman uygulamaları, veri analizi ve görselleştirme, kara para aklama tespit uygulamaları, analitik uygulamalar gibi bir çok sektörde kullanım alanı bulduğunu görebiliyoruz. Şimdi sıra sizde! Siz de F#'ı öğrenerek kendi sektörünüzde başarılı uygulamalar geliştirebilir ve başarı hikayeleri sayfasında kendinize yer bulabilirsiniz.
@@ -630,11 +629,11 @@ Tanımın ikinci koşulu olan "(x,y),(x,y′)∈f⇒y=y′" ifadesini ise şöyl
 
 **f(x) = x * x** şeklinde bir fonksiyon tanımı olsun. Bu fonksiyon girdi olarak verilen x değerinin karesini hesaplar. Daha matematiksel bir şekilde ifade edecek olursak; bu fonksiyon doğal sayılar kümesinin elemanı olan tüm **x** değerlerini yine doğal sayılar kümesinin elemanı olan bir **x*x** değeri ile eşleştirmektedir.
 
-![](/img/01_02_01_a.jpg)
+<img src ="./img/01_02_01_a.jpg" width="420"/>
 
 Yukarıdaki şekilde yer alan **tanım kümesi** ve **değer kümesi** kavramları önemlidir, zira fonksiyonları tanım kümesindeki elemanları değer kümesindeki elemanlar ile eşleştiren birer dönüşüm olarak da ifade edebiliriz. 
 
-![](/img/01_02_01_b.jpg)
+<img src="./img/01_02_01_b.jpg" width="320"/>
 
 Yukarıdaki örnekte
 * Tanım Kümesi A : A{1,2,3}
@@ -699,11 +698,11 @@ Saf fonksiyonlar fonksiyonel programlama çerçevesinde aşağıdaki yöntemleri
 
 * Örneğin 100 çekirdekli bir işlemciniz varsa 1 ile 100 arasındaki sayıların karelerini aynı anda her bir çekirdekte tanım kümesinden bir elemanı değer kümesinden bir elemana eşleştirecek şekilde **paralel** olarak programlayabilirsiniz. Bu fonksiyonların birinci özelliği sayesinde mümkün olur
 
-* Bir fonksiyonu çıktısına ihtiyaç duyduğunuz anda gevşek olarak (lazy)çalıştırabilirsiniz. Fonksiyonel olmayan programlama dillerinde program akışı bir methoda veya fonksiyona geldiği anda o method veya fonksiyon hemen çalıştırılır ve sonuç alanının bir bellek konumunda saklamanız gerekir. Fonksiyonel programlama dillerinde program akışı bir fonksiyona geldiğinde eğer fonksiyonun sonucuna hemen ihtiyacınız yoksa bu fonksiyonun çalışmasını geciktirebilirsiniz. Buna **gevşek**(lazy) çalıştırma denir. Gevşek çalıştırma da fonksiyonların birinci özelliği sayesinde mümkündür, çünkü bir fonksiyonu ne zaman çalıştırırsanız çalıştırın tanım kümesindeki aynı değeri her zaman değer kümesindeki aynı eleman ile eşleştirir (aynı girdi için her zaman aynı çıktıyı üretir)
+* Bir fonksiyonu çıktısına ihtiyaç duyduğunuz anda gevşek olarak (lazy) değerleyebilirsiniz. Fonksiyonel olmayan programlama dillerinde program akışı bir methoda veya fonksiyona geldiği anda o method veya fonksiyon hemen çalıştırılır ve sonuç alanının bir bellek konumunda saklamanız gerekir. Fonksiyonel programlama dillerinde program akışı bir fonksiyona geldiğinde eğer fonksiyonun sonucuna hemen ihtiyacınız yoksa bu fonksiyonun değerlenmesini geciktirebilirsiniz. Buna **gevşek değerleme**(lazy evaluation) denir. Gevşek değerleme de fonksiyonların birinci özelliği sayesinde mümkündür, çünkü bir fonksiyonu ne zaman değerlerseniz değerleyin tanım kümesindeki aynı değeri her zaman değer kümesindeki aynı eleman ile eşleştirir (aynı girdi için her zaman aynı çıktıyı üretir)
 
-*  Yine fonksiyonların birinci özelliği sayesinde bir fonksiyonun tanım kümesindeki bir değerin eşleştirildiği değer kümesindeki değeri daha sonra tekrar kullanılmak üzere bellemesini sağlayabilirsiniz. Fonksiyonel programlama dillerinde bu özelliğe **belleme** memoization denir. Belleme davranışı doğrudan fonksiyon tanımında ifade edilebilir ve fonksiyon eğer daha önce bellediği bir eşleştirme işlemini yapacaksa bu işlemi gerçekten yapmadan sonucunu hazır olarak bellekten okuyarak döndürebilir.
+* Yine fonksiyonların birinci özelliği sayesinde bir fonksiyonun tanım kümesindeki bir değerin eşleştirildiği değer kümesindeki değeri daha sonra tekrar kullanılmak üzere bellemesini sağlayabilirsiniz. Fonksiyonel programlama dillerinde bu özelliğe **belleme**(memoization) denir. Belleme davranışı doğrudan fonksiyon tanımında ifade edilebilir ve fonksiyon eğer daha önce bellediği bir eşleştirme işlemini yapacaksa bu işlemi gerçekten yapmadan sonucunu hazır olarak bellekten okuyarak döndürebilir.
 
-* Fonksiyonların ikinci özelliği sayesinde (yan etkisinin olmaması) birden fazla fonksiyonu istediğiniz sıra ile değerleyebiliriz (evaluate). Fonksiyonlar çalıştırıldığında tanım kümesindeki girdi değeri değişmediği için (girdi değeri bozulmadığı için de diyebiliriz) değer kümesindeki eşleşen değer de değişmez. 
+* Fonksiyonların ikinci özelliği sayesinde (yan etkisinin olmaması) birden fazla fonksiyonu istediğiniz sıra ile değerleyebiliriz (evaluate). Fonksiyonlar değerlendiğinde tanım kümesindeki girdi değeri değişmediği için (girdi değeri bozulmadığı için) değer kümesindeki eşleşen değer de değişmez. 
 
 ### Değerleme Sırası Önemli Mi Değil Mi?
 
@@ -821,17 +820,17 @@ printfn "Sonuç = %A" sonuc
 // val sonuc : int list = [1; 4; 9; 16; 25; 36; 49; 64; 81; 100]
 ```
 
-Yukarıdaki kod parçasında **list** isimli bir değer ifadesi ve **kare** isimli bir fonksiyon tanımı yapılmaktadır. **List.map kare liste** ifadesi ile de **List** modülü içindeki **map** isimli **yüksek dereceli** fonksiyon birinci parametresi **kare** fonksiyonu ikinci parametresi de **liste** olacak şekilde çalıştırılmaktadır. 
+Yukarıdaki kod parçasında **list** isimli bir değer ifadesi ve **kare** isimli bir fonksiyon tanımı yapılmaktadır. **List.map kare liste** ifadesi ile de **List** modülü içindeki **map** isimli **yüksek mertebelili** fonksiyon birinci parametresi **kare** fonksiyonu ikinci parametresi de **liste** olacak şekilde çalıştırılmaktadır. 
 
 Şimdi gelin bu örnek kod parçasındaki bazı satırların fonksiyonel programlama yöntemine uygunluğunu değerlendirelim. Şöyle ki
 
 * **kare** fonksiyonu saf bir fonksiyondur çünkü tanım kümesindeki her bir değer için sonuç olarak her zaman aynı çıktıları üretir.İlave olarak fonksiyon girdi veya çıktının değerini değiştirmez
 * **liste** değer ifadesinin değeri 1 ile 10 arasındaki sayılardır ve liste değer ifadesinin içeriği tanımlandığı andan sonra değiştirilemez
-* **List.map** fonksiyonu yüksek dereceli bir fonksiyondur çünkü **kare** fonksiyonunu parametre olarak kabul eder  
+* **List.map** fonksiyonu yüksek mertebeli bir fonksiyondur çünkü **kare** fonksiyonunu parametre olarak kabul eder  
 
 > **BİLGİ**
 >
-> Yüksek dereceli fonksiyonlar başka bir fonksiyonu girdi parametresi olarak kabul eden fonksiyonlardır. Yukarıdaki örnekte kullanılan **List.map** fonksiyonu **kare** fonksiyonunu parametre olarak alabildiği için **yüksek dereceli (higher order)** bir fonksiyondur.
+> Yüksek mertebeli fonksiyonlar başka bir fonksiyonu girdi parametresi olarak kabul eden fonksiyonlardır. Yukarıdaki örnekte kullanılan **List.map** fonksiyonu **kare** fonksiyonunu parametre olarak alabildiği için **yüksek mertebeli (higher order)** bir fonksiyondur.
 
 ### Bildirimsel ve Yordamsal Programlama Yaklaşımları 
 
@@ -841,7 +840,7 @@ F#, OCaml, Scala, Haskell gibi fonksiyonel programlama dilleri bildirimsel (decl
 
 Yordamsal programlama dillerinde yazdığınız kod bir işlemin **nasıl (how)** yapılacağını tarif eder. Bu yüzden bu tür dillerin temel yapı taşları **tümcelerdir (sentence)**. Bu tümceler ile adım adım programın hangi işlemi **nasıl** yapması gerektiği tarif edilir ve bilgisayar bu adımları takip ederek programı çalıştırır. Bu sınıftaki dillere prosedürel diller de denir. Bu tür dillerde adım adım bir tarif söz konusu olduğu için genellikle akış kontrolü için **while** ve **for** gibi döngü yapıları, koşullu dallanma için **if/else** ve **switch** yapıları ve her bir adım sonrasında ulaşılan durumun takip edilmesi ve kayıt altına alınması için de **değişkenler** kullanılır. 
 
-Bildirimsel programlama dillerinde ise yazdığınız kod bir işlemin nasıl yapılacağına değil işlem sonucunun **ne olacağına(what)** odaklanmıştır. Bu sınıftaki dillere fonksiyonel diller de denir. Bu tür dillerin temel yapı taşı **değer ifadeleridir (expression)** ve bilgisayar programınızdaki bu değer ifadelerini çalıştırarak sonucun üretilmesini sağlar. Bildirimsel dillerde akış kontrolü için **öz yinelemeli (recursive) fonksiyonlar**, koşullu dallanma için **yüksek dereceli fonksiyonlar (higher order functions)** ve **match** benzeri yapılar kullanılır. Bildirimsel dillerde işlem sonucuna odaklanılır ve önceki adımlarda ulaşılan durumun takip edilmesi için değişkenlere ihtiyaç duyulmaz. Bu nedenle daha önce de değindiğimiz gibi bu dillerde doğrudan değişken tanımı yapılmasına izin verilmez.
+Bildirimsel programlama dillerinde ise yazdığınız kod bir işlemin nasıl yapılacağına değil işlem sonucunun **ne olacağına(what)** odaklanmıştır. Bu sınıftaki dillere fonksiyonel diller de denir. Bu tür dillerin temel yapı taşı **değer ifadeleridir (expression)** ve bilgisayar programınızdaki bu değer ifadelerini çalıştırarak sonucun üretilmesini sağlar. Bildirimsel dillerde akış kontrolü için **öz yinelemeli (recursive) fonksiyonlar**, koşullu dallanma için **yüksek mertebeli fonksiyonlar (higher order functions)** ve **match** benzeri yapılar kullanılır. Bildirimsel dillerde işlem sonucuna odaklanılır ve önceki adımlarda ulaşılan durumun takip edilmesi için değişkenlere ihtiyaç duyulmaz. Bu nedenle daha önce de değindiğimiz gibi bu dillerde doğrudan değişken tanımı yapılmasına izin verilmez.
 
 F# ağırlıklı olarak fonksiyonel (bildirimsel) bir dil olmakla birlikte yordamsal yapıları da desteklediği için gelin şimdi örnekler ile her iki yaklaşım için yazmamız gereken kodun nasıl görüneceğine bakalım
 
@@ -1341,8 +1340,10 @@ F#'da basit tipler olarak adlandırdığımız 16 veri tipi vardır. F# bir .NET
 
 Gelin şimdi bu tipleri bir çizelge olarak görelim
 
-![](/img/03_01.png)
-![](/img/03_02.png)
+<img src="./img/03_01.png" />
+<img src="./img/03_02.png" />
+
+
 
 F#'da "let" ile basit değer ifadesi tanımlama formatı şöyledir
 
@@ -1404,7 +1405,7 @@ topla'' 42 0
 >
 > İiyaç duymadığınız sürece, özellikler basit değer ve fonksiyon tanımları için, değer tiplerini kullanmamanız tavsiye edilir.
 
-F# bu basit tiplere ilave olarak değer ifadelerinizi 2'lik ()binary, 8'lik (octal) ve 16'lık (hexadecimal) düzenlerde de tanımlamanıza izin verir
+F# bu basit tiplere ilave olarak değer ifadelerinizi 2'lik (binary), 8'lik (octal) ve 16'lık (hexadecimal) düzenlerde de tanımlamanıza izin verir
 
 ```fsharp
 // 2'lik (binary) ifade formatı
@@ -1431,16 +1432,224 @@ let değer_ifadesi_adı = 0x1D
 ```
 
 ### Artimetik İşlemler
+F#'da kullanılan 16 basit veri tipinden 9'u sayısal değerleri tarif etmek için kullanılan tiplerdir. Bu sayısal veri tiplerini ve aşağıdaki artimetik operatörleri kullanarak F# ile  aritmetik işlemler yapabilirsiniz
 
-## 3.3 Karşılaştırma ve Eşitlik
 
-## 3.4 Fonksiyonlar
+<img src="./img/03_03.png" width="320"/>
 
+
+Artimetik operatörler ile işlem yapılırken varsayılan olarak değer aşımları F# tarafından kontrol edilmez ve herhangi bir hata almazsınız. Değer aşımı durumunu şöyle tanımlayabiliriz, örneğin 127y değerine sahip 8-bit işaretli bir tam sayıya 1y eklediğinizde 8-bit işaretli tam sayılar aralığında pozitif üst limit 127 olduğu için sonuç 128y olamaz. Bu nedenle, üst limit aşımında sonuç negatif olacak alt limit aşımında da sonuç pozitif olacaktır. Bu durum sadece toplama ve çıkarma işlemleri için diğer artimetik işlemler için de geçerlidir.
+
+Bu durum sayıların 2'li sayıs sistemindeki temsilinden ve basit 2'li sayıs sistemi aritmetiğinin bir sonucudur. Şöyle ki; 8-bit işaretli tam sayılar 2'li sayı sisteminde 8 bit ile temsil edilirler. Ancak bu 8 bit'den en soldaki 1. bit işaret bitidir. Pozitif sayılar için bu işaret bitinin değeri 0, negatif sayılar için de 1 olur. Buna göre
+
+* 127y  = 01111111, soldan ilk bit 0 
+* -127y = 10000000, soldan ilk bit 1
+
+Aşağıda bu sonucun nasıl oluştuğunu basit artimetik adımları olarak görebilirsiniz
+
+```
+2'li sayı sistemi aritmetiğinde    1 + 1 = 2  -> 0 elde var 1
+10'lu sayı sistemi aritmetiğinde   1 + 9 = 10 -> 0 elde var 1
+
+## Pozitif yönde aşım
+ 127y = 01111111
+ 1y   = 00000001
++ ----------------
+        10000000  -> -128
+
+## Negatif yönde aşım
+-128y = 10000000
+-1y   = 11111111
++ ----------------
+        01111111 -> 127
+```
+
+```fsharp
+
+(* 03_2_03.fsx *)
+
+// 8-bit işretli tam sayı -128 ile 127 aralığında değer alabilir
+let sonuç1 = 127y + 1y // Sonuç -128y
+let sonuç2 = -128y - 1y // Sonuç 127y
+
+
+// 32 bit işaretli tam sayı -32768 ile 32767 aralığında değer alabilir
+let sonuç3 = 32767s + 1s // Sonuç -32768s
+let sonuç4 = -32768s - 1s // Sonuç 32767s
+
+// Çarpma işleminde aşım 
+let sonuç5 = -128y * 3y // Sonuç -128y
+
+// 2'li sayı düzeninde ifadeler ve aşım
+let a = 0b01111111y // 127y
+let b = 0b00000001y // 1y
+let sonuç6 = a + b  // -128y
+
+let a' = 0b10000000y // -128y
+let b' = 0b11111111y // -1y
+let sonuç7 = a' + b' // 127y 
+```
+
+Toplama, çıkarma, çarpma, bölme, kare alma ve mod alma operatörlerine ilave olarak F# standard kütüphanesinde matematiksel işlemlerde kullanabileceğiniz aşağıdaki fonksiyonlar da yer alır
+
+<img src="./img/03_04.png" width="480"/>
+
+> **İPUCU**
+>
+>Daha gelişkin matemtiksel fonksiyonlara ihtiyacınız varsa .NET platformu için açık kaynaklı olarak geliştirilen ve F# içinden de kullanabileceğiniz [Math.NET](https://numerics.mathdotnet.com) kütüphanesine göz atabilirsiniz.
+
+### Tipler Arası Dönüşüm
+F# güvenli tipli (safe type) bir programlama dilidir, bunun bir sonucu olarak 
+
+* Her değerin doğrudan veya tip çıkarsama ile tipinin derleme anından bilinmeli
+* Tipler arasındaki dönüşümler açık açık belirtilmeli
+
+Diğer bazı dillerde olduğu gibi F# derleyicisi, formel olarak bazı koşullarda yapabilecek olsa bile, derleme anında basit veri tipleri arasında otomatik dönüşüm yapmaz. Örneğin 32 bit işaretli bir tam sayıyı girdi olarak alan bir fonksiyona 8 bit işaretli bir tam sayıyı girdi olarak doğrudan göndermezsiniz.
+
+```fsharp
+(* 03_2_04.fsx *)
+
+let kare x = x * x 
+let sayı = 2y
+
+// Aşağıdaki kullanım hatalı
+// F# tip çıkarsama mekanizması kare fonksiyonun girdi olarak 32 bit 
+// işaretli tam sayı beklediğini çıkarsadı
+//let sonuç = kare sayı
+
+// Doğru kullanım
+let doğruSayı  = 2 // Tip çıkarsama doğruSayı değerinin tipini int olarak çıkarsadı
+let sonuç = kare doğruSayı
+
+// Fonksiyon girdi parametresinin tipini doğrudan tanımlayarak alternatif yaklaşım
+let kare' (x:sbyte) = x * x
+let sonuç' = kare' sayı 
+
+// 8 bit işaretli sayısı 32 bit işaretli sayıya çevirerek kullanım
+let sonuç'' = kare (int sayı)
+
+
+// 64 bit işaretli tam sayı
+let büyükSayı = System.Int64.MaxValue - 1L // 9223372036854775806L
+
+// 32 bit işaretli tam sayıya çevirmek istediğimizde değer aşımı meydana gelir
+let intSayı = int büyükSayı // -2
+```
+
+F# basit veri tipleri arasındaki dönüşüm işlemlerini sizin kodlamanızı bekler. Bu nedenle tip dönüşümü yaparken, özellikle sayısal tipler için, bölümün başında verdiğimiz tablodaki değer aralıklarını kontrol etmenizde fayda olacaktır. Bu aralıklara uygun olmayan tip dönüşümlerinde değer aşımı durumu ortaya çıkar ve F# varsayılan olarak değer aşımı için hata üretmez.  
+
+> **İPUCU**
+>
+>Değer aşımlarının F# tarafından kontrol edilmesini ve aşım durumunda hata üretilmesini istiyorsanız F# standard kütüphanesinde yer alan **Checked** modülünü kullanmalısınız. Bu modülü kullanmak için kaynak kodu dosyanızın başında **open Checked** ifadesini yazmanız yeterlidir. Bu satırdan sonraki kod satırlarınız için F# **Checked** modülü içindeki artimetik operatör tip dönüşüm fonksiyonlarını kullanacaktır
+
+### Karşılaştırma ve Eşitlik
+Sayısal değerleri eşittir, eşit değildir, büyüktür, küçüktür, büyük eşittir ve küçük eşittir operatörleri ve **compare** standard kütüphane fonksiyonu ile karşılaştırabilirsiniz. Karşılaştırma operatörlerinin işlem sonucu her zaman **true** veya **false** mantıksal değerine eşittir, **compare** fonksiyonun dönüş değeri ise eşitlik durumunda 0, ilk girdi parametresi ikinciden küçük ise -1, ilk girdi parametresi ikinciden büyük ise 1 olur.
+
+<img src="./img/03_07.png" width = "420" />
+
+### Bit Manipülasyonu
+
+<img src="./img/03_05.png" width="420">
+
+### Mantıksal/Lojik Değerler
+F#'da mantıksal 1 ve 0 değerlerini tanımlamak için **bool** tipi kullanılır. Bool tipi **true** veya **false** şeklinde 1 bitlik iki değerden birini alabilir. Mantıksal **bool** tipindeki değerler ile VE, VEYA ve DEĞİL operatörleri kullanılarak **Bool Cebri** işlemleri yapılabilir.
+
+
+<img src="./img/03_06.png" width="420"/>
+
+> **POLEMİK**
+>
+>Bir teoriye göre evrendeki tüm karmaşık sistemler sadece lojik VE, VEYA ve DEĞİL basit devreleri kombine edilerek oluşturulabilir.
+
+### Karakterler
+F# karakter veri tipi desteği için .NET'in sağladığı imkanları kullanır. Karakterlerin tipi **char** olarak tanımlanır veya çıkarsanır. .NET'de karakterler 2 byte'lık unicode değerler olarak UTF-16 adı verilen formatta ifade edilir. Karakter değeri tanımlamak için basılabilir herhangi bir karakter tek tırnak çifti (**' '**) arasına yazmanız yeterli olur. Bu kullanıma ilave olarak tek tırnak çifti içine yazmak istediğiniz karakterin unicode kodunu da yazabilirsiniz.
+
+>**İPUCU**
+>
+> Karakterlerin unicode ifadeleri ve UTF-8, UTF-16 ve UTF-32 gibi kodlama yöntemleri kitabın kapsamı dışında olduğu için ayrıntılarına girilmemiştir. Ancak isterseniz unicode karakter kodlarını https://unicode-table.com adresinden inceleyebilirsiniz.
+
+```fsharp
+(* 03_2_05.fsx *)
+
+let üHarfi = 'ü'
+let sesliHarfler = ['a';'e';'ı';'i';'o';'ö';'u';'ü']
+
+let üHarfiUnicode = '\u00FC'
+let sesliHarflerUnicode = ['\u0061';'\u0065';'\u0131';'\u0069';'\u006F';'\u00F6';'\u0075';'\u00FC']
+```
+Alfabetik karakterler ilave olarak ASCII kod tablosunda kontrol karakteri olarak tanımlanan tab, yeni satır, satır başı gibi özel karakterler ile tek tırnak ('), çıft tırnak (") ve geri bölü (\) gibi F# dilinde özel anlamı olan karakterleri başlarına geri bölü (\) karakteri koyarak kullanabilirisiniz.
+
+```fsharp
+(* 03_2_06.fsx *)
+let tekTırnak = '\''
+let çiftTırnak = '\"'
+let geriBölü = '\\'
+let tab = '\t'
+let yeniSatır = '\n'
+let satırBaşı = '\r'
+
+printfn "tek tırnak %c, çift tırnak %c" tekTırnak çiftTırnak
+
+// 'a' karakterinin sayısal unicode değeri
+let a = int 'a'
+
+// 'a' karakterinin 8 bitlik işaretsiz sayı olarak karşılığı
+let bitmap = 'a'B
+```
+
+>**İPUCU**
+>
+> Bir karakterin sayısal karşılığını görmek için tip dönüşüm fonksiyonları kullanılabilir. Örneğin **let a = int 'a'** ifadesi ile "a" harfinin unicode kod tablosundaki sayısal karşılığını bulunur. Benzer şekilde **let a = 'a'B** ifadesindeki gibi karakterin sonuna "B" tip tanımlayıcısını ekleyerek "a" harfinin 8 bit işaretsiz tam sayı karşılığı olan değeri bulabiliriz.
+
+
+
+### Metinler
+F#'da metin değerlerini ifade etmek için çift tırnak çiftini (**" "**) kullanırız ve bu değerlerin tipi **string** olarak tanımlanır veya çıkarsanız. Çift tırnak çifti arasına yazılan tüm karakterler bir metin oluşturur. .NET metinler için unicode kodlamalarından UTF-16 kullandığı için F#'da da otomatik olarak bu destek yer alır. Metin değerlerinde Karakterler bölümünde bahsettiğimiz tüm alfabetik karakterleri ve kontrol karakterlerini kullanabilirsiniz.
+
+```fsharp
+(* 03_2_07 *)
+
+let metin = "F# ile fonksiyonel programlama"
+let metin' = "ali özg\u00FCr"
+let metin'' = "\'Kitap Adı\' F# ile Fonksiyonel Programlama\n \"Yazar\" Ali Özgür"
+```
+
+Çift tırnak çiftine ilave olarak F#'da çift tırnak üçlüsü çifti (**""" """**) de metin değerleri tanımlamak için kullanılabilir. Bu alternatif kullanımın çift tırnak çiftine göre faydası metin değerinin içinde çift tırnak (") ve tek tırnak (') karakterlerini geri bölü ile yazmak zorunda olmamanızdır.
+
+```fsharp
+(* 03_2_07 *)
+
+let metin = """ "Kitap Adı" F# ile fonksiyonel programlama, 'Yazar' Ali Özgür """
+//Çıktı  " "Kitap Adı" F# ile fonksiyonel programlama, 'Yazar' Ali Özgür " olur
+```
+
+Çok uzun metin değerlerini tek satıra yazmak yerine birden fazla satır kullanarak da tanımlayabilirsiniz.Bunun için ifadenizi normal olarak çift tırnak ikilisi veya çift tırnak üçlüleri arasına yazıp her satırın sonuna geri bölü **\\** karekterini koymalısınız. Bu durumda **\\** koyduğunuz satırdan sonra boşluk karakterleri göz ardı edilerek birden fazla satıra yayılmış olan metin değeriniz tek satırda birleştirilir.
+
+```fsharp
+(* 03_2_07.fsx *)
+
+let çokSatırlıMetin = " 1, \
+                        2, \
+                        3, "
+// Çıktı "1,2,3" olur
+```
+
+Diğer bir alternatif metin tanımlama yöntemi verbatim metinlerdir ve **@** simgesi kullanılarak metin değeri tanımlanır. Bunun için metnin başlangıcını ifade eden çift tırnak çiftinin önüne **@** karakteri konulur. Bu sayede geri bölü karakterlerini \ kullanmadan doğurudan metninizin içine yazabilir ve kontrol karakterlerine metninizde yer verebilirsiniz (\n yeni satır kontrol karakteri olarak olarak algılanmaz doğrudan \n olarak algılanır).
+
+```fsharp
+(* 03_2_07.fsx *)
+
+let metin = @"Yazar \ Ali Özgür. Kontrol karakterlerimiz şunlar \r \n \t \\"
+// Çıktı "Yazar \ Ali Özgür. Kontrol karakterlerimiz şunlar \r \n \t \\" olur
+```
+
+
+## 3.3 Fonksiyonlar
 
 ### İsimsiz/Anonim Fonksiyonlar (Lambda ifadeleri)
-Özellikle girdi parametresi olarak başka bir fonksiyonu alabilen yüksek dereceli fonksiyonlarda basit hesaplamaları yapmak için isimsiz fonksiyon ifadelerini fonksiyon parametresi olarak kullanmak için sıkça anonim fonksiyon oluşturma ihtiyacı duyacaksınız.
+Özellikle girdi parametresi olarak başka bir fonksiyonu alabilen yüksek mertebeli fonksiyonlarda basit hesaplamaları yapmak için isimsiz fonksiyon ifadelerini fonksiyon parametresi olarak kullanmak için sıkça anonim fonksiyon oluşturma ihtiyacı duyacaksınız.
 
 
-## 3.5 Temel Veri Tipleri
+## 3.4 Temel Veri Tipleri
 
-## 3.6 Kod Organizasyonu
+## 3.5 Kod Organizasyonu

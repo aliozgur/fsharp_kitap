@@ -50,7 +50,7 @@ Yukarıdaki şekilde **f** fonksiyonu örten fonksiyondur çünkü Y değer küm
 
 | F# tipi | Açıklama | .NET Tipi | Bellek Miktarı | Değer Aralığı | Örnek | 
 |---|---|---|---|---|---|
-|**sbyte**| 8-bit işaretli tam sayı |System.SByte|1 byte|-128 ile 127 aralığınd	|42y, -11y|
+|**sbyte**| 8-bit işaretli tam sayı |System.SByte|1 byte|-128 ile 127 aralığında	|42y, -11y|
 |**byte** |	8-bit işaretsiz tam sayı|System.Byte |1 byte|0 ile 255 aralığında|42uy, 200uy|
 |**int16**|	16-bit işaretli tam sayı|System.Int16|2 byte|-32768 ile 32767 aralığında|42s, -11s|
 |**uint16**| 16-bit işaretsiz tam sayı|System.UInt16|2 byte|0 ile 65,535 aralığında|42us, 200us|
@@ -67,3 +67,61 @@ Yukarıdaki şekilde **f** fonksiyonu örten fonksiyondur çünkü Y değer küm
 |**string**| Unicode metin|System.String| 20 + (2 * metnin uzunluğu) byte|0'den 2 miliyar adetkaraktere kadar|"Merhaba Dünya!", "F# ile fonksiyonel programlama"|
 |**bool**|	Lojik 1 ve 0 | System.Boolean|1 byte|Sadece iki olası değer, true veya false|true,false|
 
+## Aritmetik operatörler
+
+
+| Operatör | Açıklama | Örnek | Sonuç|
+|----------|----------|-------|------|
+| **+** | Toplama | 1 + 2 | 3 |
+| **-** | Çıkarma | 2-1 | 1 |
+| **\*** | Çarpma | 3 * 4| 12 |
+| **/** | Bölme | 4 / 2 | 2 |
+| **\*\***|Kare | 2.0 ** 3.0 | 8 |
+| **%** | Mod  | 4 % 3| 1 |
+
+## Matematiksel Standard Fonksiyonlar
+
+
+|Fonksiyon| Açıklama | Örnek | Sonuç |
+|---------|----------|-------|-------|
+|**abs**| Sayının mutlak değerini alma | abs -42.0 | 42.0|
+|**ceil**| Yukarı doğru en büyük tam sayıya yuvarlama| ceil 42.001 | 43.0 |
+|**exp** | e'nin kuvveti | exp 1 | 2.7183 |
+|**floor**| Aşağı doğru en küçük tam sayıya yuvarlama| floor 42.999| 42.0 |
+|**log** | Doğal logaritma (ln). 10 tabanında log10|log 2.71828 | 1.0 |
+|**sqrt**| Karekök | sqrt 4.0 | 2.0|
+|**cos** | kosinüs | cos 0.0 | 1 |
+|**sin** | Sinüs | sin 0.0 | 0 |
+|**tan** | Tanjant | tan 1 | 1.557|
+|**pown**| Sayının n. kuvvetini alma | pown 2 3 | 8 |
+
+## Bitwise Operatörler
+|Operatör| Açıklama | Örnek | Sonuç |
+|---------|----------|-------|-------|
+|**&&&**  | Lojik VE | 0b1111 &&& 0b0011 | 0b0011|
+|**\|\|\|** | Lojik VEYA | 0xFF00 \|\|\| 0x00FF | 0xFFFF|
+|**^^^** | XOR veya dışlamalı yada| 0b0011 ^^^ 0b0101 | 0b0110|
+|**<<<** | Sola kaydırma| 0b0001 <<< 3 | 0b1000|
+|**>>>** | Sağa kaydırma| 0b1000 >>> 3 | 0b0001|
+
+## Mantıksal Operatörler
+
+
+|Operatör|Açıklama|Örnek|Sonuç|
+|--------|--------|-----|-----|
+|**&&**| VE operatörü| true && false | false|
+|**\|\|&**| VEYA operatörü| true \|\| false | true |
+|**not**| DEĞİL operatörü | not false | true |
+
+## Karşılaştırma Operatörleri
+
+
+|Operatör|Açıklama|Örnek|Sonuç|
+|--------|--------|-----|-----|
+| **=**  | Eşittir| 1 = 2 | false |
+| **<>**  | Eşit değildir | 1 <> 2 | true |
+| **>=**  | Büyük eşittir| 2 >= 2 | true |
+| **>**  | Büyüktür| 2 > 2 | false |
+| **<=**  | Küçük eşittir| 2 <= 2 | true |
+| **<**  | Küçüktür | 2 < 2 | false |
+| **compare**| Karşılaştır | compare 1 2 | -1| 
