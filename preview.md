@@ -3,13 +3,13 @@
 ## İçindekiler 
 
 * 1.Bölüm : Giriş
-    * 1.1 F# ile Tanışma
-    * 1.2 F# Sözdizimine Hızlı Bakış
-    * 1.3 Kısa F# Tarihçesi
-    * 1.4 Neden F#?
-    * 1.5 Fonksiyonlara Matematiskel Bakış
-    * 1.6 Fonksiyonların İlginç Özellikleri
-    * 1.7 Fonksiyonel Programlama Nedir?
+    * F# ile Tanışma
+    * F# Sözdizimine Hızlı Bakış
+    * Kısa F# Tarihçesi
+    * Neden F#?
+    * Fonksiyonlara Matematiskel Bakış
+    * Fonksiyonların İlginç Özellikleri
+    * Fonksiyonel Programlama Nedir?
 * 2.Bölüm : Kurulum ve Hazırlık
     * F# Geliştirme Platformu Temel Bileşenleri 
     * Windows ve Visual Studio 
@@ -17,12 +17,12 @@
     * Linux ve Visual Studio Code
     * Merhaba Dünya!
 * 3.Bölüm : F# Temelleri
-    * 3.1 Söz dizimi kuralları
-    * 3.2 Basit Veri Tipleri
-    * 3.3 Fonksiyonlar
-    * 3.4 Fonksiyonların İleri Seviye Kullanımı
-    * 3.5 Temel Veri Tipleri
-    * 3.6 Kod Organizasyonu
+    * Söz dizimi kuralları
+    * Basit Veri Tipleri
+    * Fonksiyonlar
+    * Fonksiyonların İleri Seviye Kullanımı
+    * Temel Veri Tipleri
+    * Kod Organizasyonu
 * 4.Bölüm : Fonksiyonel Programlama
     * Desen Eşleştirme (Pattern Matching)
     * Küme Teorisi ve F# Tipleri
@@ -2236,13 +2236,6 @@ liste |> hepsininKüpünüAl'
 >Kısmi uygulama F# ile kodlama yaparken çok farklı senaryolar için daha şık ve esnek kod yazmanızı sağlar. Özellikle F# ile kütüphaneler geliştiriyorsanız, kütüphane fonksiyonlarınızın loglama gibi genel geçer işlemler için mantıklı varsayılan yöntemler ile hazır sunmanız oldukça basitleşmektedir. Bununla birlikte alana özgü diller (domain specific languages) geliştiriyorsanız kısmi uygulama yöntemi vazgeçemeyeceğiniz bir araç olacaktır.
 
 
-
-### Öz Yinelemeli Fonksiyonlar
-
-
-## 3.5 Temel Veri Tipleri
-
-## 3.6 Kod Organizasyonu
 
 
 # Terimler Sözlüğü

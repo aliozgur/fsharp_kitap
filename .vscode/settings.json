@@ -1,0 +1,14 @@
+{
+  "markdown-pdf.breaks": true,
+  "markdown-pdf.format": "A4",
+  
+   // Header height. units: mm, cm, in, px
+   "markdown-pdf.header.height": "2cm",
+  "markdown-pdf.header.contents": "<div style=\"text-align: center; margin-top: 0.5cm; border-bottom: 1px solid \">F# ile Fonksiyonel Programlama - Ali Özgür</div>",
+   // A list of local paths to the stylesheets to use from the markdown-pdf
+   "markdown-pdf.styles": [
+    ".vscode/markdown.css",                            // OK. Relative path
+    ".vscode/markdown-pdf.css"                            // OK. Relative path
+  ]
+
+}
