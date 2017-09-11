@@ -68,10 +68,22 @@
 
 # 1. Bölüm : Giriş
 
-Bu bölümün ilk kısmında F#'ın kısa tarihçesini aktarıp "Neden F#?" ve "F# programlama dili neye benzer?" sorularının cevaplarını arayacağız. Bölümün ikinci kısmında ise fonksiyonel programlamanın tanımını yaparak matematiksel anlamda fonksiyonları ve fonksiyonların bazı ilginç özelliklerini ele alacağız.
+Bu bölümün ilk kısmında F#'ın kısa tarihçesini aktarıp "Neden F#?" ve "F# programlama dili neye benzer?" sorularının cevaplarını arayacağız. Bölümün ikinci kısmında ise matematiksel anlamda fonksiyonları ve fonksiyonların bazı ilginç özelliklerini ele alıp fonksiyonel programlamanın tanımı ile bölümü tamamlayacağız.
 
 ## 1.1 F# ile Tanışma
-Programlama dili kitapları ve kaynakları ekrana  "Merhaba Dünya!" yazdırmak için kullanılan kod parçası ile başlar. Biz de kitabımıza bu klasik ile başlıyoruz. 
+Programlama dili kitapları ekrana  "Merhaba Dünya!" yazdırmak için kullanılan kod ile başlar. Bu klasik kod parçası öğrenmek üzere olduğunuz dil hakkında hızlıca bir fikir edinmenizi sağlar. Biz de kitabımıza bu klasik ile başlıyoruz. 
+
+```fsharp
+printfn "Merhaba Dünya!"
+```
+F# özelinde,yukarıda da gördüğünüz gibi, bu işlemi yapan kod parçası kısa ve sadedir. 
+
+Şimdi gelin biraz daha ayrıntılı kod örnekleri ile günlük F# kodlamanızda ağırlıklı olarak kullanacağız yapıları tanıyalım. Yapılan işlemlerin karmaşıklığı ve ayrıntısı artsa bile F#'ın sadeliğinden ödün vermediğini ve kodun oldukça şık göründüğünü söyleyebiliriz. 
+
+>**İPUCU**
+>
+>Kodun şıklığı estetik uyumla birlikte kolay okunan, kolay anlaşılan ve nihayetinde kolay yönetilebilen kodu simgeler.
+
 
 ```fsharp
 // tek satırlık yorumlar için // kullanılır
@@ -262,31 +274,35 @@ let çıktı3 = sprintf "ikili=%A,\nkişi=%A,\nişçi=%A"  ikili kişi işçi
 
 ## 1.3 Kısa F# Tarihçesi
 
-F#, Türkçe **efşarp** olarak telafuz edilen yabancı kaynaklarda da **FSharp** veya **F Sharp** olarak da rastlayabileceğiniz yordamsal (imperative) ve bildirimsel (declarative) yaklaşımlarının her ikisini de (multi-paradigm) destekleyen fonksyionel bir programlama dilidir. 
+F#, Türkçe **efşarp** olarak telafuz edilen yabancı kaynaklarda da **FSharp** veya **F Sharp** olarak rastlayabileceğiniz yordamsal (imperative) ve bildirimsel (declarative) yaklaşımlarının her ikisini de (multi-paradigm) destekleyen fonksyionel bir programlama dilidir. 
 
 > **DİKKAT**
 >
->"Fonksiyionel programlama dili" ifadesindeki **fonksiyonel** ibaresi ilk etapta "çok faydalı", "işe yarayan" benzeri anlamlar çağırıştırsa da kitapta bu anlamlarda kullanılmamıştır. "Fonksiyonel programlama" ifadesi programlama dilleri tasarımında matematikteki fonksiyonları ve özelliklerini temel alan bir yaklaşımı ifade eder. Bölümün sonunda bu tanım ayrıntılı olarak ele alınmaktadır.
+>"Fonksiyionel programlama dili" ifadesindeki **fonksiyonel** ibaresi ilk etapta "çok faydalı", "işe yarayan" benzeri anlamlar çağırıştırsa da kitapta bu anlamlarda kullanılmamıştır. "Fonksiyonel programlama" programlama dilleri tasarımında matematikteki fonksiyonları ve özelliklerini temel alan yaklaşımı ifade eder.
 
-F# programlama dili Microsoft tarafından tasarlanıp geliştirilen açık kaynak kodlu fonksiyonel bir programlama dilidir. Microsoft'un F# gibi bir dili geliştirmesinin altındaki temel motivasyon Microsoft'un geliştirdiği bir platformu olan .NET Framework'ün 90'lı yılların sonundaki temel tasarım amacına kadar uzanır. Microsoft'un .NET Framework'ünü Java'nın sanal ortamına (JVM) benzetebilirsiniz. .NET Framework farklı programlama dilleri ile geliştirilmiş programların MSIL (Microsoft Intermediate Language) adı verilen ara bir dile derlenmesi sonrasında üretilen kodu çalıştıran sanal bir ortam sunar.
+F#, Microsoft tarafından tasarlanıp geliştirilen açık kaynak kodlu bir dilidir. F#'ın geliştirmesindeki temel motivasyon Microsoft'un en önemli platformlarından biri olan .NET Framework'ün temel tasarım amacına kadar uzanır. .NET Framework diller, derleyiciler, standard bir kütüphane ve sanal çalışma ortamı gibi bileşenleri içeren bir çatı olarak kurgulanmıştır. .NET'i destekleyen programlama dilleri ile geliştirilmiş programlar dillerin kendilerine özel derleyicileri tarafında derlenir. Derleme sonrasında MSIL (Microsoft Intermediate Language) isimli ara bir dile dönüştürülen programlar CLR (Common Language Runtime ) adı verilen ortak dil çalışma ortamında çalıştırılabilir. 
 
 > **BİLGİ**
 >
->MSIL, işletim sistemi ve bilgisayar mimarisi bağımsız bir dildir ve .NET Framework'ü hedefleyen programalama dillerinin (C#, VB.NET ve F#) derleyicileri tarafından üretilir, elle kodlama yapılmaz.  
+>MSIL, işletim sistemi ve mimari bağımsız bir dildir ve .NET Framework'ü hedefleyen programalama dillerinin (C#, VB.NET ve F#) derleyicileri tarafından üretilir, elle kodlanmaz.  
 
- .NET Framwork'ü hedefleyen herhangi bir dilde geliştirilen ve MSIL'e derlenen programlar .NET Framework'ün desteklediği Windows, Linux veya OSX işletim sistemlerinde çalıştırılabilir. F# da .NET Framework'ü destekleyen dillerden birisidir. 
+ .NET Framwork'ü hedefleyen herhangi bir dilde geliştirilen ve MSIL'e derlenen programlar .NET'in desteklediği Windows, Linux ve OSX işletim sistemlerinde çalıştırılabilir. 
 
 > **BİLGİ**
 > 
-> .NET Framework ilk çıktığında sadece Windows işletim sistemini destekliyordu. Kısa bir süre sonra bağımsız bir grup yazılımcı Linux ve OSX'de de çalışabilen Mono isimli açık kaynak bir .NET Framework geliştirdi. 2015 yılı itibariyle Microsoft Mono'ya kod katkısı sağlamaya başlayarak diğer yandan da Windows, Linux ve OSX'de çalışan .NET Core isimli işletim sistemi bağımsız bir .NET Framework versiyonu geliştirmektedir.
+> .NET Framework ilk çıktığında sadece Windows işletim sistemini destekliyordu. Kısa bir süre sonra bağımsız bir grup yazılımcı Linux ve OSX'de de çalışabilen Mono isimli açık kaynak bir .NET Framework geliştirdi. 2015 yılı itibariyle Microsoft Mono'ya kod katkısı sağlamaya başlamıştır. Microsoft aynı zamanda Windows, Linux ve OSX'de çalışan .NET Core isimli işletim sistemi bağımsız bir .NET Framework versiyonu geliştirmektedir.
 
-F#'ın Microsoft içindeki yaratıcısı olarak adlandırılan Don Syme F#'ın ortaya çıkışını kendi sözleri ile şöyle anlatmaktadır
+<img src="./img/01_01_00.jpg"/>
 
-> .NET platformunun vizyonunda başlangıçtan itibaren birden fazla programlama dilinin desteklenmesi önemli bir hedef olarak yer alıyordu. 1998 yılında, programlama dillleri ile ilgili araştırma grubumdan 10 kişi ile birlikte Microsoft'a dahil olduğumuz zaman, Project 7 kod adlı projeyi başlatan James Plamondon isimli birisi bizimle irtibata geçti. Project 7, yedi adet akademik ve yedi adet de yazılım sektöründe kullanılan genel amaçlı programlama dilinin .NET'i desteklemesinin sağlanmasını hedefleyen bir projeydi. Project 7 ile Microsoft .NET'in gelecekte farklı programlama dillerini destekleyebilmek için hangi alanlarda ne tür esneklikler sağlaması gerektiğini erken safhada anlamasını sağlayacaktı. 
+F#'ın yaratıcısı olan Don Syme F#'ın nasıl ortaya çıktığını şöyle anlatmaktadır
+
+> .NET platformunun vizyonunda başlangıçtan itibaren birden fazla programlama dilinin desteklenmesi önemli bir hedef olarak yer alıyordu. 1998 yılında, programlama dilleri ile ilgili araştırma grubumdan 10 kişi ile birlikte Microsoft'a dahil olduktan sonra, Project 7 kod adlı projeyi başlatan James Plamondon bizimle irtibata geçti. Project 7, yedi adet akademik ve yedi adet de genel amaçlı programlama dilinin .NET'i desteklemesini hedefleyen bir projeydi. Project 7 ile farklı programlama dillerini destekleyebilmek için .NET'in sağlaması gereken mekanizmalar ve esneklikler araştırılacak ve uygulanmaya başlanacaktı.
 >
-> .NET'in Generic'leri üzerinde çalışırken elde ettiğim tecrübey ML benzeri bir fonksiyonel programlama dilinin .NET'i destekleyip desteklemeyeceğini araştırmak için  ".NET için Haskell" üzerinde çalışmaya başladım. Bu çalışmada önemli gelişmeler sağlamamıza rağmen Haskell ile .NET'in yapısı arasındaki ciddi uyumsuzluklar nedeni ile bu çalışmayı sonlandırmadan durdurduk.
+> .NET'in Generic'leri üzerinde çalışırken elde ettiğim tecrübeyle ML benzeri fonksiyonel bir programlama dilinin .NET'i destekleyip desteklemeyeceğini araştırmak için  ".NET için Haskell" üzerinde çalışmaya başladım. Bu çalışmada önemli gelişmeler sağlamamıza rağmen Haskell ile .NET arasındaki ciddi uyumsuzluklar nedeni ile çalışmayı durdurduk.
 
-Don Syme ve ekibi yukarıda da aktardığımız Project 7 kapsamında Haskell ve ML'in de aralarında bulunduğu bazı fonksiyonel dilleri .NET'e taşıma çalışmalarına başladılar. Çalışma yapılan diller arasında ML basitliği ve .NET ile olan uyumu ile ön plana çıkmaktaydı. Caml ve OCaml dilleri de ML'in varyantları olarak ML'in sadeliğini ve basitliğini bir üst seviyeye taşıyan yapıları barındırmaktaydı. Don Syme ve ekibi o dönem için en popüler ML varyantı olan OCaml'ı .NET'e taşıma çabalarına yoğunlaştılar ve 2005 yılında temelinde OCaml olan F# dilinin ilk versiyonu yayınlandı. Aşağıdaki örnekte F# için verilen faktöriyel hesaplama kodu OCaml ile birebir aynıdır.
+Don Syme ve ekibi o dönemin (2000'li yılların başı) en popüler ML varyantı olan OCaml'ı .NET'e taşıma çabalarına yoğunlaştılar ve sonuç olarak temelinde OCaml olan F#'ın ilk versiyonu 2005 yılında yayınlandı. 
+
+İki dilin benzerliğini görmek için aşağıdaki F# faktöriyel hesaplama kodunu OCaml yorumlayıcısında çalıştırabilirsiniz.
 
 ```fsharp
 (* 01_1_01.fsx *)
@@ -295,32 +311,32 @@ fact 5
 ```
 > **BİLGİ**
 >
-> OCaml kodunu online olarak https://try.ocamlpro.com adresinden deneyebilirsiniz. Deneme yaparken her bir satırın sonuna ;; eklemeyi unutmayın
+> OCaml kodunu online olarak [OCaml Pro](https://try.ocamlpro.com) adresinden deneyebilirsiniz. Deneme yaparken her bir satırın sonuna ;; eklemeyi unutmayın
 
 
-2017 yılı itibariyle F# 4.1 versiyonuna ulaşımış arkasında Microsoft gibi dev bir firmanın bulunduğu açık kaynak kodlu fonksiyonel bir programlama dili olarak varlığını sürdürmektedir. .NET Framework'ün çalıştığı platformların çeşitliliği arttıkça F# dilinin ulaştığı  kitleler ve farklı alanlardaki popülerliği de artmaktadır.
+F#, 2017 yılı itibariyle 4.1 versiyonuna ulaşımış arkasında Microsoft gibi dev bir şirketin bulunduğu açık kaynak kodlu fonksiyonel bir programlama dili olarak varlığını sürdürmektedir. .NET Framework'ün çalıştığı platformların çeşitliliği arttıkça F# dilinin ulaştığı kitleler ve farklı alanlardaki popülerliği de artmaktadır.
 
-2017 yılı itibariyle F# versiyon tarihçesini ve dieğer ayrıntıları aşağıdaki çizelgede inceleybilirsiniz.
+F# versiyon tarihçesini ve diğer ayrıntıları aşağıdaki çizelgeden inceleybilirsiniz.
 
 <img src="./img/01_01_01.png"/>
 
 > **BİLGİ**
 >
->F# ile ilgili daha ayrıntılı bilgilere İngilizce olan http://fsharp.org sitesinden erişebilirsiniz.
+>F# ile ilgili daha ayrıntılı bilgilere http://fsharp.org adresinden erişebilirsiniz.
 >
->F# kaynak kodunu incelemek isterseniz https://github.com/fsharp/fsharp adresinden GitHub deposuna göz atablirsiniz.
+>F# kaynak kodunu incelemek için https://github.com/fsharp/fsharp adresindeki GitHub deposuna başvurabilirsiniz.
 
 
 ## 1.4 Neden F#?
 
-Yeni bir programlama dili öğrenmeye başladığınızda, eğer ortada profesyonel bir zorunluluk yoksa, bu dilin zaten bildiğiniz diğer diller ile karşılaştırıldığında kodlama yaklaşımınıza ne tür pozitif katkılar yapacağını veya ne tür zorluklar barındırdığını açık ve seçik olarak mümkün olduğu kadar erken deneyimlemelisiniz. İlk defa bir programlama dilini ayrıntıları ile öğrenmeye çalışıyorsanız da yaptığınız dil tercihinin size uygun ve doğru tercih olup olmadığına büyük bir sabırsılıkla bir an önce karar vermek isteyeceksiniz. 
+Yeni bir programlama dili öğrenmeye başladığınızda, eğer ortada profesyonel bir zorunluluk yoksa, bu dili zaten bildiğiniz diğer diller ile karşılaştıracaksınız.  İlk defa bir programlama dili öğreniyorsanız da yaptığınız dil tercihinin size uygun olup olmadığına karar vermek isteyeceksiniz. 
 
-Bu bölümde F# programlama dilini öğrenmeniz için sizi motive edeceğini umduğum bazı dil özelliklerini kod örnekleri ile ele alıyoruz. Göreceğiniz F# kodlarını bu aşamada tam olarak anlamayabilirsiniz, bu nedenle kodları anlamaya değil kodlardaki zerafet ve şıklığa odaklanmanızı öneriyorum.
+Bu bölümde F# programlama dilini öğrenmeniz için sizi motive edeceğini umduğum bazı dil özelliklerini kod örnekleri ile ele alıyoruz. Göreceğiniz F# kodlarını bu aşamada tam olarak anlamayabilirsiniz. Bu nedenle, kodları anlamaya değil kodlardaki zerafet ve şıklığa odaklanarak dilin size sağlayacağı katkılara veya karşılaşacağınız zorluklara odaklanmanızı öneriyorum. 
 
 ### Az Seremonili Söz Dizimi
-F# sade ve seremonisi az olan bir söz dizimine (syntax) sahiptir. F#'da süslü parantezlere ({}), noktalı virgüllere ve normal parantezlere çok az sayıdaki bildirimde ihtiyaç duyulur. Kod blokları her bir satırda bırakılan girinti (indentation) miktarı ile belirtilir ve buna bağlı olarak okuması keyifli ve şık görünümlü programlar üretilebilir.
+F#, sade ve seremonisi az olan bir söz dizimine (syntax) sahiptir. F#'da süslü parantezlere ({}), noktalı virgüllere ve normal parantezlere nadiren ihtiyaç duyulur. Kod alanlar (global alan, modül içii, fonksiyon içi vs) girintiler (indentation) kullanılarak tanımlanır.
 
-Aşağıdaki kod örneğinde // simgesi ile belirtilen yorum satırlarının hemen altındaki kod satırlarında bahsettiğimiz özellikleri tek tek görebilirsiniz
+Aşağıdaki kod örneğinde // simgesi ile belirtilen yorum satırlarının hemen altındaki kod satırlarında bahsettiğimiz özellikleri görebilirsiniz
 
 ```fsharp
 (* 01_1_02.fsx *)
@@ -338,14 +354,14 @@ let kareler = sayılar |> List.map kare
 
 // Girintiler ile belirlenen kod blokları
 let tekMiÇiftMi x = // Fonksiyon tanımı başlangıcı
-    // Fonksiyonun içi
+    // Fonksiyonun kod alanı başlangıcı
     match x with
     | a when a <= 0 -> failwith "Değer sıfırdan büyük olmalı" 
     | a when a % 2 = 0 -> true
     | _ -> false
-    // Fonksiyonun sonu
+    // Fonksiyonun kod alanı sonu
 
-// Yeni bir kod bloğu
+// Global alanda fonksiyon çağırısı
 tekMiÇiftMi 12
 ```
 ### Sade ve Şık Tip Tanımları 

@@ -13,12 +13,12 @@ let kareler = sayılar |> List.map kare
 
 // Girintiler ile belirlenen kod blokları
 let tekMiÇiftMi x = // Fonksiyon tanımı başlangıcı
-    // Fonksiyonun içi
+    // Fonksiyonun kod alanı başlangıcı
     match x with
     | a when a <= 0 -> failwith "Değer sıfırdan büyük olmalı" 
     | a when a % 2 = 0 -> true
     | _ -> false
-    // Fonksiyonun sonu
+    // Fonksiyonun kod alanı sonu
 
-// Yeni bir kod bloğu
+// Global alanda fonksiyon çağırısı
 tekMiÇiftMi 12
