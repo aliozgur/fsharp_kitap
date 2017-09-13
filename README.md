@@ -1010,22 +1010,17 @@ Yordamsal diller bir çok sektörde kullanılan ana akım dillerdir, bu nedenle 
 > Nesne tabanlı (object oriented) diller, yordamsal (imperative) ve bildirimsel (declarative) dillerden daha popüler olan üçüncü yaklaşımı temsil etmektedir. 
 
 # 3.Bölüm : F# Temelleri
-Bu bölümde önce F#'ın söz dizimi kurallarına formel olarak inceliyoruz. Daha sonra da basit (int,string,bool gibi) ve temel veri (değer grubu, unit, listeler, diziler gibi) tiplerini ele alıp  F#'ın temel yapı taşları olan fonksiyonların ayrıntılarını inceliyoruz. Son olarak kod organizasyonu ile ilgili ipuçları ile de bölümü tamamlıyoruz.
-
-* Söz dizimi kuralları
-* Basit Veri Tipleri
-* Karşılaştırma ve Eşitlik
-* Fonksiyonlar
-* Temel Veri Tipleri
-* Kod Organizasyonu
+Bu bölümde önce F#'ın söz dizimi kurallarını formel olarak inceleyeceğiz. Daha sonra basit (int,string,bool) ve temel veri tiplerini (değer grubu, unit, listeler, diziler) ele alıp F#'ın yapı taşları olan fonksiyonların ayrıntılarına bakacağız. Son olarak kod organizasyonu ipuçları ile bölümü tamamlayacağız.
 
 ## 3.1 Söz dizimi kuralları
-F#'ın göze hoş gelen, okuması kolay ve kodunuzun çalışmasına doğrudan etkisi olmayan fazlalıklardan arındırılmış bir söz dizimine sahiptir. F# söz dizimi sade olmakla birlikte oldukça şıktır ve farklı dil yapılarını güzel bir şekilde ifade etmenizi sağlar. Gelin şimdi F# söz diziminin temelini oluşturan kavram ve kuralları inceleyelim
+F#, göze hoş gelen, okunması kolay ve kodun çalışmasına doğrudan etkisi olmayan fazlalıklardan arındırılmış bir söz dizimine sahiptir. F# söz dizimi sade olmakla birlikte oldukça şıktır ve farklı dil yapılarını güzel bir şekilde ifade etmenizi sağlar. 
+
+Gelin şimdi F# söz diziminin temelini oluşturan kavram ve kuralları inceleyelim
 
 ### Girinti Kullanımı (Indentation)
-F#'da kod blokları, ya da daha doğru tabirle kod alanları (scope), girintiler (indentation) ile birbirinden ayrılır. Girintilerin her zaman 4 boşluk karakteri uzunluğunda olmalı. Girintileri oluşturmak için TAB özel karekteri kullanılmaz ancak tüm kod editörleri TAB tuşuna basınca TAB karakteri yerine belirli sayıda boşluk karakteri basacak şekilde ayarlanabilir bu nedenle pratikte TAB tuşunu kullanmanızın önünde bir engel yoktur.
+F#'da kod blokları, ya da daha doğru tabirle kod alanları (scope), girintiler (indentation) ile birbirinden ayrılır. Girintiler her zaman 4 karakter uzunluğundaki boşluklar ile verilmeli. Girintileri oluşturmak için TAB özel karekteri kullanılmaz. Ancak, tüm kod editörleri TAB tuşuna basınca TAB karakteri yerine belirli sayıda boşluk karakteri basacak şekilde ayarlanabilir, bu nedenle pratikte TAB tuşunu kullanmanızın önünde bir engel yoktur.
 
-C,C++,C#,Java ve JavaScript gibi dillerde kod alanlarını belirlemek için süslü parantez olarak adlanrılılan {} karakter çifti kullanılırken F#'da özel bir karakter veya karakter çifit kullanımına gerek yoktur. Girintiler kod lanlarını belirlediği için değer ifadelerinin bitişini belirtmek için noktalı virgül (;) benzeri karakterlerin kullanım ihtiyacı da dolaylı olarak ortadan kalkar.
+C,C++,C#,Java ve JavaScript gibi dillerde kod alanlarını belirlemek için süslü parantez olarak adlanrılılan {} karakter çifti kullanılırken F#'da özel bir karakter veya karakter çifti kullanımına gerek duyulmuyor. Kod alanlarının hangi satırda başlayıp hangi satırda bittiği girintiler ile belirlendiği için bitiş işaretçisi olarak noktalı virgül (;) veya farklı karakterler kullanılmaz.
 
 ```fsharp
 (* 03_1_01.0.fsx*)
@@ -1086,7 +1081,7 @@ Modül2.çiftMiTekMi 12
 
 ```
 
-F#'da modül alan adları **ModüleAdı.** şeklinde kullanılarak modül içindeki değerler veya fonksiyonlara erişilebilir. İlave olarak aynı kod alanına ait değer ifadeleri kendi yerel kod alanlarından bir üst seviyedeki kod alanından değer ifadelerini kullanabilir.
+F#'da modül alan adları **ModüleAdı.** şeklinde kullanılarak modül içindeki değerlere ve fonksiyonlara erişilebilir. Aynı kod alanına ait ifadeler kendi yerel kod alanlarından bir üst seviyedeki (dışındaki) kod alanlarından ifadeleri kullanabilir.
 
 ```fsharp
 (* 03_1_01.1fsx *)
@@ -2289,7 +2284,6 @@ liste |> hepsininKüpünüAl'
 > **İPUCU**
 >
 >Kısmi uygulama F# ile kodlama yaparken çok farklı senaryolar için daha şık ve esnek kod yazmanızı sağlar. Özellikle F# ile kütüphaneler geliştiriyorsanız, kütüphane fonksiyonlarınızın loglama gibi genel geçer işlemler için mantıklı varsayılan yöntemler ile hazır sunmanız oldukça basitleşmektedir. Bununla birlikte alana özgü diller (domain specific languages) geliştiriyorsanız kısmi uygulama yöntemi vazgeçemeyeceğiniz bir araç olacaktır.
-
 
 
 ### Öz Yinelemeli Fonksiyonlar
