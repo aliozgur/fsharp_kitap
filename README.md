@@ -1104,9 +1104,9 @@ kırkİkiEkle Modül1.bir
 ```
 
 ### "let" Anahtar Kelimesi
-F#'da fonksiyonel bir dil olması nedeniyle **değişken**, **değişken tanımlama** ve **değişkenin değerini değiştirme** gibi kavramlar kullanılmaz. Kitabın ilk bölümünde de bahsettiğimiz gibi F#'ın temelinde **değer ifadesi**(expression) dediğimiz kavram vardır. Değer ifadelerinin değerleri değişkenlerde olduğu gibi program akışı sırasında değiştirilemez.
+F# fonksiyonel bir dil olduğu için **değişken**, **değişken tanımlama** ve **değişkenin değerini değiştirme** gibi kavramlar kullanılmaz. Tüm fonksiyonel dillerde olduğu gibi F#'ın dil yapısı **ifade** (expression) denilen kavram üzerine inşaa edilmiştir. İfadelerin değerleri değişkenlerde olduğu gibi program akışı sırasında değiştirilemez.
 
-**"let"** anahtar kelimesi F#'da isimlendirilmiş değer ifadelerinin ve fonksiyonların (ki onlar da birer değer ifadesidir) tanımlanması için kullanılır. Genel yapısı şöyledir
+**"let"** anahtar kelimesi F#'da isimlendirilmiş değer ifadelerinin ve fonksiyonların (ki onlar da birer ifadedir) tanımlanması için kullanılır. Genel yapısı şöyledir
 
 ```fsharp
 
@@ -1150,9 +1150,9 @@ let rec fib n = if n <= 1 then n else fib(n - 1) + fib(n - 2)
 
 ```
 
-"let" anahtar kelimesi bir değer ifadesine değerinin bağlanmasını (binding) sağlar, bu nedenle diğer dillerdeki gibi klasik anlamda bir atama imkanı sağlamaz. Basit değer ifadelerinde bağlanan değer genelde int, string, bool gibi basit veri tipleri olurken fonksiyonlar için bağlanan değerler fonksiyonun çalıştığında yürüteceği işlemleri tanımlayan kod ifadeleridir.
+"let" anahtar kelimesi ifadelere değerlerinin bağlanmasını (binding) sağlar, bu nedenle diğer dillerdeki gibi klasik anlamda bir atama imkanı sağlamaz. Basit değer ifadelerine bağlanan değer genelde int, string, bool gibi basit veri tipleridir. Fonksiyon ifadeleri için ise bağlanan değerler fonksiyonun kodunu oluşturan alt ifadelerdir.
 
- "let" ile tanımlanan basit veya fonksiyon değer ifadelerine mutlaka ama mutlaka bir değer bağlanmalıdır.
+"let" ile tanımlanan basit veya fonksiyon ifadelerinin mutlaka ama mutlaka bir değer olmalıdır.
 
 ```fsharp
 // Hata! Herhangi bir değer bağlanmamış
@@ -1168,7 +1168,7 @@ let fonksiyon girdi
 let fonksiyon girdi = girdi + 1
 ```
 
-"let" anahtar kelimesi modül seviyesinde, sınıf seviyesinde veya fonksiyon tanımı içinde kullanılabilir. Değer ifadelerine tanımlandıkları satırdan sonra aynı alan (scope) içinden (modül, sınıf veya fonksiyon tanımı içinden)erişilip kullanılabilir. 
+"let" anahtar kelimesi modül seviyesinde, sınıf seviyesinde veya fonksiyon tanımı içinde kullanılabilir. İfadeler, tanımlandıkları satırdan sonra aynı kod alanı (scope) içinden (modül, sınıf veya fonksiyon tanımı içinden) veya alt kod alanları içinden kullanılabilir. 
 
 ```fsharp
 (* 03_1_02.fsx *)
@@ -1216,7 +1216,7 @@ yerDeğiştir 1 2
 ```
 ### "do" anahtar kelimesi
 
-"do" anahtar kelimesi kullanılarak değer ifadesi veya fonksiyon tanımı olmasına ihtiyaç duyulmadan kod çalıştırılabilir. Program başlangıcında, modül tanımı başında veya sınıf tanımınız içinde otomatik olarak çalışmasını istediğiniz kod blokları varsa "do" anahtar kelimesini kullanabilirsiniz.
+"do" anahtar kelimesi kullanılarak değer ifadesi veya fonksiyon tanımı olmasına ihtiyaç duyulmadan kod çalıştırılabilir. Program başlangıcında, modül tanımı başında veya sınıf tanımı içinde fonksiyon çağırısı yapılmadan otomatik çalışması istenen kod blokları "do" anahtar kelimesi kullanılarak çalıştırılabilir.
 
 ```fsharp
 (* 03_1_03.fsx *)
@@ -1236,14 +1236,13 @@ module Modül1 =
 do printfn "Program sonlandı"
 ```   
 
-Bahsettiğimiz kullanım senaryosuna ihtiyaç duyduğunuz yerlerde "do" kullanımı opsiyoneldir. Yukarıdaki örnek kod parçasında Modül1 içinde "do" kullanılmadan yazılan printfn ifadeleri de çalıştırılır. 
+"do" kullanımı opsiyoneldir. Örneğimizdeki Modül1 içinde **do printfn** şeklinde yazılan ifadelerinin başındaki "do" kaldırılsa bile **prinfn** çağırısı çalıştırılır. 
 
-"do" kullanımı ile ilgili en önemli kısıtlama "do" sonrasında yazılan ifadenin dönüş değerinin **unit** tipinden olmasıdır. **unit** tipi F#'da özel bir tiptir ve **hiç birşey** anlamına gelmektedir.
-
+"do" kullanımı ile ilgili en önemli kısıtlama "do" sonrasında yazılan ifadenin dönüş değerinin **unit** tipinden olması zorunluluğudur. **unit** tipi F#'da özel bir tiptir ve **hiç birşey** anlamına gelir. Dolayısıyla, **do** ile başlayan ifadeler bir sonuç üretmemelidir.
 
 > **BİLGİ**
 >
-> **unit** tipini C,C++,Java ve C# dillerindeki **void** tipi ile aynı olduğunu düşünebilirsiniz.
+> **unit** tipini C,C++,Java ve C# dillerindeki **void** tipine benzediğini varsayabilirsiniz.
 
 ```fsharp
 (* 03_1_04.fsx *)
@@ -1259,10 +1258,12 @@ do (1 + 1) |> ignore
 
 > **BİLGİ**
 >
-> **ignore** fonksiyonu F# standard kütüphanesi ile gelen bir fonksiyondur. Girid parametresi olarak tek bir parametre alır ve parametrenin tipi ne olursa olsun her zaman **unit** tipinden bir çıktı üretir.
+> **ignore** F# standard kütüphanesi ile gelen bir fonksiyondur. Tek bir giriş parametresi alır ve bu parametrenin tipi ne olursa olsun her zaman **unit** tipinden bir çıktı üretir.
 
 ### Yorum Satırları
-Kodunuza iki şekilde yorum satırı ekleyebilirsiniz
+
+F#'da tek satırlı veya çok satırlı yorumlar kodun içine iki şekilde eklenir 
+
 * Tek satırlık yorumlarınız için // karakterlerini kullanabilirsiniz
 * Birden fazla satırlık yorumlarınız için ise (* *) çiftini kullanabilirsiniz
 
@@ -1284,14 +1285,15 @@ Kodunuza iki şekilde yorum satırı ekleyebilirsiniz
         x * x
 *)
 ```
+
 ### Koşullu Derleme
-Platforma, işletim sistemine veya çalışma ortamına bağlı olarak aynı işlevi farklı yapılar kullanarak kodlama ihtiyacı duyabilirsiniz. Bu duruma genelde 
-* Mobil ve masaüstü işletim sistemi uygulamalarının 
-* Aynı işletim sisteminin farklı versiyonlarını desteklemek 
+Koşullu derleme, özellikle birden fazla platformu destekleyen veya versiyonlama anlamında geriye dönük uyumluluğun sağlanması ihtiyacı olan programlar için kullanılan bir yöntemdir. 
 
-ortak kod havuzundan derlenmesi gibi gerekçeler ile ihtiyaç duyulur.
+Örneğin;
+* Aynı uygulamanın mobil ve masaüstü versiyonlarının tek bir kod havuzunda geliştirilmesi 
+* Tek bir uygulamanın aynı işletim sisteminin farklı versiyonlarında farklı işletim sistemi kütüphaneleri kullanması  
 
-Bu tür durumlarda F#'da **#if #else #endif** derleyici makroları kullanılır.
+gibi durumlarda derleyiciye ipucu vermek için kod içinde koşullu derleme yapıları kullanılır. F#'da koşullu derleme için **#if #else #endif** derleyici makroları kullanılır.
 
 ```fsharp
 (* 03_1_06.fsx *)
@@ -1328,14 +1330,12 @@ let ortam() = "OSX DEĞİL"
 ortam()
 ```
 
-Koşullu dallanma durumunu kontrol eden değişkenler **ortam değişkenleridir** ve bunların değeri derleyiciye parametre olarak geçilmelidir. Koşullu derleme derleyici seviyesinde devreye giren bir mekanizmadı, dolayısıyla koşul değişkenlerinize kodunuzun içinde değer ataması yapamazsınız.
+Koşullu derleme ifadelerinin sınaması program derleme anında **ortam değişkenleri** kullanılarak yapılır ve değişken değeri derleyiciye parametre olarak sağlanır. Koşullu derleme kod çalıştığı sırada gerçekleşmez. Bu nedenle, ortam değişkenlerinin adı ile kod içinde tanımlanan sıradan değişkenler kullanılarak çalışma anında koşul sınaması yapılamaz.
 
 F# derleyicisi ve F# interaktif için ortam değişkenlerini **--define** seçeneği ile aşağıdaki gibi tanımlayabilirsiniz.
 
 * **fsharpc --define v1** 
 * **fsharpi --define osx** 
-
-Visual Studio gibi F# destekleyen editörlerde doğrudan derleyici veya interaktif araçlarına erişiminiz olmadığı için ortam değişkenlerinizi editör seçenek ekranlarını kullanarak tanımlayabilirsiniz.
 
 ### Tanımlayıcı ve Anahtar Kelimeler
 Değer ifadeleri tanımlarken kullandığımız ifade isimlerini **tanımlayıcılar**, F#'in dili içinde tanımlı özel tanımlayıcılara da **anahtar kelimeler** diyoruz. 
@@ -1348,15 +1348,15 @@ Değer ifadeleri tanımlarken kullandığımız ifade isimlerini **tanımlayıc�
 let sayı = 42
 
 ```
-F#'da anahtar kelimeler dışında kalan tanımlayıcıları kullanırken aşağıdaki kurallara uymak gerekir 
+F#'da anahtar kelimeler dışındaki tanımlayıcıları oluştururken aşağıdaki kurallara uyulmalıdır 
 
-* Sadece herhangi bir harf veya _ ile başlayabilir
-* 0 ve 9 arasında sayısal karakterler ile başlayamaz
-* Harfler, sayılar,_ ,' karakterleri kullanılabilir 
-* Boşluk ve - karakterini içeremez. Bu karakterleri kullanabilmek tanımlayıcı `` `` (iki ters kesme simgesi çifti) arasında yazılmalı
-* `` ``kullanımı durumunda tanımlayıcı adında TAB, satır başı veya `` karakterleri yer alamaz
-* Tip isimleri, bileşim etiketleri, modül isimleri veya kod alanı isimlerinde ‘.', '+', '$', '&', '[', ']', '/', '\\', '*', '\"', '`' karakterleri kullanılamaz
-* F# dilinin anahtar kelimeleri `` `` yöntemi haricinde tanımlayıcı olarak kullanılamaz
+* Sadece herhangi bir **harf** veya **_** ile başlayabilir.
+* **0-9 arasında** sayısal karakterler ile başlayamaz.
+* Harfler, sayılar, **_** ,**'** karakterleri içerebilir.
+* **Boşluk** (whitespace) veya **-** (tire) karakterini içeremez. Bu karakterler kullanılmak istenirse tanımlayıcı **\`\` \`\`** (iki ters kesme çifti) arasında yazılır.
+* **\`\` \`\`** oluşturulan tanımlayıcı adında **TAB**, **satır başı** (New Line) veya **\`\`** (çift ters tırnak) karakterleri kullanılmaz.
+* Tip isimleri, bileşim etiketleri (discriminated union), modül isimleri veya kod alanı (namespace) isimlerinde **'.'**, **'+'**, **'$'**, **'&'**, **'['**, **']'**, **'/'**, **'\\'**, **'*'***, **'\"'**, **'`' (ters tek tırnak)** karakterleri kullanılamaz.
+* F#  anahtar kelimeleri **\`\` \`\`** çifti içinde tanımlayıcı olarak kullanılabilir, bunun dışında anahtar kelimeler tanımlayıcı olarak kullanılamaz. 
 
 
 
@@ -1416,18 +1416,18 @@ lazy let match member module mutable namespace new null of open or override priv
 
 > **Rezerve Edilmiş Anahtar Kelimeler**
 >
->*Gelecekte kullanılmak üzere aşağıdaki anahtar kelimeler rezerve edilmiştir.*
+>*Gelecekte kullanılmak üzere aşağıdaki anahtar kelimeler F# tarafından rezerve edilmiştir. Bu anahtar kelimeler de ifadelerde tanımlayıcı olarak kullanılamaz*
 >
 > atomic break checked component const constraint constructor
 continue eager fixed fori functor include measure method mixin object parallel params process protected pure recursive sealed tailcall trait virtual volatile
 
 
-Tüm F# anahtar kelimelerini ve sembollerinin "Ek-1: Anahtar Kelimeler" ve "Ek-2 : Semboller" altında bulabilirsiniz
+Tüm F# anahtar kelimelerini ve sembollerinin "Ek-1: Anahtar Kelimeler" ve "Ek-2 : Semboller" bölümünde bulabilirsiniz
 
 ### Shebang 
-F# kaynak kodu veya script dosyalarınızın başında **#!** ile başlayan ve **shebang (okunuşu şibank)** olarak adlandırılan özel bir karakter kombinasyonu kullanılabilir. Bu kombinasyon Unix konvansiyonu ile uyumluluk için kullanılır ve scriptin yorumlayıcı program yolununun tanımlanabilmesini sağlar.
+Kod veya script dosyalarının başında **#!** ile başlayan ve **shebang** (okunuşu şibenk) olarak adlandırılan özel bir karakter kombinasyonu kullanılabilir. Shebang ifadesi ile script dosyasındaki kodu çalıştırması istenen yorumlayıcı konumu tanımlanır. F# derleyicisi shebang satırlarını derlemez, bu satır Unix tabanlı işletim sistemlerinde **shell** tarafından yorumlanır.  
 
-Örneğin F# script dosyanızın başına aşağıdaki shebang komutunu eklerseniz Unix,Linux ve OSX işletim sistemlerinde dosyanızı komut satırına yazar yazmaz belirttiğiniz yoldaki F# yorumlayıcısı **fsharpi** dosyanızın içindeki kodu çalıştıracaktır 
+Örneğin F# script dosyanızın başına aşağıdaki shebang komutunu eklerseniz Unix,Linux ve OSX işletim sistemlerinde dosyanızı komut satırına yazar yazmaz F# yorumlayıcısı **fsharpi** dosyanızın içindeki kodu çalıştıracaktır. 
 
 ```fsharp
 #!/bin/usr/env fsharpi --exec
@@ -1442,15 +1442,12 @@ $ 03_1_09.fsx
 ```
 
 ## 3.2 Basit Veri Tipleri
-Tüm programlama dillerinde herhangi bir verinin mutlaka bir tipi vardır. Sayı, metin, karakter ve evet/hayır şeklinde değer barındıran tiplere basit tipler denir. Programlama dilleri tasarımında tipler daha çok kavramsal büyüklükler olarak ele alınır ve asıl amaçları programlarımızdaki hataları derleme anında veya çalışma anında engellemektir. Tipler, program versinin program akışı sırasında doğru bir şekilde kullanılmasını ve fonksiyonlar arasında veri aktarımının güvenli bir şekilde yapılmasını sağlar. Özetle tipler ile ilgili tüm kaygı kavramsal seviyede veri dönüşümün tutarlılığına odaklanmıştır.
+Tüm programlama dillerinde herhangi bir verinin mutlaka bir tipi vardır. Sayı, metin, karakter ve evet/hayır şeklinde değer barındıran tiplere basit tipler denir. Programlama dilleri tasarımında tipler daha çok kavramsal büyüklükler olarak ele alınır ve asıl amaçları programlarımızdaki hataları derleme anında veya çalışma anında engellemektir. Tipler, program verisinin program akışı sırasında doğru kullanılmasını ve fonksiyonlar arasında veri aktarımının güvenli yapılmasını sağlar. Özetle; tipler ile ilgili tüm kaygı kavramsal seviyede veri dönüşümünün tutarlılığına odaklanmıştır.
 
-F#'da basit tipler olarak adlandırdığımız 16 veri tipi vardır. F# bir .NET dili olduğu için tiplerden 15 tanesi doğrudan .NEt tip sistemi tarafından tanımlanır, yani F# standard kütüphanesinde bu 15 tip için ayrı bir tanım yoktur. 
-
-Gelin şimdi bu tipleri bir çizelge olarak görelim
+F#'da basit tipler olarak adlandırdığımız 16 veri tipi vardır. F# bir .NET dili olduğu için tiplerden 15 tanesi doğrudan .NET tip sistemi tarafından tanımlanır.
 
 <img src="./img/03_01.png" />
 <img src="./img/03_02.png" />
-
 
 
 F#'da "let" ile basit değer ifadesi tanımlama formatı şöyledir
@@ -1463,7 +1460,7 @@ let <değer adı>:<değer tipi> = <değer>
 let sayı:int = 42
 let metin:string = "42"
 ```
-Değer ifadelerinde tip kullanımı opsiyoneldir. Yukarıdaki ifadeler aşağıdaki gibi de yazılabilir, bu durumda F# **tip çıkarsama (type inference)** mekanizması sayesinde değer ifadesine verdiğiniz değerin tipini otomatik olarak değer ifadesinin tipi olarak çıkarsar
+Değer ifadelerinde tip kullanımı opsiyoneldir. Yukarıdaki ifadeler aşağıdaki gibi de yazılabilir, bu durumda F# **tip çıkarsama** (type inference) ile ifadeye verilen değerin tipini otomatik olarak çıkarsar.
 
 ```fsharp
 let sayı  = 42 // sayı değer ifadesinin tipi int olarak çıkarsanır
@@ -1471,10 +1468,10 @@ let sayı  = 42 // sayı değer ifadesinin tipi int olarak çıkarsanır
 let metin = "42" // metin değer ifadesini tipi string olarak çıkarsanır
 ```
 
-Fonksiyon tanımlarında da hem girdi parametreleri hem de fonksiyonun sonucunun değer tipini aşağıdaki formata uygun olarak belirtebilirsiniz.
+Fonksiyon tanımlarında girdi parametrelerinin ve dönüş değerinin tipi aşağıdaki şablona göre yapılır.
 
 ```
-let <fonksiyon adı> (girdi1:girdi tipi) (girdi2: girdi tipi): <sonuç tipi> = <kodunuz>
+let <fonksiyon adı> (girdi1:<girdi1 tipi>) (girdi2: <girdi2 tipi>): <sonuç tipi> = <fonksiyon kodu>
 ```
 
 ```fsharp
@@ -1484,7 +1481,7 @@ let topla (x:int) (y:int): string =
 topla 42 0
 ```
 
-Fonskiyon girdi parametreleri ve çıktı tanımında da değer tipi kullanımı opsiyoneldir. Tipler kullanılmadan yukarıdaki örneği aşağıdaki gibi de yazabilirdik, bu durumda F# tip çıkarsama ile doğru tipleri çıkarsayacaktır.
+Fonskiyon girdi parametrelerinin veya dönüş değerinin tipinin tanımlanması opsiyoneldir. Tipler kullanılmadan yukarıdaki örnek aşağıdaki gibi de yazılabilir, bu durumda F# **tip çıkarsama** ile doğru tipleri çıkarsar.
 
 ```fsharp
 let topla x y = 
@@ -1507,13 +1504,13 @@ topla'' 42 0
 
 > **DİKKAT**
 >
->Fonksiyon girdi paremetrelerinde değer tiplerini kullanmak isterseniz parametre ifadesini örneklerde de görebileceğiniz gibi () içine almalısınız aksi durumda F# kodunuzu farklı yorumlayabilir veya hata verebilir.
+>Fonksiyon girdi paremetrelerinin tanımında tipleri de tanımlamak isterseniz parametreleri **çift parantez ()** içine almalısınız. Çift parantez kullanmadan tipleri tanımlarsanız F# derleyicisi tanımınızı farklı bir şekilde yorumlayabilir. 
 
 > **İPUCU**
 >
-> İiyaç duymadığınız sürece, özellikler basit değer ve fonksiyon tanımları için, değer tiplerini kullanmamanız tavsiye edilir.
+>Özellikle basit değer ve fonksiyon ifadesi tanımlarıda değer tiplerini kullanmamanız tavsiye ediyoruz.
 
-F# bu basit tiplere ilave olarak değer ifadelerinizi 2'lik (binary), 8'lik (octal) ve 16'lık (hexadecimal) düzenlerde de tanımlamanıza izin verir
+F#'da sayısal değer alan ifadeler 2'lik (binary), 8'lik (octal) ve 16'lık (hexadecimal) sayı tabanlarını kullanılarak da tanımlanabilir. 
 
 ```fsharp
 // 2'lik (binary) ifade formatı
