@@ -718,11 +718,11 @@ Tanımın ikinci koşulu olan " (x,y),(x,y′)∈f⇒y=y′ " ifadesini ise şö
 
 **f(x) = x * x** şeklinde bir fonksiyon tanımı olsun. Bu fonksiyon girdi olarak verilen x değerinin karesini hesaplar. Daha matematiksel bir şekilde ifade edecek olursak; bu fonksiyon doğal sayılar kümesinin elemanı olan tüm **x** değerlerini yine doğal sayılar kümesinin elemanı olan bir **x*x** değeri ile eşleştirmektedir.
 
-<img src ="./img/01_02_01_a.jpg" width="420"/>
+<img src="./img/01_01_01.jpg"/>
 
 Yukarıdaki şekilde yer alan **tanım kümesi** ve **değer kümesi** kavramları önemlidir, zira fonksiyonları tanım kümesindeki elemanları değer kümesindeki elemanlar ile eşleştiren dönüşümler şeklinde de ifade ederiz. 
 
-<img src="./img/01_02_01_b.jpg" width="320"/>
+<img src="./img/01_01_02_drawio.jpg"/>
 
 Yukarıdaki örnekte
 * Tanım Kümesi A : A{1,2,3}
@@ -1537,13 +1537,13 @@ let değer_ifadesi_adı = 0x1D
 ```
 
 ### Artimetik İşlemler
-F#'da kullanılan 16 basit veri tipinden 9'u sayısal değerleri tarif etmek için kullanılan tiplerdir. Bu sayısal veri tiplerini ve aşağıdaki artimetik operatörleri kullanarak F# ile  aritmetik işlemler yapabilirsiniz
+F#'da yer alan 16 basit veri tipinden 9'u sayısal değerleri tarif etmek için kullanılan tiplerdir. Bu sayısal veri tiplerini ve aşağıdaki artimetik operatörleri kullanarak F# ile aritmetik işlemler yapabilirsiniz.
 
 
 <img src="./img/03_03.png" width="320"/>
 
 
-Artimetik operatörler ile işlem yapılırken varsayılan olarak değer aşımları F# tarafından kontrol edilmez ve herhangi bir hata almazsınız. Değer aşımı durumunu şöyle tanımlayabiliriz, örneğin 127y değerine sahip 8-bit işaretli bir tam sayıya 1y eklediğinizde 8-bit işaretli tam sayılar aralığında pozitif üst limit 127 olduğu için sonuç 128y olamaz. Bu nedenle, üst limit aşımında sonuç negatif olacak alt limit aşımında da sonuç pozitif olacaktır. Bu durum sadece toplama ve çıkarma işlemleri için diğer artimetik işlemler için de geçerlidir.
+Artimetik operatörler ile işlem yapılırken varsayılan olarak değer aşımları F# tarafından kontrol edilmez, bu nedenle herhangi bir hata almazsınız. Değer aşımı durumunu şöyle tanımlayabiliriz; örneğin 127y değerine sahip 8-bit işaretli bir tam sayıya 1y eklediğinizde 8-bit işaretli tam sayılar aralığında pozitif üst limit 127 olduğu için sonuç 128y olamaz. Bu nedenle, üst limit aşımında sonuç negatif olacak alt limit aşımında da sonuç pozitif olacaktır. Bu durum sadece toplama ve çıkarma işlemleri için diğer artimetik işlemler için de geçerlidir.
 
 Bu durum sayıların 2'li sayıs sistemindeki temsilinden ve basit 2'li sayıs sistemi aritmetiğinin bir sonucudur. Şöyle ki; 8-bit işaretli tam sayılar 2'li sayı sisteminde 8 bit ile temsil edilirler. Ancak bu 8 bit'den en soldaki 1. bit işaret bitidir. Pozitif sayılar için bu işaret bitinin değeri 0, negatif sayılar için de 1 olur. Buna göre
 
