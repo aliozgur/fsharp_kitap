@@ -1543,18 +1543,18 @@ F#'da yer alan 16 basit veri tipinden 9'u sayısal değerleri tarif etmek için 
 <img src="./img/03_03.png" width="320"/>
 
 
-Artimetik operatörler ile işlem yapılırken varsayılan olarak değer aşımları F# tarafından kontrol edilmez, bu nedenle herhangi bir hata almazsınız. Değer aşımı durumunu şöyle tanımlayabiliriz; örneğin 127y değerine sahip 8-bit işaretli bir tam sayıya 1y eklediğinizde 8-bit işaretli tam sayılar aralığında pozitif üst limit 127 olduğu için sonuç 128y olamaz. Bu nedenle, üst limit aşımında sonuç negatif olacak alt limit aşımında da sonuç pozitif olacaktır. Bu durum sadece toplama ve çıkarma işlemleri için diğer artimetik işlemler için de geçerlidir.
+Artimetik operatörler ile işlem yapılırken değer aşımı durumu F# tarafından kontrol edilmez, bu nedenle herhangi bir hata almazsınız. Değer aşımı durumunu şöyle tanımlayabiliriz; örneğin 127y değerine sahip 8-bit işaretli bir tam sayıya 1y eklediğinizde 8-bit işaretli tam sayılar aralığında pozitif üst limit 127y olduğu için sonuç 128y olamaz. Üst limit aşımında sonuç negatif olacak alt limit aşımında ise sonuç pozitif olacaktır. Değer aşımı sadece toplama ve çıkarma işlemleri için diğer artimetik işlemler için de geçerlidir.
 
-Bu durum sayıların 2'li sayıs sistemindeki temsilinden ve basit 2'li sayıs sistemi aritmetiğinin bir sonucudur. Şöyle ki; 8-bit işaretli tam sayılar 2'li sayı sisteminde 8 bit ile temsil edilirler. Ancak bu 8 bit'den en soldaki 1. bit işaret bitidir. Pozitif sayılar için bu işaret bitinin değeri 0, negatif sayılar için de 1 olur. Buna göre
+Bu durum sayıların 2'li sayı sistemindeki ifade şeklie ve 2'li sayı sistemi aritmetiğinin doğal sonucudur. Şöyle ki; 8-bit işaretli tam sayılar 2'li sayı sisteminde 8 bit ile temsil edilirler. Ancak bu 8 bit'den en soldaki 1. bit işaret bitidir. Pozitif sayılar için bu işaret bitinin değeri 0, negatif sayılar için de 1 olmalıdır. Buna göre
 
 * 127y  = 01111111, soldan ilk bit 0 
-* -127y = 10000000, soldan ilk bit 1
+* -128y = 10000000, soldan ilk bit 1
 
-Aşağıda bu sonucun nasıl oluştuğunu basit artimetik adımları olarak görebilirsiniz
+Aşağıda bu sonucun nasıl oluştuğu basit artimetik adımları şeklinde verilmektedir
 
 ```
-2'li sayı sistemi aritmetiğinde    1 + 1 = 2  -> 0 elde var 1
-10'lu sayı sistemi aritmetiğinde   1 + 9 = 10 -> 0 elde var 1
+2'li sayı sistemi aritmetiğinde    1 + 1 = 2  -> sonuç 0 elde var 1
+10'lu sayı sistemi aritmetiğinde   1 + 9 = 10 -> sonuç 0 elde var 1
 
 ## Pozitif yönde aşım
  127y = 01111111
@@ -1566,21 +1566,23 @@ Aşağıda bu sonucun nasıl oluştuğunu basit artimetik adımları olarak gör
 -128y = 10000000
 -1y   = 11111111
 + ----------------
-        01111111 -> 127
+        01111111 -> 127 
+
+En soldaki 1 + 1 = 0 elde var 1 ancak temsil 8 bit ile yapıldığı için eldeyi daha solda aktarabileceğimiz basamak kalmaz, bu nedenle elde değeri göz ardı edilir
+
 ```
 
 ```fsharp
-
 (* 03_2_03.fsx *)
 
 // 8-bit işretli tam sayı -128 ile 127 aralığında değer alabilir
 let sonuç1 = 127y + 1y // Sonuç -128y
-let sonuç2 = -128y - 1y // Sonuç 127y
+let sonuç2 = -128y + (-1y) // Sonuç 127y
 
 
 // 32 bit işaretli tam sayı -32768 ile 32767 aralığında değer alabilir
 let sonuç3 = 32767s + 1s // Sonuç -32768s
-let sonuç4 = -32768s - 1s // Sonuç 32767s
+let sonuç4 = -32768s + (-1s) // Sonuç 32767s
 
 // Çarpma işleminde aşım 
 let sonuç5 = -128y * 3y // Sonuç -128y
@@ -1601,13 +1603,13 @@ Toplama, çıkarma, çarpma, bölme, kare alma ve mod alma operatörlerine ilave
 
 > **İPUCU**
 >
->Daha gelişkin matemtiksel fonksiyonlara ihtiyacınız varsa .NET platformu için açık kaynaklı olarak geliştirilen ve F# içinden de kullanabileceğiniz [Math.NET](https://numerics.mathdotnet.com) kütüphanesine göz atabilirsiniz.
+>Daha gelişkin matemtiksel fonksiyonlara ihtiyacınız varsa .NET platformu için açık kaynaklı olarak geliştirilen ve F# ile de kullanabileceğiniz [Math.NET](https://numerics.mathdotnet.com) kütüphanesine göz atabilirsiniz.
 
 ### Tipler Arası Dönüşüm
-F# güvenli tipli (safe type) bir programlama dilidir, bunun bir sonucu olarak 
+F# güvenli tipli (safe type) bir dildir, bunun bir sonucu olarak 
 
-* Her değerin doğrudan veya tip çıkarsama ile tipinin derleme anından bilinmeli
-* Tipler arasındaki dönüşümler açık açık belirtilmeli
+* Her değerin tipi doğrudan veya tip çıkarsama ile derleme anından bilinmelidir
+* Tipler arasındaki dönüşümler açık açık belirtilmelidir
 
 Diğer bazı dillerde olduğu gibi F# derleyicisi, formel olarak bazı koşullarda yapabilecek olsa bile, derleme anında basit veri tipleri arasında otomatik dönüşüm yapmaz. Örneğin 32 bit işaretli bir tam sayıyı girdi olarak alan bir fonksiyona 8 bit işaretli bir tam sayıyı girdi olarak doğrudan göndermezsiniz.
 
@@ -1641,7 +1643,8 @@ let büyükSayı = System.Int64.MaxValue - 1L // 9223372036854775806L
 let intSayı = int büyükSayı // -2
 ```
 
-F# basit veri tipleri arasındaki dönüşüm işlemlerini sizin kodlamanızı bekler. Bu nedenle tip dönüşümü yaparken, özellikle sayısal tipler için, bölümün başında verdiğimiz tablodaki değer aralıklarını kontrol etmenizde fayda olacaktır. Bu aralıklara uygun olmayan tip dönüşümlerinde değer aşımı durumu ortaya çıkar ve F# varsayılan olarak değer aşımı için hata üretmez.  
+F# basit veri tipleri arasındaki dönüşüm işlemlerini sizin kodlamanızı bekler. Tip dönüşümü yaparken, özellikle sayısal tipler için, bölümün başındaki tabloda verilen değer aralıklarını kontrol etmelisiniz. Kaynak tip ile hedef tip aralıkları uyumlu değilse kaynak tipteki bir değer hedef tipteki geçerli aralığın dışında kalabilir. Değer uyumsuzluğu durumunda ise değer aşımı oluşur.
+
 
 > **İPUCU**
 >
