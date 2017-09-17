@@ -2199,18 +2199,20 @@ küp 2
 Yukarıdaki örneğimizde **küp** fonksyionu içinde **kare** isimli parametresiz bir fonksiyon tanımlayıp **küp** içinden bunu kullanıyoruz. Yerel bir fonksiyon olan **kare** fonksiyonunu ana fonksiyon olan **küp** dışındaki bir kod alanında kullanamayız.
 
 ### Currying
-**Currying** teriminin malesef tam olarak Türkçe bir karşılığı yok, çünkü bu terim fonksiyonel programlama dillerinin ortaya çıkmasına ve gelişmesine önemli katkıları olan ünlü matematikçi **Haskell Curry**'nin anısına ortaya atılmış bir terimdir. 
+**Currying** teriminin tam olarak Türkçe bir karşılığı yok, çünkü bu terim fonksiyonel programlama dillerinin ortaya çıkmasına ve gelişmesine önemli katkıları olan ünlü matematikçi **Haskell Curry**'nin anısına ortaya atılmış bir terimdir. 
 
-Currying denilen yöntem istisnasız tüm fonksiyonel programlama dilleri tarafından hem dil  hem de derleyici/yorumlayıcı seviyesinde uygulanan bir yöntemdir. Bu yöntemin temelinde 
+Currying denilen yöntem istisnasız tüm fonksiyonel programlama dilleri tarafından hem dil hem de derleyici/yorumlayıcı seviyesinde uygulanan bir yöntemdir. 
 
-1. Çok parametreli fonksiyonların tek parametreli ana bir fonksiyon ve iç içe geçmiş tek parametreli fonksiyonlara otomatik olarak dönüştürülmesi
-2. Fonksiyonel programlama dillerinde fonksiyonların birinci sınıf vatandaş olması nedeni ile başka fonksiyonlara girdi parametresi olarak geçilip çıktı olarak geri döndürülmesi
+Bu yöntem aşağıdaki prensipler sayesinde mümkündür 
+
+1. Çok parametreli fonksiyonlar tek parametreli ana bir fonksiyon ve iç içe geçmiş tek parametreli fonksiyonlar olarak düzenlenebilir
+2. Fonksiyonlar başka fonksiyonlara girdi parametresi olarak geçilip çıktı olarak döndürülebilir
 3. Yerel fonksiyonlar ana fonksiyonun parametrelerine erişebilir
-4. Ana fonksiyonun çıktısı tek parametre alan yerel bir fonksiyondur
+4. Ana fonksiyonun çıktısı tek parametre alan yerel bir fonksiyon olabilir
 
-olarak tanımlayabileceğimiz prensipler vardır.
 
 Şimdi gelin iki parametreli bir fonksiyonu Currying yöntemi ile nasıl ifade edebileceğimizi görelim
+
 ```fsharp
 (* 03_3_05.fsx *)
 
@@ -2227,7 +2229,7 @@ let tekDeğeriEkrandaGöster x =
     let _ikiDeğeriEkrandaGöster y =
          printfn "Değerler x=%d, y=%d" x y
     
-    // Yerel fonksiyon ana fonksiyonun çıktısı
+    // Yerel fonksiyonu ana fonksiyonun çıktısı olarak dön
     _ikiDeğeriEkrandaGöster
 
 // Test
@@ -2240,16 +2242,16 @@ let  ikiDeğeriEkrandaGöster' = tekDeğeriEkrandaGöster 1
 // 2 parametresi ile çağırırsak sonuç ikiDeğeriEkranadaGöster ile aynı olur
 ikiDeğeriEkrandaGöster' 2
 ```
-Yukarıdaki kod parçasında önce **ikiDeğeriEkranadaGöster** isimli iki parametreli normal bir fonksiyon tanımlanır. Daha sonra da normal fonksiyonun yaptığı işlemi tek parametreli fonksiyonlar ile nasıl yapılacağını gösteren **tekDeğeriEkrandaGöster** ana fonksiyonu ve **ikiDeğeriEkrandaGöster'** fonksiyon değeri tanımlanıyor.
+Yukarıdaki kod parçasında önce **ikiDeğeriEkranadaGöster** isimli iki parametreli normal bir fonksiyon tanımlanır. Daha sonra da normal fonksiyonun yaptığı işlemin tek parametreli fonksiyonlar ile nasıl yapılacağını gösteren **tekDeğeriEkrandaGöster** ana fonksiyonu ve **ikiDeğeriEkrandaGöster'** fonksiyon değeri tanımlanıyor.
 
-*  **tekDeğeriEkrandaGöster** isimli tek girdi parametreli bir fonksiyondur
-* tekDeğeriEkrandaGöster içinde **_ikiDeğeriEkrandaGöster** isimli yine tek parametre alan yerel bir fonksiyon tanımlanır
-* _ikiDeğeriEkrandaGöster yerel fonksiyonu ana fonksiyonun **x** parametresine doğrudan erişebilir. Bu nedenle asıl basma işlemini bu fonksiyona yaptırıyoruz.
+*  **tekDeğeriEkrandaGöster** tek parametreli bir fonksiyondur
+* tekDeğeriEkrandaGöster içinde **_ikiDeğeriEkrandaGöster** isimli parametreli yerel bir fonksiyon tanımlanır
+* **_ikiDeğeriEkrandaGöster** yerel fonksiyonu ana fonksiyonun **x** parametresine doğrudan erişebilir. Bu nedenle ekrana basma işlemini bu fonksiyona yaptırıyoruz.
 * Ana fonksiyonun dönüş değeri **_ikiDeğeriEkrandaGöster** fonksiyonu olarak tanımlanır
 * **ikiDeğeriEkrandaGöster'** isimli bir değer ifadesi tanımlanır. Bu değer ifadesi **tekDeğeriEkrandaGöster 1** çağırısının sonucu olan fonksiyon değerini tutar.  Dikkat ederseniz bu çağırı **tekDeğeriEkrandaGöster** yerel fonksiyonunu çalıştırmaz onu çıktı olarak döndürür
-* ikiDeğeriEkrandaGöster' fonksiyonu **2** parametresi ile tekrar çağırılır. Bu durumda yerel **tekDeğeriEkrandaGöster** fonksiyonu 2 parametresi ile çalıştırılır ve ekrana görmek istediğimiz ifade çıkar
+* **ikiDeğeriEkrandaGöster'** fonksiyonu **2** parametresi ile tekrar çağırılır. Bu durumda yerel **tekDeğeriEkrandaGöster** fonksiyonu 2 parametresi ile çalıştırılır ve ekrana görmek istediğimiz ifade çıkar
 
-Gelin şimdi bu yöntemi 3 parametreli bir fonksiyonu tek parametreli fonksiyonlar şeklide nasıl ifade edebileceğimize bakalım
+Gelin şimdi bu yöntem ile 3 parametreli bir fonksiyonu tek parametreli fonksiyonlar şeklide nasıl ifade edebileceğimizi de görelim
 
 ```fsharp
 (* 03_3_06.fsx *)
@@ -2281,6 +2283,7 @@ let çarp'' = çarp' 4
 let üçSayıyıÇarp' x y z = x * y * z
 ```
 **Curried fonksiyonların imzası**
+
 Üç sayının çarpımı örneğinde **üçSayıyıÇarp** fonksiyonun imzası FSI tarafından şu şekide ifade edilir
 
 **val üçSayıyıÇarp : x:int -> (int -> int -> int)**
@@ -2299,9 +2302,9 @@ Bu imzanın **üçSayıyıÇarp** imazasından tek farkı () ile gruplanmış 3 
 
 > **DİKKAT**
 >
->Çok parametreli fonksiyonları eksik parametre ile çağırmanız durumunda F# derleyicisi derleme anında hata vermeyez. Ancak programınız çalışma anında eksik parametreli çağıralrınız nedeni ile hata durumuna düşebilir. Bu nedenle çok parametreli fonksiyon çağırılarınızı kodlarken dikkatli olmalısınız. 
+>Çok parametreli fonksiyonları eksik parametre ile çağırmanız durumunda F# derleyicisi derleme anında hata vermez. Ancak programınız çalışma anında eksik parametreli çağrılarınız nedeni ile hata durumuna düşebilir. Bu nedenle çok parametreli fonksiyon çağrıları yaparken dikkatli olmalısınız. 
 >
-> Bu bölümde gördüğümüz üzere çok parametreli fonksiyonları eksik parametre ile çağırıldığında sonuç olarak basit bir değer değil bir fonksiyon değeri döndürülür.
+> Çok parametreli fonksiyonlar eksik parametre ile çağırıldığında sonuç olarak basit bir değer değil bir fonksiyon değeri döndürülür.
 
 ```fsharp
 (* 03_3_07.fsx *)
@@ -2318,28 +2321,34 @@ let sayılarıEkrandaGöster x y z = printfn " x = %d, y=%d, z=%d" x y z
 // Ekrana hiç birşey basılmaz
 sayılarıEkrandaGöster 2
 ```
+
 ### Fonksiyonlarda Kısmi Uygulama Yönetmi 
-F#, fonksiyonel programlama dillerin hepsinde olduğu gibi, bir fonksiyonun bazı parametrelerini sabitleyip yeni bir fonksiyon oluşturmak için **kısmi uygulama** (partial application) desteği sunar. Kısmi uygulama önceki başlıkta ele aldığımız Currying sayesinde mümkün olan bir yönetmdir. 
+F#, fonksiyonel programlama dillerinin hepsinde olduğu gibi, bir fonksiyonun bazı parametrelerini sabitleyip yeni bir fonksiyon oluşturmak için **kısmi uygulama** (partial application) desteği sunar. Kısmi uygulama önceki başlıkta ele aldığımız Currying sayesinde mümkündür. 
 
 ```fsharp
 (* 03_3_08.fsx *)
 
 let ekle x y = x + y
 
-// İmzası val birEkle : (int -> int) olur
-// int çıktı veren ve tek int girdi alan bir fonksiyon
+// İmzası 
+// val birEkle : (int -> int) olur
+// int çıktı veren ve int girdi alan bir fonksiyon
 let birEkle = ekle 1
 birEkle 42
 
 let çarp x y = x * y
-// İmzası val ikiİleÇarp : (int -> int) olur
+
+// İmzası 
+// val ikiİleÇarp : (int -> int) olur
 // int çıktı veren ve tek int girdi alan bir fonksiyon
 let ikiİleÇarp = çarp 2
+
 ikiİleÇarp 42
 ```
-Örneğimizdeki **birEkle** değeri **ekle** fonksiyonuna **1** değerinin parametre olarak geçilerek sabitlenmesi ancak ikinci parametrenin belirtlmemsi sonucunda **(int -> int)** imzalı bir fonksiyon değeri olarak tanımlanır.
 
-Kısmi uygulama ile basit tipli fonksiyon parametrelerini sabitleyebildiğimiz gibi fonksiyon tipinde parametreleri de sabitleyebilirsiniz.
+Örneğimizde, **birEkle** değeri **ekle** fonksiyonunun tek bir parametre ile çağırılması sonucunda oluşturulan bir fonksiyondur. **ekle 1** şeklindeki ifade ile iki parametreli **ekle** fonksiyonun birinci parametresini **1** değeri ile sabitleyip ikinci parametreyi boşta bırakıyoruz. Bu durumda **birEkle** fonksiyonunun imzası **(int -> int)** olur. **birEkle** int bir parametre alıp int çıktı üreten bir fonksiyondur.
+
+Kısmi uygulama ile basit tipli fonksiyon parametrelerini sabitleyebildiğimiz gibi fonksiyon tipinde parametreleri de sabitleyebiliriz.
 
 ```fsharp
 (* 03_3_09.fsx *)
@@ -2361,7 +2370,7 @@ let kareleriniAl = List.map kare
 // "kareleriniAl" [1..10] listesi parametresi ile çağırılır 
 kareleriniAl [1..10]
 ```
-Bu örneğimizde önce **kare** isimli basit bir fonksiyon tanımladık. Daha sonra da **List.map** fonksiyonun ilk parametresi olarak bu **kare** fonksiyonunu geçerek sabitledik, List.map'in beklediği ikinci parametreyi vermedik. Sonuçta **kareleriniAl** isimli girdi olarak int listesi alıp çıktı olarak da int listesi döndüren bir fonksiyon değeri oluşturduk. **kareleriniAl** fonksiyon değerini de bir listeyi girdi parametresi vererek çalıştırdık.
+Bu örneğimizde önce **kare** isimli basit bir fonksiyon tanımladık. Daha sonra da **List.map** fonksiyonun ilk parametresi olarak bu **kare** fonksiyonunu geçerek sabitledik, List.map'in beklediği ikinci parametreyi vermedik. Sonuçta **kareleriniAl** isimli girdi olarak int listesi alıp çıktı olarak da int listesi döndüren bir fonksiyon değeri oluşturduk. **kareleriniAl** fonksiyonunu [1..10] listesini parametre olarak kullanarak çalıştırdık.
 
 **Kısmi Uygulama Uyumlu Fonksiyon Tasarımı**
 

@@ -13,7 +13,7 @@ let tekDeğeriEkrandaGöster x =
     let _ikiDeğeriEkrandaGöster y =
          printfn "Değerler x=%d, y=%d" x y
     
-    // Yerel fonksiyon ana fonksiyonun çıktısı
+    // Yerel fonksiyonu ana fonksiyonun çıktısı olarak dön
     _ikiDeğeriEkrandaGöster
 
 // Test
