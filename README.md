@@ -113,7 +113,7 @@ let çÇşŞğĞüÜöÖİı = "Türkçe'ye özel karakterler"
 // liste elemanlarını da ; ile ayrırırıs
 let pozitifSayılar = [1;2;3;4;5]        
 
-// :: operatörü varolan listenin başına 0 değerini ekleyerek yeni bir liste oluşturur
+// :: operatörü var olan listenin başına 0 değerini ekleyerek yeni bir liste oluşturur
 // doğalSayılar listesi [0;1;2;3;4;5] şeklinde olacaktır
 let doğalSayılar = 0 :: pozitifSayılar
 
@@ -2322,7 +2322,7 @@ let sayılarıEkrandaGöster x y z = printfn " x = %d, y=%d, z=%d" x y z
 sayılarıEkrandaGöster 2
 ```
 
-### Fonksiyonlarda Kısmi Uygulama Yönetmi 
+### Fonksiyonlarda Kısmi Uygulama Yöntemi 
 F#, fonksiyonel programlama dillerinin hepsinde olduğu gibi, bir fonksiyonun bazı parametrelerini sabitleyip yeni bir fonksiyon oluşturmak için **kısmi uygulama** (partial application) desteği sunar. Kısmi uygulama önceki başlıkta ele aldığımız Currying sayesinde mümkündür. 
 
 ```fsharp
@@ -2374,26 +2374,26 @@ Bu örneğimizde önce **kare** isimli basit bir fonksiyon tanımladık. Daha so
 
 **Kısmi Uygulama Uyumlu Fonksiyon Tasarımı**
 
-Kısmi uygulama yönteminin alameti farikası bazı girdi parametrelerinin değerlerinin sabtilenmesi geri kalanının ise hiç belirtilmemesidir. Kısmı uygulama ile varolan fonksiyonlarımızdan daha özelleşmiş yeni fonksiyonlar oluştururuz. 
+Kısmi uygulama yönteminin alameti farikası bazı girdi parametrelerinin değerlerinin sabitlenmesi geri kalanının ise hiç belirtilmemesidir. Kısmi uygulama ile var olan fonksiyonlardan daha özelleşmiş yeni fonksiyonlar oluşturulabilir. 
 
-Esnek kullanımı hedefleyen fonksiyonlar kodlarken aşağıdaki iki soruya odaklanıp kodumuzu bu soruları cevaplayacak şekilde yazmalıyız. Şöyle ki;
+Esnek kullanımı hedefleyen fonksiyonlar kodlarken aşağıdaki iki soruya odaklanıp kodumuzu bu soruları cevaplayacak şekilde yazmalıyız.
 
-1. Bu fonksiyonun kendi başına yaptığı çok önemli iş nedir
-2. Bu fonksiyonun bu çok önemli işi yapması için dışarıdan hangi veri ve fonksiyonlara ihtiyaç duyar
+1. Fonksiyonun kendi başına yaptığı çok önemli iş nedir
+2. Fonksiyon, bu çok önemli işi yapması için dışarıdan hangi veri ve fonksiyonlara ihtiyaç duyar
 
-Örneğin F# standard kütüphanesindeki **List** modülünü bir fonksiyonu olan **.map** fonksiyonu için bu iki sorunun cevabını şöyle verebiliriz
+Örneğin F# standard kütüphanesindeki **List** modülünü bir fonksiyonu olan **map** fonksiyonu için bu iki sorunun cevabını şöyle verebiliriz
 
-1. Kendi başına yaptığı önemli iş bir liste üzerinde her bir elemanı sırasıyla ziyaret ederek bu elemanları parametre olarak alan bir fonksiyon çalıştırmaktır
+1. Fonksiyonun yaptığı önemli iş bir liste üzerinde her bir elemanı sırasıyla ziyaret ederek bir fonksiyon çalıştırmaktır
 2. Bu önemli işi yaparken de üzerinde döneceği bir liste ve bu liste üzerinde dönerken çalıştıracağı bir fonksiyona ihtiyaç duyar
 
-Fonksiyonunuzun esnekliğini sağlayan kısım 2. sorunun cevabının sonucu olarak tanımlayacağınız girdi parametreleridir. Bu parametrelerinin ne olduğu kadar sıralaması da önemlidir, çünkü kısmi uygulama yönteminde sabitlenen parametreler fonksiyonunuzun soldan sağa ilk parametreleridir geveşek bırakılan parametreler ise fonksiyonun son parametreleridir. Pekiyi bu kısıtlama çerçevesinde hangi parametrelerin başta hangilerinin sonda geleceğini neye göre belirleyeceksiniz? 
+Fonksiyonun girdi parametrelerinin ne olduğu kadar sıralaması da önemlidir, çünkü kısmi uygulama yönteminde sabitlenen parametreler fonksiyonun soldan sağa ilk parametreleridir geveşek bırakılan parametreler ise fonksiyonun son parametresidir. Bu kısıtlama çerçevesinde hangi parametrelerin başta hangisinin sonda geleceğini neye göre ve nasıl belirlenir? 
 
 * Static parametreler, yani değeri değişmeyen parametreler başta
 * Özelleşmiş veri tipleri veya liste gibi birden çok eleman barındıran dinamik tipli parametreler de bunlardan sonra 
 
-gelecek şekilde fonksiyon tanımı yapılmalıdır. Bu iki kuralı aklınızda tutamazsanız kısa yol olarak şöyle basit bir yaklaşım uygulayabilrisiniz; |> (ileri aktarım) operatörünün solunda olmasını istediğiniz fonksiyon parametreleri her zaman fonksiyon tanımınızda son parametre olarak yer almalıdır.
+gelecek şekilde fonksiyon tanımı yapılmalıdır. Bu iki kuralı aklınızda tutamazsanız kısa yol olarak şöyle basit bir yaklaşım uygulayabilrisiniz; **|>** (ileri aktarım) operatörünün solunda olması istenen parametreler her zaman fonksiyon tanımında son parametre olarak yer almalıdır.
 
-Gelin şimdi **List.map** fonksiyonun tanımına ve bu fonksiyonun kısmi uygulama uyumlu olduğunu gösteren kod örneklerimize bakalım
+Gelin şimdi **List.map** fonksiyonunun tanımına ve bu fonksiyonun kısmi uygulama uyumlu olduğunu gösteren kod örneklerimize bakalım
 
 ```fsharp
 (* 03_3_10.fsx *)
@@ -2438,21 +2438,23 @@ liste |> hepsininKüpünüAl
 Şimdi gelin kendi geliştireceğimiz iki adet **map** fonksiyonu ile kısmi uygulama uyumluluğunun neden önemli olduğunu inceleyelim. 
 
 ```fsharp
+(* 03_3_11.fsx *)
+
 let küp x = x * x * x
 let liste = [1..10]
 
 //------ KISMİ UYGULAMA UYUMLU OLMAYAN YAKLAŞIM ------//
 // Paremetreleri kısmi uygulama için uygun sıralanmamış
 // map' fonksiyonu tanımı
-// İlk parametre int değerler tutan liste
+// İlk parametre bir liste
 // Son parametre bir fonksiyon
-let map'  (liste : 'a list) (f:'a->'b) : 'b list =    
+let map' liste f =    
     let sonuç = seq{for x in liste -> (f x)}
     sonuç |> List.ofSeq
 
 
 // map' fonksiyonunu kullanarak bir listenin tüm değerlerinin
-// küpünü alacak şekilde yeni bir fonksiyonu aşağıdaki gibi türetemiyoruz
+// küpünü alacak yeni bir fonksiyonu aşağıdaki gibi türetemiyoruz
 // let hepsininKüpünüAl = map' küp
 
 // map' fonksiyonun kullanarak ancak aşağıdaki gibi bir
@@ -2467,8 +2469,8 @@ liste |> hepsininKüpünüAl
 // Paremetreleri kısmi uygulama için uygun sıralanmış
 // map'' fonksiyonu tanımı. 
 // İlk parametre bir fonksiyon
-// Son parametre int değerler tutan liste
-let map''  (f:'a->'b) (liste : 'a list)  : 'b list =    
+// Son parametre bir liste
+let map'' f liste =    
     let sonuç = seq{for x in liste -> (f x)}
     sonuç |> List.ofSeq
 
@@ -2480,11 +2482,6 @@ let hepsininKüpünüAl' = map'' küp
 hepsininKüpünüAl' liste
 liste |> hepsininKüpünüAl'
 ```
-
-> **İPUCU**
->
->Kısmi uygulama F# ile kodlama yaparken çok farklı senaryolar için daha şık ve esnek kod yazmanızı sağlar. Özellikle F# ile kütüphaneler geliştiriyorsanız, kütüphane fonksiyonlarınızın loglama gibi genel geçer işlemler için mantıklı varsayılan yöntemler ile hazır sunmanız oldukça basitleşmektedir. Bununla birlikte alana özgü diller (domain specific languages) geliştiriyorsanız kısmi uygulama yöntemi vazgeçemeyeceğiniz bir araç olacaktır.
-
 
 ### Öz Yinelemeli Fonksiyonlar
 
