@@ -1648,7 +1648,7 @@ F# basit veri tipleri arasındaki dönüşüm işlemlerini sizin kodlamanızı b
 
 Aşağıdaki tabloda basit tipler arasındaki dönüşümler için kullanılan fonksiyonlara yer verilmiştir
 
-<img src="./img/03_04_01.png" width="480"/>
+<img src="./img/03_04_01.png"/>
 
 ```fsharp
 (* *3_2_4a.fsx *)
@@ -1899,9 +1899,9 @@ let metin = @"Yazar \ Ali Özgür. Kontrol karakterleri \r \n \t \\"
 
 
 ## 3.3 Fonksiyonlar
-Fonksiyonlar F#'in temelini olan dil yapılarıdır. Fonksiyonların bir adı, girdi parametreleri, gövdesi ve çıktısı vardır. F#'da fonksiyonlar fonksiyonel programlamaya özgü olan değer olarak kullanma, isimsiz fonksiyonlar oluşturma, girdi değerlerinin kısmi  uygulanması ve fonksiyon kompozisyonu gibi işlemleri de destekler.
+Fonksiyonlar F#'in temelini oluşturan yapılarıdır. Fonksiyonların bir adı, girdi parametreleri, gövdesi ve çıktısı vardır. F#, fonksiyonların değer olarak kullanılabilmesi, isimsiz fonksiyonlar, fonksiyon girdi değerlerinin kısmi uygulanması ve fonksiyon kompozisyonu gibi fonksiyonel programlamanın özünü oluşturan işlemleri destekler.
 
-F#'da fonksiyon tanımları da basit değer ifadeleri gibi "let" anahtar sözcüğü kullanılarak aşağıdaki formata uygun yapılır
+F#'da fonksiyon tanımı basit değer ifadelerinde olduğu gibi "let" anahtar sözcüğü kullanılarak aşağıdaki formata uygun olarak yapılır
 
 ```fsharp
 let <fonksiyon adı> <girdi1> <girdi2> ... <girdi N> = 
@@ -1911,17 +1911,26 @@ let <fonksiyon adı> <girdi1> <girdi2> ... <girdi N> =
 let topla x y = 
     x + y 
 ```  
-Yukarıdaki fonksiyon tanımında fonksiyonun girdi parametrelerinin ve çıktısının tipini tanımlamadık çünkü F# **tip çıkarsama** mekanizması sayesinde bu tipleri otomatik olarak çıkarsayabilir. Ancak tipleri kullanmak istenirse fonksiyon tanımlama formatı aşağıdaki şekilde yapılmalıdır.
+
+Örneğimizde
+* topla  : fonksiyonun adı
+* x ve y : fonksiyonun girdi parametreleri
+* x + y  : fonksiyonun kodu yani gövdesi
+* x + y  ifadesinin sonucu : fonksiyonun çıktısı
+
+Fonksiyon tanımı yapılırken girdi parametrelerinin ve çıktının tipinin tanımlanmasına genel olarak gerek duyulmaz, çünkü F# **tip çıkarsama** mekanizması sayesinde bu tipleri otomatik olarak çıkarsayabilir. Ancak, tipler kullanılmak istenirse fonksiyon tanımı aşağıdaki formata uygun olmalıdır.
 
 ```fsharp
-let <fonksiyon adı> (<girdi1:tip>) (<girdi2:tip>) ... (<girdi N:tip>) : <çıktı tipi> = 
+let <fonksiyon adı> (<girdi1:tip>) ... (<girdi N:tip>) : <çıktı tipi> = 
     <fonksiyon gövdesi/kodu>
 
 // Örnek fonksiyon tanımı
 let topla (x:int) (y:int) : string =
     sprintf "x + y = %d" (x+y)
 ```
-Her iki yaklaşım da aynı anda tek bir fonksiyon tanımı için kullanılabilir. Örneğin girdi parametrelerinden sadece birkaçının tipi tanımlanabilir veya girdi parametre tipleri tanımlanmaz sadece çıktı değerinin tipi tanımlanabilir.
+
+Fonksiyon tanımı yapılırken tiplerin kullanımı opsiyoneldir. Örneğin girdi parametrelerinden sadece birkaçının tipi tanımlanabilir veya girdi parametre tipleri tanımlanmadan sadece çıktının tipi tanımlanabilir.
+
 
 ```fsharp
 let topla (x:int) y : string =
@@ -1931,7 +1940,7 @@ let topla' x y : string =
     sprintf "x + y = %d" (x+y)
 ```
 
-F#'da bir fonksiyonun çıktısını çağıran kod bloğuna döndürmek için diğer bazı dillerde olduğu gibi **return** benzeri bir anahtar kelime kullanımına ihtiyaç duyulmaz. Fonksiyonların çıktısı her zaman fonksiyon gövdesindeki son değer ifadesinin değeridir.
+F#'da bir fonksiyonun çıktısını döndürmek için diğer bazı dillerde olduğu gibi **return** benzeri bir anahtar kelime kullanımına ihtiyaç duyulmaz. Fonksiyonların çıktısı her zaman fonksiyon gövdesindeki son ifadenin değeridir.
 
 ```fsharp
 let toplaVeÜçEkle x y = 
@@ -1939,7 +1948,7 @@ let toplaVeÜçEkle x y =
     x + y + yerel_değer // Fonksiyon çıktısı, fonksiyon gövdesindeki son ifade
 ```
 
-Pekiyi fonksiyonların çıktısı her zaman fonksiyon gövdesindeki son ifade ise herhangi bir çıktısı olmayan ve sadece yan etkisi için tasarladığımız fonksiyonların çıktısı ve çıktı tipi ne olcaktır? Bunun için F#'da **unit** adı verilen özel bir tip kullanılır. Bu tipi C,C++,C# ve Java gibi dillerdeki **void** tipi ile aynı olduğunu düşünebilirsiniz.
+Fonksiyonların çıktısı her zaman gövdesindeki son ifade ise çıktısı olmayan ve sadece yan etkisi için tasarladığımız fonksiyonların çıktısı ve çıktı tipi ne olur? Bu tür durumlarda **unit** adı verilen özel bir tip kullanılır. Bu tip C,C++,C# ve Java gibi dillerdeki **void** tipine çok benzer.
 
 **unit** tipinden bir değer ifade etmek için boş çift parantez (**()**) kullanılır.
 
@@ -1949,15 +1958,33 @@ let toplaVeSadeceBas x y =
     printfn " İşlem sonucu x + y = %d" toplam
     ()
 ```
-Yukarıdaki fonksiyon gövdesinde son ifade **()** olduğu için fonksiyonun çıktısı unit tipinden olacaktır. Aslında **()** ifadesini kaldırsak bile **printfn** ifadesi de unit tipinden bir değer döndürdüğü için dolaylı olarak fonksiyonumuzun dönüş tipi de unit olacaktır.
+Yukarıdaki fonksiyon gövdesinde son ifade **()** olduğu için fonksiyonun çıktısı unit tipinden olacaktır. Aslında **()** ifadesi kaldırıldığında  **printfn** ifadesi de unit tipinden bir değer döndürdüğü için dolaylı olarak toplaVeSadeceBas fonksiyonunun dönüş tipi de unit olur.
 
-Fonksiyon gövdenizdeki son ifade her zaman unit döndürmeyebilir veya fonksiyon gövdenizi unit döndürmek istediğiniz için her zaman **()** değerini kullanmak istemeyebilirsiniz. Bu gibi durumlarda F# standard kütüphanesi içinde gelen **ignore** fonksiyonunu kullanabilirsiniz.
+Fonksiyon gövdesindeki son ifadenin dönüş değerini kullanmadan fonksiyonun **unit** dönmesini sağlamak için F# standard kütüphanesi ile gelen **ignore** fonksiyonunu kullanılır.
 
 ```fsharp
+
+// ignore normal fonksiyon olarak kullanımı
 let topla x y = 
+    ignore (x+y)
+
+// ignore |> operatörü ile kullanımı
+let topla' x y = 
     x + y |> ignore
+
+// Alternatif yazım
+let topla'' x y =
+    let m = x + y
+    ()
+    
+// Hatalı yazım
+let topla''' x y =
+    x + y
+    ()
+
 ```
-Yukarıdaki örnekte **x + y** ifadesi hesaplanmasına ve int tipinde çıktı vermesine rağmen sonuç **|>** operatörü ile **ignore** fonksiyonuna aktarılır. Bu durumda fonksiyon gövdenizdeki son ifade **ignore** fonksiyonu çağırısı olur ve bu fonksiyon her zaman **unit** döndürecektir.
+Örneğimizde **x + y** ifadesi hesaplanmasına ve int tipinde çıktı vermesine rağmen sonuç **|>** operatörü ile **ignore** fonksiyonuna aktarılır. Bu durumda fonksiyon gövdenizdeki son ifade **ignore** fonksiyonu çağırısıdır ve dönüş değeri **unit** tipindendir.
+
 
 ### Fonksiyonların İmzası
 Bir fonksiyonun imzası fonksiyonun girdi parametrelerinin ve çıktısının tiplerini tanımlamak için kullanılır. F#'da **->** simgesi fonksiyonları matematiksel açıdan ele aldığımız bölümde tanımını yaptığımız **Tanım Kümesi**'nden **Değer Kümesi**'ne olan dönüşümü simgelemek için kullanılır. F# derleyicisinin veya etkileşimli yorumlayıcısını (FSI) çıktılarında fonksiyon imzaları aşağıdaki formata uygun olarak gösterilir. 
