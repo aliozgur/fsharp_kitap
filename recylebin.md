@@ -125,3 +125,23 @@ Yukarıdaki şekilde **f** fonksiyonu örten fonksiyondur çünkü Y değer küm
 | **<=**  | Küçük eşittir| 2 <= 2 | true |
 | **<**  | Küçüktür | 2 < 2 | false |
 | **compare**| Karşılaştır | compare 1 2 | -1| 
+
+## Basit tip dönüşümü fonksiyonları
+
+| Operatör	| Açıklama |
+|-----------|----------|
+|byte|	8-bit işaretsiz byte'a dönüştür.|
+|sbyte	| 8-bit işaretli byte'a dönüştür.|
+|int16	|16-bit işaretli tam sayıya dönüştür.|
+|uint16	|16-bit işaretsiz tam sayıya dönüştür.|
+|int32, int|32-bit işaretli tam sayıya dönüştür.|
+|uint32	|32-bit işaretsiz tam sayıya dönüştür.|
+|int64	|64-bit işaretli tam sayıya dönüştür.|
+|uint64	|64-bit işaretsiz tam sayıya dönüştür.|
+|nativeint|	Platform için tanımlı işaretli tam sayı tipine dönüştür.|
+|unativeint	| Platform için tanımlı işaretsiz tam sayı tipine dönüştür.|
+|float, double| 64-bit IEEE standardına uygun ondalık sayıya dönüştür.|
+|float32, single|32-bit IEEE standardına uygun ondalık sayıya dönüştür.|
+|decimal| System.Decimal tipine dönüştür.|
+|char| System.Char tipinden Unicode karaktere dönüştür.|
+|enum| Numaralı liste'ye dönüştür |

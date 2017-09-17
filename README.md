@@ -1643,21 +1643,127 @@ let büyükSayı = System.Int64.MaxValue - 1L // 9223372036854775806L
 let intSayı = int büyükSayı // -2
 ```
 
+
 F# basit veri tipleri arasındaki dönüşüm işlemlerini sizin kodlamanızı bekler. Tip dönüşümü yaparken, özellikle sayısal tipler için, bölümün başındaki tabloda verilen değer aralıklarını kontrol etmelisiniz. Kaynak tip ile hedef tip aralıkları uyumlu değilse kaynak tipteki bir değer hedef tipteki geçerli aralığın dışında kalabilir. Değer uyumsuzluğu durumunda ise değer aşımı oluşur.
 
+Aşağıdaki tabloda basit tipler arasındaki dönüşümler için kullanılan fonksiyonlara yer verilmiştir
+
+<img src="./img/03_04_01.png" width="480"/>
+
+```fsharp
+(* *3_2_4a.fsx *)
+
+// işaretsiz byte
+let sayı1= 42y
+
+//işaretli byte
+let sayı2 = byte sayı1
+
+// 16-bit işaretli tam sayı
+let sayı3 = int16 sayı1
+
+// 16-bit işaretsiz tam sayı
+let sayı4 = uint16 sayı1
+
+// 32-bit işaretli tam sayı
+let sayı5 = int sayı1
+
+// 32-bit işaretli ondalık sayı
+let sayı6 = float32 sayı1
+
+// 64-bit işaretsiz ondalık sayı
+let sayı7 = float sayı1
+
+// Karakter sayısal koddan karakter elde etme
+let char1 = char sayı1
+```
 
 > **İPUCU**
 >
 >Değer aşımlarının F# tarafından kontrol edilmesini ve aşım durumunda hata üretilmesini istiyorsanız F# standard kütüphanesinde yer alan **Checked** modülünü kullanmalısınız. Bu modülü kullanmak için kaynak kodu dosyanızın başında **open Checked** ifadesini yazmanız yeterlidir. Bu satırdan sonraki kod satırlarınız için F# **Checked** modülü içindeki artimetik operatör tip dönüşüm fonksiyonlarını kullanacaktır
 
+```fsharp
+(* 03_2_4b.fsx *)
+
+open System
+
+// İşaretsiz 16-bit tam sayı maksimum değeri 65,535
+let işaretsiz_16_bit = UInt16.MaxValue
+
+// İşaretli 16-bit tam sayıya dönüştürelim
+// Değer aşımı nedeni ile sonuç -1s olacaktır.
+// Çünkü, işaretsi 65,535 değeri işaretli tam sayı aralığı dışında
+let işaretli_16_bit = int16 işaretsiz_16_bit
+
+// Değer aşımlarında hata üretilmesi için Checked modülüne referans veriyoruz
+open Checked
+
+// Hata üretilir çünkü işaretsiz 65,535 değeri işaretli değer aralığının dışında
+let işaretli_16_bit_checked = int16 işaretsiz_16_bit
+```
+
 ### Karşılaştırma ve Eşitlik
-Sayısal değerleri eşittir, eşit değildir, büyüktür, küçüktür, büyük eşittir ve küçük eşittir operatörleri ve **compare** standard kütüphane fonksiyonu ile karşılaştırabilirsiniz. Karşılaştırma operatörlerinin işlem sonucu her zaman **true** veya **false** mantıksal değerine eşittir, **compare** fonksiyonun dönüş değeri ise eşitlik durumunda 0, ilk girdi parametresi ikinciden küçük ise -1, ilk girdi parametresi ikinciden büyük ise 1 olur.
+Sayısal değerleri eşittir, eşit değildir, büyüktür, büyük eşittir,küçüktür ve küçük eşittir operatörleri ve **compare** standard kütüphane fonksiyonu ile karşılaştırabilirsiniz. Karşılaştırma operatörlerinin işlem sonucu her zaman **true** veya **false** mantıksal değerine eşittir. **compare** fonksiyonun dönüş değeri eşitlik durumunda 0, ilk girdi parametresi ikinciden küçük ise -1, ilk girdi parametresi ikinciden büyük ise 1 olur.
 
 <img src="./img/03_07.png" width = "420" />
+
+```fsharp
+(* 03_2_4c.fsx *)
+
+// Operatörler ile karşılaştırma
+let kırkİkiİleKarşılaştır x = 
+    if x > 42 then 
+        printfn " %d > 42" x
+    else if x < 42 then
+        printfn " %d < 42" x 
+    else 
+        printfn " %d = 42" x 
+    
+    
+// compare fonksiyonu ile karşılaştırma
+let kırkİkiİleKarşılaştır' x = 
+    let sonuç = compare x 42
+
+    if sonuç = 0 then
+        printfn " %d = 42" x
+    else if sonuç = 1 then
+        printfn " %d > 42" x
+    else
+        printfn " %d < 42" x
+
+kırkİkiİleKarşılaştır 43
+kırkİkiİleKarşılaştır 41
+kırkİkiİleKarşılaştır 42
+
+kırkİkiİleKarşılaştır' 43
+kırkİkiİleKarşılaştır' 41
+kırkİkiİleKarşılaştır' 42
+```
 
 ### Bit Manipülasyonu
 
 <img src="./img/03_05.png" width="420">
+
+```fsharp
+(* 03_2_4d.fsx *)
+
+// VE
+let sonuç1 = 0b1111 &&& 0b0011
+
+// VEYA
+let sonuç2 = 0xFF00 ||| 0xFFFF
+
+// XOR
+let sonuç3 = 0b0011 ^^^ 0b0101
+
+// SOLA KAYDIR
+let sonuç4 = 0b0001 <<< 3
+
+
+// SAĞA KAYDIR
+let sonuç5 = 0b1000 >>> 3
+
+```
 
 ### Mantıksal/Lojik Değerler
 F#'da mantıksal 1 ve 0 değerlerini tanımlamak için **bool** tipi kullanılır. Bool tipi **true** veya **false** şeklinde 1 bitlik iki değerden birini alabilir. Mantıksal **bool** tipindeki değerler ile VE, VEYA ve DEĞİL operatörleri kullanılarak **Bool Cebri** işlemleri yapılabilir.
@@ -1665,16 +1771,39 @@ F#'da mantıksal 1 ve 0 değerlerini tanımlamak için **bool** tipi kullanılı
 
 <img src="./img/03_06.png" width="420"/>
 
+```fsharp
+(* 03_2_4e.fsx *)
+
+// VE
+let ikisiDeKırkİkidenBüyük x y = (x > 42) && (y > 42)
+
+// VEYA
+let enAzBiriKırkİkidenBüyük x y = (x > 42) || (y > 42)
+
+// DEĞİL
+let ikisiDeKırkikidenBüyükDeğil x y = 
+    not ( (x > 42) && (y > 42) )
+
+ikisiDeKırkİkidenBüyük 43 44
+ikisiDeKırkİkidenBüyük 42 43
+
+enAzBiriKırkİkidenBüyük 40 43
+enAzBiriKırkİkidenBüyük 40 41
+
+ikisiDeKırkikidenBüyükDeğil 40 41
+ikisiDeKırkikidenBüyükDeğil 43 44
+```
+
 > **POLEMİK**
 >
 >Bir teoriye göre evrendeki tüm karmaşık sistemler sadece lojik VE, VEYA ve DEĞİL basit devreleri kombine edilerek oluşturulabilir.
 
 ### Karakterler
-F# karakter veri tipi desteği için .NET'in sağladığı imkanları kullanır. Karakterlerin tipi **char** olarak tanımlanır veya çıkarsanır. .NET'de karakterler 2 byte'lık unicode değerler olarak UTF-16 adı verilen formatta ifade edilir. Karakter değeri tanımlamak için basılabilir herhangi bir karakter tek tırnak çifti (**' '**) arasına yazmanız yeterli olur. Bu kullanıma ilave olarak tek tırnak çifti içine yazmak istediğiniz karakterin unicode kodunu da yazabilirsiniz.
+F# karakter veri tipi desteği için .NET'in sağladığı imkanları kullanır. Karakterlerin tipi **char** olarak tanımlanır veya çıkarsanır. .NET'de karakterler 2 byte'lık unicode değerler olarak UTF-16 formatında ifade edilir. Basılabilir herhangi bir karakter tek tırnak çifti (**' '**) içinde yazılarak karakter değeri tanımlanır. Alternatif olarak tek tırnak çifti içine yazmak istediğiniz karakterin unicode kodunu yazarak da tanımlama yapılabilir.
 
 >**İPUCU**
 >
-> Karakterlerin unicode ifadeleri ve UTF-8, UTF-16 ve UTF-32 gibi kodlama yöntemleri kitabın kapsamı dışında olduğu için ayrıntılarına girilmemiştir. Ancak isterseniz unicode karakter kodlarını https://unicode-table.com adresinden inceleyebilirsiniz.
+> Karakterlerin unicode ifadeleri ve UTF-8, UTF-16 ve UTF-32 gibi kodlama yöntemleri kitabın kapsamı dışında olduğu için bu konudaki ayrıntılara girmiyoruz. Ancak, isterseniz unicode karakter kodlarını https://unicode-table.com adresinden inceleyebilirsiniz.
 
 ```fsharp
 (* 03_2_05.fsx *)
@@ -1682,10 +1811,11 @@ F# karakter veri tipi desteği için .NET'in sağladığı imkanları kullanır.
 let üHarfi = 'ü'
 let sesliHarfler = ['a';'e';'ı';'i';'o';'ö';'u';'ü']
 
+// Unicode karakter kodları kullanımı
 let üHarfiUnicode = '\u00FC'
 let sesliHarflerUnicode = ['\u0061';'\u0065';'\u0131';'\u0069';'\u006F';'\u00F6';'\u0075';'\u00FC']
 ```
-Alfabetik karakterler ilave olarak ASCII kod tablosunda kontrol karakteri olarak tanımlanan tab, yeni satır, satır başı gibi özel karakterler ile tek tırnak ('), çıft tırnak (") ve geri bölü (\) gibi F# dilinde özel anlamı olan karakterleri başlarına geri bölü (\) karakteri koyarak kullanabilirisiniz.
+Alfabetik karakterler ilave olarak ASCII kod tablosunda kontrol karakteri olarak tanımlanan tab, yeni satır, satır başı gibi özel karakterler ile tek tırnak ('), çıft tırnak (") ve geri bölü (\) gibi F# dilinde özel anlamı olan karakterler de başlarına geri bölü (\) koyarak kullanılabilir.
 
 ```fsharp
 (* 03_2_06.fsx *)
@@ -1698,56 +1828,72 @@ let satırBaşı = '\r'
 
 printfn "tek tırnak %c, çift tırnak %c" tekTırnak çiftTırnak
 
-// 'a' karakterinin sayısal unicode değeri
+// 'a' karakterinin sayısal unicode değeri 
+// int dönüşüm fonksiyonu kullanılarak elde edilir
 let a = int 'a'
 
-// 'a' karakterinin 8 bitlik işaretsiz sayı olarak karşılığı
+// 'a' karakterinin 8 bitlik işaretsiz sayı karşılığı
+// karakter tanımının sonuna B koyarak elde edilir
 let bitmap = 'a'B
 ```
 
 >**İPUCU**
 >
-> Bir karakterin sayısal karşılığını görmek için tip dönüşüm fonksiyonları kullanılabilir. Örneğin **let a = int 'a'** ifadesi ile "a" harfinin unicode kod tablosundaki sayısal karşılığını bulunur. Benzer şekilde **let a = 'a'B** ifadesindeki gibi karakterin sonuna "B" tip tanımlayıcısını ekleyerek "a" harfinin 8 bit işaretsiz tam sayı karşılığı olan değeri bulabiliriz.
+> Bir karakterin sayısal karşılığını görmek için tip dönüşüm fonksiyonları kullanılabilir. Örneğin **let a = int 'a'** ifadesi ile "a" harfinin unicode kod tablosundaki sayısal karşılığı elde edilir. Ayrıca **let a = 'a'B** ifadesindeki gibi karakterin sonuna "B" tip tanımlayıcısını ekleyerek "a" harfinin 8 bit işaretsiz tam sayı karşılığı olan değeri bulabiliriz.
 
 
 
 ### Metinler
-F#'da metin değerlerini ifade etmek için çift tırnak çiftini (**" "**) kullanırız ve bu değerlerin tipi **string** olarak tanımlanır veya çıkarsanız. Çift tırnak çifti arasına yazılan tüm karakterler bir metin oluşturur. .NET metinler için unicode kodlamalarından UTF-16 kullandığı için F#'da da otomatik olarak bu destek yer alır. Metin değerlerinde Karakterler bölümünde bahsettiğimiz tüm alfabetik karakterleri ve kontrol karakterlerini kullanabilirsiniz.
+F#'da metin değerlerini ifade etmek için çift tırnak çiftini (**" "**) kullanırız. Metin değerlerinin tipi **string** olarak ifade edilir. Çift tırnak çifti arasına yazılan tüm karakterler bir metin oluşturur. .NET ve F#'da metinler için UTF-16 unicode kodlama yöntemini kullanılır. Metin oluşturmak için tüm alfabetik karakterler ve kontrol karakterleri kullanılabilir.
 
 ```fsharp
 (* 03_2_07 *)
 
-let metin = "F# ile fonksiyonel programlama"
-let metin' = "ali özg\u00FCr"
-let metin'' = "\'Kitap Adı\' F# ile Fonksiyonel Programlama\n \"Yazar\" Ali Özgür"
+// Çift tırnak ile metin tanımlama, unicode ve kontrol karakterleri
+
+let metin1 = "F# ile fonksiyonel programlama"
+
+let metin2 = "ali özg\u00FCr" 
+// Çıktı
+// ali özgür
+
+let metin3 = "\'Kitap Adı\' F# ile Fonksiyonel Programlama\n \"Yazar\" Ali Özgür"
+// Çıktı
+(*
+'Kitap Adı' F# ile Fonksiyonel Programlama
+ "Yazar" Ali Özgür
+*)
 ```
 
-Çift tırnak çiftine ilave olarak F#'da çift tırnak üçlüsü çifti (**""" """**) de metin değerleri tanımlamak için kullanılabilir. Bu alternatif kullanımın çift tırnak çiftine göre faydası metin değerinin içinde çift tırnak (") ve tek tırnak (') karakterlerini geri bölü ile yazmak zorunda olmamanızdır.
+Çift tırnak çiftine ilave olarak F#'da çift tırnak üçlüsü çifti (**""" """**) de metin değerleri tanımlamak için kullanılabilir. Bu alternatif kullanım sayesinde metin değerinin içindeki çift tırnak (") ve tek tırnak (') karakterleri geri bölü kullanmadan yazılabilir.
 
 ```fsharp
 (* 03_2_07 *)
 
-let metin = """ "Kitap Adı" F# ile fonksiyonel programlama, 'Yazar' Ali Özgür """
-//Çıktı  " "Kitap Adı" F# ile fonksiyonel programlama, 'Yazar' Ali Özgür " olur
+let metin4 = """ "Kitap Adı" F# ile fonksiyonel programlama, 'Yazar' Ali Özgür """
+// Çıktı
+// "Kitap Adı" F# ile fonksiyonel programlama, 'Yazar' Ali Özgür 
 ```
 
-Çok uzun metin değerlerini tek satıra yazmak yerine birden fazla satır kullanarak da tanımlayabilirsiniz.Bunun için ifadenizi normal olarak çift tırnak ikilisi veya çift tırnak üçlüleri arasına yazıp her satırın sonuna geri bölü **\\** karekterini koymalısınız. Bu durumda **\\** koyduğunuz satırdan sonra boşluk karakterleri göz ardı edilerek birden fazla satıra yayılmış olan metin değeriniz tek satırda birleştirilir.
+Çok uzun metinler tek satıra yazmak yerine birden fazla satır kullanarak da tanımlanabilir. Bu kullanım yönteminde metin normal olarak çift tırnak ikilisi veya çift tırnak üçlüleri arasına yazılır ve her satırın sonuna geri bölü **\\** karekteri konularak bir sonraki satırdan metne devam edilir. Çıktı oluşturulurken **\\** konulan satırdan sonra boşluk karakterleri göz ardı edilerek birden fazla satıra yayılmış olan metin tek satırda birleştirilir.
 
 ```fsharp
 (* 03_2_07.fsx *)
 
+// Çok satıra yayılmış metin
 let çokSatırlıMetin = " 1, \
                         2, \
                         3, "
-// Çıktı "1,2,3" olur
+// Çıktı
+// 1,2,3
 ```
 
-Diğer bir alternatif metin tanımlama yöntemi verbatim metinlerdir ve **@** simgesi kullanılarak metin değeri tanımlanır. Bunun için metnin başlangıcını ifade eden çift tırnak çiftinin önüne **@** karakteri konulur. Bu sayede geri bölü karakterlerini \ kullanmadan doğurudan metninizin içine yazabilir ve kontrol karakterlerine metninizde yer verebilirsiniz (\n yeni satır kontrol karakteri olarak olarak algılanmaz doğrudan \n olarak algılanır).
+Diğer bir alternatif metin tanımlama yöntemi **verbatim** (motomot) metinlerdir. Verbatim metin tanımlamak için metnin başlangıcını ifade eden çift tırnak çiftinin önüne **@** karakteri konulur. Verbatim kelimesinin Türkçe karşılığından da anlaşılacağı üzere verbatim metinler ile kontrol karakterlerini **\\** ile ifade etmeden birebir kullanabilirsiniz. 
 
 ```fsharp
 (* 03_2_07.fsx *)
 
-let metin = @"Yazar \ Ali Özgür. Kontrol karakterlerimiz şunlar \r \n \t \\"
+let metin = @"Yazar \ Ali Özgür. Kontrol karakterleri \r \n \t \\"
 // Çıktı "Yazar \ Ali Özgür. Kontrol karakterlerimiz şunlar \r \n \t \\" olur
 ```
 
@@ -2310,6 +2456,7 @@ liste |> hepsininKüpünüAl'
 * **concurrent** -> eş zamanlı
 * **declarative** -> bildirimsel
 * **discriminated union** -> ayrışık bilişim
+* **enumeration** -> numaralı liste
 * **evaluate** ->  değerleme
 * **evaluation order** -> değerleme sırası
 * **execute** -> çalıştırmak
@@ -2358,5 +2505,6 @@ liste |> hepsininKüpünüAl'
 * **type inference** -> tip çıkarsama
 * **unary operator** -> tek operand ile çalışan operatör
 * **value** -> değer ifadesi
+* **verbatim** -> motomot, kelimesi kelimesine, harfi harfine
 * **VM virtual machine** -> sanal ortam, sanal makine
 
