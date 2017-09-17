@@ -2003,13 +2003,15 @@ Yukarıdaki kod örneğinde ilk fonksiyon tanımını seçip Alt+ENTER kombinasy
 
 **val kare : x:float -> string** şeklinde bir çıktı alacaksınız. 
 
-Bu çıktı şu şekilde okunur; **kare** fonksiyonu **x** isimli **float** tipinden bir girdi parametresi alıp **string** tipinden bir çıktı üretir. İkinci fonksiyon tanımı için ise
+Bu çıktı şu şekilde okunur; **kare** fonksiyonu **x** isimli **float** tipinden bir girdi parametresi alıp **string** tipinden bir çıktı üretir. 
 
-**val topla : x:float -> y:float -> string** şeklinde bir çıktı üretilir. Dikkat ederseniz girdi parametre sayısının artması çok fazla bir değişikliğe neden olmadı, sadece ifadenin solunda ilave bir parametre tanımı yer alıyor.
+İkinci fonksiyon tanımı için ise
+
+**val topla : x:float -> y:float -> string** şeklinde bir çıktı üretilir. Dikkat ederseniz girdi parametre sayısının artması imzada önemli bir değişikliğe neden olmadı, ifadenin soluna sadece ilave bir parametre tanımı eklendi.
 
 >**KURAL**
 >
->Bu iki örneği genelleştirecek olursak; fonksiyon imzalarının sağındaki en son tip fonksyionun çıktısının tipini ifade eder, sağada yer alan diğer tipler ise girdi parametrelerini ifade eder.
+>Bu iki örneği genelleştirecek olursak; fonksiyon imzalarının en sağındaki tip fonksyionun çıktısının tipini gösterir, ifadenin solundaki diğer tipler ise girdi parametrelerini gösterir.
 
 Şimdi gelin biraz daha karmaşık bir fonksiyon imzası örneği olarak  **List.map**  ifadesini FSI'da çalıştırdıktan sonra ürettiği çıktıyı inceleyelim. Çıktı olarak 
 
@@ -2036,7 +2038,7 @@ Fonksiyon tipli bir değer ifadesi tanımlamak için bir önceki başlıkta ayr�
 let <değer_adı> : <tanım_kümesi> -> <değer_kümesi> = <>
 ```
 
-Aşağaıdaki örnek kod parçasında **birArttır** isimli bir fonksiyon tanımlıyoruz. Bu fonksiyonun ilk parametresi string tipinden girdi alan ve hiçbirşey (unit) döndüren bir fonksiyon (string -> unit tanımına istinaden) ikinci parametresi de x isimli int tipinden bir değer. Fonksiyonun gövdesinde toplama işlemine başlamadan önce ve toplama yapıldıktan sonra **loglayıcı** parametresi ile geçilen fonksiyon çalıştırılarak loglama işlemi yapılır. 
+Aşağıdaki örneğimizde **birArttır** isimli bir fonksiyon tanımlıyoruz. Bu fonksiyonun ilk parametresi string tipinden girdi alan ve hiçbirşey (unit) döndüren bir fonksiyon (string -> unit tanımına istinaden) ikinci parametresi de x isimli int tipinden bir değer. Fonksiyonun gövdesinde toplama ifadesinden önce ve toplama yapıldıktan sonra **loglayıcı** fonksiyonu çağırılarak loglama yapılır. 
 
 ```fsharp
 (* 03_3_02.fsx *)
@@ -2056,13 +2058,13 @@ birArttır dosyayaLogla 42
 // sonuç değeri 3 olur
 ```
 
-**birArttır** fonksiyonun **loglayıcı** fonksiyonunu parametre olarak almasındaki tasarımsal amaç fonksiyon kodunu değiştirmeden farklı loglama mekanizmalarının parametre olarak geşilebilen fonksiyonlar ile desteklenebilmesinin sağlanması. Bu amaca uygun olarak **ekranaLogla** ve **dosyayaLogla** isimli iki fonksiyon tanımlanıyor. Bu fonksiyonların imzası (aslında tipi de denilebilir) **string -> unit** şeklinde ve **birArttır** fonksiyonun ilk parametresi olarak kullanılmaya uygundur. Örnek kodda her iki loglama fonksiyonun parametrik olarak kullanımı son iki satırda grebilirsiniz.
+**birArttır** fonksiyonun **loglayıcı** fonksiyonunu parametre olarak almasındaki tasarımsal amaç fonksiyon kodunu değiştirmeden farklı loglama mekanizmalarının parametre olarak geşilebilen fonksiyonlar ile desteklenebilmesidir. Bu amaca uygun olarak **ekranaLogla** ve **dosyayaLogla** isimli iki fonksiyon tanımlanıyor. Bu fonksiyonların imzası (aslında tipi de denilebilir) **string -> unit** şeklinde olup **birArttır** fonksiyonun ilk parametresi olarak kullanılmaya uygundur.
 
 Fonksiyon tiplerinin nasıl tanımlandığını ve kullanıldığını öğrendiğimize göre standard kütüphanedeki List modülü içinde bulunan **map** fonksiyonunu kendimiz oluşturmayı deneyelim. List.map fonksiyonun imzası şöyledir
 
 **val it : (('a -> 'b) -> 'a list -> 'b list)** 
 
-Bu imzaya göre List.map fonksiyonu sonuç olarak da yeni bir liste döndürür ve ilk parametre olarak da bir fonksiyon alır. Bu imzada henüz değinmediğimiz tek konu **'a** ve **'b** şeklindeki ifadeler. Şimdilik bu ifadelerin **herhangi bir tip** veya **jenerik bir tip** anlamına geldiğini bilmeniz yeterli olacaktır. 
+Bu imzaya göre List.map fonksiyonu sonuç olarak da yeni bir liste döndürür ve ilk parametre olarak da bir fonksiyon alır. Bu imzada henüz değinmediğimiz tek konu **'a** ve **'b** şeklindeki ifadeler. Şimdilik bu ifadelerin **herhangi bir tip** veya **jenerik bir tip** anlamına geldiğini bilmeniz yeterlidir. 
 
 ```fsharp
 (* 03_3_03.fsx *)
@@ -2073,30 +2075,42 @@ let map  (f:'a->'b) (liste : 'a list) : 'b list =
 
 [1..10] |> map (fun x -> x * x)
 ```
-Yukarıdaki örnek **map** kodumuzda map fonksiyonu **'a->'b** imzasına sahip ve **f** isimli bir fonksiyonu ilk parametre olarak alır, ikinci parametre ise **liste** isimli ve tipi **'a list** ('a herhangi bir tipte değer barındıran liste). Fonksiyonumuzun çıktısı **'b list** tipinde olacaktır. Fonksiyon gövdesinde ise **liste** içindeki tüm değerler için girdi olarak verilen **f** fonksiyonunu çalıştırıp sonuçta **f** fonksiyonun çıktısının tipinde ('b) elemanlar değerler barındıran yeni bir liste döndürüyoruz.
+Yukarıdaki örneğimizde **map** fonksiyonu 
+* **'a->'b** imzasına sahip ve **f** isimli bir fonksiyonu ilk parametre olarak alır.
+* İkinci parametre **liste** isimli ve tipi **'a list** ('a herhangi bir tipte değer barındıran liste) olan bir değer
+* Çıktısı ise **'b list** tipinden bir değerdir
+
+Fonksiyonun gövdesinde **liste** içindeki tüm değerler için **f** fonksiyonu çalıştırılır ve  **f** fonksiyonunun çıktısının tipinde ('b) değerler barındıran yeni bir liste döndürülür.
 
 >**İPUCU**
 >
->Kitabımızın online Git deposundaki 03_3_03.fsx dosyası içinde map fonksiyonun öz yinelemeli fonksiyonlar kullanılarak daha fonksiyonel bir tarzda yazılmış halini inceleyebilirsiniz.
+>Kitabımızın online Git deposundaki 03_3_03.fsx dosyası içinde map fonksiyonun öz yinelemeli bir fonksiyon olarak yazılmış halini inceleyebilirsiniz.
 
 
 ### Parmetresiz Fonksiyon Tanımları
 
-F#'da hiç bir girdi parametresi almayan fonksiyonları tanımlarken çok dikkatli olmanız gerekir. Programlama dillerinin çoğunda girdi parametresi almayan bir fonksiyon tanımlarken basitçe parametrelerin olmaması yeterlidir. Ancak F#'da parametresiz fonksiyonları tanımlarken **unit** tipinden en az bir girdi parametresi belirtmeniz gerekir. Benzer şekilde parametresiz fonksiyonları **fonksiyon_adı()** formatına uygun olarak unit tipinin değeri olan boş çift parantez ile çağırmalısınız. 
+F#'da girdi parametresi almayan fonksiyonları tanımlarken çok dikkatli olmalısınız. Programlama dillerinin çoğunda girdi parametresi almayan bir fonksiyon oluştururken basitçe parametrelerin tanımlanmaması yeterlidir. Ancak, F#'da parametresiz fonksiyonlar oluşturulurken **unit** tipinden en az bir girdi parametresi tanımlanmalıdır. Parametresiz fonksiyonlar **fonksiyon_adı()** formatına uygun olarak unit tipinin değeri olan boş çift parantez ile çağırılmalıdır. 
 
-Aşağıdaki kod örneğnde **kare** ve **ikininKaresiniAl** isimli iki fonkisyon tanımlamaya çalıştığımızı düşünelim.
+Örneğimizde **kare** ve **ikininKaresiniAl** isimli iki fonkisyon tanımlandığını düşünelim.
 
 ```fsharp
 let kare x = x * x
 let ikininKaresiniAl = kare 2
 ```
-Yukarıdaki örnek kod parçasındaki iki satırı Alt+Enter ile FSI'da seçip çalıştırdığımızda aşağıdaki gibi bir çıktı göreceğiz
+
+Örnekteki iki satır Alt+Enter ile FSI'da seçip çalışçalıştırıldığında aşağıdaki gibi bir çıktı göreceksiniz
 
 **val kare : x:int -> int**
 
 **val ikininKaresiniAl : int = 4**
 
-İlk ifade açıkça bir fonksiyon imzası ve daha önce gördüğümüz formata uygun. Ancak, ikinci ifade bir fonksiyon ifadesi değil. İkinci ifade bir değerin imzasıdır. Değer imzaları formatı **val değer_ifadesi_adı : değer_tipi = değer** formatındadır. Değer ifadelerinde fonksiyonel manada tanım ve değer kümeleri arasında bir dönüşüm yapılmadığı için **->** sembolü yer almaz.
+İlk ifade fonksiyon ifade formatına uygundur. Ancak, ikinci ifade bir fonksiyon ifadesi değildir. İkinci ifade bir değerin imzasıdır. 
+
+Değer imzaları formatı 
+
+**val değer_ifadesi_adı : değer_tipi = değer** formatındadır. 
+
+Değer ifadelerinde fonksiyonel manada tanım ve değer kümeleri arasında bir dönüşüm yapılmadığı için **->** sembolü bulunmaz.
 
 Gelin şimdi hatalı olan **ikininKaresiniAl** fonksiyonunu **unit** değerini kullanarak doğru bir şekilde tanımlayalım.
 
@@ -2122,12 +2136,16 @@ Yukarıdaki çağırı sonrasında FSI aşağıdaki çıktıyı üretir
 
 **val it : (unit -> int) = <fun:it@11-6>** 
 
-Bu çıktı fonksiyon imzasına benziyor ama aynı zamanda değer ifadesi imzasını da andırıyor değil mi? Gerçekte bu ifade bir fonksiyon değerinin ifadesidir, çünkü F#'da fonksiyonlar da birer değer ifadesi olarak kullanılabilir yani dilin birinci sınıf vatandaşlarıdır. Bu ifadede **it** otomatik üretilen ve varsayılan bir değerin adını ifade eder, **(unit -> int)** ifadesi değer tipinin girdi olarak unit alan çıktı olarak da int döndüren bir fonksiyon tipi olduğunu belirtir, **<fun:it@11-6>** ifadesi ise **ikininKaresiniAl** fonksiyonun bellekteki adresini simgeleyen otomatik üretilmiş bir yer tutucu değerdir.
+Bu çıktı fonksiyon imzasına benziyor ama aynı zamanda değer ifadesi imzasını da andırıyor değil mi? Gerçekte bu ifade bir fonksiyon değerinin ifadesidir, çünkü F#'da fonksiyonlar da birer değer ifadesi olarak kullanılabilir yani dilin birinci sınıf vatandaşlarıdır. Bu ifadede 
+
+* **it** otomatik üretilen ve varsayılan bir değerin adını ifade eder
+* **(unit -> int)** ifadesi değer tipinin girdi olarak unit alan çıktı olarak da int döndüren bir fonksiyon tipi olduğunu belirtir
+* **<fun:it@11-6>** ifadesi ise **ikininKaresiniAl** fonksiyonun bellekteki adresini simgeleyen otomatik üretilmiş bir yer tutucu değerdir
 
 Gördüğünüz gibi F#'da hiç bir girdi parametresi almayan fonksiyonları hem tanımlarken hem de kullanırken çok dikkatli olmalısınız. Aksi durumda derleyicinin veya FSI'in verdiği kriptik hata mesajlarını çözümlemeye çalışarak zaman kaybedebilirsiniz. Daha da kötüsü derleyici veya FSI herhangi bir hata mesajı vermeyeceği için hatalı çalışan kod yazmış olabilirsiniz.
 
-### İsimsiz/Anonim Fonksiyonlar (Lambda ifadeleri)
-Girdi parametresi olarak başka bir fonksiyonu alabilen yüksek dereceli fonksiyonları çağırırken basit hesaplamaları için isimsiz fonksiyon ifadelerini parametre olarak kullanabilirsiniz. Bu tür isimsiz fonksiyonlara **anonomi** fonksiyonlar denir. 
+### İsimsiz/Anonim Fonksiyonlar (Lambda İfadeleri)
+Girdi parametresi olarak başka bir fonksiyonu alabilen yüksek dereceli fonksiyonları çağırırken basit hesaplamalar için isimsiz fonksiyon ifadelerini parametre olarak kullanabilirsiniz. Bu tür isimsiz fonksiyonlara **anonomi** fonksiyonlar denir. 
 
 Anonim fonksiyonlar aşağıdaki formata uygun oluşturulur
 ```fsharp
@@ -2156,9 +2174,9 @@ List modülündeki **map** fonksiyonu yüksek dereceli bir fonksiyondur çünkü
 ## 3.4 Fonksiyonların İleri Seviye Kullanımı
 
 ### Fonksiyon İçinde Fonksiyon Tanımı 
-F# fonksiyonlarınızın içinde yerel fonksiyonlar tanımlamanıza izin verir. Bu tür fonksiyon tanımlarına **iç içe fonksiyon** (nested function) denir. İç içe tanımlanan fonksiyonlar doğrudan kabuk fonksiyonun girdi parametrelerine ve kabuk fonksiyon içinde tanımlı yerel değer ifadelerine erişebilirler. 
+F#, fonksiyonlarınızın içinde yerel fonksiyonlar tanımlamanıza izin verir. Bu tür fonksiyon tanımlarına **iç içe fonksiyon** (nested function) denir. İç içe tanımlanan fonksiyonlar doğrudan kabuk fonksiyonun girdi parametrelerine ve kabuk fonksiyon içinde tanımlı yerel değer ifadelerine erişebilirler. 
 
-Bir fonksiyon içinde tekrar eden ve sadece o fonksiyona özgü kodu fonksiyon içinde yerel bir fonksiyon tanımlayarak farklı noktalardan çağırabilirsiniz. F# dil seviyesinde bize sunduğu bu imkanı aslında arka planda derleyici seviyesinde kendisi de otomatik olarak kullanır. Şöyle ki; F#'da derleyici seviyesinde tüm fonksiyonlar tek parametreli fonksiyonlar olarak yeniden düzenlenir, bu durumda bizim kodumuzun içinden tanımladığımız birden fazla parametreli fonksiyonlar derleyici tarafından tek parametreli kabuk bir fonksiyon ve bunun içinde yer alan birden fazla yerel fonksiyon olarak yeniden organize edilip o şekilde derlenir. Bu reorganizasyon yeteneği mümkün kılan ise iç fonksiyonun kabuk fonksiyonun tüm parametre ve yerel değerlerine erişebiliyor olmasıdır.
+Bir fonksiyon içinde tekrar eden ve sadece o fonksiyona özgü kodu yerel bir fonksiyon tanımlayarak farklı yerlerde çağırabilirsiniz. F# dil seviyesinde bize sunduğu bu imkanı aslında arka planda derleyici seviyesinde kendisi de otomatik olarak kullanır. Şöyle ki; F#'da derleyici seviyesinde tüm fonksiyonlar tek parametreli fonksiyonlar olarak yeniden düzenlenir. Tanımladığımız birden fazla parametreli fonksiyonlar derleyici tarafından tek parametreli kabuk bir fonksiyon ve bunun içinde yer alan birden fazla yerel fonksiyon olarak yeniden organize edilip o şekilde derlenir. Bu reorganizasyon yeteneğini mümkün kılan ise iç fonksiyonların kabuk fonksiyonun tüm parametre ve yerel değerlerine erişebiliyor olmasıdır.
 
 ```fsharp
 (* 03_3_04.fsx *)
@@ -2166,19 +2184,19 @@ Bir fonksiyon içinde tekrar eden ve sadece o fonksiyona özgü kodu fonksiyon i
 // küp fonksiyonu ana fonksiyonumuz
 let küp x = 
     // küp içinde kare isimli yerel bir fonksiyon tanımlıyoruz
-    let kare x = 
+    let kare() = 
         printfn "Yerel fonksiyon : Kare hesaplanıyor"
         x * x
     printfn "Ana fonksiyon : Küp hesaplanıyor"
     // yerel küp fonksiyonunu ana fonksiyon içinden çağırıyoruz
-    x * (kare x)
+    kare() * x
 
 küp 2
 
 //Hatalı kullanım, kare fonksiyonu küp içindeki yerel bir fonksiyon
-//kare 2
+//kare()
 ```
-Yukarıdaki örneğimizde **küp** fonksyionu içinde **kare** isimli bir fonksiyon tanımlayıp **küp** içinden bunu kullanıyoruz. Yerel bir fonksiyon olan **kare** fonksiyonunu ana fonksiyon olan **küp** dışındaki bir kod alanında kullanamayız.
+Yukarıdaki örneğimizde **küp** fonksyionu içinde **kare** isimli parametresiz bir fonksiyon tanımlayıp **küp** içinden bunu kullanıyoruz. Yerel bir fonksiyon olan **kare** fonksiyonunu ana fonksiyon olan **küp** dışındaki bir kod alanında kullanamayız.
 
 ### Currying
 **Currying** teriminin malesef tam olarak Türkçe bir karşılığı yok, çünkü bu terim fonksiyonel programlama dillerinin ortaya çıkmasına ve gelişmesine önemli katkıları olan ünlü matematikçi **Haskell Curry**'nin anısına ortaya atılmış bir terimdir. 
