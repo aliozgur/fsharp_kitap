@@ -19,17 +19,17 @@ fibonacci 4
 
 // Faktöriyel Hesaplama
 // n! = n * (n-1) * (n-2) * .... * 1
-let rec factorial n = 
+let rec faktöriyel n = 
     if n < 1 then
         1
     else 
-        n * factorial(n-1)
+        n * faktöriyel(n-1)
 
 // TEST : 6'nın faktöriyeli
-factorial 6
+faktöriyel 6
  
 // TEST : 1 ile 10 arasındaki sayıların faktöriyeli
-[1..10] |> List.iter ( fun x -> printfn "%d! = %d" x ( factorial x))
+[1..10] |> List.iter ( fun x -> printfn "%d! = %d" x ( faktöriyel x))
 
 (*
 // Sonlanma koşulu olmayan hatalı öz yinelemeli fonksiyon
