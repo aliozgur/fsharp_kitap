@@ -2484,7 +2484,85 @@ liste |> hepsininKüpünüAl'
 ```
 
 ### Öz Yinelemeli Fonksiyonlar
+Kendi kendini çağıran fonksiyonlara **öz yinelemeli** fonksiyonlar denir. F#'da öz yinelemeli bir fonksiyon tanımlamak için **rec** anahtar kelimesi kullanılır. Öz yinelemeli fonksiyon tanımı **rec** kullanımı dışında  normal fonksiyon tanımlama şablonu ile aynı şekildedir.
 
+let **rec** *fonksiyon_adı* girdi1 ... girdiN = fonksiyon_kodu
+
+Öz yinelemeli fonksiyonlar için **fibonacci sayıları** ve  **faktöriyel** hesaplaması klasik örnekler olarak literatürde kendilerine yer edinmiştir. Şimdi geklin bu iki kavramı tanımlayıp kod örneklerimizi oluşturalım.
+
+**Fibonacci Sayıları:** Her bir Fibonacci sayısının kendinden önceki iki Fibonacci sayısının toplamı olduğu tam sayı dizisi. Formel olarak n. Fibonacci sayısı **Fₙ = Fₙ₋₁ + Fₙ₋₂** şeklinde ifade edilir. Örneğin; 1, 1, 2, 3, 5, 8 şeklinde devam eden dizi Fibonacci Sayıları dizisidir ve 4. Fibonacci sayısının değeri olan 3 kendinden önceki 2 ve 1'in toplamına eşittir.
+
+```fsharp
+(* 03_3_12.fsx *)
+
+// Fibonacci Sayısı 
+// Fₙ = Fₙ₋₁ + Fₙ₋₂
+let rec fibonacci n = 
+    if n <= 1 then 
+        n
+    else 
+        fibonacci (n-1) + fibonacci(n-2) 
+
+// TEST : 4. fibonacci sayısının değeri
+fibonacci 4
+
+// TEST : 1 ile 10 arasındaki Fibonacci sayıları
+[1..10] |> List.iter ( fun x -> printfn "%d. fibonaci sayısı = %d" x ( fibonacci x))
+```
+
+**Faktöriyel Hesaplama:** Bir sayının faktöriyeli 1 ile kendisi arasındaki *pozitif tam sayıların* çarpımının sonucudur ve **n!** olarak ifade edilir. Örneğin; 5! = 5\*4\*3\*2\*1 = 120 olacaktır. 
+
+```fsharp
+(* 03_3_12.fsx *)
+
+// Faktöriyel Hesaplama
+// n! = n * (n-1) * (n-2) * .... * 1
+let rec factorial n = 
+    if n < 1 then
+        1
+    else 
+        n * factorial(n-1)
+
+// TEST : 6'nın faktöriyeli
+factorial 6
+ 
+// TEST : 1 ile 10 arasındaki sayıların faktöriyeli
+[1..10] |> List.iter ( fun x -> printfn "%d! = %d" x ( factorial x))
+
+```
+
+İç içe fonksiyon çağırılarında program akış kontrolü, fonksiyon girdi parametreleri ve fonksiyon dönüş değerleri  **yığın** (stack) adı verilen veri yapısı kullanılarak takip edilir. Örneğin A fonksiyonun B fonksiyonunu çağırdığını düşünelim. A fonksiyonu çalışmaya başlayıp B'nin çağırıldığı satıra gelindiğinde yığına 
+
+1. B'nin çalışması bittiğinde A'nın nereden devam edeceğini hatırlatmak için bir **işaretçi değeri** ve  
+2. A'nın B'ye geçtiği **girdi parametre** değerleri  
+
+eklenir. B çalışıp sonlandığında ise yığına sonuç değerini koyar. B'nin çalışmasının bitmesi ile birlikte CPU A fonksiyonunu yığındaki işaretçinin gösterdiği yerden itibaren çalıştırmaya devam eder. 
+
+```fsharp
+let B x = 
+    printfn "B fonksiyonu, değer = %d" x
+
+let A() = 
+    printfn "A fonksiyonu başladı"
+    B 12 // B fonksiyonu çağırılıyor
+    printfn "A fonksiyonu tamamlandı"
+
+// A çağırılıyor
+A()
+```
+Öz yinelemeli fonksiyonlar tanımları gereği kendilerini çağırırlar ve her çağrı ile birlikte bir önceki çağrının nereden devam edeceğini gösteren işaretçi değeri yığın'a eklenir. Yığın veri yapısının boyutu genel anlamda tüm işletim sistemlerinde kısıtlıdır. Örneğin, 64-bit Windows için yığın boyutu 4 MB iken çoğu Linux dağıtımı için bu değer 8 MB olarak tanımlıdır. Yığın boyutunun sabit ve kısıtlı olması yığına konulabilecek değerlerin, başka bir ifadeyle iç içe çağırılabilecek fonksiyon sayısının, sonlu olduğu anlamına gelir. Yığın ile ilgili boyut kısıtlaması normal fonksiyonların birbirini çağırması gibi durumlarda soruna neden olmaz, çünkü yığında kısıtlı boyutuna rağmen pratikte ulaşılması güç olacak kadar çok sayıda fonksiyon çağırısı takip edilebilir. Ancak, öz yinelemeli fonksiyonlarda yığın boyutunun kısıtlı olması nedeni ile fonksiyonun bitiş koşulunun varlığı çok önemlidir, çünkü bu fonksiyonlar sonsuza kadar kendisini çağıracak ve yığın'ın tüm boyutunu tüketecek şekilde kodlanabilir. Bu nedenle, öz yinelemeli fonksiyonları tanımlarken girdi parametrelerinin ulaşması garantili mutlaka ama mutlaka bir değeri için fonksiyonun kendini çağırmadığı bunun yerine bir değer döndürdüğü bir sonlanma koşulu oluşturmalısınız.
+
+Fibonacci sayısını hesaplayan fonksiyon örneğimizde girdi parametresinin değeri 1 veya daha küçük bir sayı ise fonksiyonun kendi kendini çağırması yerine değer döndürmesi sağlanarak bir sonlanma/bitiş koşulu kodlanmıştır. Bir sonraki örneğimizdeki gibi fonksiyonun sonlanma koşulu yoksa veya mümkün olmayan bir koşul kodlandıysa yeterince büyük değerler için yığın kapasitesinin tükenmesi nedeni ile program **yığın taşma** (stack overflow) hatası verip sonlanır.    
+
+```fsharp
+let rec fibonacci' n = 
+    fibonacci (n-1) + fibonacci(n-2) 
+
+fibonacci' 2147483647 //En büyük işaretli 32-bit tam sayı 
+```
+### Karşılıklı Öz Yinelemeli Fonksiyonlar
+
+### Kuyruk Öz Yinelemeli Fonksiyonlar
 
 ## 3.5 Temel Veri Tipleri
 
@@ -2505,6 +2583,7 @@ liste |> hepsininKüpünüAl'
 * **community** -> topluluk
 * **compiler** -> derleyici
 * **concurrent** -> eş zamanlı
+* **CPU** -> **C**entral **P**rocessing **U**nit kısaltması. **Türkçe:** Merkezi İşlem Birimi, İşlemci
 * **declarative** -> bildirimsel
 * **discriminated union** -> ayrışık bilişim
 * **enumeration** -> numaralı liste
@@ -2530,11 +2609,11 @@ liste |> hepsininKüpünüAl'
 * **paradigm** -> paradigma, yaklaşım
 * **partial application** kısmi uygulama
 * **recursive** -> öz yinelemeli
-* **REPL** -> oku-değerle-yazdır döngüsü
+* **REPL** -> **R**ead **E**valuate **P**rint **L**oop kısaltması. **Türkçe:**oku-değerle-yazdır döngüsü
 * **object oriented** -> nesne tabanlı, nesne yönelimli
 * **open source** -> açık kaynak
 * **output** -> çıktı
-* **overflow** -> aşım
+* **overflow** -> aşım, taşma
 * **parameter** -> parametre
 * **pipe forward** -> ileri aktarım
 * **pure function** -> saf fonksiyon
@@ -2547,6 +2626,7 @@ liste |> hepsininKüpünüAl'
 * **scope** -> alan, kod alanı
 * **side effect** -> yan etki
 * **stack** -> yığın
+* **stack overflow** -> yığın taşması
 * **sync** -> senkron
 * **syntax** -> söz dizimi
 * **tail recursion** -> kuyruk öz yinelemeli
