@@ -8,7 +8,7 @@
    // A list of local paths to the stylesheets to use from the markdown-pdf
    "markdown-pdf.styles": [
     ".vscode/markdown.css",                            // OK. Relative path
-    ".vscode/markdown-pdf.css"                            // OK. Relative path
+    ".vscode/markdown-pdf.css"
   ]
 
 }
