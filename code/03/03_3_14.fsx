@@ -17,20 +17,20 @@ let sayaç = 5
 döngü (fun i-> printfn "Döngü, sayaç = %d" i) sayaç
 
 // Koşullu döngü öz yinelemeli fonksiyonu
-let rec koşulluDöngü koşul f = 
-    
+let rec koşulluDöngü koşul f =     
     if koşul() then // Koşul doğru ise
-        
         f() // Önce fonksiyonu çağır
         koşulluDöngü koşul f // Tekrar koşulluDöngü çağır
     else
         () // Koşul doğru değil unit dön ve sonlan
 
 // TEST
-let mutable koşul = 10
+let şuAn() = System.DateTime.Now
+let üçSaniyeBittiMi x = 
+    şuAn() - x <= System.TimeSpan.FromSeconds(3.0) 
+let  başlangıçZamanı  = şuAn()
 koşulluDöngü 
-    ( fun() -> koşul > 5 ) 
+    ( fun() -> üçSaniyeBittiMi başlangıçZamanı ) 
     ( fun() -> 
-        printfn "Koşullu döngü, sayaç = %d" koşul
-        koşul <- koşul-1
+        printfn "Koşullu döngü, başlangıç = %A, şu an = %A" başlangıçZamanı System.DateTime.Now
     )

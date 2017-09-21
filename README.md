@@ -1009,6 +1009,76 @@ Yordamsal diller bir çok sektörde kullanılan ana akım dillerdir, bu nedenle 
 >
 > Nesne tabanlı (object oriented) diller, yordamsal (imperative) ve bildirimsel (declarative) dillerden daha popüler olan üçüncü yaklaşımı temsil etmektedir. 
 
+# 2.Bölüm : Kurulum ve Hazırlık
+Bu bölümde F# ile geliştirme yapabilmek için hangi bileşenlere ihtiyaç duyulduğunu ve bu bileşnlerini Windows, Linux ve Mac işletim sistemleri için kurulum adımlarını ele alacağız.    
+
+## 2.1 F# Geliştirme Platformu Temel Bileşenleri 
+
+Herhangi bir programlama dilinde geliştirme yapmak için ihtiyaç duyulan en basit bileşen **derleyicidir** (compiler). Derleyici metin dosyası olarak yazılan kodun dil kurallarına göre denetlenmesi ve optimize edilmesinden sonra çalıştırılabilir programın üretilmesini sağlar. Bazı programlama dilleri derleyici yerine **yorumlayıcı** adı verilen bileşeni kullanır. Yorumlayıcı derleyiciden farklı olarak kodun çalışma anında yorumlanarak çalıştırılmasını sağlar. 
+
+F#, hem derleyicisi hem de yorumlayıcısı olan programlama dillerinden birisidir. Çalıştırılabilir bir program üretmek için F# derleyicisi kullanılırken, kod dosyalarının içindeki kodun veya yazdığınız kodun yorumlanarak etkileşimli olarak çalıştırılması için yorumlayıcı kullanılır. 
+
+Gelin şimdi işletim sisteminin ne olduğundan bağımsız olarak bu iki bileşeni nasıl kullanacağımızı görelim. 
+### FSC - F# Derleyicisi (F# Compiler)
+F# derleyicisi açık kaynak kodlu bir bileşendir. F# derleyicisini Windows, Linux ve OSX işletim sistemlerinde kullanabilirsiniz. Derleyici kurulumunu yaptıktan sonra komut satırından **fsc** veya **Fsc** komutları ile derleyici çalıştırılarak kodun derlenmesi sağlanır.
+
+Şimdi gelin basit bir konsol uygulaması kodunu **Fsc** ile derleyelim ve uygulamamızı çalıştıralım.
+```fsharp
+(* 02_1_01.fs *)
+[<EntryPoint>]
+let main args = 
+    
+    // Ekrana yaz
+    printfn "Merhaba Dünya!"
+    
+    // Uygulama parametrelerinin hepsini sırasıyla ekrana bas
+    args |> Array.iter( fun s -> printfn "Merhaba %s." s)
+    
+    printfn "-------"
+    printfn "Sonlandırmak için lütfen ENTER'a basın."
+    let l = System.Console.ReadLine()
+
+    0
+```
+Örnek programımız çalıştığında konsol ekranına "Merhaba Dünya!" yazar. Konsol uygulamasına parametre geçilirse bu değerler de "Merhaba, <parametre değeri>" şeklinde sırasıyla konsol ekranına basılır ve uygulamanın sonlanması için kullanıcıdan ENTER tuşuna basması istenir.
+
+Kodun derlenmesi için kaynak kodu dosyasının bulunduğu klasöre konumlanıp komut satırına aşağıdaki komut çalıştırılır 
+
+```bash
+$ Fsc 02_1_01.fs -o merhaba.exe --target:exe
+```
+
+* **02_1_01.fs :** Derlenecek kodun bulunduğu dosya adı
+* **-o merhaba.exe :** Derleme sonrası üretilecek dosyasının adı
+* **--target:exe :** Derleme sonrası üretilecek dosyanın formatı, bizim örneğimizde exe    
+
+Komut çalıştırıldıktan sonra kod dosyasının bulunduğu klasör altında **merhaba.exe** isimli bir konsol uygulaması oluşturulur. Uygulamayı test etmek için konsol ekranına aşağıdaki komutu yazabilirsiniz.
+
+```bash
+$ merhaba.exe "Arda" "Ali"
+```
+```bash
+# Uygulamanın çıktısı aşağıdaki gibi olacak
+
+Merhaba Dünya!
+Merhaba Arda.
+Merhaba Ali.
+-------
+Sonlandırmak için lütfen ENTER'a basın.
+```
+
+### FSI - F# İnteraktif (F# Interactive)  
+
+
+## 2.2 Windows  
+
+## 2.3 Mac
+
+## 2.4 Linux
+
+## 2.5 Merhaba Dünya!
+
+
 # 3.Bölüm : F# Temelleri
 Bu bölümde önce F#'ın söz dizimi kurallarını formel olarak inceleyeceğiz. Daha sonra basit (int,string,bool) ve temel veri tiplerini (değer grubu, unit, listeler, diziler) ele alıp F#'ın yapı taşları olan fonksiyonların ayrıntılarına bakacağız. Son olarak kod organizasyonu ipuçları ile bölümü tamamlayacağız.
 
@@ -2087,7 +2157,7 @@ Fonksiyonun gövdesinde **liste** içindeki tüm değerler için **f** fonksiyon
 >Kitabımızın online Git deposundaki 03_3_03.fsx dosyası içinde map fonksiyonun öz yinelemeli bir fonksiyon olarak yazılmış halini inceleyebilirsiniz.
 
 
-### Parmetresiz Fonksiyon Tanımları
+### Parametresiz Fonksiyon Tanımları
 
 F#'da girdi parametresi almayan fonksiyonları tanımlarken çok dikkatli olmalısınız. Programlama dillerinin çoğunda girdi parametresi almayan bir fonksiyon oluştururken basitçe parametrelerin tanımlanmaması yeterlidir. Ancak, F#'da parametresiz fonksiyonlar oluşturulurken **unit** tipinden en az bir girdi parametresi tanımlanmalıdır. Parametresiz fonksiyonlar **fonksiyon_adı()** formatına uygun olarak unit tipinin değeri olan boş çift parantez ile çağırılmalıdır. 
 
@@ -2486,11 +2556,11 @@ liste |> hepsininKüpünüAl'
 ### Öz Yinelemeli Fonksiyonlar
 Kendi kendini çağıran fonksiyonlara **öz yinelemeli** fonksiyonlar denir. F#'da öz yinelemeli bir fonksiyon tanımlamak için **rec** anahtar kelimesi kullanılır. Öz yinelemeli fonksiyon tanımı **rec** kullanımı dışında  normal fonksiyon tanımlama şablonu ile aynı şekildedir.
 
-let **rec** *fonksiyon_adı* girdi1 ... girdiN = fonksiyon_kodu
+>let **rec** fonksiyon_adı girdi1 ... girdiN = fonksiyon_kodu
 
-Öz yinelemeli fonksiyonlar için **fibonacci sayıları** ve  **faktöriyel** hesaplaması klasik örnekler olarak literatürde kendilerine yer edinmiştir. Şimdi geklin bu iki kavramı tanımlayıp kod örneklerimizi oluşturalım.
+Öz yinelemeli fonksiyonlar için **fibonacci sayıları** ve  **faktöriyel** hesaplaması klasik örnekler olarak literatürde kendilerine yer edinmiştir. Şimdi gelin bu iki kavramı tanımlayıp fonksiyonlarını F# ile oluşturalım.
 
-**Fibonacci Sayıları:** Her bir Fibonacci sayısının kendinden önceki iki Fibonacci sayısının toplamı olduğu tam sayı dizisi. Formel olarak n. Fibonacci sayısı **Fₙ = Fₙ₋₁ + Fₙ₋₂** şeklinde ifade edilir. Örneğin; 1, 1, 2, 3, 5, 8 şeklinde devam eden dizi Fibonacci Sayıları dizisidir ve 4. Fibonacci sayısının değeri olan 3 kendinden önceki 2 ve 1'in toplamına eşittir.
+**Fibonacci Sayıları:** Her bir Fibonacci sayısının kendinden önceki iki Fibonacci sayısının toplamı olduğu pozitif tam sayı dizisidir. Formel olarak; n. Fibonacci sayısı **Fₙ = Fₙ₋₁ + Fₙ₋₂** şeklinde ifade edilir. Örneğin; 1, 1, 2, 3, 5, 8 şeklinde devam eden dizi Fibonacci Sayıları dizisidir ve 4. Fibonacci sayısının değeri olan 3 kendinden önceki 2 ve 1'in toplamına eşittir.
 
 ```fsharp
 (* 03_3_12.fsx *)
@@ -2510,7 +2580,7 @@ fibonacci 4
 [1..10] |> List.iter ( fun x -> printfn "%d. fibonaci sayısı = %d" x ( fibonacci x))
 ```
 
-**Faktöriyel Hesaplama:** Bir sayının faktöriyeli 1 ile kendisi arasındaki *pozitif tam sayıların* çarpımının sonucudur ve **n!** olarak ifade edilir. Örneğin; 5! = 5\*4\*3\*2\*1 = 120 olacaktır. 
+**Faktöriyel Hesaplama:** Bir sayının faktöriyeli 1 ile kendisi arasındaki pozitif tam sayıların çarpımının sonucudur ve **n!** olarak ifade edilir. Örneğin; 5! = 5\*4\*3\*2\*1 = 120 olarak hesaplanır. 
 
 ```fsharp
 
@@ -2531,12 +2601,12 @@ faktöriyel 6
 [1..10] |> List.iter ( fun x -> printfn "%d! = %d" x ( faktöriyel x))
 ```
 
-İç içe fonksiyon çağırılarında program akış kontrolü, fonksiyon girdi parametreleri ve fonksiyon dönüş değerleri  **yığın** (stack) adı verilen veri yapısı kullanılarak takip edilir. Örneğin A fonksiyonun B fonksiyonunu çağırdığını düşünelim. A fonksiyonu çalışmaya başlayıp B'nin çağırıldığı satıra gelindiğinde yığına 
+İç içe fonksiyon çağırılarında program akış kontrolü, fonksiyon girdi parametreleri ve fonksiyon dönüş değerleri işletim sistemi tarafından **yığın** (stack) adı verilen veri yapısı kullanılarak takip edilir. Örneğin A fonksiyonu B fonksiyonunu çağırsın. A fonksiyonu çalışmaya başlayıp B'nin çağırıldığı satıra gelindiğinde işletim sistemi yığına 
 
 1. B'nin çalışması bittiğinde A'nın nereden devam edeceğini hatırlatmak için bir **işaretçi değeri** ve  
-2. A'nın B'ye geçtiği **girdi parametre** değerleri  
+2. A'nın B'ye geçtiği **girdi parametrelerinin** değerlerini  
 
-eklenir. B çalışıp sonlandığında ise yığına sonuç değerini koyar. B'nin çalışmasının bitmesi ile birlikte CPU A fonksiyonunu yığındaki işaretçinin gösterdiği yerden itibaren çalıştırmaya devam eder. 
+koyar. B çalışıp sonlandığında ise yığına sonuç değeri konulur. B'nin çalışmasının bitmesi ile birlikte işletim sistemi A fonksiyonunu yığındaki işaretçinin gösterdiği yerden itibaren çalıştırmaya devam eder. 
 
 ```fsharp
 let B x = 
@@ -2550,11 +2620,43 @@ let A() =
 // A çağırılıyor
 A()
 ```
-Öz yinelemeli fonksiyonlar tanımları gereği kendilerini çağırırlar ve her çağrı ile birlikte bir önceki çağrının nereden devam edeceğini gösteren işaretçi değeri yığın'a eklenir. Yığın veri yapısının boyutu genel anlamda tüm işletim sistemlerinde kısıtlıdır. Örneğin, 64-bit Windows için yığın boyutu 4 MB iken çoğu Linux dağıtımı için bu değer 8 MB olarak tanımlıdır. Yığın boyutunun sabit ve kısıtlı olması yığına konulabilecek değerlerin, başka bir ifadeyle iç içe çağırılabilecek fonksiyon sayısının, sonlu olduğu anlamına gelir. Yığın ile ilgili boyut kısıtlaması normal fonksiyonların birbirini çağırması gibi durumlarda soruna neden olmaz, çünkü yığında kısıtlı boyutuna rağmen pratikte ulaşılması güç olacak kadar çok sayıda fonksiyon çağırısı takip edilebilir. Ancak, öz yinelemeli fonksiyonlarda yığın boyutunun kısıtlı olması nedeni ile fonksiyonun bitiş koşulunun varlığı çok önemlidir, çünkü bu fonksiyonlar sonsuza kadar kendisini çağıracak ve yığın'ın tüm boyutunu tüketecek şekilde kodlanabilir. Bu nedenle, öz yinelemeli fonksiyonları tanımlarken girdi parametrelerinin ulaşması garantili mutlaka ama mutlaka bir değeri için fonksiyonun kendini çağırmadığı bunun yerine bir değer döndürdüğü bir sonlanma koşulu oluşturmalısınız.
+Öz yinelemeli fonksiyonlar tanımları gereği kendilerini çağırırlar ve her çağrı ile birlikte bir önceki çağrının nereden devam edeceğini gösteren işaretçi değeri yığın'a eklenir. Yığın veri yapısının boyutu genel anlamda tüm işletim sistemlerinde kısıtlıdır. Örneğin, 64-bit Windows için yığın boyutu 4 MB iken çoğu Linux dağıtımı için bu değer 8 MB olarak tanımlıdır. Yığın boyutunun sabit ve kısıtlı olması yığına konulabilecek değerlerin, başka bir ifadeyle iç içe çağırılabilecek fonksiyon sayısının, sonlu olduğu anlamına gelir. Yığın ile ilgili boyut kısıtlaması normal fonksiyonların birbirini çağırması gibi durumlarda soruna neden olmaz, çünkü yığında kısıtlı boyutuna rağmen pratikte ulaşılması zor olan miktarda fonksiyon çağırısı takip edilebilir. 
 
-Fibonacci sayısını hesaplayan fonksiyon örneğimizde girdi parametresinin değeri 1 veya daha küçük bir sayı ise fonksiyonun kendi kendini çağırması yerine değer döndürmesi sağlanarak bir sonlanma/bitiş koşulu kodlanmıştır. Bir sonraki örneğimizdeki gibi fonksiyonun sonlanma koşulu yoksa veya mümkün olmayan bir koşul kodlandıysa yeterince büyük değerler için yığın kapasitesinin tükenmesi nedeni ile program **yığın taşma** (stack overflow) hatası verip sonlanır.    
+Öz yinelemeli fonksiyonlarda fonksiyonun bitiş koşulunun varlığı çok önemlidir, çünkü bu fonksiyonlar eğer bir bitiş koşulu olmazsa sonsuz döngü şeklinde kendi kendini çağırırı ve yığın'ın tüm kapasitesini tüketebilir. Bu nedenle, öz yinelemeli fonksiyonlarda girdi parametreleri tarafından belirlenen ve fonksiyonun kendini çağırmadığı bir sonlanma koşulu tanımlanmalıdır.
+
+Fibonacci sayısını hesaplayan fonksiyon örneğimizde girdi parametresinin değeri 1 veya daha küçük bir sayı ise fonksiyon kendini çağırmaz ve bir değer döndürür. Fonksiyonun sonlanma koşulu yoksa veya mümkün olmayan bir koşul kodlandıysa fonksiyon çağırısı yığın kapasitesinin tükenmesi nedeni ile **yığın taşma** (stack overflow) hatası verir ve program sonlanır.    
+
+```fsharp
+// Sonlanma koşulu olmayan hatalı öz yinelemeli fonksiyon
+let rec fibonacci' n = 
+    fibonacci (n-1) + fibonacci(n-2) 
+
+fibonacci' 2147483647 //En büyük işaretli 32-bit tam sayı 
+```
+**Döngü Yapıları Olarak Öz Yinelemeli Fonksiyon Kullanımı**
 
 Prosedürel dillerde döngü oluşturmak için kullanılan **for** ve **while** yapılarını fonksiyonel programlama ilkelerine uygun olarak kolayca kurgulayabilirsiniz.
+
+
+Önce C#'da (prosedürel .NET dillerinden birisi) basit bir **for** döngüsünu nasıl tanımlayabileceğimize bir göz atalım.
+
+```csharp
+// C# for döngüsü
+void Main()
+{
+
+	for(int i=5; i>=0;i--) // döngü ve i sayacı 
+	{
+   		// Döngü gövdesi başlangıcı
+		
+		Console.WriteLine("Döngü, sayaç = {0}", i); 
+   		
+		// Döngü gövdesi bitişi
+	}
+}
+```
+
+Şimdi de F# kullanarak C#'daki **for** döngü yapısını nasıl oluşturabileceğimizi inceleyelim.
 
 ```fsharp
 (* 03_3_144.fsx *)
@@ -2565,7 +2667,7 @@ let rec döngü f sayaç =
     if sayaç = 0 then 
         () // Bitiş koşulu, sayaç sıfır ise unit döndür
     else
-        //G irdi olarak verilen fonksiyonunu
+        //Girdi olarak verilen fonksiyonunu
         // sayaç değeri ile çağır
         f(sayaç) // f fonksiyonunu sayaç parametresi ile çağır
         döngü f (sayaç-1) // tekrar döngü çağır
@@ -2574,33 +2676,66 @@ let rec döngü f sayaç =
 // TEST
 let sayaç = 5
 döngü (fun i-> printfn "Döngü, sayaç = %d" i) sayaç
+```
+Örneğimizde **döngü** isimli bir öz yinelemeli fonksiyon tanımlıyoruz. Bu fonksiyonun ilk parametresi her bir dönüşte çalıştırılması istenen kodu temsil eden bir **f** fonksiyonu, ikinci parametre ise bitiş koşulunu kontrol eden **sayaç** değeridir. Fonksiyonel dillerde iafdelerin değerleri değişmez (immutable) olduğu için C#'da yaptığımız gibi bir **i** sayaç değişkenin değerini azaltmak yerine öz yinelemeli fonksiyon çağırısında **sayaç** değerinin bir eksiğini bir sonraki çağırıya parametre olarak geçiyoruz.   
+
+Aşağıda yine C# için **while** koşullu döngü yapısını nasıl kullanıldığını görebilirsiniz. **while** döngüsü koşul sağlandığı sürece döngü gövdesindeki kodun çalışmasını sağlamak için kullanılır.
+
+```csharp
+// C# while döngüsü
+void Main()
+{
+	Func<DateTime,bool> üçSaniyeBittiMi = (x) => {
+		return System.DateTime.Now - x <= System.TimeSpan.FromSeconds(3);
+	};
+	
+    var başlangıçZamanı  = System.DateTime.Now;	
+	while(üçSaniyeBittiMi(başlangıçZamanı)) // döngü ve koşul cümlesi
+	{
+   		// Döngü gövdesi başlangıcı
+		
+		Console.WriteLine("Koşullu döngü, başlangıç = {0}, şu an = {1}",başlangıçZamanı,System.DateTime.Now); 
+		// Döngü gövdesi bitişi
+	}
+}
+```
+Şimdi de F# kullanarak **while** koşullu döngü yapısını nasıl oluşturabileceğimizi inceleyelim.
+
+```fsharp
+(* 03_3_144.fsx *)
 
 // Koşullu döngü öz yinelemeli fonksiyonu
-let rec koşulluDöngü koşul f = 
-    
+let rec koşulluDöngü koşul f =     
     if koşul() then // Koşul doğru ise
-        
         f() // Önce fonksiyonu çağır
         koşulluDöngü koşul f // Tekrar koşulluDöngü çağır
     else
         () // Koşul doğru değil unit dön ve sonlan
 
 // TEST
-let mutable koşul = 10
+// Yardımcı fonksiyonlarımız
+let şuAn() = System.DateTime.Now
+let üçSaniyeBittiMi x = 
+    şuAn() - x <= System.TimeSpan.FromSeconds(3.0) 
+
+let  başlangıçZamanı  = şuAn()
+// Koşullu döngü çağırısı
 koşulluDöngü 
-    ( fun() -> koşul > 5 ) 
+    ( fun() -> üçSaniyeBittiMi başlangıçZamanı ) 
     ( fun() -> 
-        printfn "Koşullu döngü, sayaç = %d" koşul
-        koşul <- koşul-1
+        printfn "Koşullu döngü, başlangıç = %A, şu an = %A" başlangıçZamanı System.DateTime.Now
     )
 ```
+Örneğimizde **koşulluDöngü** isimli bir öz yinelemeli fonksiyon tanımlıyoruz. Bu fonksiyonun ilk parametresi her bir dönüşte kontrol edilmesi istenen koşulu hesaplayan bir **koşul** fonksiyonu, ikinci parametre de koşul doğru ise çalıştırılacak olan **f** fonksiyonudur. 
+
+
 >**DİKKAT!**
 >
->Öz yinelemeli fonksiyonlar algoritmalarımızı pratik bir şekilde oluşturmamız için oldukça kullanışlı yapılardır. Ancak, bu yapıları kullanırken performans karakteristiklerini iyi analiz etmeli ve bitiş koşulunun çalışmasını garanti altına almalısınız. Öz yinelemeli fonksiyonların okunması ve anlaşılması normal fonksiyonlara göre biraz daha zahmetlidir.
+>Öz yinelemeli fonksiyonlar algoritmaları pratik bir şekilde kodlamak için oldukça kullanışlı yapılardır. Ancak, bu yapıları kullanırken performans karakteristikleri iyi analiz edilmeli ve bitiş koşulunun çalışması garanti altına alınmalıdır. Ayrıca, öz yinelemeli fonksiyonların okunması ve anlaşılması normal fonksiyonlara göre biraz daha zahmetlidir.
 >
 
 ### Kuyruk Öz Yinelemeli Fonksiyonlar
-Kuyruk öz yinelemeli fonksiyonlar, öz yinelemeli fonksiyonların özel bir halidir. Öz yinelemeli fonksiyon çağırılarının akış kontrolünün yığın'da ekstradan bir dönüş işaretçisi ile sağlandığından bahsetmiştik. Kuyruk öz yinelemeli fonksiyonlarda bu ekstra işaretçiye gerek duyulmaz, çünkü kuyruk öz yinelemeli fonksiyonun son yaptığı çağrı kendisinedir ve yığında dönüş işaretçisi olmasa bile akış kaldığı yerden devam edebilir. Bu sayede zaten kısıtlı olan yığın kapasitesi daha verimli bir şekilde kullanılarak yığın aşımı durumunun oluşması engellenir. 
+Kuyruk öz yinelemeli fonksiyonlar, öz yinelemeli fonksiyonların özel bir halidir. Öz yinelemeli fonksiyon çağırılarında akış kontrolünün yığın'da tutulan bir dönüş işaretçisi ile sağlandığından bahsetmiştik. Kuyruk öz yinelemeli fonksiyonlarda bu ekstra işaretçiye gerek duyulmaz, çünkü gerçekleşen son çağırı kendisine yaptığı çağırıdır ve dönüş işaretçisi olmasa bile akış kaldığı yerden devam edebilir. Bu sayede zaten kısıtlı olan yığın kapasitesi daha verimli bir şekilde kullanılarak yığın aşımı durumunun oluşması engellenir. 
 
 Daha önce oluşturuduğumuz faktöriyel öz yinelemeli fonksiyonunu bu ilave bilgler ile gelin şimdi tekrar inceleyelim.
 
@@ -2615,7 +2750,16 @@ let rec faktöriyel n =
     else 
         n * faktöriyel(n-1) 
 ```
-Faktöriyel fonksiyonun son ifadesi **n\* faktöriyel(n-1)** şeklindeki ifadedir. Bu ifadeyi incelediğimizde **faktöriyel** çağırısının son çağırı olduğunu düşünebilirsiniz, ancak son ifadedeki son çağırı **\*** (çarpma) işlemidir, çünkü F# derleyicisi **n\* faktöriyel(n-1)** ifadesini **(\*) n faktöriyel(n-1)** olarak derler. Bu durumda son çağrı fonksiyonun kendisine değildir ve faktöriyel kuyruk öz yinelemeli bir fonksiyon olarak değerlendirilemez.
+Faktöriyel fonksiyonun son ifadesi **n\* faktöriyel(n-1)** şeklindeki ifadedir. Bu ifadeyi soldan sağa okudunuzda **faktöriyel** çağırısının son çağrı olduğunu düşünebilirsiniz, ancak bu ifadedeki son çağırı **\*** (çarpma) işlemidir, çünkü F# derleyicisi **n\* faktöriyel(n-1)** ifadesini **(\*) n faktöriyel(n-1)** olarak derler. Bu durumda son çağrı fonksiyonun kendisine değildir ve faktöriyel kuyruk öz yinelemeli bir fonksiyon olarak değerlendirilemez.
+
+>**BİLGİ**
+>
+>F#'da **\***,**+** ve **-** gibi operatörler isimleri **(\*)**,**(+)** ve **(-)** olan fonksiyonlar olarak tanımlıdır.
+>Derleyici ifadeleri değerlerken bu operatörlerin fonksiyonlarını kullanır.   
+>```fsharp
+>let sonuç = (+) 2 3 // 2 + 3
+>let sonuç' = (-) 5 4 // 4 * 5
+>```
 
 Öz yinelemeli fonksiyonları kuyruk öz yinelemeli hale getirebilmek için genel olarak iki yöntem kullanılır
 
@@ -2623,7 +2767,10 @@ Faktöriyel fonksiyonun son ifadesi **n\* faktöriyel(n-1)** şeklindeki ifadedi
 2. Uzantılar (Continuations)
 
 **Biriktirici Yöntemi (Accumulator Pattern)**
-Biriktirici yönteminde temel prensip fonksiyon için ilave bir biriktirici girdi değeri tanımlamak ve yinelemeli fonksiyonların değerlerini bu biriktirici değer vasıtasıyla takip etmektir.
+
+Biriktirici yönteminde temel prensip fonksiyona ilave bir biriktirici parametresi tanımlamak ve bir önceki hesaplanana değeri bir sonraki fonksiyon çağırısına birikirici parametre vasıtasıyla iletmektir.
+
+Gelin şimdi faktöriyel hesaplama fonksiyonumuzun kuyruk öz yinelemeli olarak biriktirici yöntemi ile nasıl yazılabileceğini inceleyelim
 
 ```fsharp
 (* 03_3_15.fsx *)
@@ -2646,12 +2793,13 @@ faktöriyel 6
 [1..10] |> List.iter ( fun x -> printfn "%d! = %d" x ( faktöriyel x))
 
 ```
-Kuyruk öz yinelemeli **faktöriyel** fonksiyonu normal bir kabuk fonksiyon olarak tanımlanıyor. Ancak, bu fonksiyonun içinde **_faktöriyel** isimli öz yinelemeli bir yerel fonksiyon tanımlanmıştır. Yerel fonksiyon faktöriyeli hesaplanacak olan **n** parametresine ilave olarak önceki çağırının sonucunu taşıyan **bakiye** isimli parametreyi de girdi olarak alır. Sonlanma koşulu olan **if n<= 1** durumunda da bakiye olarak biriktirilen sonuç değeri döndürülür.
+Kuyruk öz yinelemeli **faktöriyel** fonksiyonu normal bir kabuk fonksiyon olarak tanımlanıyor. Ancak, bu fonksiyonun içinde **_faktöriyel** isimli öz yinelemeli bir yerel fonksiyon tanımlanmıştır. Yerel fonksiyon faktöriyeli hesaplanacak olan **n** parametresini ve önceki çağırının sonucunu taşıyan **bakiye** isimli parametreyi girdi olarak alır. Sonlanma koşulu olan **if n<= 1** durumunda da bakiye olarak biriktirilen sonuç değeri döndürülür.
 
 **Uzantılar (Continuations)**
 
-Bu yöntem prensip olarak biriktirici yöntemine benzer, farklı olarak ilave bir biriktirici parametresi yerine bir fonksiyon ifadesi girdi parametresi olarak kullanılır. Bu yönteme **uzantı** (continuation) denilmesinin nedeni fonksiyon girdi parametrelerinin işlem zincirinde bir sonraki işlemi ifade etmek için kullanılmasıdır. 
+Bu yöntem prensip olarak biriktirici yöntemine benzer, farklı olarak biriktirici parametresi yerine bir fonksiyon ifadesi parametre olarak kullanılır. Bu yönteme **uzantı** (continuation) denilmesinin nedeni parametre olarak geçilen fonksiyonların işlem zincirinde bir sonraki işlemi ifade etmek için kullanılmasıdır. 
 
+Faktöriyel hesaplama fonksiyonu uzantılar (parametre olarak fonksiyonla) kullanılarak aşağıdaki gibi yeniden yazılabilir.
 
 ```fsharp
 
@@ -2669,14 +2817,12 @@ let faktöriyel' n =
 faktöriyel' 6
 ```
 
-Uzantıları kullanan **faktöriyel'** fonksiyonu biriktirici yöntemindeki gibi kabuk olarak kullanılan normal bir fonksiyon şeklinde tanımlanır. Kabuk fonksiyon içinde öz yinelemeli ve **_fonksiyon** isimli yerel bir fonksiyon tanımlanır. Bu fonksiyonun ikinci parametresi başka bir fonksiyondur (uzantı) ve sonlanma olan **if n<= 1** durumunda bu uzantı fonksiyonu çağırılarak sonucu döndürülür. 
+Uzantıları kullanarak oluşturulan **faktöriyel'** fonksiyonu normal bir fonksiyon şeklinde tanımlanır. Bu kabuk fonksiyon içinde **_fonksiyon** isimli öz yinelemeli yerel bir fonksiyon tanımlanır. Bu fonksiyonun ikinci parametresi başka bir fonksiyondur (uzantı) ve sonlanma koşulu olan **if n<= 1** durumunda bu fonksiyon çağırılarak sonucu bir önceki çağırıya geri döndürülür. 
 
 ### Karşılıklı Öz Yinelemeli Fonksiyonlar
 Bazı fonksiyonlar kontrollü bir şekilde ve karşılıklı olarak birbirini çağırabilir. Bu tür fonksiyonlara **karşılıklı öz yinelemeli** (mutually recursive) fonksiyonlar denir.
 
-F#'da dosyaların ve dosyalar içindeki fonksiyon, tip ve modül tanımlarının sırası önemlidir. Örneğin, bir fonksiyonun başka bir fonksiyon tarafından çağırılabilmesi için çağırıldığı kod satırından önce tanımlanmış olması gerekir. 
-
-Aşağıdaki örneğimizde **A** fonksiyonu içindeki **B()** çağırısı kodu geçersizdir çünkü **B** fonksiyonu henüz tanımlı değildir.
+F#'da dosyaların ve dosyalar içindeki fonksiyon, tip ve modül tanımlarının sırası önemlidir. Örneğin, bir fonksiyonun başka bir fonksiyon tarafından çağırılabilmesi için çağırıldığı kod satırından önce tanımlanmış olması gerekir. Aşağıdaki örneğimizde **A** fonksiyonu içindeki **B()** çağırısı geçersizdir, çünkü **B** fonksiyonu o noktada henüz tanımlı değildir.
 
 
 ```fsharp
@@ -2698,9 +2844,8 @@ let B() =
     A()
 ```
 
-Şimdi gelin karşılıklı öz yinelemeli fonksiyonların tanımlanma şablonunu ele alalım.
+Karşılıklı öz yinelemeli fonksiyonlar şöyle oluşturulur; birinci fonksiyon tanımı 
 
-Birinci fonksiyon tanımı 
 >**let rec** fonksiyon_adı parametreler =
 
 yapısı ile başlar ve normal bir öz yinelemeli fonksiyon olarak tanımlanır. İlk fonksiyon dışındaki fonksiyonlar ise 
@@ -2731,9 +2876,15 @@ and Tek x =
 Tek 3
 Tek 4
 ``` 
-Örneğimizde karşılıklı öz yinelemeli **Çift** ve **Tek** fonksiyonları tanımlanmıştır. **Çift** fonksiyon tanımı **let rec Çift x =** şeklinde başlar, **Tek** fonksiyonu ise **and Tek x =** şeklinde tanımlanır. 
+Örneğimizde karşılıklı öz yinelemeli **Çift** ve **Tek** fonksiyonları tanımlanmıştır. **Çift** fonksiyon tanımı
 
-Tek/Çift fonksiyonları ilk çağırıdaki girdi değerini birer azaltarak ilk 0 değerine ulaşan fonksiyonun bitiş koşulunu belirleme esasına dayanır. **Tek 3** ve **Çift 4** çağırılarını öz yinelemeli çağırılar olarak şöyle görselleştirebiliriz
+**let rec Çift x =** 
+
+şeklinde başlar ardından da **Tek** fonksiyonu 
+
+**and Tek x =** 
+
+şeklinde tanımlanır. 
 
 ```
 Tek 3 
@@ -2751,11 +2902,14 @@ Tek 3
 
 >**DİKKAT!**
 >
->Öz yinelemeli fonksiyonlar tanımlanırken birinci fonksiyondan sonraki fonksiyon tanımları ilk fonksiyon tanımı ile aynı miktarda girintili olarak hizalanıp yapılır. F#'da girintiler ile hizalamanın kod bloklarının alanını belirlediğini unutmayın.
+>Öz yinelemeli fonksiyonlar tanımlanırken birinci fonksiyondan sonraki fonksiyon tanımları ilk fonksiyon tanımı ile aynı miktarda girintili olarak hizalanıp yapılır. F#'da girintiler ile hizalamanın kod alanlarını belirlediğini unutmayın.
 
 ## 3.5 Temel Veri Tipleri
 
 ## 3.6 Kod Organizasyonu
+* Proje/Solution
+* Dosyaların Sırası, Type/Name resolution
+* Modüller
 
 # Terimler Sözlüğü
 
