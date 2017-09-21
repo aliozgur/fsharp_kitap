@@ -1010,6 +1010,7 @@ Yordamsal diller bir çok sektörde kullanılan ana akım dillerdir, bu nedenle 
 > Nesne tabanlı (object oriented) diller, yordamsal (imperative) ve bildirimsel (declarative) dillerden daha popüler olan üçüncü yaklaşımı temsil etmektedir. 
 
 # 2.Bölüm : Kurulum ve Hazırlık
+
 Bu bölümde F# ile geliştirme yapabilmek için hangi bileşenlere ihtiyaç duyulduğunu ve bu bileşnlerini Windows, Linux ve Mac işletim sistemleri için kurulum adımlarını ele alacağız.    
 
 ## 2.1 F# Geliştirme Platformu Temel Bileşenleri 
@@ -1019,10 +1020,13 @@ Herhangi bir programlama dilinde geliştirme yapmak için ihtiyaç duyulan en ba
 F#, hem derleyicisi hem de yorumlayıcısı olan programlama dillerinden birisidir. Çalıştırılabilir bir program üretmek için F# derleyicisi kullanılırken, kod dosyalarının içindeki kodun veya yazdığınız kodun yorumlanarak etkileşimli olarak çalıştırılması için yorumlayıcı kullanılır. 
 
 Gelin şimdi işletim sisteminin ne olduğundan bağımsız olarak bu iki bileşeni nasıl kullanacağımızı görelim. 
-### FSC - F# Derleyicisi (F# Compiler)
-F# derleyicisi açık kaynak kodlu bir bileşendir. F# derleyicisini Windows, Linux ve OSX işletim sistemlerinde kullanabilirsiniz. Derleyici kurulumunu yaptıktan sonra komut satırından **fsc** veya **Fsc** komutları ile derleyici çalıştırılarak kodun derlenmesi sağlanır.
 
-Şimdi gelin basit bir konsol uygulaması kodunu **Fsc** ile derleyelim ve uygulamamızı çalıştıralım.
+### FSC - F# Derleyicisi (F# Compiler)
+
+F# derleyicisi açık kaynak kodlu bir bileşendir. F# derleyicisini Windows, Linux ve OSX işletim sistemlerine *F# Geliştirme Araçları* kurulum paketlerini indirip kurabilirsiniz. F# derleyicisini komut satırından **fsc** (Windows üzerinde) komutu ile kullanabilirsiniz. 
+
+Şimdi gelin basit bir konsol uygulaması kodunu **fsc** komutunu kullanarak  derleyelim ve uygulamamızı çalıştıralım.
+
 ```fsharp
 (* 02_1_01.fs *)
 [<EntryPoint>]
@@ -1031,7 +1035,7 @@ let main args =
     // Ekrana yaz
     printfn "Merhaba Dünya!"
     
-    // Uygulama parametrelerinin hepsini sırasıyla ekrana bas
+    // Geçilen parametreleri sırasıyla ekrana bas
     args |> Array.iter( fun s -> printfn "Merhaba %s." s)
     
     printfn "-------"
@@ -1045,7 +1049,7 @@ let main args =
 Kodun derlenmesi için kaynak kodu dosyasının bulunduğu klasöre konumlanıp komut satırına aşağıdaki komut çalıştırılır 
 
 ```bash
-$ Fsc 02_1_01.fs -o merhaba.exe --target:exe
+$ fsc 02_1_01.fs -o merhaba.exe --target:exe
 ```
 
 * **02_1_01.fs :** Derlenecek kodun bulunduğu dosya adı
@@ -1067,7 +1071,137 @@ Merhaba Ali.
 Sonlandırmak için lütfen ENTER'a basın.
 ```
 
-### FSI - F# İnteraktif (F# Interactive)  
+>**DİKKAT!**
+>
+>Linux veya OSX işletim sistemlerinde F# derleyicisini komut satırında **fsharpc** komutu ile çağırmalısınız.
+
+>F# derleyici parametrelerini [Derleyici Seçenekleri](https://docs.microsoft.com/dotnet/fsharp/language-reference/compiler-options)sayfasından daha ayrıntılı olarak inceleyebilirsiniz.
+
+### FSI - F# Etkileşimli Ortamı (F# Interactive)  
+
+F# etkileşimli ortamı (FSI), kod yazım sürecindeki yaz-derle-dene döngüsünün daha hızlı bir şekilde yapılabilmesi için sunulan çok faydalı bir araçtır.  FSI ile yazdığınız kodun seçtiğiniz kadarını derleme işlemi yapmadan çalıştırıp sonucunu hızlıca görebilirsiniz. FSI da F# derleyicisi gibi Windows, Linux ve OSX işletim sistemleri ile kullanılabilir. FSI'ı komut satırına **fsi** (Windows üzerinde) komutu ile çalıştırabilirsiniz.
+
+Komut satırında **fsi** komutu çalıştırıldığında konsol ekranında FSI versiyon bilgisi gösterildikten sonra **>** simgesi belirecektir. 
+
+```bash
+$ fsi
+F# Interactive for F# 4.1
+Freely distributed under the Apache 2.0 Open Source License
+
+For help type #help;;
+>
+```
+**>** simgesi FSI'in sizden kod girmenizi beklediğini ifade eder. 
+FSI giriş modunda iken kodu **printfn "Merhaba Dünya!";;** yazıp ENTER tuşuna bastığınızda F# kodunuz derlenip çalıştırılarak konsol ekranında aşağıdaki çıktı üretilir.
+
+```bash
+Merhaba Dünya!
+val it : unit = ()
+```
+
+Şimdi gelin FSI ile yapabileceklerimizin bir kısmını inceleyelim.
+
+```bash
+> 2 + 2;;
+val it : int = 4
+
+> let x = 42;;
+val x : int = 42
+
+> let y = 1;;
+val y : int = 1
+
+> let topla x y = 
+-     x + y
+- ;;
+val topla : x:int -> y:int -> int
+
+> topla x y;;
+val it : int = 43
+
+> topla 11 12;;
+val it : int = 23
+
+> let x = -42;;
+val x : int = -42
+
+> topla x y;;
+val it : int = -41
+```
+
+* **2 + 2;;** basit bir toplama işlemi
+* **let x = 42;;** x isimli bir ifade tanımlayıp değerini 42 olarak belirle
+* **let y = 1;;** y isimli bir ifade tanımlayıp değerini 1 olarak belirle
+* **let topla x y =** topla isimli ve iki parametreli fonksiyon tanımına başla
+* **x + y** topla isimli fonksiyonun kodunun ilk satırı
+* **;;** topla isimli fonksiyon tanımını bitir
+* **topla x y;;** daha önce tanımlanan x ve y değerleri ile topla fonksiyonunu çağır
+* **topla 11 12;;** topla fonksiyonunu 11 ve 12 değerleri ile çağır
+* **let x = -42;;** x ifadesini yeniden tanımla ve değerini -42 olarak belirle
+* **topla x y;;** x ve y değerleri ile topla fonksiyonunu çağır
+
+FSI çalıştırıldığı ilk andan itibaren (oturum) yapılan tüm değer ifadesi ve fonksiyon tanımlarını aklında tutar.
+
+FSI'in girdiğiniz herhangi bir kodu yorumlamaya başlaması için kod satırını **;;** (çift noktalı virgül) ile bitirip ENTER tuşuna basmanız gerekir. Eğer **;;** kullanmadan ENTER satırına basarsanız FSI **-** koyarak bir sonraki satıra. **--** simgesi FSI'in hala giriş modunda olduğunu ve kod girmenizi beklediği anlamına gelir. Örneğimizdeki **topla** fonksiyon tanımı FSI ile çalışırken birden fazla satırlı kodun nasıl yazılabileceğini gösterir.   
+
+FSI etkileşimli olarak kod girip deneme yapmanıza imkan vermenin yanı sıra F# script dosyalarınızı komut satırından çalıştırabilmenizi de sağlar. 
+
+```fsharp
+(* 02_1_02.fsx *)
+
+// Ekrana yaz
+printfn "Merhaba Dünya!"
+
+// Geçilen parametreleri sırasıyla ekrana bas
+fsi.CommandLineArgs |> Array.iter( fun s -> printfn "Merhaba %A." s)
+
+printfn "-------"
+printfn "Sonlandırmak için lütfen ENTER'a basın."
+let l = System.Console.ReadLine()
+```
+Yukarıdaki F# script dosyasını aşağıdaki komut satırı komutunu kullanarak çalıştırabilirsiniz.
+
+```bash
+$ fsi --exec 02_1_02.fsx -- Arda Ali
+```
+
+>**NOT**
+>
+>Örnek kodda yer alan **fsi.CommandLineArgs** listesi scriptinize geçilen parametrelere kod içinden erişim imkanı sağlar.  
+
+
+>FSI parametrelerini [Etkileşimli Ortam Seçenekleri](https://docs.microsoft.com/dotnet/fsharp/tutorials/fsharp-interactive/fsharp-interactive-options) sayfasından daha ayrıntılı olarak inceleyebilirsiniz.
+
+### F# Standard Dosya Uzantıları
+
+F# için aşağıdaki standard dosya uzantıları kullanılır. 
+
+* **fsx:** F# script dosyası. Bu dosyalar Visual Studio gibi geliştirme ortamları tarafından derleyiciye derleme için gönderilmez.
+* **fs:** F# kaynak kodu dosyası. Bu dosyalar Visual Studio gibi geliştirme ortamları tarafından derleyiciye derleme için gönderilir.
+* **fsi:** F# kaynak kodu (.fs) dosyasının API tanımını barındıran imza dosyası.
+
+F# kaynak kodu veya script dosyalarınız yukarıdaki uzantılar ile oluşturulmak zorunda değil. Bu uzantılar Visual Studio, Code ve Rider gibi F# destekleyen editörlerin kullandıkları varsayılan uzantılardır.
+
+### Derleyici ve Etkileşimli Ortam Değişkenleri
+
+F# kaynak kodu dosyalarınızda kodun etkileşimli ortamda mı çalıştığını yoksa derleyici tarafından mı derlendiğini **INTERACTIVE** ve **COMPILED** ortam değişkenleri kontrol ederek bilinmesi mümkündür.
+
+```fsharp
+let topla x y = 
+#if INTERACTIVE
+    // FSI ile çalıştırılırsa
+    printfn "Etkileşimli"
+    x + y
+#endif
+#if COMPILED
+    // Derleyici tarafından derlenirse
+    printfn "Derlenmiş"
+    x + y
+#endif
+
+// TEST
+topla 1 1
+```
 
 
 ## 2.2 Windows  

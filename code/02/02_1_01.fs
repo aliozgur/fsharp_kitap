@@ -5,7 +5,7 @@ let main args =
     // Ekrana yaz
     printfn "Merhaba Dünya!"
     
-    // Uygulama parametrelerinin hepsini sırasıyla ekrana bas
+    // Geçilen parametreleri sırasıyla ekrana bas
     args |> Array.iter( fun s -> printfn "Merhaba %s." s)
     
     printfn "-------"
