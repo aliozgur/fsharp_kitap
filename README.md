@@ -16,7 +16,7 @@
     * 2.3 F# Standard Dosya Uzantıları
     * 2.4 Derleyici ve Etkileşimli Ortam Değişkenleri
     * 2.5 Geliştirme Araçları
-    * 2.6 İlk F# Projesi 
+    * 2.6 Merhaba F# 
 
 * 3.Bölüm : F# Temelleri
     * 3.1 Söz dizimi kuralları
@@ -1247,16 +1247,19 @@ F# ile Windows, Linux ve OSX işletim sistemleri üzerinde aşağıdaki tabloda 
 
 >İşletim sistemi bazında F# derleyicisi, .NET ve editör kurulumu ayrıntılarına fsharp.org web sistesindeki **Use** linkini kullanarak ulaşabilirsiniz.
 
+>**İPUCU**
+>
+>Kitaptaki örneklerin çoğunu herhangi bir kurulum yapmadan (glot.io)[https://glot.io/new/fsharp] web sistesini kullanarak online olarak çalıştırabilirsiniz.
+
 ## 2.6 Merhaba F#
 
-Örnek projelerimizi için aşağıdaki araçların kurulumunu yapmalısınız
+Örnek projemiz için aşağıdaki kurulumların yapılması gerekiyor. 
 
 * [.NET Core](https://www.microsoft.com/net/download/core)
-* [Visual Studio Community Editiron \(Windows\)](https://www.visualstudio.com/vs/community/)
 * [Visual Studio Code](https://code.visualstudio.com/download)
-    * Kurulumu tamamlayıp editörü açtıktan sonra Ctrl+P (OSX Cmd+P) basıp **ext install Ionide-fsharp** komutu ile yardımcı bir araç olan Ionide kurulumunu yapın
 
-## Visual Studio Code
+Visual Studio Code kurulumu tamamlayıp editörü açtıktan sonra **Ctrl+P** (OSX Cmd+P) kısayol tuş kombinasyonuna basıp **ext install Ionide-fsharp** komutu ile yardımcı bir araç olan Ionide'ın kurulumunu da yapmalısınız.
+
 
 **Adım-1:** .NET Core kurulumunuzu kontrol etmek için komut satırı veya terminalde aşağıdaki komutu çalıştırın. Bu komut ekranına **2.0.0** benzeri bir versiyon değer yazdırmalı 
 ```bash

@@ -7,7 +7,9 @@
   "markdown-pdf.header.contents": "<div style=\"text-align: center; margin-top: 0.5cm; border-bottom: 1px solid \">F# ile Fonksiyonel Programlama - Ali Özgür</div>",
    "markdown-pdf.styles": [
     ".vscode/markdown.css",                           
-    ".vscode/markdown-pdf.css"
+    ".vscode/markdown-pdf.css",
+    "C:\\personalgit\\fsharp_kitap\\.vscode\\markdown.css",
+    "C:\\personalgit\\fsharp_kitap\\.vscode\\markdown-pdf.css",    
   ]
 
 }
