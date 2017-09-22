@@ -10,6 +10,7 @@
     * 1.5 Fonksiyonlara Matematiskel Bakış
     * 1.6 Fonksiyonların İlginç Özellikleri
     * 1.7 Fonksiyonel Programlama Nedir?
+
 * 2.Bölüm : F# Geliştirme Platformu 
     * 2.1 FSC - F# Derleyicisi
     * 2.2 FSI - F# Etkileşimli Ortamı (F# Interactive)  
@@ -25,6 +26,7 @@
     * 3.4 Fonksiyonların İleri Seviye Kullanımı
     * 3.5 Temel Veri Tipleri
     * 3.6 Kod Organizasyonu
+
 * 4.Bölüm : Fonksiyonel Programlama
     * Desen Eşleştirme (Pattern Matching)
     * Küme Teorisi ve F# Tipleri
@@ -913,7 +915,7 @@ F# derleyicisi fonksiyonları her zaman tek girdi ve tek çıktılı dönüşüm
 
 ## 1.7 Fonksiyonel Programlama Nedir?
 
-Fonksiyonel programlama, saf fonksiyonları (pure functions) ve değeri sonradan değiştirilemeyen değer ifadelerini (value expressions) kullanarak yapılan kodlama faaliyetidir. Bazı kaynaklar fonksiyonel programlamayı fonksiyonların birinci sınıf vatandaş (first class citizen) olarak kabul edildiği kodlama faliyeti olarak da tanımlamaktadır. Fonksiyonel programlama bir araç veya dile bağlı değildir ve bir **yaklaşım** (paradigma) olarak değerlendirilir. Fonksiyonel olmayan programlama dilleri ile de (eğer dilin yapısı müsait ise) fonksiyonel programlama yaklaşımına ve ilkelerine uygun kod yazmak mümkün olabilir. Fonksiyonel programlama yöntemleri ile çoğu yazılım hatasının kaynağı olan paylaşılan program durumu (shared program state) ve yan etkilerden (side effect) arındırılmış kod yazmak mümkündür.
+Fonksiyonel programlama, saf fonksiyonları (pure functions) ve değeri sonradan değiştirilemeyen ifadeleri (expressions) kullanarak yapılan kodlama faaliyetidir. Bazı kaynaklar fonksiyonel programlamayı fonksiyonların birinci sınıf vatandaş (first class citizen) olarak kabul edildiği kodlama faliyeti olarak da tanımlamaktadır. Fonksiyonel programlama bir araç veya dile bağlı değildir ve bir **yaklaşım** (paradigma) olarak değerlendirilir. Fonksiyonel olmayan programlama dilleri ile de (eğer dilin yapısı müsait ise) fonksiyonel programlama yaklaşımına ve ilkelerine uygun kod yazmak mümkün olabilir. Fonksiyonel programlama yöntemleri ile çoğu yazılım hatasının kaynağı olan paylaşılan program durumu (shared program state) ve yan etkilerden (side effect) arındırılmış kod yazmak mümkündür.
 
 Fonksiyonel programlama yaklaşımına göre tasarlanmış programlama dilleri **bildirimsel (declarative)** diller sınıfında yer alır. Bildirimsel dilleri sınıfının karşısında da  C, C++, Java, Pascal ve C# gibi **yordamsal (imperative)** diller yer alır.
 
@@ -954,7 +956,7 @@ F#, OCaml, Scala, Haskell gibi fonksiyonel programlama dilleri bildirimsel (decl
 Yordamsal programlama dillerinde yazılan kod bir işlemin **nasıl** (how) yapılacağını tarif eder. Bu yüzden bu tür dillerin temel yapı taşları **tümcelerdir (sentence)**. Bu tümceler ile adım adım programın hangi işlemi **nasıl** yapması gerektiği tarif edilir ve bilgisayar bu adımları takip ederek programı çalıştırır. Bu sınıftaki dillere prosedürel diller de denir. Bu tür dillerde adım adım bir tarif söz konusu olduğu için genellikle akış kontrolü için **while** ve **for** gibi döngü yapıları, koşullu dallanma için **if/else** ve **switch** yapıları ve her bir adım sonrasında ulaşılan durumun takip edilmesi ve kayıt altına alınması için de **değişkenler** kullanılır. 
 
 #### Sonuç Ne Olacak?
-Bildirimsel programlama dillerinde ise yazılan kod bir işlemin nasıl yapılacağına değil işlem sonucunun **ne olacağına** (what) odaklanmıştır. Bu sınıftaki dillere fonksiyonel diller de denir. Bu tür dillerin temel yapı taşı **ifadelerdir** (expression). Bilgisayar, programlardaki bu değer ifadelerini çalıştırarak sonucun üretilmesini sağlar. Bildirimsel dillerde akış kontrolü için **öz yinelemeli  fonksiyonlar** (recursive), koşullu dallanma için **yüksek mertebeli fonksiyonlar**(higher order functions) ve **match** benzeri yapılar kullanılır. Bildirimsel dillerde işlem sonucuna odaklanılır ve önceki adımlarda ulaşılan durumun takip edilmesi için değişkenlere ihtiyaç duyulmaz. Bu nedenle fonksiyonel dillerde doğrudan değişken tanımı yapılmasına izin verilmez.
+Bildirimsel programlama dillerinde ise yazılan kod bir işlemin nasıl yapılacağına değil işlem sonucunun **ne olacağına** (what) odaklanmıştır. Bu sınıftaki dillere fonksiyonel diller de denir. Bu tür dillerin temel yapı taşı **ifadelerdir** (expression). Bilgisayar, programlardaki bu ifadeleri çalıştırarak sonucun üretilmesini sağlar. Bildirimsel dillerde akış kontrolü için **öz yinelemeli  fonksiyonlar** (recursive), koşullu dallanma için **yüksek mertebeli fonksiyonlar**(higher order functions) ve **match** benzeri yapılar kullanılır. Bildirimsel dillerde işlem sonucuna odaklanılır ve önceki adımlarda ulaşılan durumun takip edilmesi için değişkenlere ihtiyaç duyulmaz. Bu nedenle fonksiyonel dillerde doğrudan değişken tanımı yapılmasına izin verilmez.
 
 F# ağırlıklı olarak fonksiyonel (bildirimsel) bir dil olmakla birlikte yordamsal yapıları da destekler. Bir sonraki örneğimizde F# ile nasıl prosedürel kod yazıldığını görüyorsunuz
 
@@ -1236,14 +1238,7 @@ topla 1 1
 ## 2.5 Geliştirme Araçları
 F# ile Windows, Linux ve OSX işletim sistemleri üzerinde aşağıdaki tabloda verilen editörleri kullanarak programlama yapabilirsiniz. Alternatif olarak sadece F# derleyicisini ve işletim sisteminize uygun .NET versiyonunu kurarak herhangi bir metin editörü ile de kod yazabilirsiniz.
 
-
-|Editör|İşletim Sistemi| Lisanslama |Editör Versiyonu| .NET |
-|------|---------------|------------|----------------|------|
-|Visual Studio | Windows | Ücretsiz Community Edition mevcut | 2012, 2013, 2015 ve 2017| .NET Framework, .NET Core|
-|Visual Studio Code | Ücretsiz | Windows, Linux, OSX | - | .NET Framework, .NET Core, Mono|
-|Visual Studio for Mac | Ücretsiz Community Edition mevcut | OSX | - | .NET Core, Mono|
-|JetBrains Rider | Ücretli |Windows, Linux, OSX | - | .NET Core|
-|MonoDevelop | Ücretsiz| Windows, Linux, OSX | - | Mono|
+<img src="./img/02_01.png"/>
 
 >İşletim sistemi bazında F# derleyicisi, .NET ve editör kurulumu ayrıntılarına fsharp.org web sistesindeki **Use** linkini kullanarak ulaşabilirsiniz.
 
@@ -3247,6 +3242,82 @@ Tek 3
 >Öz yinelemeli fonksiyonlar tanımlanırken birinci fonksiyondan sonraki fonksiyon tanımları ilk fonksiyon tanımı ile aynı miktarda girintili olarak hizalanıp yapılır. F#'da girintiler ile hizalamanın kod alanlarını belirlediğini unutmayın.
 
 ## 3.5 Temel Veri Tipleri
+
+Basit veri tipleri (tam sayı, ondalık sayı, metin, karakter vs) ile bir çok işlem yapılabilir. Ancak, sadece bu tipler kullanılarak daha karmaşık programların yazılması mümkün değildir. F#'da bu basit veri tiplerine ilave olarak aşağıdaki **temel tipler** de bulunur.
+
+* **unit**
+* **tuple** (Değer Grubu)
+* **list** (Liste) 
+* **option** (opsiyon) 
+
+Gelin şimdi bu temel tipleri inceleyip daha yetenekli programlar yazmak için F# bilgimizi bir adım ileri taşıyalım.  
+
+### Unit
+
+F# ile ister basit bir değer ifadesi tanımlayın isterseniz bir fonksiyon tanımlayın istisnasız tüm ifadelerin bir değeri olmalıdır. İlk bakışta bu çok kısıtlayıcı bir kural gibi görünür, çünkü değeri olmayan veya hiç bir değer döndürmeyen fonksiyonların tanımlanmasını imkansız kılar. Ancak, biliyoruz ki **printfn** gibi bazı standard kütüphane fonksiyonları herhangi bir değer döndürmez ve yalnızca yan etkileri için kullanılır. 
+
+Programlama dillerinde tipler kavramsal modelleme için kullanılır bu nedenle **hiç birşey** anlamına gelen bir tipin varlığı bizi şaşırtmaz. Tipler ile ilgili bu bakış açısını ve F#'ın yukarıda ifade ettiğimiz kuralını içselleştirdiğimizde hiç bir değeri olmayan veya hiç birşey döndürmeyen fonksiyonların değerlerini ifade etmek bir tip kurgulanabileceği sonucuna varılablir. 
+
+>**BİLGİ**
+>
+>printfn fonksiyonunun yan etkisi standard giriş/çıkış birimine (genelde ekrana) verilen metni göndermesidir. 
+
+
+F#'da **hiç bir şey** değerlerini ifade etmek için adı **unit** değeri **()** (çift parantez) olan bir tip kullanılır. **unit** tipini C, C++, Java veya C# gibi prosedürel dillerdeki **void** tipine benzetebiliriz. 
+
+```fsharp
+(* 03_5_01.fsx *)
+
+// Değeri unit tipinden olan basit bir değer ifadesi
+let değer = ()
+
+// unit döndüren bir fonksiyon
+let fonksiyon1 x = 
+    printfn "x'in değeri = %d" x
+    ()
+
+// Dolaylı olarak unit döndüren fonksiyon
+// Son çağrı printfn ve printfn dönüş değeri unit
+let fonksiyon1' x = 
+    printfn "x'in değeri = %d" x
+
+
+// Parametresiz fonksiyon
+// Aslında bu fonkisyon tipi unit olan tek parametreli 
+// bir fonksiyon
+let fonksiyon2 () =
+    printfn "Parametresiz fonksiyon"
+    42
+
+// Parametre değerlerini toplayan ancak 
+// sonucu yutan  ve dönüş değeri olmayan bir fonksiyon
+let fonksiyon3 x y =
+    x + y |> ignore // toplama sonucu yutuldu
+    printfn "Toplama yapıldı ancak sonuç yutuldu"
+    ()
+ 
+// Son parametresi unit tipinde olan fonksiyion
+let fonksiyon4 x y z:unit = 
+    x + y |> ignore // toplama sonucu yutuldu
+    printfn "Toplama yapıldı ancak sonuç yutuldu"
+    ()
+
+// TEST
+fonksiyon1 42
+fonksiyon1' 42
+
+fonksiyon2()
+fonksiyon3 42 0
+fonksiyon4 42 0 ()
+```
+
+### Tuple (Değer Grubu)
+
+### List (Liste)
+
+### Option (Opsiyon)
+
+
 
 ## 3.6 Kod Organizasyonu
 * Proje/Solution
