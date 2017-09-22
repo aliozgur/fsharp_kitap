@@ -145,3 +145,15 @@ Yukarıdaki şekilde **f** fonksiyonu örten fonksiyondur çünkü Y değer küm
 |decimal| System.Decimal tipine dönüştür.|
 |char| System.Char tipinden Unicode karaktere dönüştür.|
 |enum| Numaralı liste'ye dönüştür |
+
+
+## F# Developer Tools
+
+
+|Editör|İşletim Sistemi| Lisanslama |Editör Versiyonu| .NET |
+|------|---------------|------------|----------------|------|
+|Visual Studio | Windows | Ücretsiz Community Edition mevcut | 2012, 2013, 2015 ve 2017| .NET Framework, .NET Core|
+|Visual Studio Code | Ücretsiz | Windows, Linux, OSX | - | .NET Framework, .NET Core, Mono|
+|Visual Studio for Mac | Ücretsiz Community Edition mevcut | OSX | - | .NET Core, Mono|
+|JetBrains Rider | Ücretli |Windows, Linux, OSX | - | .NET Core|
+|MonoDevelop | Ücretsiz| Windows, Linux, OSX | - | Mono|

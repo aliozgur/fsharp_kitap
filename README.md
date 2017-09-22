@@ -10,12 +10,14 @@
     * 1.5 Fonksiyonlara Matematiskel Bakış
     * 1.6 Fonksiyonların İlginç Özellikleri
     * 1.7 Fonksiyonel Programlama Nedir?
-* 2.Bölüm : Kurulum ve Hazırlık
-    * F# Geliştirme Platformu Temel Bileşenleri 
-    * Windows ve Visual Studio 
-    * OSX ve Visual Studio for Mac
-    * Linux ve Visual Studio Code
-    * Merhaba Dünya!
+* 2.Bölüm : F# Geliştirme Platformu 
+    * 2.1 FSC - F# Derleyicisi
+    * 2.2 FSI - F# Etkileşimli Ortamı (F# Interactive)  
+    * 2.3 F# Standard Dosya Uzantıları
+    * 2.4 Derleyici ve Etkileşimli Ortam Değişkenleri
+    * 2.5 Geliştirme Araçları
+    * 2.6 İlk F# Projesi 
+
 * 3.Bölüm : F# Temelleri
     * 3.1 Söz dizimi kuralları
     * 3.2 Basit Veri Tipleri
@@ -1009,11 +1011,7 @@ Yordamsal diller bir çok sektörde kullanılan ana akım dillerdir, bu nedenle 
 >
 > Nesne tabanlı (object oriented) diller, yordamsal (imperative) ve bildirimsel (declarative) dillerden daha popüler olan üçüncü yaklaşımı temsil etmektedir. 
 
-# 2.Bölüm : Kurulum ve Hazırlık
-
-Bu bölümde F# ile geliştirme yapabilmek için hangi bileşenlere ihtiyaç duyulduğunu ve bu bileşnlerini Windows, Linux ve Mac işletim sistemleri için kurulum adımlarını ele alacağız.    
-
-## 2.1 F# Geliştirme Platformu Temel Bileşenleri 
+# 2.Bölüm : F# Geliştirme Platformu
 
 Herhangi bir programlama dilinde geliştirme yapmak için ihtiyaç duyulan en basit bileşen **derleyicidir** (compiler). Derleyici metin dosyası olarak yazılan kodun dil kurallarına göre denetlenmesi ve optimize edilmesinden sonra çalıştırılabilir programın üretilmesini sağlar. Bazı programlama dilleri derleyici yerine **yorumlayıcı** adı verilen bileşeni kullanır. Yorumlayıcı derleyiciden farklı olarak kodun çalışma anında yorumlanarak çalıştırılmasını sağlar. 
 
@@ -1021,7 +1019,7 @@ F#, hem derleyicisi hem de yorumlayıcısı olan programlama dillerinden birisid
 
 Gelin şimdi işletim sisteminin ne olduğundan bağımsız olarak bu iki bileşeni nasıl kullanacağımızı görelim. 
 
-### FSC - F# Derleyicisi (F# Compiler)
+## 2.1 FSC - F# Derleyicisi (F# Compiler)
 
 F# derleyicisi açık kaynak kodlu bir bileşendir. F# derleyicisini Windows, Linux ve OSX işletim sistemlerine *F# Geliştirme Araçları* kurulum paketlerini indirip kurabilirsiniz. F# derleyicisini komut satırından **fsc** (Windows üzerinde) komutu ile kullanabilirsiniz. 
 
@@ -1077,7 +1075,7 @@ Sonlandırmak için lütfen ENTER'a basın.
 
 >F# derleyici parametrelerini [Derleyici Seçenekleri](https://docs.microsoft.com/dotnet/fsharp/language-reference/compiler-options)sayfasından daha ayrıntılı olarak inceleyebilirsiniz.
 
-### FSI - F# Etkileşimli Ortamı (F# Interactive)  
+## 2.2 FSI - F# Etkileşimli Ortamı (F# Interactive)  
 
 F# etkileşimli ortamı (FSI), kod yazım sürecindeki yaz-derle-dene döngüsünün daha hızlı bir şekilde yapılabilmesi için sunulan çok faydalı bir araçtır.  FSI ile yazdığınız kodun seçtiğiniz kadarını derleme işlemi yapmadan çalıştırıp sonucunu hızlıca görebilirsiniz. FSI da F# derleyicisi gibi Windows, Linux ve OSX işletim sistemleri ile kullanılabilir. FSI'ı komut satırına **fsi** (Windows üzerinde) komutu ile çalıştırabilirsiniz.
 
@@ -1172,7 +1170,39 @@ $ fsi --exec 02_1_02.fsx -- Arda Ali
 
 >FSI parametrelerini [Etkileşimli Ortam Seçenekleri](https://docs.microsoft.com/dotnet/fsharp/tutorials/fsharp-interactive/fsharp-interactive-options) sayfasından daha ayrıntılı olarak inceleyebilirsiniz.
 
-### F# Standard Dosya Uzantıları
+FSI'da scriptleri çalıştırırken aşağıdaki direktifleri kullanabilirsiniz.
+
+* **#help**, direktifler hakkında yardım almak için kullanılır.
+* **#I**, Referans vermek istediğiniz kütüphane dosyalarının yer aldığı klasör yolu. Örneğin; #I "C:\fsharp\libs".
+* **#load**, script dosyasını yükleyip çaıştırmak için kullanılır. 
+* **#quit**,FSI oturumunu bitirmek için kullanılır.
+* **#r**, kütüphane dosyasına referans vermek için kullanılır.
+* **#time** **["on"|"off"]**, performans ve zamanlama bilgilerinin gösterilip gösterilmeyeceğini belirlemek için kullanılır. "on" ile aktif hale getirildiğinden FSI kodun çalışma zamanını, CPU'nun harcadığı zamanı ve çöp toplama (garbage collection) zamanını ölçer.
+
+\#I, \#load, \#r ve \#time direktiflerini hem FSI giriş modunda iken hem de isterseniz script dosyalarınızın içinde kullanabilirsiniz.
+
+```fsharp
+(* 02_1_04.fsx *)
+
+#time "on"
+
+printfn "Ana script başladı"
+#load "02_1_05.fsx"
+printfn "Ana script devam edecek"
+
+#I "libs\\ali"
+#load "kare.fsx"
+
+open Kare.Module1
+
+// kare fonksiyonun grafiğini çiz 
+printfn "3'ün karesi = %f"  (kare 3.0)
+
+#time "off"
+printfn "Performans ve zamanlama ölçümü kapatıldı."
+```
+
+## 2.3 F# Standard Dosya Uzantıları
 
 F# için aşağıdaki standard dosya uzantıları kullanılır. 
 
@@ -1182,7 +1212,7 @@ F# için aşağıdaki standard dosya uzantıları kullanılır.
 
 F# kaynak kodu veya script dosyalarınız yukarıdaki uzantılar ile oluşturulmak zorunda değil. Bu uzantılar Visual Studio, Code ve Rider gibi F# destekleyen editörlerin kullandıkları varsayılan uzantılardır.
 
-### Derleyici ve Etkileşimli Ortam Değişkenleri
+## 2.4 Derleyici ve Etkileşimli Ortam Değişkenleri
 
 F# kaynak kodu dosyalarınızda kodun etkileşimli ortamda mı çalıştığını yoksa derleyici tarafından mı derlendiğini **INTERACTIVE** ve **COMPILED** ortam değişkenleri kontrol ederek bilinmesi mümkündür.
 
@@ -1203,14 +1233,189 @@ let topla x y =
 topla 1 1
 ```
 
+## 2.5 Geliştirme Araçları
+F# ile Windows, Linux ve OSX işletim sistemleri üzerinde aşağıdaki tabloda verilen editörleri kullanarak programlama yapabilirsiniz. Alternatif olarak sadece F# derleyicisini ve işletim sisteminize uygun .NET versiyonunu kurarak herhangi bir metin editörü ile de kod yazabilirsiniz.
 
-## 2.2 Windows  
 
-## 2.3 Mac
+|Editör|İşletim Sistemi| Lisanslama |Editör Versiyonu| .NET |
+|------|---------------|------------|----------------|------|
+|Visual Studio | Windows | Ücretsiz Community Edition mevcut | 2012, 2013, 2015 ve 2017| .NET Framework, .NET Core|
+|Visual Studio Code | Ücretsiz | Windows, Linux, OSX | - | .NET Framework, .NET Core, Mono|
+|Visual Studio for Mac | Ücretsiz Community Edition mevcut | OSX | - | .NET Core, Mono|
+|JetBrains Rider | Ücretli |Windows, Linux, OSX | - | .NET Core|
+|MonoDevelop | Ücretsiz| Windows, Linux, OSX | - | Mono|
 
-## 2.4 Linux
+>İşletim sistemi bazında F# derleyicisi, .NET ve editör kurulumu ayrıntılarına fsharp.org web sistesindeki **Use** linkini kullanarak ulaşabilirsiniz.
 
-## 2.5 Merhaba Dünya!
+## 2.6 Merhaba F#
+
+Örnek projelerimizi için aşağıdaki araçların kurulumunu yapmalısınız
+
+* [.NET Core](https://www.microsoft.com/net/download/core)
+* [Visual Studio Community Editiron \(Windows\)](https://www.visualstudio.com/vs/community/)
+* [Visual Studio Code](https://code.visualstudio.com/download)
+    * Kurulumu tamamlayıp editörü açtıktan sonra Ctrl+P (OSX Cmd+P) basıp **ext install Ionide-fsharp** komutu ile yardımcı bir araç olan Ionide kurulumunu yapın
+
+## Visual Studio Code
+
+**Adım-1:** .NET Core kurulumunuzu kontrol etmek için komut satırı veya terminalde aşağıdaki komutu çalıştırın. Bu komut ekranına **2.0.0** benzeri bir versiyon değer yazdırmalı 
+```bash
+$ dotnet --version
+```
+
+**Adım-2:** Komut satırında proje'yi kaydedeceğiniz klasöre konumlanıp aşağıdaki komutu çalıştırın. Bu komut yeni bir F# projesi oluşturur.  
+
+```bash
+$ dotnet new console -lang F# -o Merhaba
+```
+
+Komutun çalışması bittikten sonra proje klasörünün altında **Merhaba** isimli yeni bir klasör oluşturulur. **Merhaba** isimli klasörün altında aşağıdaki dosya ve klasörleri göreceksiniz.
+
+* **Merhaba.fsproj**, proje tanım dosyası
+* **Program.fs**, konsol programımızın kodunun yer alacağı dosya
+* **obj**, F# derleyicisinin oluşturduğu ara klasör
+* **bin**, derleme sonrası konsol uygulamasının yer alacağı klasör (bu klasör ilk derlemeden sonra oluşacak)
+
+**Adım-3:** Aşağıdaki **build** komut ile projemizi derleyip sonra da **run** komutu ile konsol uygulamamızı çalıştırıalım
+
+```bash
+$ dotnet build
+```
+```bash
+$ dotnet run
+```
+
+**Adım-4:** Gelin şimdi örnek uygulamamızda Visual Studio Code kullanarak kod değişikliklerimizi yapalım. Bunun için Visual Studio Code editörünü açıp **File -> Open Folder** menüsünden proje klasörünüzü (Merhaba) seçin
+
+<img src="./img/02_vscode_ornek/01.png" />
+
+**Adım-5:** Proje klasörünüzü açtıktan sonra **Merhaba** klasörü altında **.vscode** isimli yeni bir klasör ve bunun altında da **launch.json** ve **tasks.json** isimli iki dosya ekleyin. 
+
+**launch.json** dosyasının içeriğini aşağıdaki gibi oluşturun.
+
+```json
+/* launch.json */
+
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": ".NET Core Launch (console)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceRoot}/bin/Debug/<insert-target-framework-here>/<insert-project-name-here>.dll",
+            "args": [],
+            "cwd": "${workspaceRoot}",
+            "stopAtEntry": false,
+            "console": "internalConsole"
+        }
+    ]
+}
+```
+Bu dosyadaki 
+* **\<insert-target-framework-here\>** ibaresini silip yerine **netcoreapp2.0** yazın
+* **\<insert-project-name-here\>** ibaresini silip yerine **Merhaba** yazın
+
+**tasks.json** dosyasının içeriğini de aşağıdaki gibi oluşturun
+```json
+{
+    /* tasks.json */
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "taskName": "build",
+            "command": "dotnet build",
+            "type": "shell",
+            "group": "build",
+            "presentation": {
+                "reveal": "silent"
+            },
+            "problemMatcher": "$msCompile"
+        }
+    ]
+}
+```
+
+<img src="./img/02_vscode_ornek/02.png" />
+
+
+**Adım-6:** Visual Studio Code'da **F5** kısayol tuşuna basarak kodumuzu Debug modunda derleyip çalıştıralım. **DEBUG CONSOLE** panelinde **Hello world from F#** mesajını görebilirsiniz.
+
+<img src="./img/02_vscode_ornek/03.png" />
+
+**Adım-7:** Konsol uygulaması projesine **Utils.fs** isimli yeni bir dosya ekleyip içeriğini de aşağıdaki gibi oluşturun
+
+```fsharp
+(* \code\02\vscode_ornek\Merhaba\Utils.fs *)
+
+namespace Utils
+    module Matematik = 
+        // Kare fonksiyonu
+        let kare x = x * x
+        //Küp fonksiyonu
+        let küp x = (kare x) * x
+```
+
+**Adım-8:** Utils.fs dosyasını oluşturduktan sonra üstüne çift tıklayarak açın ve **F1** kısayol tuşuna basın. Açılan alanda **F#** yazarak gelen listeden **"Add Current File to Project"** seçeneğini seçin. Utils.fs dosyasını projeye ekledikten sonra **F1** kısayol tuşu ile açılan alana tekrar **F#** yazarak gelen listeden **"Move File Up"** seçeneğini seçin.
+
+**Adım-9:** Program.fs dosyasının içeriğini aşağıaki gibi değiştirip **Ctrl+Shift+B** (OSX'de Cmd+Shift+B) ile konsol uygulamanızı derleyin. 
+
+```fsharp
+(* \code\02\vscode_ornek\Merhaba\Program.fs *)
+
+open System
+open Utils
+
+[<EntryPoint>]
+let main argv =
+    printfn "F# ile merhaba dünya"
+    printfn "3'ün karesi %d" (Matematik.kare 3)
+    printfn "3'ün küpü  %d" (Matematik.küp 3)
+    
+    0 // çıkış kodu
+```
+
+**Adım-10:** Komut satırına geçip **run** komutu ile uygulamayı çalıştırın
+```bash
+$ dotnet run
+```
+Ekran çıktısı aşağıdaki gibi olacaktır.
+```bash
+F# ile merhaba dünya!
+
+C:\personalgit\fsharp_kitap\code\02\vscode_ornek\Merhaba>dotnet run
+F# ile merhaba dünya
+3'ün karesi 9
+3'ün küpü  27
+```
+
+**Adım-11:** Konsol uygulamasının EXE dosyasını oluşturmak **Merhaba.fsproj** dosyasını açıp içeriğini aşağıdaki gibi değiştirmelisiniz.
+
+```xml
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    
+    <!-- EXE oluşturmak için eklenen değerler -->
+    <RuntimeIdentifier>win10-x64</RuntimeIdentifier>
+    <RuntimeIdentifier>win7-x64</RuntimeIdentifier>
+  
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Utils.fs" />
+    <Compile Include="Program.fs" />
+  </ItemGroup>
+</Project>
+```
+
+**Adım-12:** Komut satırında **publish** komutunu çalıştırın.
+```bash
+$ dotnet publish -c Release
+```
+
+## Visual Studio
 
 
 # 3.Bölüm : F# Temelleri
@@ -3068,6 +3273,7 @@ Tek 3
 * **execute** -> çalıştırmak
 * **flow** -> akış
 * **function** -> fonksiyon
+* **garbage collection** -> Çöp toplama; .NET sanal ortamında programların artık ihtiyacı duymadıkları bellek alanını temizleyip sanal ortam havuzuna geri veren mekanizma   
 * **heap** -> alt yığın
 * **higher order function** -> yüksek mertebeli fonksiyon
 * **imperative** -> prosedürel
