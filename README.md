@@ -3250,20 +3250,15 @@ Basit veri tipleri (tam sayı, ondalık sayı, metin, karakter vs) ile bir çok 
 * **list** (Liste) 
 * **option** (opsiyon) 
 
-Gelin şimdi bu temel tipleri inceleyip daha yetenekli programlar yazmak için F# bilgimizi bir adım ileri taşıyalım.  
-
 ### Unit
 
 F# ile ister basit bir değer ifadesi tanımlayın isterseniz bir fonksiyon tanımlayın istisnasız tüm ifadelerin bir değeri olmalıdır. İlk bakışta bu çok kısıtlayıcı bir kural gibi görünür, çünkü değeri olmayan veya hiç bir değer döndürmeyen fonksiyonların tanımlanmasını imkansız kılar. Ancak, biliyoruz ki **printfn** gibi bazı standard kütüphane fonksiyonları herhangi bir değer döndürmez ve yalnızca yan etkileri için kullanılır. 
 
-Programlama dillerinde tipler kavramsal modelleme için kullanılır bu nedenle **hiç birşey** anlamına gelen bir tipin varlığı bizi şaşırtmaz. Tipler ile ilgili bu bakış açısını ve F#'ın yukarıda ifade ettiğimiz kuralını içselleştirdiğimizde hiç bir değeri olmayan veya hiç birşey döndürmeyen fonksiyonların değerlerini ifade etmek bir tip kurgulanabileceği sonucuna varılablir. 
+F#'da **hiç bir şey** değerini ifade etmek için adı **unit**, değeri **()** (çift parantez) olan bir tip kullanılır. **unit** tipini C, C++, Java veya C# gibi prosedürel dillerdeki **void** tipine benzetebiliriz. Programlama dillerinde tipler kavramsal modelleme için kullanılır, bu nedenle **hiç birşeyi** modellemek için **unit** gibi bir tipin olması sizi şaşırtmamalı.
 
->**BİLGİ**
+>**AÇIKLAMA**
 >
->printfn fonksiyonunun yan etkisi standard giriş/çıkış birimine (genelde ekrana) verilen metni göndermesidir. 
-
-
-F#'da **hiç bir şey** değerlerini ifade etmek için adı **unit** değeri **()** (çift parantez) olan bir tip kullanılır. **unit** tipini C, C++, Java veya C# gibi prosedürel dillerdeki **void** tipine benzetebiliriz. 
+>printfn fonksiyonunun yan etkisi standard giriş/çıkış birimine (genelde ekrana) verilen metni yazmasıdır. 
 
 ```fsharp
 (* 03_5_01.fsx *)
@@ -3277,30 +3272,28 @@ let fonksiyon1 x =
     ()
 
 // Dolaylı olarak unit döndüren fonksiyon
-// Son çağrı printfn ve printfn dönüş değeri unit
+// Son çağrı printfn'e ve printfn'in dönüş değeri unit
 let fonksiyon1' x = 
     printfn "x'in değeri = %d" x
 
 
 // Parametresiz fonksiyon
-// Aslında bu fonkisyon tipi unit olan tek parametreli 
-// bir fonksiyon
+// Aslında bu fonkisyon tipi unit olan 
+// tek parametreli bir fonksiyon
 let fonksiyon2 () =
     printfn "Parametresiz fonksiyon"
     42
 
 // Parametre değerlerini toplayan ancak 
-// sonucu yutan  ve dönüş değeri olmayan bir fonksiyon
+// sonucu yutan ve dönüş değeri olmayan bir fonksiyon
 let fonksiyon3 x y =
     x + y |> ignore // toplama sonucu yutuldu
     printfn "Toplama yapıldı ancak sonuç yutuldu"
-    ()
  
 // Son parametresi unit tipinde olan fonksiyion
 let fonksiyon4 x y z:unit = 
     x + y |> ignore // toplama sonucu yutuldu
     printfn "Toplama yapıldı ancak sonuç yutuldu"
-    ()
 
 // TEST
 fonksiyon1 42
@@ -3312,6 +3305,100 @@ fonksiyon4 42 0 ()
 ```
 
 ### Tuple (Değer Grubu)
+Farklı tiplerde değerleri gruplamak için kullanılan tipe **değer grubu** (tuple) denir. F#'da değer grubu virgül ile ayrılmış değerler şeklinde aşağıdaki formata uygun olarak tanımlanır. 
+
+>**let değer_adı = (değer1,değer2,değer3)**
+
+Değer grupları tanımlarken parantez kullanımı opsiyoneldir, ancak kod okunaklılığı açısından parentezleri kullanmanızı öneririm.
+
+Değer gruplarının imzası \* ile ayrılmış tipler şeklindedir. 
+
+>**değer1_tipi \* değer2_tipi \* değer3_tipi**
+
+```fsharp
+(* 03_5_02.fsx *)
+
+let yazar = ("Ali","Özgür",1979,9,System.DateTime.Now)
+// Değer grubunun imzası şöyledir
+// val yazar : string * string * int * int * System.DateTime
+```
+
+Değer grupları başka değer gruplarını da barındırabilir. Aşağıdaki örnekte **baba** isimli değer grubunun 3. elemanı yine bir değer grubudur.
+
+```fsharp
+let baba = ("Ali","Özgür", ("Arda","Özgür"))
+```
+
+Sadece iki değeri olan grupların elemanlarının değerlerini sökmek için **fst** ve **snd** standard kütüphane fonksiyonları kullanılabilir.
+
+```fsharp
+(* 03_5_02.fsx *)
+
+let çocuk = ("Arda","Özgür")
+let çocukAd = fst çocuk 
+let çocukSoyad = snd çocuk
+``` 
+
+Değer grubundaki tüm elemanların değerleri tek bir satırda aşağıdaki gibi sökülerek ayrı ayrı ifadelere atanabilir. Değer grubunun bazı elemanları değer sökme işlemi sırasında göz ardı edilmek isteniyorsa da **_** simgesini kullanılır.
+
+```fsharp
+(* 03_5_02.fsx *)
+
+// Tüm değerleri ayrı ayrı birer ifadeye atayalım
+let babaAd,babaSoyad,doğumYılı,doğumAyı,bugününTarihi = yazar
+
+// Bazı değerleri _ ile sökme sırasında görmezden gelelim
+let kişiAd,kişiSoyad,_ = baba
+let kişiAd',_,çocuğu = baba
+```
+
+Değer grubunun eleman sayısından daha az veya daha fazla eleman sökülmek istenirse derleyici hata verir.
+
+```fsharp
+let kişiAd,kişiSoyad = baba
+// Derleyici aşağıdaki hatayı verir
+(*
+Error FS0001: Type mismatch. Expecting a
+    'string * string'
+but given a
+    'string * string * (string * string)'
+The tuples have differing lengths of 2 and 3
+*)
+```
+
+Değer gruplarını fonksiyonlara girdi parametresi olarak geçip fonksiyonlardan da değer grubu döndürülebilir.
+
+```fsharp
+(* 03_5_02.fsx *)
+
+// Değer grubu parametresi alan fonksiyon
+let topla (x,y) = x + y
+
+topla (43,-1)
+
+// Değer grubu parametresi alıp 
+// değer grubu döndüren fonksiyon
+let topla' (x,y) = 
+    let t = x + y
+    (t,sprintf "%d + %d = %d" x y t)
+
+let toplam,metin = topla'(43,-1)
+```
+
+>**DİKKAT!**
+>
+>Parametre olarak değer grubu alan fonksiyonların çağırılarında çok dikkatli olmalısınız, çünkü **f(1,2)** çağırısı ile **f 1 2** çağırıları eş çağırılar değildirler. İlk çağrı girdi olarak iki elemanlı bir değer grubu alırken ikinci çağırıdaki fonksiyon iki ayrı girdi parametresi alır. 
+
+F#'da fonksiyonlarınız tasarlarken girdi parametrelerini tanımlamak için mümkün ise değer gruplarını kullanmayın, çünkü **let f (a,b) = ...** şeklinde (a,b) değer grubunu girdi parametresi olarak alan bir fonksiyon için **kısmi uygulama** yapılamaz. Fonksiyon parametresi olarak değer grupları eğer değer grubu gerçekten bir şeyi modelliyorsa kullanılmalıdır.
+
+>**ALIŞTIRMA**
+>
+>Aşağıdaki fonksiyon tanımlarını yaparak imzalarını karşılaştırın.
+>
+>let topla(x,y) = x + y
+>
+>let topla' x y = x + y
+>
 
 ### List (Liste)
 

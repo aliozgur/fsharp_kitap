@@ -9,30 +9,28 @@ let fonksiyon1 x =
     ()
 
 // Dolaylı olarak unit döndüren fonksiyon
-// Son çağrı printfn ve printfn dönüş değeri unit
+// Son çağrı printfn'e ve printfn'in dönüş değeri unit
 let fonksiyon1' x = 
     printfn "x'in değeri = %d" x
 
 
 // Parametresiz fonksiyon
-// Aslında bu fonkisyon tipi unit olan tek parametreli 
-// bir fonksiyon
+// Aslında bu fonkisyon tipi unit olan 
+// tek parametreli bir fonksiyon
 let fonksiyon2 () =
     printfn "Parametresiz fonksiyon"
     42
 
 // Parametre değerlerini toplayan ancak 
-// sonucu yutan  ve dönüş değeri olmayan bir fonksiyon
+// sonucu yutan ve dönüş değeri olmayan bir fonksiyon
 let fonksiyon3 x y =
     x + y |> ignore // toplama sonucu yutuldu
     printfn "Toplama yapıldı ancak sonuç yutuldu"
-    ()
  
 // Son parametresi unit tipinde olan fonksiyion
 let fonksiyon4 x y z:unit = 
     x + y |> ignore // toplama sonucu yutuldu
     printfn "Toplama yapıldı ancak sonuç yutuldu"
-    ()
 
 // TEST
 fonksiyon1 42
