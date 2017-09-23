@@ -3318,9 +3318,12 @@ Değer gruplarının imzası \* ile ayrılmış tipler şeklindedir.
 ```fsharp
 (* 03_5_02.fsx *)
 
-let yazar = ("Ali","Özgür",1979,9,System.DateTime.Now)
+let yazar = ("Ali","Özgür",1979,9)
 // Değer grubunun imzası şöyledir
-// val yazar : string * string * int * int * System.DateTime
+// val yazar : string * string * int * int
+
+// Değer tipleri tanımlı değer grubu
+let kardeş : string * string = ("Ersel","Özgür")
 ```
 
 Değer grupları başka değer gruplarını da barındırabilir. Aşağıdaki örnekte **baba** isimli değer grubunun 3. elemanı yine bir değer grubudur.
@@ -3385,11 +3388,41 @@ let topla' (x,y) =
 let toplam,metin = topla'(43,-1)
 ```
 
+Değerlerinin tipi olmayan değer gruplarının imzası **'a\ * 'b** şeklindedir
+
+```fsharp
+
+let değerleriYazdır (x,y) = 
+    printfn "Değerler x=%A, y=%A" x y
+// Fonksiyonun imzası şöyledir
+// val değerleriYazdır : x:'a * y:'b -> unit
+
+değerleriYazdır (baba,çocuk)
+değerleriYazdır (42,0)
+```
+
 >**DİKKAT!**
 >
 >Parametre olarak değer grubu alan fonksiyonların çağırılarında çok dikkatli olmalısınız, çünkü **f(1,2)** çağırısı ile **f 1 2** çağırıları eş çağırılar değildirler. İlk çağrı girdi olarak iki elemanlı bir değer grubu alırken ikinci çağırıdaki fonksiyon iki ayrı girdi parametresi alır. 
 
 F#'da fonksiyonlarınız tasarlarken girdi parametrelerini tanımlamak için mümkün ise değer gruplarını kullanmayın, çünkü **let f (a,b) = ...** şeklinde (a,b) değer grubunu girdi parametresi olarak alan bir fonksiyon için **kısmi uygulama** yapılamaz. Fonksiyon parametresi olarak değer grupları eğer değer grubu gerçekten bir şeyi modelliyorsa kullanılmalıdır.
+
+
+İfadelere, fonksiyon girdi parametresi veya dönüş değerlerine değer grubu tiplerini tanımlamak için aşağıdaki şablona uygulmalıdır.
+
+**(ifade1,ifade2): değerTipi1 \* değerTipi2**
+
+```fsharp
+(* 03_5_02.fsx *)
+
+// Değer tipleri tanımlı değer grubu parametresi
+let çarp ( (x,y):int*int ) : int * string = 
+    let ç = x * y
+    (ç,sprintf "%d * %d = %d" x y ç)
+    
+çarp (42,1)
+```
+Örneğimizdeki **çarp** fonksiyonuna bakarsanız **( (x,y):int * int )** ile iki değeri de tam sayı olan bir değer grubunu parametre olarak aldığını **:int * string**  ile de ilk elemanı tam sayı (int) ikinci elemanı metin (string) olan bir değer grubu döndürdüğünü anlarız.
 
 >**ALIŞTIRMA**
 >
@@ -3400,7 +3433,63 @@ F#'da fonksiyonlarınız tasarlarken girdi parametrelerini tanımlamak için mü
 >let topla' x y = x + y
 >
 
+İki değer grubu eleman sayısı, elemanlarını tipleri ve elemanlarının değerleri aynı ise birbirine eşittir. Elaman sayısı farklı olan veya eleman sayısı aynı olan ancak tipleri farklı olan değer grupları karşılaştırılamaz, derleyici hata verir. 
+
+```fsharp
+(1,2) = (1,2) // true
+(1,2) = (2,1) // false
+(1,"Ali") = (1,"Arda") // false
+(1,2,3) = (1,2) // Derleyici hata verir
+(1,2) = ("1",2) // Derleyici hata verir
+```
+
+
 ### List (Liste)
+Aynı tipten elemanları barındıran tipe **liste** (list) denir. F#'da listeler sıralıdır ve içerikleri değiştirilemez (immutable).
+
+Liste oluşturmak için aynı tipten elemanları köşeli parantezler arasında noktalı virgül ile ayırarak yazarız. Alternatif olarak liste elemanlarının her birini yeni bir satıra yazarak noktalı virgül kullanmandan da liste oluşturulabilir. 
+
+```fsharp
+(* 03_5_03.fsx *)
+
+let liste1 = [1;2;3]
+
+let liste2 = [
+    1
+    2
+    3]
+```
+
+Boş bir liste tanımlamak için liste değeri olarak **[]** kullanılır. Boş listelerin imzası **val it :'a list** şeklindedir. **'a** ibaresi listenin elemanlarının herhangi bir tipten olabileceği anlamına gelir. 
+
+```fsharp
+let boşListe = []
+// val boşListe : 'a list
+
+```
+
+>**İPUCU**
+>
+>F#'da tipi belli olmayan herhangi bir tipteki değerleri tanımlamak için 'a,'b,'c şeklindeki simgeler kullanılır. Tek tırnak ve bir harf şeklinde bir ifade gördüğünüzde bilin ki değerin tipi herhangi bir tip olabilir.
+
+
+Elemanlarının değeri belirli bir aralıkta olan listeler aralık operatörü (**..**) kullanılarak tanımlanabilir.
+
+```fsharp
+// Elemanları 1 ile 10 arasındaki sayılar olan liste
+let liste3 = [1..10]
+
+// Elemanları 1 ile 20 arasında olan
+// 1'den itibaren 2'şer artan sayılar
+// olan liste
+let liste4 = [1..2..20]
+
+// Elemanları 1 ile 20 arasında olan
+// 1'den itibaren 0.5'er artan sayılar
+// olan liste
+let liste5 = [1.0..0.5..20.0]
+```
+
 
 ### Option (Opsiyon)
 

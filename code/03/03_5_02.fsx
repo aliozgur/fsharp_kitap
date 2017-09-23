@@ -1,8 +1,12 @@
 (* 03_5_02.fsx *)
 
-let yazar = ("Ali","Özgür",1979,9,System.DateTime.Now)
+let yazar = ("Ali","Özgür",1979,9)
 // Değer grubunun imzası şöyledir
-// val yazar : string * string * int * int * System.DateTime
+// val yazar : string * string * int * int
+
+// Değer tipleri tanımlı değer grubu
+// Doğum günün kutlu olsun Ersel Özgür :)
+let kardeş : string * string = ("Ersel","Özgür")
 
 let baba = ("Ali","Özgür", ("Arda","Özgür"))
 
@@ -32,3 +36,17 @@ let topla' (x,y) =
 
 let toplam,metin = topla'(43,-1)
 
+// Değer tipleri tanımlı değer grubu parametresi
+let çarp ( (x,y):int*int ) : int * string = 
+    let ç = x * y
+    (ç,sprintf "%d * %d = %d" x y ç)
+
+çarp (42,1)
+
+let değerleriYazdır (x,y) = 
+    printfn "Değerler x=%A, y=%A" x y
+// Fonksiyonun imzası şöyledir
+// val değerleriYazdır : x:'a * y:'b -> unit
+
+değerleriYazdır (baba,çocuk)
+değerleriYazdır (42,0)
