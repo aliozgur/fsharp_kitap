@@ -4,12 +4,11 @@
 
 * 1.Bölüm : Giriş
     * 1.1 F# ile Tanışma
-    * 1.2 F# Sözdizimine Hızlı Bakış
-    * 1.3 Kısa F# Tarihçesi
-    * 1.4 Neden F#?
-    * 1.5 Fonksiyonlara Matematiskel Bakış
-    * 1.6 Fonksiyonların İlginç Özellikleri
-    * 1.7 Fonksiyonel Programlama Nedir?
+    * 1.2 Kısa F# Tarihçesi
+    * 1.3 Neden F#?
+    * 1.4 Fonksiyonlara Matematiksel Bakış
+    * 1.5 Fonksiyonların İlginç Özellikleri
+    * 1.6 Fonksiyonel Programlama Nedir?
 
 * 2.Bölüm : F# Geliştirme Platformu 
     * 2.1 FSC - F# Derleyicisi
@@ -25,7 +24,8 @@
     * 3.3 Fonksiyonlar
     * 3.4 Fonksiyonların İleri Seviye Kullanımı
     * 3.5 Temel Veri Tipleri
-    * 3.6 Kod Organizasyonu
+    * 3.6 Yapısal Eşitlik
+    * 3.7 Kod Organizasyonu
 
 * 4.Bölüm : Fonksiyonel Programlama
     * Desen Eşleştirme (Pattern Matching)
@@ -275,8 +275,57 @@ let çıktı1 = sprintf "Bir int %i, bir float %f ve bir bool %b" 42 3.14 true
 let çıktı2 = sprintf "Metin %s ve tipi ile ilgilinemiyorum : %A" "Merhaba Dünya" [1;2;3;4;5]
 let çıktı3 = sprintf "ikili=%A,\nkişi=%A,\nişçi=%A"  ikili kişi işçi
 ```
+### printfn Fonksiyonu
 
-## 1.3 Kısa F# Tarihçesi
+Kitabın içinde yer alan kod örneklerinde yoğun olarak **printfn** standard kütüphane fonksiyonu kullanılmaktadır. Bu fonksiyon konsol ekranına metin yazdırmak için kullanılır. **printfn** fonksiyonu ile birlikte **printf** ve **sprintf** fonksiyonlarını da kod örneklerimizde yoğun olarak kullanacağız.
+
+
+* **printf**, konsol ekranına metin basmak için kullanılır
+* **printfn**, printf ile aynı farklı olarak metnin sonunda yeni bir satır ekler
+* **sprintf**, format ifadesi kullanarak metin üreten fonksiyon
+
+```fsharp
+printfn "F# ile fonksiyonel programlama"
+printfn "Ali Özgür"
+// Konsol ekranı çıktısı
+(* 
+F# ile fonksiyonel programlama
+Ali Özgür
+*)
+
+printf "F# ile fonksiyonel programlama"
+printf ", Ali Özgür"
+//// Konsol ekranı çıktısı
+//F# ile fonksiyonel programlama, Ali Özgür
+
+let yazar = "Ali Özgür"
+let kitapBilgisi = sprintf "F# ile fonksiyonel programlama, %s" yazar
+
+// kitapBilgisi ifadesinin değeri
+//"F# ile fonksiyonel programlama, Ali Özgür"
+```
+
+Bu üç fonksiyonun asıl gücü derleme anında format metni içindeki yer tutucuların (%d,%s,%A gibi) tipi ile bu yer tutuculara değeri veren girdi parametrelerinin tip ve adet uyumluluğunun kontrol edilmesidir. 
+
+Aşağıdaki tabloda format metni içinde kullanılabilecek olan tüm yer tutucuların listesi verilmiştir.
+
+<img src="./img/01_01_00_a.png"/>
+
+Format metninde yer alan yer tutucu ile ekrana basılmaya çalışılan aynı pozisyondaki değerin tipi farklı ise veya format metnindeki yer tutucu sayısı ile fonksiyona verilen girdi değerlerinin sayısı farklı ise derleyici hata verir.
+
+```fsharp
+printf "Sayı değeri %d" "1"  // %d tam sayı tipi yer tutucusu
+printfn "Sayı değeri %f" 1   // %f ondalık basamaklı sayı tipi yer tutucusu
+printfn "Harf değeri %c" "A" // %c karakter tipi yer tutucusu
+
+printf "Sayı değerileri %d ve %d" 1  // eksik değer, iki tane bekleniyor
+
+```
+>**BİLGİ**
+>
+>F#'da ekrana metin basmak için .NET ile gelen standard Console sınıfının metodları da kullanılabilir. Ancak, printf ve sprintf tip uyumluluğunu kontrol ettiği için daha güvenli fonksiyonlardır ve bunların kullanılması tavsiye edilir.
+
+## 1.2 Kısa F# Tarihçesi
 
 F#, Türkçe **efşarp** olarak telafuz edilen yabancı kaynaklarda da **FSharp** veya **F Sharp** olarak rastlayabileceğiniz yordamsal (imperative) ve bildirimsel (declarative) yaklaşımlarının her ikisini de (multi-paradigm) destekleyen fonksyionel bir programlama dilidir. 
 
@@ -331,7 +380,7 @@ F# versiyon tarihçesini ve diğer ayrıntıları aşağıdaki çizelgeden incel
 >F# kaynak kodunu incelemek için https://github.com/fsharp/fsharp adresindeki GitHub deposuna başvurabilirsiniz.
 
 
-## 1.4 Neden F#?
+## 1.3 Neden F#?
 
 Yeni bir programlama dili öğrenmeye başladığınızda, eğer ortada profesyonel bir zorunluluk yoksa, bu dili zaten bildiğiniz diğer diller ile karşılaştıracaksınız.  İlk defa bir programlama dili öğreniyorsanız da yaptığınız dil tercihinin size uygun olup olmadığına karar vermek isteyeceksiniz. 
 
@@ -702,7 +751,7 @@ F# bir .NET dili olduğu için .NET için geliştirilmiş tüm paket kütüphane
 >
 >NuGet'e alternatif olarak açık kaynak kodlu olarak yayınlanmış **Paket** (https://github.com/fsprojects/Paket) ile de paket kütüphanelerini indirebilirsiniz.
 
-## 1.5 Fonksiyonlara Matematiksel Bakış
+## 1.4 Fonksiyonlara Matematiksel Bakış
 
 Fonksiyonel programlamanın temeli matematiksel fonksiyonlar ve fonksiyonların bazı özellikleri üzerine inşa edilmiştir. Matematiksel açıdan en genel **fonksiyon** tanımı aşağıdaki gibi yapılır.
 
@@ -735,7 +784,7 @@ Yukarıdaki örnekte
 
 f fonksiyonunu da  f(A) = {(1,a),(2,a),(3,d)} şeklindeki eşleştirmelerin kümesi olarak tanımlarız.
 
-## 1.6 Fonksiyonların İlginç Özellikleri
+## 1.5 Fonksiyonların İlginç Özellikleri
 
 Matematiksel fonksiyonların fonksiyonel programlama dillerinin yapısını yakından etkileyen belirleyici iki önemli özelliğinden bahsedebiliriz, bunlar
 
@@ -913,7 +962,7 @@ Matematiksel olarak çok parametreli ve çıktılı fonksiyonlar söz konusu old
 
 F# derleyicisi fonksiyonları her zaman tek girdi ve tek çıktılı dönüşümler olarak işler. Bu durumda F#'da birden fazla girdiyi parametre olarak alan fonksiyon tanımlamak mümkün değil midir? Sorunun cevabı kısaca "Mümkündür". Bunun nasıl mümkün olduğunu ilerleyen bölümlerinde ayrıntıları ile bulabilirsiniz. 
 
-## 1.7 Fonksiyonel Programlama Nedir?
+## 1.6 Fonksiyonel Programlama Nedir?
 
 Fonksiyonel programlama, saf fonksiyonları (pure functions) ve değeri sonradan değiştirilemeyen ifadeleri (expressions) kullanarak yapılan kodlama faaliyetidir. Bazı kaynaklar fonksiyonel programlamayı fonksiyonların birinci sınıf vatandaş (first class citizen) olarak kabul edildiği kodlama faliyeti olarak da tanımlamaktadır. Fonksiyonel programlama bir araç veya dile bağlı değildir ve bir **yaklaşım** (paradigma) olarak değerlendirilir. Fonksiyonel olmayan programlama dilleri ile de (eğer dilin yapısı müsait ise) fonksiyonel programlama yaklaşımına ve ilkelerine uygun kod yazmak mümkün olabilir. Fonksiyonel programlama yöntemleri ile çoğu yazılım hatasının kaynağı olan paylaşılan program durumu (shared program state) ve yan etkilerden (side effect) arındırılmış kod yazmak mümkündür.
 
@@ -1075,7 +1124,7 @@ Sonlandırmak için lütfen ENTER'a basın.
 >
 >Linux veya OSX işletim sistemlerinde F# derleyicisini komut satırında **fsharpc** komutu ile çağırmalısınız.
 
->F# derleyici parametrelerini [Derleyici Seçenekleri](https://docs.microsoft.com/dotnet/fsharp/language-reference/compiler-options)sayfasından daha ayrıntılı olarak inceleyebilirsiniz.
+>F# derleyici parametrelerini [Derleyici Seçenekleri](https://docs.microsoft.com/dotnet/fsharp/language-reference/compiler-options) sayfasından daha ayrıntılı olarak inceleyebilirsiniz.
 
 ## 2.2 FSI - F# Etkileşimli Ortamı (F# Interactive)  
 
@@ -1246,6 +1295,15 @@ F# ile Windows, Linux ve OSX işletim sistemleri üzerinde aşağıdaki tabloda 
 >
 >Kitaptaki örneklerin çoğunu herhangi bir kurulum yapmadan (glot.io)[https://glot.io/new/fsharp] web sistesini kullanarak online olarak çalıştırabilirsiniz.
 
+
+F# geliştirme bileşenleri açık kaynaklıdır ve bağımsız geliştirici topluluğu tarafından desteklenir. Ancak, Microsoft Windows üzerinde Visual Studio ile birlikte gelen F# derleyicisini ve etkileşimli ortamını açık kaynak araçlardan farklı ve ayrı bir paket olarak dağıtır. 
+
+Her iki dağıtım da ücretsizdir ve komut satırında kullanılan derleyici ve yorumlayıcı komut isimleri dışında iki dağıtım arasında bizi etkileyecek ciddi bir fark yoktur. 
+
+* Windows üzerindeki Microsoft dağıtımında derleyici komutu **fsc** etkileşimli ortam komutu ise **fsi**'dir
+* Linux ve OSX üzerindeki açık kaynak F# araçlarının derleyici komutu **fsharpc** etkileşimli ortam komutu ise **fsharpi**'dir  
+
+
 ## 2.6 Merhaba F#
 
 Örnek projemiz için aşağıdaki kurulumların yapılması gerekiyor. 
@@ -1412,9 +1470,6 @@ F# ile merhaba dünya
 ```bash
 $ dotnet publish -c Release
 ```
-
-## Visual Studio
-
 
 # 3.Bölüm : F# Temelleri
 Bu bölümde önce F#'ın söz dizimi kurallarını formel olarak inceleyeceğiz. Daha sonra basit (int,string,bool) ve temel veri tiplerini (değer grubu, unit, listeler, diziler) ele alıp F#'ın yapı taşları olan fonksiyonların ayrıntılarına bakacağız. Son olarak kod organizasyonu ipuçları ile bölümü tamamlayacağız.
@@ -3348,7 +3403,7 @@ Değer grubundaki tüm elemanların değerleri tek bir satırda aşağıdaki gib
 (* 03_5_02.fsx *)
 
 // Tüm değerleri ayrı ayrı birer ifadeye atayalım
-let babaAd,babaSoyad,doğumYılı,doğumAyı,bugününTarihi = yazar
+let babaAd,babaSoyad,doğumYılı,doğumAyı = yazar
 
 // Bazı değerleri _ ile sökme sırasında görmezden gelelim
 let kişiAd,kişiSoyad,_ = baba
@@ -3433,6 +3488,8 @@ let çarp ( (x,y):int*int ) : int * string =
 >let topla' x y = x + y
 >
 
+**Eşitlik**
+
 İki değer grubu eleman sayısı, elemanlarını tipleri ve elemanlarının değerleri aynı ise birbirine eşittir. Elaman sayısı farklı olan veya eleman sayısı aynı olan ancak tipleri farklı olan değer grupları karşılaştırılamaz, derleyici hata verir. 
 
 ```fsharp
@@ -3460,6 +3517,21 @@ let liste2 = [
     3]
 ```
 
+Bir ifadenin tipini liste olarak belirtmek için aşağıdaki şablona uygun tanım yapılmalıdır. 
+
+**let <değer_adı> : <elemanların_tipi> list =** 
+
+```fsharp
+// elemanları int tipinden olan liste
+let liste1' : int list = [1;2;3] 
+
+// elemanları string tipinden olan liste
+let liste2': string list= [
+    "1"
+    "2"
+    "3"]
+```
+
 Boş bir liste tanımlamak için liste değeri olarak **[]** kullanılır. Boş listelerin imzası **val it :'a list** şeklindedir. **'a** ibaresi listenin elemanlarının herhangi bir tipten olabileceği anlamına gelir. 
 
 ```fsharp
@@ -3476,6 +3548,8 @@ let boşListe = []
 Elemanlarının değeri belirli bir aralıkta olan listeler aralık operatörü (**..**) kullanılarak tanımlanabilir.
 
 ```fsharp
+(* 03_5_03.fsx *)
+
 // Elemanları 1 ile 10 arasındaki sayılar olan liste
 let liste3 = [1..10]
 
@@ -3488,14 +3562,372 @@ let liste4 = [1..2..20]
 // 1'den itibaren 0.5'er artan sayılar
 // olan liste
 let liste5 = [1.0..0.5..20.0]
+
+// Elemanları 100 ile 0 arasında 
+//2'şer azalan sayılar olan liste
+let liste6 = [100..-2..0]
+```
+
+>**DİKKAT!**
+>
+>F#'da listeler içeriği değiştirilemeyen (immutable) yapılardır. Liste içeriğinde değişiklik yapan tüm fonksiyon ve operatörler yeni bir liste döndürecektir.
+
+Liste'lerin elemanlarına pozisyon numaraları (index) kullanılarak erişilebilir. Liste elemanlarının pozisyon numaraları 0'dan başlar; 3 elemanlı bir listenin birinci elemanının pozisyonu 0, son elemanının pozisyonu da 2'dir. Listenin herhangi bir elemanına erişmek için aşağıdaki şablon kullanılır
+
+**liste_adı.[eleman_indeksi]**
+
+```fsharp
+let liste = [1..10]
+let birinciElaman = liste.[0]
+let sonEleman = liste.[9]
+
+let sonEleman' = liste.[10]
+// Çalışma zamanı hatası!
+// Liste elemanları 0'dan başlanarak indekslenir
+// The index was outside the range of elements in the list.
+
+// = operatörü karşılaştırma operatörü
+// 1. elemanın değeri değiştirilemez
+liste.[0] = 100
+
+// Derleyici hatası. <- operatörü ile elemanın değeri
+// değiştirilemez.
+liste.[0] <- 100
+```
+
+>**BİLGİ**
+>
+> Değişkenler **mutable** anahtar kelimesi kullanılarak tanımlanır ve değerlerini değiştirmek için **<-** atama operatörü kullanılır. F#'da **=** atama operatörü değil, mantıksal karşılaştırma operatörüdür.
+>
+>```fsharp
+> let mutable değer = 1 // değişken tanımı
+>
+> değer <- 0 // Değişken değerini değiştir
+>```
+
+**Eleman Ekleme Operatörü ::**
+
+Bir listenin önüne listenin elemanları ile aynı tipte yeni elemanlar eklemek için **::** (cons, prepend) operatörü kullanılır. Bu operatör ile bir veya daha fazla değer listenin başına eklenir ve yeni bir liste döndürülür. **::** operatörü ile yapılan ekleme işleminin karmaşıklığı O(1)'dir, yani ekleme yapılan listenin uzunluğu ne olursa olsun yeni bir eleman ekleme performansı her zaman sabittir.
+
+```fsharp
+(* 03_5_03.fsx *)
+
+// Boş liste
+let liste7 = []
+
+// 1,2,3,4 ekleniyor
+let liste8 = 1::2::3::4::[]
+
+
+// Elemanları 1,2,3 olan liste
+let liste9 = [1;2;3]
+
+// Listenin başına -1 ve 0 eklenir
+let liste10 = -1::0::liste7
+```
+**::** sağdan bileşmeli bir operatördür (right-associative operagtor), bu nedele listenin sonuna eleman eklemek için kullanılamaz. **::** ile sadece listenin başına yeni elemanlar eklenebilir.
+
+```fsharp
+let liste = [1;2;3]
+// Hatalı :: kullanımı
+let liste' = liste :: 4 :: 5 
+```
+
+**Brileştirme Operatörü @**
+
+Elemanlarının tipleri aynı olan iki liste **@** (append) operatörü kullanarak birleştirilebilir. Birleştirme işlemi sonrasında yeni bir liste döndürülür.
+
+```fsharp
+(* 03_5_03.fsx *)
+
+let liste11 = [1..10]
+let liste12 = [-10..0]
+
+let liste13 = liste12@liste11
+```
+Liste birleştirme işleminin performans karakteristiği ilk listenin uzunluğu tarafından belirlenir, çünkü F# birleştirme sonrasında yeni listeyi oluşturuken sağdaki listeyi olduğu gibi korur ve soldaki listenin elemanlarını kopyalar. Yani, soldaki listenin elemanları sağdaki listenin önüne kopyalanarak yeni bir liste oluşturulur.
+
+**İfadeler İle Liste Oluşturma (List Comprehension)**
+
+Listelerimizin elemanlarını ve değerlerini her zaman kodu yazdığımız anda bilmeyebiliriz. Aslında çoğu programda liste içeriği dinamik olarak bazı hesaplamalar yapılarak oluşturulur. Bu tip durumlarda daha karmaşık akışlar ile listeler oluşturmak için **değer kavrama** (list comprehension) ifadeleri kullanılır. Bu yöntem ile  **[]** (çift parantez) içine F# kodu yazılır ve listenin elemanları fonksiyon veya değer ifadelerinin dönüş değerlerinin **yield** anahtar kelimesi tarafından kavranması ile oluşturulur.
+
+```fsharp
+(* 03_5_04.fsx *)
+
+let sayı = 2.0
+
+// list comprehension
+let liste = [
+    yield sayı // sayının kendisi
+    yield sayı ** 2.0 // sayının karesi
+    yield sayı ** 3.0  // sayının küpü
+]
+```
+Yukarıdaki örneğimizde **sayı** değerinin kendisi, karesi ve küpünü içeren bir listeyi **yield** ile ifadelerin değerlerini kavrayarak oluşturuyoruz.
+
+Değer kavrama ifadelerinin içinde yerel fonksiyonlar, **for** döngüsü, **if/else** koşul kontrolü, öz yinelemeli fonksiyonlar gibi nerdeyse tüm temel F# yapıları kullanılabilir. 
+
+```fsharp
+(* 03_5_04.fsx *)
+
+// Listedeki sayıların karesini liste olarak
+// olarak döndüren fonksiyon.
+// Listenin ilk yarısında çift sayıların karesi,
+// ikinci kısmında da tek sayıların karesi yer alır
+let kareleriAl x = 
+    [
+        // yerel kare fonksiyonu
+        let kare m = m * m
+        
+        // Çift sayıların karesi
+        for i in x do
+          if i % 2 = 0 then
+            yield kare i
+        
+        // Tek sayıların laresi
+        for i in x do
+         if i % 2 = 1 then
+            yield kare i
+    ]
+
+kareleriAl [1..10]
+
+```
+
+**for** döngüsü kullanan değer kavrama ifadelerinde **for do yield** yapısına alternatif olarak daha kısa olan **for ->** yapısı da kullanılabilir.
+
+```fsharp
+let liste = [
+    for i in 1..10 -> // do
+        i // yield i
+]
+```
+
+>**DİKKAT!**
+>
+>Değer kavrama ifadelerinde listenin tamamı bellekte yaratılır. Bu nedenle, çok fazla elemanı olan listeler **list** yerine daha performanslı **Seq** veri yapısı kullanarak oluşturulmalıdır.
+
+Daha önce .NET üzerinde C# ile kodlama yaptıysanız F#'ın **list** tipi ile C#'ın **List** tiplerini birbiri ile karıştırmayın. Bu iki tip hem kullanım hem de performans karakteristikleri açısından aynı tipler değildirler. 
+
+**Eşitlik**
+
+Elemanlarının tipi, eleman sayısı ve pozisyon pozisyon tüm elemanlarının değeri aynı olan listeler eşittir.
+
+```fsharp
+
+let liste1 = [1;2;3]
+let liste2 = [1..3]
+liste1 = liste2 // true
+
+let liste3 = [1;3]
+liste1 = liste3 // false
+
+let liste4 = ['A';'B';'C']
+// Derleyici hatası elemanların tipleri aynı değil
+liste1 = liste4 
+
+let liste5 = [1..10]
+liste1 = liste5 // false
+```
+
+### Array (Dizi)
+Diziler de listeler gibi aynı tipten birden fazla eleman barındıran yapılardır. Ancak diziler bazı işlemlerde listelere göre daha yüksek performans sunar ve listelerden farklı olarak dizilerin elemanları değiştirilebilir. Eğer eleman sayısını önceden biliyorsanız ve elemanların değerlerini değiştirme ihtiyacınız varsa liste yerine dizi kullanmalısınız.
+
+Diziler de listelere çok benzer şekilde ve yöntemler ile tanımlanır. Dizi tanımlamak için elemanların noktalı virgül ile ayrılmış bir şekilde **[| |]** çifti arasına yazılması gerekir
+
+```fsharp
+(* 03_5_05.fsx *)
+
+let dizi1 = [|1;2;3|]
+
+let dizi2 = [|
+    1
+    2
+    3|]
+
+let boşDizi = [| |]
+
+// Elemanları 1 ile 10 arasındaki sayılar olan dizi
+let dizi3 = [|1..10|]
+
+// Elemanları 1 ile 20 arasında olan
+// 1'den itibaren 2'şer artan sayılar
+// olan dizi
+let dizi4 = [|1..2..20|]
+
+// Elemanları 1 ile 20 arasında olan
+// 1'den itibaren 0.5'er artan sayılar
+// olan dizi
+let dizi5 = [|1.0..0.5..20.0|]
+
+// Elemanları 100 ile 0 arasında 
+//2'şer azalan sayılar olan dizi
+let dizi6 = [|100..-2..0|]
+```
+
+Bir ifadenin tipini dizi olarak belirtmek için aşağıdaki şablona uygun tanım yapılmalıdır.
+
+**let <değer_adı> : <elemanların_tipi> []=**
+```fsharp
+
+// elemanları int tipinden olan dizi
+let dizi1': int[] = [|1;2;3|]
+
+// elemanları string tipinden olan dizi
+let dizi2': string[] = [|
+    "1"
+    "2"
+    "3"|] 
+
+```
+
+Diziler için **::** (eleman ekleme) ve **@** (birleştirme) operatörleri **kullanılmaz**.
+
+```fsharp
+let dizi = [|1;2;3|]
+let dizi' = 0::[1;2;3] // HATALI
+
+let dizi1 = [1;2;3]
+let dizi2 = [4;5;6]
+
+let diziBirleşimi = dizi1 @ dizi2 // HATALI
+
+```
+
+Diziler de listeler gibi **değer kavrama** ifadeleri ile oluşturulabilir.
+
+```fsharp
+(* 03_5_05.fsx *)
+
+// --- DEĞER KAVRAMA İLE DİZİ OLUŞTURMA ---
+let dizi = [|
+    yield sayı // sayının kendisi
+    yield sayı ** 2.0 // sayının karesi
+    yield sayı ** 3.0  // sayının küpü
+|]
+
+
+// Dizideki sayıların karesini liste olarak
+// olarak döndüren fonksiyon.
+// Dizinin ilk yarısında çift sayıların karesi,
+// ikinci kısmında da tek sayıların karesi yer alır
+let kareleriAl x = 
+    [|
+        // yerel kare fonksiyonu
+        let kare m = m * m
+        
+        // Çift sayıların karesi
+        for i in x do
+          if i % 2 = 0 then
+            yield kare i
+        
+        // Tek sayıların laresi
+        for i in x do
+         if i % 2 = 1 then
+            yield kare i
+    |]
+
+kareleriAl [|1..10|]
+```
+
+Dizi'lerin elemanlarına pozisyon numaraları (index) kullanılarak erişilebilir. Dizi elemanlarının pozisyon numaraları 0'dan başlar; 3 elemanlı bir dizinin birinci elemanının pozisyonu 0, son elemanının pozisyonu da 2'dir. Dizinin herhangi bir elemanına erişmek için aşağıdaki şablon kullanılır
+
+**dizi_adı.[eleman_indeksi]**
+
+```fsharp
+let sayılar = [|1..5|]
+for i in 0..4 do
+    printfn "sayılar[%d] = %d" i sayılar.[i]
+
+// Ekran çıktısı aşağıdaki gibi olacaktır
+(*
+sayılar[0] = 1
+sayılar[1] = 2
+sayılar[2] = 3
+sayılar[3] = 4
+sayılar[4] = 5
+*)
+
+// Dizilerin indeksi 0'dan başlar.
+// 5. elemanın indeksi 4 olmalıdır. 
+// Eğer 5. elemanı 5 indeksi ile almaya çalışırsak 
+// aşağıdaki çalışma zamanı hatası oluşur
+
+printfn "sayılar[5] = %d" sayılar.[5]
+// Index was outside the bounds of the array.
+```
+>**BİLGİ**
+>
+>Dizilerin elemanlarına sıra numaraları (indeks) ile rastgele erişim listelere göre daha hızlıdır, çünkü diziler eleman sayısı sabit ardışıl bellek blokları olarak oluşturulur. Dizilerin elemanlarına sıra numarası ile erişim kaçıncı elemana erişilirse erişilsin sabit zamanlıdır ve karmaşıklığı O(1)'dır.  
+
+Dizilerin en güçlü taraflarında birisi, fonksiyonel programlama ilkelerine zıt olmakla birlikte, eleman içeriklerinin değiştirilebilir olmasıdır. Dizinin elemanlarına sıra numaraları ile erişim **<-** operatörü kullanarak değerlerini değiştirebiliriz.
+
+```fsharp
+let asalSayılar = [|1;3;5;7;11|]
+for i in 0..4 do
+    // i. elemanın değerini -1 ile çarparak değiştir
+    asalSayılar.[i] <- asalSayılar.[i] * -1
+```
+
+**Kesit Alma**
+
+Diziler ile çalışırken dizinin sadece belli bir kesitindeki elemanlar ile işlem yapılmak istenirse aşağıdaki şablon kullanılarak kesit alma işlemi yapılır.
+
+* **diziAdı.[a..b]**, a ile b pozisyonları arasındaki elemanlardan yeni bir dizi oluştur.
+* **diziAdı.[..b]**, 0. pozisyon ile b. pozisyon arasındaki elemanlardan yeni bir dizi oluştur.
+* **diziAdı.[a..]**, a. pozisyon ile son eleman arasındaki elemanlardan yeni bir dizi oluştur.
+**diziAdı.[*]**, dizinin tüm elemanlarını yeni bir dizi olarak kopyla
+
+```fsharp
+// ---- KESİT ALMA ----
+let çiftSayılar = [|2..2..20|]
+//[|2; 4; 6; 8; 10; 12; 14; 16; 18; 20|]
+
+let  onİkiVeOnSekizArasındakiler= çiftSayılar.[5..8]
+//[|12; 14; 16; 18|]
+
+let dörttenBüyükler = çiftSayılar.[2..]
+//[|6; 8; 10; 12; 14; 16; 18; 20|]
+
+let onDörttenKüçükler = çiftSayılar.[..5]
+//[|2; 4; 6; 8; 10; 12|]
+
+let çiftSayılar' = çiftSayılar.[*]
+//[|2; 4; 6; 8; 10; 12; 14; 16; 18; 20|]
+```
+
+**Çok Boyutlu Diziler**
+
+**Değişken Boyutlu Diziler**
+
+**Eşitlik**
+
+Elemanlarının tipi, eleman sayısı ve pozisyon pozisyon tüm elemanlarının değeri aynı olan diziler eşittir.
+
+```fsharp
+
+let dizi1 = [|1;2;3|]
+let dizi2 = [|1..3|]
+dizi1 = dizi2 // true
+
+let dizi3 = [|1;3|]
+dizi1 = dizi3 // false
+
+let dizi4 = [|'A';'B';'C'|]
+// Derleyici hatası elemanların tipleri aynı değil
+dizi1 = dizi4 
+
+let dizi5 = [|1..10|]
+dizi1 = dizi5 // false
 ```
 
 
 ### Option (Opsiyon)
 
+## 3.6 Yapısal Eşitlik
 
 
-## 3.6 Kod Organizasyonu
+## 3.7 Kod Organizasyonu
 * Proje/Solution
 * Dosyaların Sırası, Type/Name resolution
 * Modüller

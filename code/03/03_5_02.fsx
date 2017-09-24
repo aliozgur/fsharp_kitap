@@ -16,7 +16,7 @@ let çocukAd = fst çocuk
 let çocukSoyad = snd çocuk
 
 // Tüm değerleri ayrı ayrı birer ifadeye atayalım
-let babaAd,babaSoyad,doğumYılı,doğumAyı,bugününTarihi = yazar
+let babaAd,babaSoyad,doğumYılı,doğumAyı = yazar
 
 // Bazı değerleri _ ile sökme sırasında görmezden gelelim
 let kişiAd,kişiSoyad,_ = baba

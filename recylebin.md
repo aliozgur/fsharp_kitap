@@ -157,3 +157,23 @@ Yukarıdaki şekilde **f** fonksiyonu örten fonksiyondur çünkü Y değer küm
 |Visual Studio for Mac | Ücretsiz Community Edition mevcut | OSX | - | .NET Core, Mono|
 |JetBrains Rider | Ücretli |Windows, Linux, OSX | - | .NET Core|
 |MonoDevelop | Ücretsiz| Windows, Linux, OSX | - | Mono|
+
+
+## printf format sepcifiers
+
+
+|Yer tutucu | Açıklama | Örnek | Sonuç|
+|-----------|----------|-------|------|
+|%d, %i| Tam sayı değerleri için kullanılır|printfn "Sayı değeri %d" 5 | Sayı değeri 5|
+|%f| Ondalık basamaklı sayılar için kullanılır|printf "Sayı  = %f" 3.14| Sayı = 3.140000|
+|%x| Tam sayı değerlerini 16'lık tabanda ekrana basar|printf "255 = %x" 255| 255 = ff|
+|%o| Tam sayı değerlerini 8'lık tabanda ekrana basar|printf "255 = %0" 255| 255 = 377|
+|%s| Metinler için kullanılır |printf "Metin = %s" "AB"| Metin = AB|
+|%c| Karakterler için kullanılır |printf "Karakter  = %c" 'A'| Karakter = A|
+|%b| Mantıksal değerler için kullanılır |printf "Mantıksal doğru = %b" true| Mantıksal doğru = true|
+|%O| .NET'de herhangi bir nesenin ToString() fonksiyonunun ürettiği değer basmak için kullanılır| printf "Tarih ve Saat  = %O" 'A'| Tarih ve Saat  = 9/24/2017 4:48:00 PM|
+|%A| Herhangi bir değeri basmak için kullanılır| printf "Tarih ve Saat  = %A" 'A'| Tarih ve Saat  = 9/24/2017 4:49:09 PM|
+
+
+
+
