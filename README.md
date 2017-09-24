@@ -3443,7 +3443,7 @@ let topla' (x,y) =
 let toplam,metin = topla'(43,-1)
 ```
 
-Değerlerinin tipi olmayan değer gruplarının imzası **'a\ * 'b** şeklindedir
+Değerlerinin tipi olmayan değer gruplarının imzası **'a \* 'b** şeklindedir
 
 ```fsharp
 
@@ -3897,6 +3897,28 @@ let çiftSayılar' = çiftSayılar.[*]
 ```
 
 **Çok Boyutlu Diziler**
+
+F#'da matris benzeri çok boyutlu diziler oluşturulabilir. Çok boyutlu dizi oluşturmak için Array2D, Array3D ve Array4D modüllerinde tanımlı olan **create**, **zeroCreate** ve **init** fonksiyonlar kullanılabilir.
+
+```fsharp
+(* 03_5_06.fsx *)
+
+// 3 satır ve 3 sütünlu matris oluştru.
+// Hücre değerleri float tipinden
+let floatMatrsi = Array2D.create<float> 3 3
+
+// 3 satır ve 3 sütünlu matris oluştur.
+// Hücre değerlerinin tipi int ve ilk değerleri 0
+let intMatrsisi = Array2D.zeroCreate<int> 3 3
+
+// 3 satır ve 3 sütünlu matris oluştur.
+// Hücre değerlerinin tipi metin (string) ve hücre
+// içeriği fonksiyon tarafından oluşturulur
+let metinMatrisi2 = Array2D.init<string> 3 3 (fun r c -> sprintf "satır: %d, sütün: %d" r c)
+
+```
+
+
 
 **Değişken Boyutlu Diziler**
 
