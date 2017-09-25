@@ -4497,14 +4497,14 @@ bursa = adana // false
 bursa = istanbul // false
 bursa > adana // true
 adana > istanbul // false
-
 ```
 
-
 ## 3.7 Kod Organizasyonu
-* Proje/Solution
-* Dosyaların Sırası, Type/Name resolution
-* Modüller
+### Projeler ve Çözümler
+
+### Dosya Sıralaması ve Tip/İsim Çözümleme
+
+### Modüller ve Alan Adları
 
 # Terimler Sözlüğü
 
