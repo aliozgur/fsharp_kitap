@@ -6,7 +6,8 @@ printfn "Ana script başladı"
 #load "02_1_05.fsx"
 printfn "Ana script devam edecek"
 
-#I "libs\\ali"
+#I "libs//ali" // OSX, Linux
+#I "libs\\ali" // Windows
 #load "kare.fsx"
 
 open Kare.Module1

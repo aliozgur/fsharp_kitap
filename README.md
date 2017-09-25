@@ -4614,6 +4614,231 @@ F# projelerinde dosyaların sırası **fsproj** uzantılı proje dosyalarında k
 
 ### Modüller ve Alan Adları
 
+**Modüller**
+
+Programlarınızda değerler, fonksiyonlar ve tipler temel modelleme ve organizasyon yapılarıdır. Bu yapıların bir üst seviyesinde programların katmanları ve farklı görevleri yerine getiren parçaları modülleri kullanılarak organize edilir.
+
+F#'da modüller iki seviyede tanımlanır
+
+* Üst seviye modüller (top level modules)
+* İç modüller (nested modules)
+
+Programların kodunu organize etmek için F# kod dosyaları üst seviye modül tanımı ile başlamalı. Üst seviye modüller aşağıdaki format uygun olarak dosyanın başında ve sol tarafında herhangi bir girinti bırakılmadan tanımlanır.
+
+**module \<Modül Adı\>**
+
+Üst seviye modüllerin içinde yer alan kod blokları da herhangi bir girinti bırakılmadan sola yanaşık bir şekilde tanımlanır.
+
+```fsharp
+(* 03_7_02.fs *)
+module SanalMarket
+
+let MarkaAdı = "Sanal Market"
+let Echo x = 
+    sprintf "%A" x
+
+type Müşteri = {Ad:string;Soyad:string}
+```
+Yukarıdaki örneğimizde **03_7_02.fs** kod dosyasının içinde **SanalMarket** isimli üst seviyede bir modül tanımladık. Bu modülün içinde **MarkaAdı** isimli bir değer, **Echo** isimli bir fonkisyon ve **Müşteri** isimli bir kayıt tipi oluşturduk. SanalMarket modülü içinde tanımlı bu ifadeleri **03_7_03.fsx** script dosyası içinden aşağıdaki gibi kullanabiliriz. 
+
+```fsharp
+(* 03_7_03.fsx *)
+
+#load "03_7_02.fs"
+
+open SanalMarket
+
+printfn "Marka Adı = %s" MarkaAdı
+Echo "Sanal Market Client"
+
+let müşteri = {Ad="Mahmut";Soyad="Tuncer"}
+```
+
+* **#load** FSI direktifi ile modülün bulunduğu dosya ortama yüklenir.
+* **open SanalMarket** ifadesi ile modül açılır ve içeriği kullanılabilir hale gelir.
+
+Modül içeriğine erişmek için **open** komutu ile modül açılmaz ise modülün içindeki değerler, fonksiyonlar ve tipler tam isimleri ile çağırılmalıdır. 
+
+```fsharp
+(* 03_7_03.fsx *)
+#load "03_7_02.fs"
+
+//open SanalMarket
+
+printfn "Marka Adı = %s" SanalMarket.MarkaAdı
+SanalMarket.Echo "Sanal Market Client"
+
+let müşteri = {
+    SanalMarket.Müşteri.Ad="Mahmut"
+    SanalMarket.Müşteri.Soyad="Tuncer"}
+
+```
+
+Modül içindeki ifadelerin tam isimlerinin formatı aşağıdaki gibidir
+
+**\<Üst Modül\>.\<İç Modül\>\<Değer | Fonksiyon | Tip\>**
+
+Tam isim formatında üst modül adından sonra iç modül adları gerekli sayıda nokta ile ayrılmış olarak yazılabilir.
+
+>**DİKKAT'**
+>
+>Örneklerimizdeki **#load** direktifi sadece FSI ile çalışıyorsak kullanılabilir. Bir editör içinde geliştirme yapıyorsanız F# kodunu #load ile yüklemenize gerek olmadan sadece **open** ile modül işlevlerine erişim sağlayabilirsiniz.
+
+
+Üst seviye modüllerin altında kodun organizasyonu açısından gerekli ise iç içe ilave modüller de tanımlanabilir. İç içe modüller üst seviye modülün altında herhangi bir girinti bırakılmadan **module <Modül Adı> =** formatına uygun olarak yazılır. Üst seviye modüller ile iç  modüllerin oluşturulması arasındaki tek fark iç modüller oluşturulurken modül adından sonra **=** operatörünün kullanılmasıdır. İç modüllerin altındaki diğer iç modüller de yine aynı formata uygun olarak fakat seviyesine göre uygun miktarda girintiler bırakılarak tanımlanır.
+
+Yukarıdaki örneğimizi **SanalMarket** üst modülü altında **Sepet** isimli bir iç modül ve bunun altında da **Utils** isimli başka bir iç modül olacak şekilde geliştirelim.
+
+```fsharp
+(* 03_7_02.fs *)
+module SanalMarket
+let MarkaAdı = "Sanal Market"
+let Echo x = 
+    sprintf "%A" x
+
+type Müşteri = {Ad:string;Soyad:string}
+
+// SanalMarket modülü altında alt seviye modül
+module Sepet = 
+    type Ürün={Ad:string;Fiyat:decimal}
+    type Sepet = {Müşteri:Müşteri; Ürünler: Ürün list}
+
+    // Sepet alt modülü altında başka bir alt modül
+    module Utils = 
+        let ürünOluştur ad fiyat = 
+            {Ad="iPhone X";Fiyat=fiyat}
+        let sepetOluştur ad soyad ürünler = 
+                {Müşteri={Ad=ad;Soyad=soyad}; Ürünler= ürünler}
+```
+Bu iki iç modülün işlevlerini **SanalMarket.Sepet** iç modülünü ve bunun altındaki **SanalMarket.Sepet.Utils** iç modülünü **open** ile açarak aşağıdaki gibi kullanırız. 
+
+```fsharp
+(* 03_7_03.fsx *)
+
+//SanalMarket üst modülü altındaki 
+//  Sepet iç modülü 
+//erişime açıyoruz
+open SanalMarket.Sepet
+let iPhone7 = {Ad="iPhone 7";Fiyat=5099M}
+
+//SanalMarket üst modülü altındaki 
+//  Sepet iç modülünün altındaki 
+//      Utils iç modülünü 
+//erişime açıyoruz
+open SanalMarket.Sepet.Utils
+
+let iPhoneX = ürünOluştur "iPhone X" 6099M
+
+// Değer kavrama ile ürünleri oluşturup 
+// listeyi |> ile sepetOluştur fonksiyonuna aktarıyoruz
+
+[
+    for i in 3..6 do
+        yield {Ad= sprintf "iPhone %d" i;Fiyat= decimal(i) * 1000M}
+] |> sepetOluştur "Mahmut" "Tuncer"
+
+```
+
+>**BİLGİ**
+>
+>FSI ile etkileşimli olarak çalıştırılan kod parçalarında modül tanımı yapılmasa bile F# varsayılan olarak yazılan kodu dosya adı ile aynı isimde bir modül altında derler ve yorumlar.
+
+**Alan Adları**
+
+F#'da üst seviye modüller yerine alan adları da **namespace \<Alan Adı\>** formatına uygun olarak tanımlanabilir. Alan adları dosyanın tepesinde ve soldan hiç bir girinti verilmeden tanımlanır. Alan adlarının altında iç içe modül tanımları yapılabilir ancak iç içe alan adı tanımlanması mümkün değildir.
+
+Alan adlarının altında üst seviyedeki modüllerden farklı olarak sadece tip tanımı yapılabilir, alan adları altında doğrudan fonksiyon tanımı yapılamaz veya do
+
+Örneklerimizdeki **SanalSepet** üst seviye modülünü aşağıdaki gibi alan adı kullanacak şekilde düzenleyebiliriz. Ancak, dikkat ederseniz üst seviye modül içinde tanımlı olan **MarkaAdı** değerini ve **Echo** fonksiyonunu alan adı altındaki **Genel** isimli bir iç modüle taşımak zorunda kaldık. **Müşteri** tip tanımını ise alan adı altında bırakabilidik.
+
+```fsharp
+(* 03_7_02.1.fs *)
+
+namespace SanalMarket
+
+type Müşteri = {Ad:string;Soyad:string}
+
+module Genel = 
+    let MarkaAdı = "Sanal Market"
+    let Echo x = 
+        sprintf "%A" x
+
+// SanalMarket modülü altında alt seviye modül
+module Sepet = 
+    type Ürün={Ad:string;Fiyat:decimal}
+    type Sepet = {Müşteri:Müşteri; Ürünler: Ürün list}
+
+    // Sepet alt modülü altında başka bir alt modül
+    module Utils = 
+        let ürünOluştur ad fiyat = 
+            {Ad="iPhone X";Fiyat=fiyat}
+        let sepetOluştur ad soyad ürünler = 
+                {Müşteri={Ad=ad;Soyad=soyad}; Ürünler= ürünler}
+```
+
+**Tip ve Fonksiyonların Organzasyonu**
+Modülleri ve alan adlarını tipleri ve fonksiyonları organize etmek için kullanabiliriz. Normalde nesne yönelimli/tabanlı (object oriented) programlama dillerinde tipler bir sınıf olarak tanımlanır ve sınıf tanımı tipin özellikleri ile birlilkte tipin sağladığı fonksiyonları da içerir. F#'da ise saf fonksiyonel programlama yaparken sınflar kullanılmaz bu nedenle tipleri ve tipler ile ilişkili fonksiyonları organize etmek için iki yöntem kullanılır
+
+**Yöntem-1 :** Tip ve fonksiyonları ayrı ayrı tanımlamak. Bu yöntemde tip tanımı alan adı altında yapılırken, tip ile ilgili fonksiyonlar ise alan adı altında bir iç modül içinde yapılır. Bu yöntem diğer .NET dilleri tarafından kullanılacak olan F# kodlarında tercih edilelidir, çünkü tip isimleri bu yöntemle diğer dil kullanıcıları için açık ve net olarak görünür olur.
+
+```fsharp
+(* 03_7_02.2.fs *)
+
+// --------- 1. Yöntem ---------
+namespace SanalMarket1
+
+// Tip tanımı
+type MüşteriTipi = {Ad:string;Soyad:string}
+
+// Tip adını taşıyan modül
+module Müşteri = 
+   // Tip ile ilgili işlem yapan fonksiyon
+   let oluştur ad soyad =  
+    {Ad=ad;Soyad=soyad}
+
+```
+
+**Yöntem-2 :** Tip ve ilişkili fonksiyonlar beraber tanımlanır. Bu yöntemde modül adı tip adı olarak kullanılır, gerçek tip modül altında basit bir isimle ve fonksiyonlar ile birlikte tanımlanır. Bu yöntem diğer .NET dilleri tarafından kullanılması hedeflenmeyen F# kodlarında tercih edilmelidir. Bu yönetm diğer fonksiyonel dillerdeki iyi uygulama örnekleri (best practice) ile de uyumludur.
+
+```fsharp
+(* 03_7_02.3.fs *)
+
+// --------- 2. Yöntem ---------
+namespace SanalMarket2
+
+// Tipin adını taşıyan modül
+module Müşteri = 
+    // Gerçek tip tanımı basit bir isimle yapılıyor
+    type T = {Ad:string;Soyad:string}
+    
+    // Tip ile ilgili işlem yapan fonksiyon
+    let oluştur ad soyad =  
+        {Ad=ad;Soyad=soyad}
+
+```
+
+Hangi yöntem kullanılırsa kullanılsın tip ve ilişkili fonksiyon çağırıları kullanım açısından çok farklı olmaz. 
+
+```fsharp
+(* 03_7_04.fsx *)
+#load "03_7_02.2.fs"
+#load "03_7_02.3.fs"
+
+// --------- 1. Yöntem TEST---------
+open SanalMarket1
+
+let m1 = Müşteri.oluştur "Mahmut" "Tuncer"
+
+printfn "Müşteri %A" m1
+
+// --------- 2. Yöntem TEST---------
+
+open SanalMarket2
+
+let m2 = Müşteri.oluştur "Mahmut" "Tuncer"
+printfn "Müşteri %A" m1
+```
+
 # Terimler Sözlüğü
 
 * **array** -> dizi
@@ -4621,6 +4846,7 @@ F# projelerinde dosyaların sırası **fsproj** uzantılı proje dosyalarında k
 * **applicative** -> uygun
 * **applicative order** -> uygun sıralı 
 * **application** -> uygulama
+* **best practice** -> iyi uygulama örneği
 * **binary operator** -> iki operand ile çalışan operatör 
 * **bitwise operators** -> bit bit işlem yapan operatörler
 * **build script** -> kod dosyalarının derlenerek çalıştırılabilir kodun üretilmesi
