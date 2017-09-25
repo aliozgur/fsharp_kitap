@@ -3358,17 +3358,98 @@ fonksiyon2()
 fonksiyon3 42 0
 fonksiyon4 42 0 ()
 ```
+### Null
+F#'da doğrudan **null** değerler tanımlamak mümkün değildir. Ancak, eğer başka bir .NET dili ile geliştirilmiş bir kütüphane kullanıyorsanız ilgili kütüphaneden yapacağınız fonksiyon çağırıları **null** değer döndürebilir. Benzer şekilde diğer .NET dilleri ile geliştirlmiş kütüphane fonksiyonlarına parametre olarak **null** değerini gönderebilirsiniz.
+
+```fsharp
+(* 03_5_01_null*)
+
+// Kişi isimli kayıt tipi tanımı
+type Kişi = {Ad:string;Soyad:string}
+
+// Yeni bir kişi oluşturma
+let kişi = {Kişi.Ad="Ali"; Kişi.Soyad = "Özgür"}
+
+// kişi' ifadesine null değer vermek mümkün değil 
+//let kişi':Kişi = null
+
+let tarihiÇözümle (str: string) =
+    let (success, res) = DateTime.TryParse(str, null, System.Globalization.DateTimeStyles.AssumeUniversal)
+    if success then
+        Some(res)
+    else
+        None
+
+tarihiÇözümle "2017-09-25 10:00:00"
+```
+Örneğimizdeki **tarihiÇözümle** fonksiyonu standard .NET kütüphanesindeki **DateTime** sınıfı için tanımlı olan **TryParse** fonksiyonunu kullanıyor. Bu fonksiyonun ikinci parametresi olan **provider:IFormatProvider** parametresinin değeri olarak null geçiliyor.
+
+
+Eğer F# içinden oluşturduğunuz tiplerin değerlerinin **null** olmasına izin vermek istiyorsanız tipinizi **AllowNullLiteralAttribute** özelliği ile dekore etmeniz gerekir.
+
+```fsharp
+(* 03_5_01_null*)
+
+// Araba isimli sınıf tanımı
+[<AllowNullLiteral>]
+type Araba (marka:string,model:string,modelYılı:int) = 
+    member this.Marka = marka
+    member this.Model = model
+    member this.ModelYılı = modelYılı
+
+let hondaCrv = Araba(marka="Honda",model="CRV",modelYılı=2017) 
+let hondaHrv:Araba = null
+```
+
+Örnekte **null** değerlere **\[\<AllowNullLiteral\>\]** ile dekore ederek izin verdiğimiz **Araba** isimli bir sınıf tanımlanıyor. Bu sınıftan oluşturulan ilk değer (hondCrv) normak bir değer, ikinci değer (hondaHrv) ise null. 
+
+null değerlere izin verilen F# tiplerinde veya .NET standard kütüphanesindeki fonksiyonların **null** olabilen dönüş değerleri için **null** değer kontrolü F#'da normal tip ve değerler için yapılan kontroller ile aynı şekilde yapılır. 
+
+```fsharp
+(* 03_5_01_null*)
+
+// Araba sınıfında null değerlere izin verdik
+let markayıGetir (a:Araba) : string = 
+    if a = null then 
+        "Geçerli bir araba örneği verilmemiş!"
+    else 
+        a.Marka
+
+
+markayıGetir hondaCrv
+markayıGetir hondaHrv
+```
+
+Eğer fonksiyonunuza geçilecek paramerenin değerinin null olup olamayacağını net olarak bilmiyorsanız ve **null** için özel davranış kodlamanız gerekiyorsa F# standard kütüphanesindeki **box** fonksiyonunu veya F# 4 kullanıyorsanız **isNull** fonksiyonun aşağıdaki gibi kullanabilirsiniz.
+
+```fsharp
+(* 03_5_01_null*)
+
+let nullMu değer = box değer = null
+let nullMu' değer = isNull değer
+
+nullMu hondaCrv
+nullMu hondaHrv
+
+nullMu' hondaCrv
+nullMu' hondaHrv
+```
+
+>**BİLGİ**
+>
+>**box** fonksiyonu F#'daki herhangi bir değeri referans tipinden bir nesneye dönüştürmek için kullanılır. Örneğin tam sayı değeri **1** basit bir değerdir, **box 1** ifadesi ile referans tipinden bir nesneye dönüştürüldü. Referans tipinden nesnelerin değeri **null** olabileceği için null kontrolünde box yöntemi kullanılabilir. **box** fonksiyonunun tersi işlem yapmak için de **unbox** fonksiyonu kullanılabilir.   
+
 
 ### Tuple (Değer Grubu)
-Farklı tiplerde değerleri gruplamak için kullanılan tipe **değer grubu** (tuple) denir. F#'da değer grubu virgül ile ayrılmış değerler şeklinde aşağıdaki formata uygun olarak tanımlanır. 
+Farklı tiplerde değerleri gruplamak için kullanılan tipe **değer grubu** (tuple) denir. F#'da değer gruplar virgül ile ayrılmış değerler şeklinde aşağıdaki formata uygun olarak tanımlanır. 
 
->**let değer_adı = (değer1,değer2,değer3)**
+**let değer_adı = (değer1,değer2,değer3)**
 
-Değer grupları tanımlarken parantez kullanımı opsiyoneldir, ancak kod okunaklılığı açısından parentezleri kullanmanızı öneririm.
+>**İPUCU**
+>
+>Değer grupları tanımlarken parantez kullanımı opsiyoneldir, ancak kod okunaklılığı açısından parentezleri kullanmanızı öneririm.
 
-Değer gruplarının imzası \* ile ayrılmış tipler şeklindedir. 
-
->**değer1_tipi \* değer2_tipi \* değer3_tipi**
+Değer gruplarının tipi **değer1_tipi \* değer2_tipi \* değer3_tipi** şeklinde yazılır. Örneğin; **int \* string \* float** şeklindeki ifade ilk değeri **int**, ikinci değeri **string** üçüncü değeri **float** tipinden olan bir değer grubun tipini ifade eder.
 
 ```fsharp
 (* 03_5_02.fsx *)
@@ -3517,9 +3598,7 @@ let liste2 = [
     3]
 ```
 
-Bir ifadenin tipini liste olarak belirtmek için aşağıdaki şablona uygun tanım yapılmalıdır. 
-
-**let <değer_adı> : <elemanların_tipi> list =** 
+Listelerin tipleri **<elemanların_tipi> list** şeklinde yazılır. Örneğin; **int list** elemanlarının tipi **int** olan bir liste tipin ifade eder.  
 
 ```fsharp
 // elemanları int tipinden olan liste
@@ -3765,9 +3844,8 @@ let dizi5 = [|1.0..0.5..20.0|]
 let dizi6 = [|100..-2..0|]
 ```
 
-Bir ifadenin tipini dizi olarak belirtmek için aşağıdaki şablona uygun tanım yapılmalıdır.
+Dizilerin tipleri **<elemanların_tipi> []=** şeklinde ifade edilir. Örneğin; **int[]** elemanları **int** tipinden olan bir dizi tipini ifade eder.
 
-**let <değer_adı> : <elemanların_tipi> []=**
 ```fsharp
 
 // elemanları int tipinden olan dizi
@@ -3896,31 +3974,146 @@ let çiftSayılar' = çiftSayılar.[*]
 //[|2; 4; 6; 8; 10; 12; 14; 16; 18; 20|]
 ```
 
-**Çok Boyutlu Diziler**
+**Çok Boyutlu Diziler (Multi-Dimensional Arrays)**
 
 F#'da matris benzeri çok boyutlu diziler oluşturulabilir. Çok boyutlu dizi oluşturmak için Array2D, Array3D ve Array4D modüllerinde tanımlı olan **create**, **zeroCreate** ve **init** fonksiyonlar kullanılabilir.
 
 ```fsharp
 (* 03_5_06.fsx *)
 
+// ------------ Array2D Modülü ------------
+
 // 3 satır ve 3 sütünlu matris oluştru.
 // Hücre değerleri float tipinden
-let floatMatrsi = Array2D.create<float> 3 3
+let floatMatrisi = Array2D.create<float> 3 3
 
 // 3 satır ve 3 sütünlu matris oluştur.
 // Hücre değerlerinin tipi int ve ilk değerleri 0
-let intMatrsisi = Array2D.zeroCreate<int> 3 3
+let intMatrisi = Array2D.zeroCreate<int> 3 3
 
 // 3 satır ve 3 sütünlu matris oluştur.
 // Hücre değerlerinin tipi metin (string) ve hücre
 // içeriği fonksiyon tarafından oluşturulur
-let metinMatrisi2 = Array2D.init<string> 3 3 (fun r c -> sprintf "satır: %d, sütün: %d" r c)
+let metinMatrisi = Array2D.init<string> 3 3 (fun r c -> sprintf "satır: %d, sütün: %d" r c)
+
+```
+* **Array2D.create** fonksiyonu satır ve sütün sayısı parametrelerini alan ve boş hücre değerleri olan çok boyutlu bir dizi oluşturmak için kullanılır
+* **Array2D.zeroCreate** fonksiyonu satır ve sütün sayısı parametrelerini alan ve hücre veri tipinin varsayılan değeri ile hücreleri oluşturur. Örneğin hücre değerleri tipi **int** ise ilk değerleri 0 olur, hücre değer tipi **string** ise ilk değerleri **null** olur.
+* **Array2D.init** fonksiyonu ilk iki parametre olarak satır ve sütün sayısını son parametre olarak da değerleri oluşturmak için kullanılabilecek bir fonksiyon alır. Hücre değerleri son parametre olan fonksiyon ile oluşturulabilir. 
+
+>**BİLGİ**
+>
+>F#'da jenerik fonksiyonların parametrelerinin tipleri veya dönüş değerlerinin tipleri  fonksiyon adının hemen ardından yazılan **<>** çifti arasında belirtilir. Örneğin aşağıdaki gibi jenerik bir fonksiyon tanımı yapılabilir
+>
+>```fsharp
+>let ekrandaYazdır<'T> (x:'T) (y:'T)=
+>   printfn "x = %A, y = %A" x y
+>
+>ekrandaYazdır<string> "A" "B"
+>```
+
+
+Tek boyutlu dizilerde olduğu gibi **[| |]** çifti arasında değerler vererek çok boyutlu diziler doğrudan oluşturulamaz. Bunu yerine **array2D** operatörü kullanılmalıdır.
+
+```fsharp
+(* 03_5_06.fsx *)
+
+// ------------ array2D operatörü ------------
+let metinMatrisi1 = array2D [
+    ["satır: 0, sütün 0";"satır: 0, sütün: 1";"satır: 0, sütün: 1"]
+    ["satır: 1, sütün 0";"satır: 1, sütün: 1";"satır: 1, sütün: 1"]
+    ["satır: 2, sütün 0";"satır: 2, sütün: 1";"satır: 2, sütün: 1"]]
 
 ```
 
+İki boyutulu dizilerin tipi **<değer tipi> [,]**, üç boyutluların tipi **<değer tipi> [,,]** ve dört boyutluların tipi de **<değer tipi> [,,,]** şeklinde ifade edilir. Örneğin; **int [,]** ifadesi hücre değerleri int tipinden olan çok boyutlu bir dizi tipini ifade eder. 
+
+2 boyutlu dizilerin hücre değerlerini satır ve sütün pozisyonlarını **<dizi adı>.[satır,sütün]** söz dizimini kullanarak sökebilirsiniz. Kesit almak için ise tek boyutlu dizilerdeki aralık verme yöntemi her iki boyut içinde aşağıdaki gibi kullanılabilir. 
+
+* **[a..b,c..d]**, a ve b pozisyonları arasındaki satırlar ile c ve  d pozisyonları arasındaki sütünlardan kesit al
+* **[a..b,*]**, a ve b pozisyonları arasındaki satırlar ile tüm sütünlardan kesit al
+* **[*,c..d]**, tüm satırlar ile c ve  d pozisyonları arasındaki sütünlardan kesit al
+* **[..b,*]**, b. pozisyona kadar tüm satırlar ile tüm sütünlardan kesit al
+* **[a..,*]**, a. pozisyondan sonraki tüm satırlar ile tüm sütünlardan kesit al
+* **[a,*]**, a. satırı dizi olarak sök
+* **[*,c]**, c. sütünu dizi olarak sök
 
 
-**Değişken Boyutlu Diziler**
+>**DİKKAT!**
+>
+>F#'da listeler ve dizilerin elemanlarının pozisyonları 0 ile başlar. İlk eleman pozisyonu **0** son eleman pozisyonu da **uzunluk - 1** olmalıdır. Çok boyutlu dizilerde de **[0,0]** ilk hücreyi, **[0,0,0]** ilk noktayı temsil eder.  
+ 
+
+```fsharp
+(* 03_5_06.fsx *)
+
+
+// ------------ 2 Boyutlu Dizi Hücre Erişimi ve Kesit Alma ------------
+// 1. satır, 1. sütündaki hücrenin değerini sök
+metinMatrisi.[1,1]
+
+// tüm satırlar, sadece 0. ve 1. sütünlar 
+metinMatrisi.[*,0..1]
+
+// Tüm sütünlar, sadece 0. ve 1. satırlar
+metinMatrisi.[0..1,*]
+
+// 1. sütündan sonraki tüm sütünlar, tüm satırlar
+metinMatrisi.[1..,*]
+
+// 1. sütüna kadarki tüm sütünlar, tüm satırlar
+metinMatrisi.[..1,*]
+
+// 1. ve 2. satır, 0. ve 1. sütünlar
+metinMatrisi.[1..2,0..1]
+
+// 1. satır'ı dizi olarak sök
+metinMatrisi.[1,*]
+
+// 1. sütün'u dizi olarak sök
+metinMatrisi.[*,1]
+
+```
+**Düzensiz  Diziler (Jagged Arrays)**
+
+F#'da elemanları başka dizilerden oluşan diziye **düzensiz dizi** (jagged array) denir. Düzensiz dizilerin tipi **<değer tipi>[][]** şeklinde ifade dilir. Örneğin; **string [][]** elemanları string değerleri içeren diziler olan düzensiz bir dizi tanımlar
+
+```fsharp
+(* 03_5_06.fsx *)
+
+let düzensizSayıDizsi = [|
+    [|1;2|]
+    [|3;4;5|]
+|]
+
+let düzensizMetinDizisi: string[][] = [| [|"A";"B"|] ; [|"C";"D";"E"|] |]
+
+let düzensizMetinDizisi': string[][] = [|
+    [|"A";"B"|]
+    [|"C";"D";"E"|] |]
+```
+
+Düzensiz diziler normal diziler gibi **değer kavrama** ifadeleri kullanılarak oluşturulabilir.
+
+```fsharp
+(* 03_5_06.fsx *)
+
+
+// ------------ Düzensiz Diziler - Değer Kavrama İfadeleri  ------------
+
+let düzensizDizi1 = [|
+    for i in 1..5 do   
+        yield [|
+            for k in 1..i do 
+                yield k
+          |]
+|]
+
+let düzensizDizi2 = [|
+    for i in 1..5 do   
+        yield Array.init<string> i ( fun i -> sprintf "Değer %d" i)
+|]
+```
 
 **Eşitlik**
 
@@ -3943,10 +4136,369 @@ let dizi5 = [|1..10|]
 dizi1 = dizi5 // false
 ```
 
-
 ### Option (Opsiyon)
+Bazı durumlarda belirli bir değeri olmayan ifadeler veya belirli bir değer döndürmeyen fonksiyonlar yazılması gerekebilir. Bu tip durumlarda **option** (opsiyon) tipi kullanılabilir. Opsiyon tipinin iki olası değeri vardır; **None** değer olmadığını ifade eder, **Some('a)** ise 'a tipinden bir değeri ifade eder. **Some('a)** opsiyon değerini  güvenli tipleme için asıl değeri çevreleyen bir kabuk tip olarak da düşünebiliriz.
+
+```fsharp
+(* 03_5_07.fsx *)
+
+// ----- option tipinden değer tanımlama ----- 
+
+let değer1 = Some(5)
+let değer2 = None
+let değer3 : int option = Some(5)
+
+let değer4 : int option = None
+
+let değer5 : (int list) option = None
+```
+
+Opsiyon tipi **<değer tipi> option** olarak ifade edilir. Örneğin **int option** tam sayı opsyonu, **string option** metin opsiyonu ve **int list option** tam sayı listesi opsiyonu ifade eder.
+
+Opsiyonların değer barındırıp barındırmadığı **Option** modülü içindeki **isSome** ve **isNone** fonksiyonları kullanarak kontrol edilebilir. Opsiyon bir değer barındırıyorsa, yani None değilse, çevrelediği asıl değer **Option** modülü içindeki **get** fonksiyonu ile sökülebilir. Değeri **None** olan bir opsiyon için **get** fonksiyonu çağırısı **ArgumentException** tipinden bir istisna fırlatılır. 
+
+```fsharp
+(* 03_5_07.fsx *)
+// ----- option tipinden parametre kullanımı ----- 
+
+// Araba isimli kayıt tipi
+type Araba = {Marka:string;Model:string}
+
+// None kontrolü ve Option.get kullanımı 
+let arabaBilgisiniVer (a: Araba option):string = 
+    if a = None then
+        "Araba nesnesi belirtilmemiş"
+    else
+        let araba = Option.get a
+        sprintf "Marka = %s, Model = %s" araba.Marka araba.Model
+
+// Option.isNone ve Option.get kullanımı
+let arabaBilgisiniVer' (a: Araba option):string = 
+    if Option.isNone a then
+        "Araba nesnesi belirtilmemiş"
+    else
+        let araba = Option.get a
+        sprintf "Marka = %s, Model = %s" araba.Marka araba.Model
+
+
+// Option.isSome ve Option.get kullanmı
+let arabaBilgisiniVer'' (a: Araba option):string = 
+    if Option.isSome a then
+        let araba = Option.get a
+        sprintf "Marka = %s, Model = %s" araba.Marka araba.Model
+    else
+        "Araba nesnesi belirtilmemiş"
+
+let araba1 = None
+let araba2 = Some({Marka="Honda";Model="CRV"})
+
+arabaBilgisiniVer araba1
+arabaBilgisiniVer araba2
+
+arabaBilgisiniVer' araba1
+arabaBilgisiniVer' araba2
+
+arabaBilgisiniVer'' araba1
+arabaBilgisiniVer'' araba2
+```
+
+Opsiyonlar fonksiyonlardan **null** değeri kullanılmadan bazı koşullarda bir değer bazı koşullarda da  ***hiç bir değer** döndürmemek için kullanılabilir. 
+
+Örneğin bölme işleminde 0'a bölme tanımsız bir işlemdir. **bölüm'** fonksiyonunun bölüm parametresi olan **y** için 0 değeri geçildiğinde fonksiyonun dönüş değeri **None** olur.  
+
+```fsharp
+(* 03_5_07.fsx *)
+// ----- option tipinden değer döndürme ----- 
+
+let bölüm' (x:float) (y:float) = 
+    match y with
+    | 0.0 -> None // 0'a bölme işlemi tanımsız
+    | _ -> Some(x / y)
+
+
+
+bölüm' 5.0 0.0 // Sonuç : None
+bölüm' 5.0 2.0 // Sonuç : Some(2.5)
+``` 
+
+**Eşitlik**
+
+Opsiyon değerleri çevreledikleri tipin değeri eşit ise birbirine eşittir. Aynı tipten değerleri çevreleyen **Some** değerleri eşitlik için kontrol edilebilir, farklı tipleri çevreleyen **Some** değerlerinin eşitlik kontrolüne derleyici izin vermez.  
+
+```fsharp
+(* 03_5_07.fsx *)
+// ----- option eşitliği ----- 
+
+None = None // true
+Some(1) = Some(1) // true
+Some(1) = Some(2) // false
+Some(1) = Some("1") // Derleyici hatası, çevrelenen tipler farklı
+```
 
 ## 3.6 Yapısal Eşitlik
+
+F#'da değer grupları (tuple), listeler (list), opsiyonlar (option), diziler (array), kayıtlar (record), bileşimler (union) ve çatılar (struct) gibi tipler otomatik olarak **yapısal eşitlik** (structural equality) denilen yaklaşımı destekler. F#'daki yapısal eşitlik yaklaşımı  C++, Java ve C# gibi dillerdeki eşitlik yaklaşımından farklıdır, çünkü bu dillerde nesnelerin işaretçi eşitliği ile içerik eşitliği birbirinden farklı olarak ele alınır ve karşılaştırma kodunu sizin yazmanız beklenir. F#'da ise temel tiplerin hepsi için herhangi bir kodlama yapılmadan içerik eşitliği otomatik olarak tespit edilebilir.   
+
+
+Yapısal eşitliğin ne olduğunu daha iyi anlamak için önce C#'da referans eşitliği ve içerik eşitliği kontrolünün nasıl yapıldığına bakalım. İlk C# örneğimizde **Kişi** isimli bir sınıf tanımlıyoruz. Bu sınıfın **Ad** ve **Soyad** isimli iki özelliği var. Main metodu içinde **Ad** ve **Soyad** özelliklerinin değeri aynı olan **Kişi** tipinden **kişi1** ve **kişi2** isimli iki değişken tanımlıyoruz. İlave olarak **kişi3** isimli bir değişken tanımlayıp değrini **kişi1** değişkeni olarak atıyoruz. 
+
+
+```csharp
+public class Kişi
+{
+    public string Ad{get;set;}
+    public string Soyad{get;set;}
+}
+
+void Main()
+{
+    var kişi1 = new Kişi{Ad = "Ali", Soyad = "Özgür"};
+    var kişi2 = new Kişi{Ad = "Ali", Soyad = "Özgür"};
+    var kişi3 = kişi1;
+
+    Console.WriteLine("kişi1 == kişi2 : {0}", kişi1 == kişi2);
+    // Çıktı : "kişi1 == kişi2 : False"
+	
+    Console.WriteLine("kişi1 == kişi3 : {0}", kişi1 == kişi3);
+    // Çıktı : "kişi1 == kişi3 : True"
+}
+```
+
+C#'da **==** operatörü karşılaştırma için kullanılır ve sınıflar için varsayılan olarak işaretçi referanslarını yani değişkenlerin bellekteki adreslerini karşılaştırır. Bu nedenle içerikleri eşit olan ancak bellek adresleri farklı olan kişi1 ve kişi2 değişkenleri **kişi1 == kişi2** şeklinde karşılaştırılınca sonuç **False** olurken aynı bellek adresini (aynı nesneyi) işaret eden kişi1 ve kişi3 değişkenleri **kişi1 == kişi3** şeklinde karşılaştırıldığında sonuç **True** olur. 
+
+Özetle, C# ve benzeri dillerde aynı sınıftan nesnelerin içeriği otomatik olarak karşılaştırılabilir değildir. C#'da içerik karşılaştırması yapabilmek için **Kişi** sınıfının atası olan **System.Object**'den devraldığı **Equals** metodunu karşılaştırma mantığımıza uygun olarak kodlamamız gerekiyor. Ancak, **Equals** metodunu kodlasak bile hala **==** operatörünü karşılaştırma için kullanamayız bu nedenle içerik karşılaştırmasını **Equals** metodunu kullanarak yapmamız gerekir.
+
+```csharp
+public class Kişi
+{
+    public string Ad{get;set;}
+    public string Soyad{get;set;}
+	
+    /*
+        Equals Sytem.Object tipinin metodu
+        C#'da System.Object tüm sınıfların atası, o nedenle
+        Kişi sınıfında da Eeuals metodunu override ederek kendi
+        kodumuzu yazabiliriz
+    */
+    public override bool Equals(object kişi)
+    {
+        var k = kişi as Kişi;
+        return k == null 
+            ? false 
+            : this.Ad == k.Ad && this.Soyad == k.Soyad;
+    }
+}
+
+void Main()
+{
+    var kişi1 = new Kişi{Ad = "Ali", Soyad = "Özgür"};
+    var kişi2 = new Kişi{Ad = "Ali", Soyad = "Özgür"};
+    var kişi3 = kişi1;
+	
+    // İçerik eşitliği
+    Console.WriteLine("kişi1 == kişi2 : {0}", kişi1.Equals(kişi2));
+    // Çıktı : "kişi1 == kişi2 : True"
+	
+    Console.WriteLine("kişi1 == kişi3 : {0}", kişi1.Equals(kişi3));
+    // Çıktı : "kişi1 == kişi3 : True"
+
+    // İşaretçi referansı eşitliği
+    Console.WriteLine("kişi1 == kişi2 : {0}", kişi1 == kişi2);
+    // Çıktı : "kişi1 == kişi2 : False"
+    
+    Console.WriteLine("kişi1 == kişi3 : {0}", kişi1 == kişi3);
+    // Çıktı : "kişi1 == kişi3 : True"
+}
+```
+
+>**BİLGİ**
+>
+>Kitabımız C# kitabı olmadığı için C#'daki eşitlik ve karşılatırma yöntemlerinin hepsinden bahsetmiyoruz. **Equals** metodu ile sağlanan eşitlik kontrolü imkanı basit yöntemlerden sadece birisidir, bunun dışında C#'da **==** operatörünün yeniden kodlanması, farklı kütüphane sınıflarına özel eşitlik ve karşılaştırma işlemlerinin kodlanması gibi yöntemler de uygulanabilir. 
+
+C# örneğimizi F# ile tekrarladığımızda içerik eşitliği kontrollerini ilave kodlama yapmadan otomatik olarak sağlanan **yapısal eşitlik** sayesinde yapılabildiğini görüyoruz.
+
+```fsharp
+(* 03_6_03.fsx *)
+
+// Kişi isimli kayıt tipi
+type Kişi = {Ad:string;Soyad:string}
+
+// kişi1, kişi2 ve kişi3 değerler
+let kişi1 = {Ad="Ali";Soyad="Özgür"}
+let kişi2 = {Ad="Ali";Soyad="Özgür"}
+let kişi3 = kişi1
+
+let kişi4 = {Ad="Arda";Soyad="Özgür"}
+
+
+printfn "kişi1 = kişi2 : %b" (kişi1 = kişi2)
+// Çıktı : kişi1 = kişi2 : true
+
+printfn "kişi1 = kişi3 : %b" (kişi1 = kişi3)
+// Çıktı : kişi1 = kişi3 : true
+
+printfn "kişi2 = kişi3 : %b" (kişi2 = kişi3)
+// Çıktı : kişi2 = kişi3 : true
+
+printfn "kişi1 = kişi4 : %b" (kişi1 = kişi4)
+// Çıktı : kişi1 = kişi4 : false
+```
+
+Yapısal eşitlik ile sadece eşitlik/farklılık kontrolü değil aynı zamanda büyüklük/küçüklük karşılaştırması da otomatik olarak yapılabilir. Büyüklük/küçüklük karşılaştırması yapılırken öncelikle aşağıdaki koşulların sağlanması gerekir.
+
+* Liste ve dizi gibi tiplerin eleman tipleri ve eleman sayısı aynı olmalı.
+* Değer gruplarının değer tipleri ve sayıları aynı olmalı. Örneğin: **int * string * float** ile **int * int * float** tipinden değerler içeren gruplar karşılaştırılamaz.
+* Some('a) şeklinde tanımlanan opsiyonların çevreledikleri **'a** tipi aynı olmalı. Örneğin **Some(1)** ile **Some("1")** karşılaştırılmaz.
+* Kayıt (record), çatı (struct) ve bileşimlerin (union)  karşılaştırılabilmesi için karşılaştırılan değerlerin tipleri aynı olmalıdır.
+
+Bu koşullar derleyici tarafından kontrol edilir, eğer bir uyumsuzluk varsa derleyici hata üretir. Bu koşullar sağlandığında ise her bir tip için aşağıdaki kurallara göre büyüklük/küçüklük karşılaştırması yapılır.
+
+* Liste ve dizi gibi tiplerde aynı pozisyondaki elemanlar karşılaştırılarak büyüklük/küçüklük kararı verilir. İlk farklı olan pozisyondaki eleman değerlerine göre karar verilir. Örneğin **let a = [1;2;3]** listesi ile **let b = [1;3;3]** listesi için **a > b** karşılaştırması yapılırken değerleri eşit olmayan ilk elemanları 2. elemanlardır . Bu nedenle, **a > b** karşılaştırması **a.[1] > b.[2]** olarak yorumlanır ve sonucu **false**'dır. Örneğimizde bu karşılaştırmanın sonucu **false** olacaktır.
+
+* Değer grupları için de diziler ve listelerdeki gibi grubu oluşturan değerler pozisyon pozisyon karşılaştırılır. Örneğin **let a = (1,2,3)** değer grubu ile **let b = (1,3,3)** değer grubu için **a > b** karşılaştırması yapılırken değerleri eşit olmayan ilk değerler 2. elemanlardır. Bu nedenle **a > b** karşılaştırması **2 > 3** olarak yorumlanır ve sonucu **false**'dır.
+
+* Some('a) şeklinde tanımlanan opsiyonlar için çevreledikleri değerler karşılaştırılır. Örneğin **let a = Some(1)** ve **let b = Some(2)** için **a > b** karşılaştırması **1 > 2** olarak yorumlanır ve sonucu **false**'dır.
+
+* Kayıt (record) ve çatı (struct) tiplerinde karşılaştırma özellik özellik yapılır. İlk farklı olan özelliğin değerine göre de karar verilir. Örneğin **let a = {Ad="Ali";Yaş=37}** kaydı ile **let b = {Ad="Ali";Yaş=45}** kaydı için **a > b** karşılaştırması yapılırken değerleri eşit olmayan ilk özellik **Yaş** özelliğidir. Bu nedenle,**a > b** karşılaştırması **37 > 45** olarak yorumlanır ve ve sonucu **false**'dır.
+
+* Bileşimler için karşılaştırma yapılırken ise bileşim değerinin bileşim tip tanımındaki sırası dikkate alınır. Örneğin **type Şehir = Adana|Bursa|İstanbul** şeklindeki bir bileşim tanımına göre **İstanbul > Adana** karşılaştırmasının sonucu **true**, **Adana > Bursa** karşılaştırmasının sonucu ise **false** olur. 
+
+
+```fsharp
+(* 03_6_04.fsx *)
+
+// ---- Değer Grupları (tuple) Eşitliği ve Karşılaştırma ---- 
+let değerGrubu1 = (1,2)
+let değerGrubu2 = (1,2)
+let değerGrubu3 = (2,1)
+let değerGrubu4 = (2,3)
+
+değerGrubu1 = değerGrubu2 // true
+değerGrubu1 = değerGrubu3 // false
+
+değerGrubu1 < değerGrubu3 // true
+değerGrubu4 > değerGrubu3 // true
+
+
+// ---- Liste (list) Eşitliği ve Karşılaştırma ---- 
+let liste1 = [1..5]
+let liste2 = [1..5]
+let liste3 = [
+    for i in 1..5 do
+        if i = 1 then
+            yield 2
+        else if i = 2 then 
+            yield 1
+        else 
+            yield i
+]
+
+let liste4 = [
+    for i in 1..5 do
+        if i = 2 then
+            yield 0
+        else 
+            yield i
+]
+
+liste1 = liste2 // true
+liste1 = liste3 // false
+liste3 > liste1 // true
+liste4 > liste1 // false
+
+// ---- Dizi (Array) Eşitliği ve Karşılaştırma ---- 
+let dizi1 = [1..5]
+let dizi2 = [1..5]
+let dizi3 = [
+    for i in 1..5 do
+        if i = 1 then
+            yield 2
+        else if i = 2 then 
+            yield 1
+        else 
+            yield i
+]
+
+let dizi4 = [
+    for i in 1..5 do
+        if i = 2 then
+            yield 0
+        else 
+            yield i
+]
+
+
+dizi1 = dizi2 // true
+dizi1 = dizi3 // false
+dizi3 > dizi1 // true
+dizi4 > dizi1 // false
+
+
+// ---- Opsiyon (option)  Eşitliği ve Karşılaştırma ---- 
+let opsiyon1 = Some(1)
+let opsiyon2 = Some(1)
+let opsiyon3 = Some(2)
+
+opsiyon1 = opsiyon2 // true
+opsiyon1 = opsiyon3 // false
+opsiyon3 > opsiyon1 // true
+
+
+// ---- Kayıt (Record) Eşitliği ve Karşılaştırma ---- 
+type Kişi = {Ad:string;Soyad:string;DoğumYılı:int}
+
+// kişi1, kişi2 ve kişi3 değerler
+let kişi1 = {Ad="Ali";Soyad="Özgür";DoğumYılı=1979}
+let kişi2 = {Ad="Ali";Soyad="Özgür";DoğumYılı=1979}
+let kişi3 = {Ad="Ali";Soyad="Özgür";DoğumYılı=1980}
+let kişi4 = {Ad="Arda";Soyad="Özgür";DoğumYılı=1979}
+
+kişi1 = kişi2 // true
+kişi1 = kişi3 // false
+
+kişi1 < kişi3 // true 
+kişi1 < kişi4 // true
+
+// ---- Çatı (struct)  Eşitliği ve Karşılaştırma ---- 
+
+type Nokta = 
+    struct
+        val x: float
+        val y: float
+        new(x,y) = {x=x;y=y}
+    end
+
+let nokta1 = Nokta(1.0,0.0)
+let nokta2 = Nokta(1.0,0.0)
+
+let nokta3 = Nokta(1.0,2.0)
+let nokta4 = Nokta(2.0,0.0)
+
+let nokta5 = Nokta(0.0,2.0)
+
+nokta1 = nokta2 // true
+nokta1 = nokta3 // false
+nokta1 = nokta4 // false
+nokta3 > nokta1 // true
+nokta4 > nokta1 // true
+nokta5 > nokta1 //false
+
+// ---- Bileşimler (union)  Eşitliği ve Karşılaştırma ---- 
+
+type Şehir = Adana|Bursa|İstanbul
+
+let bursa = Bursa
+let bursa' = Bursa
+let adana = Adana
+let istanbul = İstanbul
+
+bursa = bursa' // true
+bursa = adana // false
+bursa = istanbul // false
+bursa > adana // true
+adana > istanbul // false
+
+```
 
 
 ## 3.7 Kod Organizasyonu
@@ -3985,12 +4537,14 @@ dizi1 = dizi5 // false
 * **input** -> girdi
 * **interactive** -> etkileşimli
 * **interpreter** -> yorumlayıcı
+* **jagged array** -> düzensiz dizi
 * **keyword** -> anahtar kelime
 * **operator** -> operatör
 * **lazy evaluation** -> gevşek değerleme
 * **library** -> kütüphane
 * **memoization** -> belleme
 * **multi** -> çoklu
+* **multi-dimensional** -> çok boyutlu
 * **nested function** -> iç içe fonksiyonlar 
 * **paradigm** -> paradigma, yaklaşım
 * **partial application** kısmi uygulama
