@@ -4500,9 +4500,23 @@ adana > istanbul // false
 ```
 
 ## 3.7 Kod Organizasyonu
-### Projeler ve Çözümler
+### Çözümler ve Projeler
+Büyük ve karmaşık uygulamalar geliştirmek için uygulamanın her bir işlevsel parçasını farklı birer büyüklük olarak ele alıp bunların hepsini de bir çatı altında birleştirmek kaçınılmazdır. .NET platformunda bu seviyedeki kod organizasyonu projeler ve çözümler (solution) kullanılarak yapılır. Uygulamanın tamamı bir çözüm (solution) olarak oluşturulup uygulamanın farklı işlevleri veya modüller de ayrı birer proje olarak bu çözüme eklenir.
+
+.NET ile veya F# özelinde uygulama geliştirilirken projelerin ve çözümlerim kullanılması zorunlu değildir. Bu iki yapı içinde ayarların ve kod dosyalarına ve diğer dosyalara linklerin olduğu birer dosyadan ibarettir. Çözüm dosyaları **sln** uzantılı, proje dosyaları ise **fsroj** uzantılı içinde XML notasyonuna uygun bilgilerin yer aldığı dosyalardır. Bu iki dosyanın içeriğini elle düzenlemeniz beklenmez, çünkü F# destekleyen tüm editörler kullanıcı arayüzünden erişilebilen komutlar ile çözümlere proje ekleme, projelere dosya ekleme, dosya sıralamasını değiştirme ve kütüphanelere referans ekleme gibi işlemleri destekler.   
+
+Çözümler ve projelere uygulama kodunun organize edilmesinin yanı sıra derleyicinin tüm dosyaları doğru sırada derlemesini ve doğru çıktıyı üretmesini de kolaylaştırır. Ancak, çözüm ve projeler doğrudan derleyici tarafından kullanılmaz, dolaylı olarak F# destekleyen kod editörleri bu dosyaların içeriğini okuyup yorumlayarak derleyiciye doğru komutların gönderilmesini sağlar.
+
+<img src="./img/03_08.png"/>
+
+<img src="./img/03_09.png"/>
+
+<img src="./img/03_10.png"/>
+
+<img src="./img/03_11.png"/>
 
 ### Dosya Sıralaması ve Tip/İsim Çözümleme
+
 
 ### Modüller ve Alan Adları
 
