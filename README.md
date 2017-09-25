@@ -4500,6 +4500,7 @@ adana > istanbul // false
 ```
 
 ## 3.7 Kod Organizasyonu
+
 ### Çözümler ve Projeler
 Büyük ve karmaşık uygulamalar geliştirmek için uygulamanın her bir işlevsel parçasını farklı birer büyüklük olarak ele alıp bunların hepsini de bir çatı altında birleştirmek kaçınılmazdır. .NET platformunda bu seviyedeki kod organizasyonu projeler ve çözümler (solution) kullanılarak yapılır. Uygulamanın tamamı bir çözüm (solution) olarak oluşturulup uygulamanın farklı işlevleri veya modüller de ayrı birer proje olarak bu çözüme eklenir.
 
@@ -4515,8 +4516,101 @@ Büyük ve karmaşık uygulamalar geliştirmek için uygulamanın her bir işlev
 
 <img src="./img/03_11.png"/>
 
-### Dosya Sıralaması ve Tip/İsim Çözümleme
+### Dosya Sıralaması
 
+F# derleyicisi kod dosyalarını yukarıdan aşağıya, sağdan sola çözümler. F#'da herhangi bir ifade, fonksiyon veya tip tanımının kullanılabilmesi için kullanılacağı yerden önce tanımlanmış olması ve F# derleyicisi tarafından çözümlenmiş olması gerekiyor. C++, Java veya C# gibi dillerde fonksiyon veya tip tanımlarının hangi aşamada yapıldığını fazla önemi yoktur. Örneğin C# ile aşağıdaki gibi bir tanımlama ve sıralama geçerli bir kullanımdır.
+
+```csharp
+using System;
+					
+public class Program
+{
+	
+	public static void Main()
+	{
+		var kişi = new Kişi{Ad="Arda",Soyad="Özgür"};	
+		Console.WriteLine($"Kişi bilgisi : {kişi}");
+	
+		var test = TestMetodu();
+		Console.WriteLine($"Test metod sonucu : {test}"); 
+		
+	}
+	
+    public static string TestMetodu()
+	{
+		return "Bu bir test metodudur.";
+	}
+}
+
+public class Kişi
+{
+	public string Ad{get;set;}
+	public string Soyad{get;set;}
+	
+	public override string ToString()
+	{
+		return $"{this.Ad} {this.Soyad}";
+	}
+}
+``` 
+C# örneğinde **Kişi** sınıfı kullanıldığı **Program** sınıfırn **Main** metodundan sonra tanımlanmıştır. Buna rağmen C# derleyicis hata vermez ve program çalışır. Benzer bir sıralamayı F# için yapmaya çalıştığımızda ise F# derleyicisi hata verecektir.
+
+```fsharp
+(* 03_7?01.fsx *)
+// Kişi tipinden değer
+let kişi = {Ad="Arda";Soyad="Özgür"}
+
+// kişi değerini ekrana yazdırma
+printfn "Kişi bilgisi : %s" (kişiBilgisi kişi)
+
+// Kişi bilgisi fonksiyonu tanımı
+let kişiBilgisi (k:Kişi) = 
+    sprintf "%s %s" k.Ad k.Soyad
+
+
+// Kişi kayıt tipi tanımı
+type Kişi = {Ad:string;Soyad:string}
+
+```
+
+Yukarıdaki F# kod parçasında **Kişi** tipi ve **kişiBilgisi** fonksiyonları kullanıldıkları noktadan sonra tanımlandığı için F# derleyicis bu kod parçasını derleyemez. Örnek kod parçasının **Kişi** tipi önce sonra da **kişiBilgisi** fonksiyonu gelecek şekilde değer, tip ve fonksiyon tanımları kullanılmadan önce tanımlanacak şekilde düzeltilmesi gerekir.
+
+```fsharp
+(* 03_7_01.1.fsx *)
+
+// Kişi kayıt tipi tanımı
+type Kişi = {Ad:string;Soyad:string}
+
+// Kişi bilgisi fonksiyonu tanımı
+let kişiBilgisi (k:Kişi) = 
+    sprintf "%s %s" k.Ad k.Soyad
+
+// Kişi tipinden değer
+let kişi = {Ad="Arda";Soyad="Özgür"}
+
+// kişi değerini ekrana yazdırma
+printfn "Kişi bilgisi : %s" (kişiBilgisi kişi)
+```
+
+Tek bir kod dosyası içindeki bu sıralama benzer şekilde birden fazla kod dosyasından oluşan programlar için de önemlidir. **Kişi** kayıt tipini **Kisi.fs** isimli bir dosyada **kişiBilgisi** fonksiyonunu da **Fonksiyonlar.fs** isimli bir dosyada tanımlayıp bunları da **Program.fs** isimli bir dosyada kullansaydınız dosyaların derlenmes sırası önce **Kişi.fs** sonra **Fonksiyonlar.fs** ve en son **Program.fs** şeklinde olmalıydı.
+
+F#'da dosya ve tanımlama sırasının ciddi bir kural olarak derleyici tarafından denetlenmesinin en önemli nedeni **dairesel bağımlılık** (cyclic dependency) durumunun oluşmasının engellenmesidir. Özellikle katmanlı mimari (layered architecture) modele göre geliştirilen sistemlerde hiyerarşinin üstün seviyelerindeki katmanların prensip olarak sadece hiyerarşinin alt seviyelerindeki katmanlara bağımlı olması gerekir, tersinin olması istenmez. Ancak bazı programlama dillerinde hiyerarşinin alt seviyesindeki katmanların karşılıklı olarak üst seviyedeki katmanlara bağımlı olmasını engellemek için herhangi bir kural uygulanmaz. BU tür dairesel bağımlılıklar katmanlı mimarinin maksadını aşan yöntemler ile kırılmasına neden olur.
+
+<img src="./img/03_12.png"/>
+
+Yukarıdaki örnek katmanlı mimari diyagramında **Veritabanı Erişimi** katmanının **İş Kuralları** katmanına bağımlı olması ve **İş Kuralları** katmanının da **Arayüz Kontrolleri** katmanına bağımlı olması istenmeyen dairesel bağımlılığa örnektir.
+
+>**BİLGİ**
+>
+>Programlama dillerinin bazılarında dairesel bağımlılık için bir engel olmamasına rağmen kod editörlerinin bir çoğu, örneğin Visual Studio'da C# için, destekledikleri dillerin yapısına göre bu bağımlılıkların oluşturulmasını engelleyecek veya en azında uyarılar üretecek araçlara sahiptir.
+
+Dosyaların kendi aralarında ve bir dosyanın içindeki değerlerin, tiplerin ve fonksiyonların sırasının önemli olması programınızın tasarımını yaparken farklı katmanlar arasındaki hiyerarşiyi ve iletişim yöntemini daha ayrıntılı düşünmenizi sağlar.
+
+F# projelerinde dosyaların sırası **fsproj** uzantılı proje dosyalarında kayıt altında tutulur ve derleyicinin hangi dosyayı önce hangisini sonra derleyeceği bu dosyaya göre belirlenir. Visual Studio, Visual Studio Code, Visual Studio for Mac ve JetBrains Rider gibi F#'ı destekleyen editörler dosya sıralarını kolayca düzenlemeniz için kısayol komutları sunar. Bu editörleri kullanmıyorsanız **fsc** veya **fsharpc** komutunu çalıştırırken kod dosyalarını sıralı olarak vermeniz gerektiğini de unutmayın.
+
+>**İPUCU**
+>
+>Kodunuzu **fsc** veya **fsharpc** ile komut satırından manuel olarak derliyorsanız dosya adlarının alfabetik olarak sıralanması esasına dayalı basit shell scritler ile (build script) derleyici komutunu oluşturup derleyiciyi çalıştırabilirsiniz. 
 
 ### Modüller ve Alan Adları
 
@@ -4529,12 +4623,14 @@ Büyük ve karmaşık uygulamalar geliştirmek için uygulamanın her bir işlev
 * **application** -> uygulama
 * **binary operator** -> iki operand ile çalışan operatör 
 * **bitwise operators** -> bit bit işlem yapan operatörler
+* **build script** -> kod dosyalarının derlenerek çalıştırılabilir kodun üretilmesi
 * **class** -> sınıf
 * **comment** -> yorum
 * **community** -> topluluk
 * **compiler** -> derleyici
 * **concurrent** -> eş zamanlı
 * **CPU** -> **C**entral **P**rocessing **U**nit kısaltması. **Türkçe:** Merkezi İşlem Birimi, İşlemci
+* **cyclic dependency** -> dairesel bağımlılık
 * **declarative** -> bildirimsel
 * **discriminated union** -> ayrışık bilişim
 * **enumeration** -> numaralı liste
@@ -4554,6 +4650,7 @@ Büyük ve karmaşık uygulamalar geliştirmek için uygulamanın her bir işlev
 * **jagged array** -> düzensiz dizi
 * **keyword** -> anahtar kelime
 * **operator** -> operatör
+* **layered architecture** -> katmanlı mimari
 * **lazy evaluation** -> gevşek değerleme
 * **library** -> kütüphane
 * **memoization** -> belleme
