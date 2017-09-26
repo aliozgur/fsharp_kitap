@@ -4,10 +4,10 @@
  *--------------------------------------------------------------------------------------------*/
 
  body {
-	font-family: "Segoe WPC", "Segoe UI", "SFUIText-Light", "HelveticaNeue-Light", sans-serif, "Droid Sans Fallback";
-	font-size: 12px; /*14px*/
-	padding: 0 12px;
-	line-height: 22px;
+	font-family: "HelveticaNeue-Light","Segoe WPC", "Segoe UI", "SFUIText-Light", sans-serif, "Droid Sans Fallback";
+	font-size: 14pt; /*14px*/
+	padding: 0 11pt;
+	line-height: 21pt;
 	word-wrap: break-word;
 }
 
@@ -18,7 +18,7 @@
 	color: white;
 	margin: 16px;
 	text-align: center;
-	font-size: 9px; /*12px*/
+	font-size: 11pt; /*12px*/
 	font-family: sans-serif;
 	background-color:#444444;
 	cursor: pointer;
@@ -158,7 +158,7 @@ blockquote {
 
 code {
 	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
-	font-size: 8px; /*14px*/
+	font-size: 10pt; /*14px*/
 	line-height: 19px;
 }
 
@@ -167,7 +167,7 @@ body.wordWrap pre {
 }
 
 .mac code {
-	font-size: 8px; /*12px*/
+	font-size: 10pt; /*12px*/
 	line-height: 18px;
 }
 

@@ -12,12 +12,12 @@
 }
 
 pre:not(.hljs) {
-	padding: 23px;
-	line-height: 19px;
+	padding: 23pt;
+	line-height: 19pt;
 }
 
 blockquote {
-    font-size: 10px;
+    font-size: 12pt;
 	background: rgba(127, 127, 127, 0.1);
 	border-color: rgba(0, 122, 204, 0.5);
 }

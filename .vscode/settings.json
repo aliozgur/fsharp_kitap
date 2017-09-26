@@ -8,8 +8,7 @@
    "markdown-pdf.styles": [
     ".vscode/markdown.css",                           
     ".vscode/markdown-pdf.css",
-    "C:\\personalgit\\fsharp_kitap\\.vscode\\markdown.css",
-    "C:\\personalgit\\fsharp_kitap\\.vscode\\markdown-pdf.css",    
+    "C:\\personalgit\\github\\fsharp_kitap\\.vscode\\markdown.css",
+    "C:\\personalgit\\github\\fsharp_kitap\\.vscode\\markdown-pdf.css"   
   ]
-
 }
