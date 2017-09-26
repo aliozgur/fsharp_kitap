@@ -84,7 +84,7 @@ printfn "Merhaba Dünya!"
 F# özelinde ekrana "Merhaba Dünya!" yazdıran kod parçası kısa ve sadedir. Şimdi gelin biraz daha ayrıntılı kod örneklerini inceleyip F# ile kod yazarken kullanılan genel yapıları tanıyalım. 
 
 
-```fsharp
+```fs
 (* 01_0_03.fsx *)
 
 
