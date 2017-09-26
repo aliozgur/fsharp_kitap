@@ -72,175 +72,221 @@
 
 # 1. Bölüm : Giriş
 
-Bu bölümün ilk kısmında F#'ın kısa tarihçesini aktarıp "Neden F#?" ve "F# programlama dili neye benzer?" sorularının cevaplarını arayacağız. Bölümün ikinci kısmında ise matematiksel anlamda fonksiyonları ve fonksiyonların bazı ilginç özelliklerini ele alıp fonksiyonel programlamanın tanımı ile bölümü tamamlayacağız.
+Bu bölümüde F#'ın kısa tarihçesine göz attıktan sonra "Neden F#?" ve "F# programlama dili neye benzer?" sorularının cevaplarını arayacağız. Bölümün devamında ise matematiksel anlamda fonksiyonları ve fonksiyonların bazı ilginç özelliklerini ele alıyorozu. Fonksiyonel programlamanın tanımı ile de birinci bölümü tamamlayacağız.
 
 ## 1.1 F# ile Tanışma
-Programlama dili kitapları ekrana  "Merhaba Dünya!" yazdırmak için kullanılan kod ile başlar. Bu klasik kod parçası öğrenmek üzere olduğunuz dil hakkında hızlıca bir fikir edinmenizi sağlar. Biz de kitabımıza bu klasik ile başlıyoruz. 
+Programlama dili kitapları ekrana  "Merhaba Dünya!" yazdırmak için kullanılan kod ile başlar. Bu klasik kod parçası öğrenmek üzere olduğunuz dil hakkında fikir edinmenizi sağlar. Biz de kitabımıza bu klasik kod ile başlıyoruz. 
 
 ```fsharp
 printfn "Merhaba Dünya!"
 ```
-F# özelinde,yukarıda da gördüğünüz gibi, bu işlemi yapan kod parçası kısa ve sadedir. 
 
-Şimdi gelin biraz daha ayrıntılı kod örnekleri ile günlük F# kodlamanızda ağırlıklı olarak kullanacağız yapıları tanıyalım. Yapılan işlemlerin karmaşıklığı ve ayrıntısı artsa bile F#'ın sadeliğinden ödün vermediğini ve kodun oldukça şık göründüğünü söyleyebiliriz. 
-
->**İPUCU**
->
->Kodun şıklığı estetik uyumla birlikte kolay okunan, kolay anlaşılan ve nihayetinde kolay yönetilebilen kodu simgeler.
+F# özelinde ekrana "Merhaba Dünya!" yazdıran kod parçası kısa ve sadedir. Şimdi gelin biraz daha ayrıntılı kod örneklerini inceleyip F# ile kod yazarken kullanılan genel yapıları tanıyalım. 
 
 
 ```fsharp
+(* 01_0_03.fsx *)
+
+
 // tek satırlık yorumlar için // kullanılır
 (* 
-    Birden fazla satırlı yorumlar için  (* *) çifti kullanılır
+    Birden fazla satırlı yorumlar için  
+    (* *) çifti kullanılır
 *)
 
-// "let" anahtar kelimesi ile değeri değiştirilemeyen (immutable) değer ifadeleri tanımlanır
+// "let" anahtar kelimesi ile değeri 
+// değiştirilemeyen (immutable) ifadeler tanımlanır
 let sayı = 5
 let ondalıkSayı = 3.14
 let metin = "Merhaba Dünya!"
 
-// Değer ifadelerini `` `` arasında yazarak F# anahtar kelimelerini de 
-// değer ifadesi adı olarak kullanabilirsiniz
+// İfadeleri `` `` arasında yazarak 
+// F# anahtar kelimelerini de ifade adı
+// olarak kullanabilirsiniz.
 let ``let``= "F# ile Fonksiyonel Programlama"
 
-// `` `` kullanarak boşluk içeren değer ifadesi isimleri oluşturabilirsiniz.
-// Bu kullanım özellikle birim test (unit test) yazıyorsanız oldukça faydalı olacaktır
+// `` `` kullanarak boşluk içeren ifade isimleri 
+// oluşturulabilir. Bu kullanım özellikle 
+// birim testlerin (unit test) fonksiyon isimlerinde 
+// oldukça faydalı olacaktır.
 let ``Cümle gibi değer``="Cümle gibi değer ifadesinin değeri"
 
-// F# değer ifadelerinin ismi olarak UTF-8 karakterleri kullanılmasına izin verir
+// F# değer ifadelerinin ismi olarak 
+// UTF-8 karakterleri kullanılmasına izin verir.
 let çÇşŞğĞüÜöÖİı = "Türkçe'ye özel karakterler"
 
 
 // ======== Listeler ============
 // Köşeli parantez ile liste tanımlanır
-// liste elemanlarını da ; ile ayrırırıs
+// liste elemanlarını ; ile ayrılır.
 let pozitifSayılar = [1;2;3;4;5]        
 
-// :: operatörü var olan listenin başına 0 değerini ekleyerek yeni bir liste oluşturur
-// doğalSayılar listesi [0;1;2;3;4;5] şeklinde olacaktır
+//Elemanları 1 ile 100 arasındaki sayılar olan liste.
+let liste100 = [1..100]
+
+// Elamanları 1 ile 100 arasında olan ve 1'den itibaren
+// 2 artarak oluşturulan sayılar olan liste.
+let liste101 = [1..2..100]
+
+// :: operatörü var olan listenin başına 
+// 0 değerini ekleyerek yeni bir liste oluşturur.
+// doğalSayılar listesinin içeriği [0;1;2;3;4;5] olur.
 let doğalSayılar = 0 :: pozitifSayılar
 
-// @ operatörü iki listeyi birleştirip yeni bir liste oluşturur
-// tamSayılar listesi [-5;-4;-3;-2;-1;0;1;2;3;4;5] şeklinde olacaktır
+// @ operatörü ile iki liste birleştirilip 
+// yeni bir liste oluşturulur.
+// tamSayılar listesinin içeriği [-5;-4;-3;-2;-1;0;1;2;3;4;5] 
+// olur.
 let tamSayılar = [-5;-4;-3;-2;-1] @ doğalSayılar   
 
-// DİKKAT: liste ve dizilerin elemanlarını tanımlarken virgül yerine noktalu virgül kullanılır
+// DİKKAT: liste ve dizilerin elemanlarını tanımlarken
+// virgül yerine noktalu virgül kullanılır.
 
 // ======== Fonksiyonlar ========
-// "let" anahtar kelimesi ile aynı zamanda ismi olan fonksiyonlar da tanımlanır
+// "let" anahtar kelimesi ile değer ifadelerinin yanı sıra 
+// ismi olan fonksiyonlar da tanımlanır.
 
-// Fonksiyon tanımında parantez, süslü parantez veya noktalı virgül kullanılmıyor
+// Fonksiyon tanımında parantez, süslü parantez veya 
+// noktalı virgül kullanılmaz.
 let küp x = x * x * x      
- // Fonksiyonu çalıştıralım, girdi parametrelerini tanımlarken de parantez kullanmıyoruz  
+
+ // Fonksiyonu çalıştıralım.
+ // Fonksiyona parametre geçerken parantez kullanmıyoruz!  
 küp 3                      
 
-// ekle fonksiyonunu çağırırken ekle (1,2) şeklinde girdi parametreleri için parantez kullanmayın
-// (1,2) 1 ve 2 parametrelerini girdi olarak vermek anlamına gelmez
-// (1,2) şeklindeki ifade ile değer grubu (tuple) tanımlanır
+// ekle fonksiyonunu çağırırken parametreleri geçmek için
+// parantez kullanılmaz. 
+// (1,2) 1 ve 2 değerlerini girdi olarak kullanmak anlamına gelmez
+// (1,2) şeklindeki ifade ile değer grubu (tuple) tanımlanır.
 let ekle x y = x + y        
 ekle 2 3
 
-// Birden fazla satıra yayılmış bir fonksiyon tanımlamak için girintiler (indent) kullanılır. 
-// Kod satırlarının bitişini belirtmek için ; kullanılmaz
+// Birden fazla satıra yayılmış bir fonksiyon tanımlamak 
+// için girintiler (indent) kullanılır. 
+// Kod satırlarının bitişini belirtmek için ; kullanılmaz.
 let çiftSayılar liste =
-    // çiftMi fonksiyonunu iç fonksiyon olarak tanımla
-    let çiftMi x = x%2 = 0      
-    // List.filter standard List modülünde yer alan hazır bir fonksiyon
-    // List.filter girdi olarak bir fonksiyon parametresi ve bu fonksiyonu çalıştıracağı listeyi alır
+    // çiftMi fonksiyonunu iç fonksiyon olarak tanımla.
+    let çiftMi x = x%2 = 0    
+
+    // filter fonksiyonu List modülü içinde tanımlıdır.
+    // filter girdi olarak bir fonksiyon parametresi ve 
+    // bu fonksiyonu uygulayacağı listeyi alır.
     List.filter çiftMi liste    
 
-// Fonksiyonu çalıştır
+// Fonksiyonu çalıştır.
 çiftSayılar pozitifSayılar 
 
-// Parantezleri işlem önceliğini belirtmek için kullanabilirsiniz. Aşağıdaki örnekte
-// önce List.map işleminin yapılmasını sonra da List.sum işleminin yapılmasını belirtiyoruz
-// Parantezler kullanmasaydık "List.map" fonksiyonu "List.sum" fonksiyonuna 
-// birinci girdi parametresi olarak geçilecekti
+
+// Parantezleri işlem önceliğini belirtmek için kullanılabilir. 
+// Parentezli ifadelerde öncelik içten dışa ve sağdan sola hesaplanır.
+// Önce en içte ve sağdaki parantezli ifade çalıştırılır.
+
+// Aşağıdaki örnekte önce List.map işleminin yapılması 
+// sonra da List.sum işleminin yapılması isteniyor.
+// Parantezler kullanılmazsa "List.map" fonksiyonu 
+// "List.sum" fonksiyonuna ilk parametre olarak geçilmiş olur.
 let küplerinToplamı =
    List.sum ( List.map küp [1..100] )
 
-// Bir fonksiyonun çıktısını sonraki fonksiyona "|>" operatörü ile aktarabilirsiniz
-// Küplerin toplamı fonksiyonun |> kullanan yeni hali aşağıdaki gibidir
+// Bir fonksiyonun çıktısını sonraki fonksiyona 
+// "|>" (ileri aktarım) operatörü ile aktarılır.
+// Küplerin toplamı fonksiyonu |> kullanılarak 
+// aşağıdaki gibi de yazılabilir
 
-// 1 ile 100 arasındaki değer listesini List.map fonksiyonuna 
-// ikinci girdi parametresi olacak şekilde aktar
-// List.map fonksyonunun birinci girdi parametresi ise küp fonksiyonudur
-// List.map sonucunu List.sum fonksiyonuna girdi parametresi olarak aktar 
+
+// [1..100] listesini List.map fonksiyonuna 
+// ikinci parametresi olarak aktar.
+// List.map fonksyonunun birinci parametresi küp fonksiyonudur.
+// List.map sonucunu List.sum fonksiyonuna girdi olarak aktar.
 let küplerinToplamı2 =
    [1..100] |> List.map küp |> List.sum  
 
-// "fun" anahtar kelimesini kullanarak adsız (anonim) fonksiyonlar tanımlayabilirsiniz
+// "fun" anahtar kelimesini kullanılarak 
+// adsız (anonim) fonksiyonlar tanımlanır.
 let küplerinToplamı3 =
-    // fun x -> x * x * x anonim bir fonksiyon tanımıdır
+    // fun x -> x * x * x anonim bir fonksiyon tanımıdır.
    [1..100] |> List.map (fun x->x*x*x) |> List.sum
 
 
-// Fonksiyonların içinde yerel fonksiyonlar tanımlayabiliriz
+// Fonksiyonların içinde yerel fonksiyonlar tanımlanabilir.
 let birArttır x = 
-    // Yerel fonksiyon. Kabuk fonksiyonun parametrelerine erişir
+    // Yerel fonksiyon tanımı. 
+    // Kabuk fonksiyon olan birArttır'ın parametrelerine erişebilir.
     let birArttırİçFonksiyon() = 
         x + 1
 
-    // Yerel fonksiyonu kabuk fonksiyon içinden çağır
+    // Yerel fonksiyonu kabuk fonksiyon içinden kullan.
     birArttırİçFonksiyon()
 
-// Fonksiyonu çağır
+// Fonksiyonu çağır.
 birArttır 2
 
 
-// Öz yinelemeli fonksiyon tanımlamak için "rec" anahtar kelimesi kullanılır
-// Aşağıdaki fonksiyon öz yinelemeli olarak faktöriyel hesabı yapar
+// Öz yinelemeli fonksiyon tanımlamak için 
+// "rec" anahtar kelimesi kullanılır.
+// Aşağıdaki fonksiyon öz yinelemeli olarak 
+// faktöriyel hesabı yapar.
 let rec fact x = 
     if x <= 1 then 1 else x * fact (x - 1)
 
-// F#'da fonksiyonların dönüş değerleri dolayılı olarak belirlenir bu nedenle 
-// "return" benzeri bir anahtar kelimeye ihtiyaç yoktur
-// Bir fonksiyon bloğundaki son ifade her zaman dönüş değerini oluşturur
+// F#'da fonksiyonların dönüş değerleri dolayılı olarak 
+// belirlenir, bu nedenle değer döndürmek için "return" 
+// benzeri bir anahtar kelimeye kullanılmaz.
+// Bir fonksiyon bloğundaki son ifade her zaman dönüş değerini oluşturur.
 
 // ======== Desen Eşleme (Pattern Matching) ========
-// Desen eşleştirme için Match..with.. yapısı kullanılır
+// Desen eşleme için Match..with.. yapısı kullanılır.
 let basitDesenEşleme =
    let x = 1
    match x with
     | 1 -> printfn "x'in değer 1"
     | 2 -> printfn "x'in değeri 2"
-    // _ simgesi herhangi bir değeri eşlemek için yer tutucu olarak kullanılır
+    // _ simgesi herhangi bir değeri eşlemek için 
+    // yer tutucu olarak kullanılır
     | _ -> printfn "x'in değeri 1 veya 2 değil"   
 
-// Some(..) ve None C benzeri dillerde null veya 
-// Pascal benzeri dillerde nil olarak ifade edilen değeri de alabilen değer ifadelerini
-// tanımlamak için kullanılır. F#'da Some/None dil yapısına option (opsiyon) denir
+// Some(<değer>) ve None, C benzeri dillerdeki null veya 
+// Pascal benzeri dillerdeki nil değeri gibi düşünülebilir.
+// F#'da Some/None dil yapısına option (opsiyon) denir.
 let geçerliDeğer = Some(42)
 let geçersizDeğer = None
 
-// In this example, match..with matches the "Some" and the "None",
-// and also unpacks the value in the "Some" at the same time.
+// Aşağıdaki örnekte Some ve None desen eşleme ile 
+// birlikte kullanılmaktadır. 
+// Desen eşleme yaparken Some ifadesinin çevrelediği değeri
+// kolayca söküp kullanabiliriz
 let optionKullanarakEşleme girdi =
    match girdi with
     | Some i -> printfn "Girdi değeri = %d" i
     | None -> printfn "Girdi değer belirtilmemiş"
 
-// Ekrana "Girdi değeri = 42" basılacak
+// Ekrana "Girdi değeri = 42" basılacak.
 optionKullanarakEşleme geçerliDeğer
 
-// Ekrana "Girdi değer belirtilmemiş" basılacak
+// Ekrana "Girdi değer belirtilmemiş" basılacak.
 optionKullanarakEşleme geçersizDeğer
 
 // ========= Karmaşık Veri Tipleri  =========
 
-// Değer grupları (tuple) farklı tiplerde değer barındırabilen tiplerdir. 
-// Değer grubu tanımlanırken virgül kullanılır
+// Değer grupları (tuple) farklı tiplerde birden fazla 
+// değer barındırabilir. 
+// Değer grubu tanımlanırken virgül kullanılır.
 let ikili = 1,2
 let üçlü = "a",2,true
 
-// Kayıt tiplerinin alanları vardır ve alanları ayrımak için noktalı virgül kullanılır
+// Değer grupları tanımlarken parantez kullanımı opsiyoneldir
+let dörtlü = ("a",2,true,System.DateTime.Now)
+
+// Kayıt tiplerinin (record) alanları vardır.
+// Alanları birbirinden ayrımak için noktalı virgül kullanılır.
 type Öğrenci = {Ad:string; Soyad:string; Numara:int}
+
 let öğrenci1 = {Ad="Arda"; Soyad="Özgür";Numara=124}
 
-// Bileşimler (union) birden fazla seçenek tanımlamamızı sağlar. 
-// Bunlara ayrışımlı bileşimler (discriminated union) de denir
-// Bileşimlerin seçenkleri dikine çizgi (|) simgesi ile birbirinden ayrışırlar
+// Bileşimler (union) birden fazla seçenek tanımlanabilmesini sağlar. 
+// Bunlara ayrışımlı bileşimler (discriminated union) de denir.
+// Bileşimlerin seçenkleri dikine çizgi (|) simgesi ile birbirinden 
+// ayrıştırılırlar.
 type Derece = 
 	| C of float
 	| F of float
@@ -250,9 +296,10 @@ let dereceFahrenheit = F 68.0
 type Kişi = {Ad:string;Soyad:string}
 // Tipler öz yinelemeli olarak karmaşık yapılar (örneğin ağaç yapısı) 
 // oluşturacak şekilde tanımlanabilir.
-// Aşağıdaki örnekte İşçi ve Yönetici'den oluşan ve 
-// Yönetici olarak öz yinelemeli bir şekilde Çalışan listesi kullanan 
-// basit bir ağaç tanımı yapılıyor
+// Aşağıdaki örnekte İşçi ve Yönetici olarak ayrışan 
+// öz yinelemeli bir bileşim tanımlanmıştır.
+// Yönetici değer olarak Çalışan listesi alabilir.
+
 type Çalışan = 
   | İşçi of Kişi
   | Yönetici of Çalışan list
@@ -262,32 +309,35 @@ let işçi = İşçi kişi
 
 // ========= Ekrana çıktı gönderme =========
 // F# standard kütüphanesindeki printf/printfn fonksiyonları 
-// ekrana metin basmak için kullanılır
+// ekrana metin yazedırmak için kullanılır
 printfn "Bir int %i, bir float %f ve bir bool %b" 42 3.14 true
 printfn "Metin %s ve tipi ile ilgilinemiyorum : %A" "Merhaba Dünya" [1;2;3;4;5]
 
-// F# tüm karmaşık tipleri ekrana düzgün formatlayarak basar
+// F# tüm karmaşık tipleri ekrana düzgün formatlayarak yazdırır
 printfn "ikili=%A,\nkişi=%A,\nişçi=%A"  ikili kişi işçi
 
 // Formatlanmış metni çıktı olarak döndürürmek için 
-// F# standard kütüphanesindeki sprintf fonksiyonun kullanabilirsiniz
+// F# standard kütüphanesindeki sprintf fonksiyonu kullanılabilir
 let çıktı1 = sprintf "Bir int %i, bir float %f ve bir bool %b" 42 3.14 true
 let çıktı2 = sprintf "Metin %s ve tipi ile ilgilinemiyorum : %A" "Merhaba Dünya" [1;2;3;4;5]
 let çıktı3 = sprintf "ikili=%A,\nkişi=%A,\nişçi=%A"  ikili kişi işçi
 ```
+
+Örnek kod parçalarına baktığımızda karmaşıklık ve ayrıntı seviyesi artsa bile F#'ın sadeliğinden ödün vermediğini ve kodun oldukça şık göründüğünü söyleyebiliriz. Yazılan kodun şıklığı estetik görünüme ilave olarak kolay okunan, kolay anlaşılan ve kolay yönetilebilen kodu simgeler.
+
 ### printfn Fonksiyonu
 
-Kitabın içinde yer alan kod örneklerinde yoğun olarak **printfn** standard kütüphane fonksiyonu kullanılmaktadır. Bu fonksiyon konsol ekranına metin yazdırmak için kullanılır. **printfn** fonksiyonu ile birlikte **printf** ve **sprintf** fonksiyonlarını da kod örneklerimizde yoğun olarak kullanacağız.
+Kitaptaki kod örneklerinde yoğun olarak **printfn** F# standard kütüphane fonksiyonu kullanılmaktadır. Bu fonksiyon ile konsol (terminal) ekranına metin yazdırılır. **printfn** fonksiyonuna ilave olara **printf** ve **sprintf** fonksiyonları da örneklerimizde yoğun olarak kullanılıyor.
 
 
-* **printf**, konsol ekranına metin basmak için kullanılır
-* **printfn**, printf ile aynı farklı olarak metnin sonunda yeni bir satır ekler
-* **sprintf**, format ifadesi kullanarak metin üreten fonksiyon
+* **printf**, verilen format metninin yorumlayıp yeni bir metin üretip bunu ekrana yazar
+* **printfn**, verilen format metninin yorumlayıp yeni bir metin üretip bunu ekrana yazar ve imleci bir alt satıra konumlar
+* **sprintf**, verilen format metnini yorumlayıp yeni bir metin üreten fonksiyon
 
 ```fsharp
 printfn "F# ile fonksiyonel programlama"
 printfn "Ali Özgür"
-// Konsol ekranı çıktısı
+// --- ÇIKTI ---
 (* 
 F# ile fonksiyonel programlama
 Ali Özgür
@@ -295,7 +345,7 @@ Ali Özgür
 
 printf "F# ile fonksiyonel programlama"
 printf ", Ali Özgür"
-//// Konsol ekranı çıktısı
+// --- ÇIKTI ---
 //F# ile fonksiyonel programlama, Ali Özgür
 
 let yazar = "Ali Özgür"
@@ -305,35 +355,39 @@ let kitapBilgisi = sprintf "F# ile fonksiyonel programlama, %s" yazar
 //"F# ile fonksiyonel programlama, Ali Özgür"
 ```
 
-Bu üç fonksiyonun asıl gücü derleme anında format metni içindeki yer tutucuların (%d,%s,%A gibi) tipi ile bu yer tutuculara değeri veren girdi parametrelerinin tip ve adet uyumluluğunun kontrol edilmesidir. 
+Bu üç fonksiyonun asıl gücü format metni içinde tanımlanan yer tutucular (%d, %s, %A gibi) ile değer parametrelerinin tip ve adet uyumluluğunun kontrol edilmesinden kaynaklanır. Derleme sırasında format metni ile parametreler arasındaki uyumsuzluklar tespit edilir ve derleyici hata verir. 
 
-Aşağıdaki tabloda format metni içinde kullanılabilecek olan tüm yer tutucuların listesi verilmiştir.
+Aşağıdaki tabloda format metni içinde kullanılabilen tüm yer tutucuların listesi verilmiştir.
 
 <img src="./img/01_01_00_a.png"/>
 
-Format metninde yer alan yer tutucu ile ekrana basılmaya çalışılan aynı pozisyondaki değerin tipi farklı ise veya format metnindeki yer tutucu sayısı ile fonksiyona verilen girdi değerlerinin sayısı farklı ise derleyici hata verir.
-
 ```fsharp
-printf "Sayı değeri %d" "1"  // %d tam sayı tipi yer tutucusu
-printfn "Sayı değeri %f" 1   // %f ondalık basamaklı sayı tipi yer tutucusu
-printfn "Harf değeri %c" "A" // %c karakter tipi yer tutucusu
+printf "Sayı değeri %d" "1"  // Hata, %d tam sayı tipi yer tutucusu
+printf "Sayı değeri %d" 1    // Doğru
 
-printf "Sayı değerileri %d ve %d" 1  // eksik değer, iki tane bekleniyor
+printfn "Sayı değeri %f" 1   // Hata, %f ondalık basamaklı sayı tipi yer tutucusu
+printfn "Sayı değeri %f" 1.0 // Doğru
+
+printfn "Harf değeri %c" "A" // Hata, %c karakter tipi yer tutucusu
+printfn "Harf değeri %c" 'A' // Doğru
+
+printf "Sayı değerileri %d ve %d" 1   // Hata, iki değer yerine bir tane değer verilmiş 
+printf "Sayı değerileri %d ve %d" 1 2 // Doğru 
 
 ```
 >**BİLGİ**
 >
->F#'da ekrana metin basmak için .NET ile gelen standard Console sınıfının metodları da kullanılabilir. Ancak, printf ve sprintf tip uyumluluğunu kontrol ettiği için daha güvenli fonksiyonlardır ve bunların kullanılması tavsiye edilir.
+>F#'da ekrana metin yazdırmak için .NET ile gelen standard Console sınıfının metodları da kullanılabilir. Ancak, F#'daki **printf**, **printfn** ve **sprintf** tip uyumluluğunu kontrol ettiği için daha güvenli fonksiyonlardır. 
 
 ## 1.2 Kısa F# Tarihçesi
 
-F#, Türkçe **efşarp** olarak telafuz edilen yabancı kaynaklarda da **FSharp** veya **F Sharp** olarak rastlayabileceğiniz yordamsal (imperative) ve bildirimsel (declarative) yaklaşımlarının her ikisini de (multi-paradigm) destekleyen fonksyionel bir programlama dilidir. 
+F#, Türkçe **efşarp** olarak telafuz edilen yabancı kaynaklarda da **F#**, **FSharp** veya **F Sharp** olarak anılan, yordamsal (imperative) ve bildirimsel (declarative) yaklaşımların her ikisini de destekleyen **fonksyionel** bir programlama dilidir. 
 
 > **DİKKAT!**
 >
->"Fonksiyionel programlama dili" ifadesindeki **fonksiyonel** ibaresi ilk etapta "çok faydalı", "işe yarayan" benzeri anlamlar çağırıştırsa da kitapta bu anlamlarda kullanılmamıştır. "Fonksiyonel programlama" programlama dilleri tasarımında matematikteki fonksiyonları ve özelliklerini temel alan yaklaşımı ifade eder.
+>"fonksiyionel bir programlama dili" ifadesindeki **fonksiyonel** kelimesi "çok faydalı", "işe yarayan" benzeri anlamlarda kullanılmamıştır. "Fonksiyonel programlama" matematikteki fonksiyonları ve onların özelliklerini temel alan programlama dili tasarımı yaklaşımını ifade eder.
 
-F#, Microsoft tarafından tasarlanıp geliştirilen açık kaynak kodlu bir dilidir. F#'ın geliştirmesindeki temel motivasyon Microsoft'un en önemli platformlarından biri olan .NET Framework'ün temel tasarım amacına kadar uzanır. .NET Framework diller, derleyiciler, standard bir kütüphane ve sanal çalışma ortamı gibi bileşenleri içeren bir çatı olarak kurgulanmıştır. .NET'i destekleyen programlama dilleri ile geliştirilmiş programlar dillerin kendilerine özel derleyicileri tarafında derlenir. Derleme sonrasında MSIL (Microsoft Intermediate Language) isimli ara bir dile dönüştürülen programlar CLR (Common Language Runtime ) adı verilen ortak dil çalışma ortamında çalıştırılabilir. 
+F#, Microsoft tarafından tasarlanıp geliştirilen açık kaynak kodlu bir dildir. F#'ın geliştirmesindeki temel motivasyon Microsoft'un en önemli platformlarından biri olan .NET Framework'ün temel tasarım amacına kadar uzanır. .NET Framework diller, derleyiciler, standard bir kütüphane ve sanal çalışma ortamı gibi bileşenleri içeren bir çatı olarak kurgulanmıştır. .NET'i destekleyen programlama dilleri ile geliştirilmiş programlar dillerin kendilerine özel derleyicileri tarafında derlenir. Derleme sonrasında MSIL (Microsoft Intermediate Language) isimli ara bir dile dönüştürülen programlar CLR (Common Language Runtime ) adı verilen ortak dil çalışma ortamında çalıştırılabilir. 
 
 > **BİLGİ**
 >
@@ -4500,7 +4554,6 @@ adana > istanbul // false
 ```
 
 ## 3.7 Kod Organizasyonu
-
 ### Çözümler ve Projeler
 Büyük ve karmaşık uygulamalar geliştirmek için uygulamanın her bir işlevsel parçasını farklı birer büyüklük olarak ele alıp bunların hepsini de bir çatı altında birleştirmek kaçınılmazdır. .NET platformunda bu seviyedeki kod organizasyonu projeler ve çözümler (solution) kullanılarak yapılır. Uygulamanın tamamı bir çözüm (solution) olarak oluşturulup uygulamanın farklı işlevleri veya modüller de ayrı birer proje olarak bu çözüme eklenir.
 
@@ -4516,328 +4569,10 @@ Büyük ve karmaşık uygulamalar geliştirmek için uygulamanın her bir işlev
 
 <img src="./img/03_11.png"/>
 
-### Dosya Sıralaması
+### Dosya Sıralaması ve Tip/İsim Çözümleme
 
-F# derleyicisi kod dosyalarını yukarıdan aşağıya, sağdan sola çözümler. F#'da herhangi bir ifade, fonksiyon veya tip tanımının kullanılabilmesi için kullanılacağı yerden önce tanımlanmış olması ve F# derleyicisi tarafından çözümlenmiş olması gerekiyor. C++, Java veya C# gibi dillerde fonksiyon veya tip tanımlarının hangi aşamada yapıldığını fazla önemi yoktur. Örneğin C# ile aşağıdaki gibi bir tanımlama ve sıralama geçerli bir kullanımdır.
-
-```csharp
-using System;
-					
-public class Program
-{
-	
-	public static void Main()
-	{
-		var kişi = new Kişi{Ad="Arda",Soyad="Özgür"};	
-		Console.WriteLine($"Kişi bilgisi : {kişi}");
-	
-		var test = TestMetodu();
-		Console.WriteLine($"Test metod sonucu : {test}"); 
-		
-	}
-	
-    public static string TestMetodu()
-	{
-		return "Bu bir test metodudur.";
-	}
-}
-
-public class Kişi
-{
-	public string Ad{get;set;}
-	public string Soyad{get;set;}
-	
-	public override string ToString()
-	{
-		return $"{this.Ad} {this.Soyad}";
-	}
-}
-``` 
-C# örneğinde **Kişi** sınıfı kullanıldığı **Program** sınıfırn **Main** metodundan sonra tanımlanmıştır. Buna rağmen C# derleyicis hata vermez ve program çalışır. Benzer bir sıralamayı F# için yapmaya çalıştığımızda ise F# derleyicisi hata verecektir.
-
-```fsharp
-(* 03_7?01.fsx *)
-// Kişi tipinden değer
-let kişi = {Ad="Arda";Soyad="Özgür"}
-
-// kişi değerini ekrana yazdırma
-printfn "Kişi bilgisi : %s" (kişiBilgisi kişi)
-
-// Kişi bilgisi fonksiyonu tanımı
-let kişiBilgisi (k:Kişi) = 
-    sprintf "%s %s" k.Ad k.Soyad
-
-
-// Kişi kayıt tipi tanımı
-type Kişi = {Ad:string;Soyad:string}
-
-```
-
-Yukarıdaki F# kod parçasında **Kişi** tipi ve **kişiBilgisi** fonksiyonları kullanıldıkları noktadan sonra tanımlandığı için F# derleyicis bu kod parçasını derleyemez. Örnek kod parçasının **Kişi** tipi önce sonra da **kişiBilgisi** fonksiyonu gelecek şekilde değer, tip ve fonksiyon tanımları kullanılmadan önce tanımlanacak şekilde düzeltilmesi gerekir.
-
-```fsharp
-(* 03_7_01.1.fsx *)
-
-// Kişi kayıt tipi tanımı
-type Kişi = {Ad:string;Soyad:string}
-
-// Kişi bilgisi fonksiyonu tanımı
-let kişiBilgisi (k:Kişi) = 
-    sprintf "%s %s" k.Ad k.Soyad
-
-// Kişi tipinden değer
-let kişi = {Ad="Arda";Soyad="Özgür"}
-
-// kişi değerini ekrana yazdırma
-printfn "Kişi bilgisi : %s" (kişiBilgisi kişi)
-```
-
-Tek bir kod dosyası içindeki bu sıralama benzer şekilde birden fazla kod dosyasından oluşan programlar için de önemlidir. **Kişi** kayıt tipini **Kisi.fs** isimli bir dosyada **kişiBilgisi** fonksiyonunu da **Fonksiyonlar.fs** isimli bir dosyada tanımlayıp bunları da **Program.fs** isimli bir dosyada kullansaydınız dosyaların derlenmes sırası önce **Kişi.fs** sonra **Fonksiyonlar.fs** ve en son **Program.fs** şeklinde olmalıydı.
-
-F#'da dosya ve tanımlama sırasının ciddi bir kural olarak derleyici tarafından denetlenmesinin en önemli nedeni **dairesel bağımlılık** (cyclic dependency) durumunun oluşmasının engellenmesidir. Özellikle katmanlı mimari (layered architecture) modele göre geliştirilen sistemlerde hiyerarşinin üstün seviyelerindeki katmanların prensip olarak sadece hiyerarşinin alt seviyelerindeki katmanlara bağımlı olması gerekir, tersinin olması istenmez. Ancak bazı programlama dillerinde hiyerarşinin alt seviyesindeki katmanların karşılıklı olarak üst seviyedeki katmanlara bağımlı olmasını engellemek için herhangi bir kural uygulanmaz. BU tür dairesel bağımlılıklar katmanlı mimarinin maksadını aşan yöntemler ile kırılmasına neden olur.
-
-<img src="./img/03_12.png"/>
-
-Yukarıdaki örnek katmanlı mimari diyagramında **Veritabanı Erişimi** katmanının **İş Kuralları** katmanına bağımlı olması ve **İş Kuralları** katmanının da **Arayüz Kontrolleri** katmanına bağımlı olması istenmeyen dairesel bağımlılığa örnektir.
-
->**BİLGİ**
->
->Programlama dillerinin bazılarında dairesel bağımlılık için bir engel olmamasına rağmen kod editörlerinin bir çoğu, örneğin Visual Studio'da C# için, destekledikleri dillerin yapısına göre bu bağımlılıkların oluşturulmasını engelleyecek veya en azında uyarılar üretecek araçlara sahiptir.
-
-Dosyaların kendi aralarında ve bir dosyanın içindeki değerlerin, tiplerin ve fonksiyonların sırasının önemli olması programınızın tasarımını yaparken farklı katmanlar arasındaki hiyerarşiyi ve iletişim yöntemini daha ayrıntılı düşünmenizi sağlar.
-
-F# projelerinde dosyaların sırası **fsproj** uzantılı proje dosyalarında kayıt altında tutulur ve derleyicinin hangi dosyayı önce hangisini sonra derleyeceği bu dosyaya göre belirlenir. Visual Studio, Visual Studio Code, Visual Studio for Mac ve JetBrains Rider gibi F#'ı destekleyen editörler dosya sıralarını kolayca düzenlemeniz için kısayol komutları sunar. Bu editörleri kullanmıyorsanız **fsc** veya **fsharpc** komutunu çalıştırırken kod dosyalarını sıralı olarak vermeniz gerektiğini de unutmayın.
-
->**İPUCU**
->
->Kodunuzu **fsc** veya **fsharpc** ile komut satırından manuel olarak derliyorsanız dosya adlarının alfabetik olarak sıralanması esasına dayalı basit shell scritler ile (build script) derleyici komutunu oluşturup derleyiciyi çalıştırabilirsiniz. 
 
 ### Modüller ve Alan Adları
-
-**Modüller**
-
-Programlarınızda değerler, fonksiyonlar ve tipler temel modelleme ve organizasyon yapılarıdır. Bu yapıların bir üst seviyesinde programların katmanları ve farklı görevleri yerine getiren parçaları modülleri kullanılarak organize edilir.
-
-F#'da modüller iki seviyede tanımlanır
-
-* Üst seviye modüller (top level modules)
-* İç modüller (nested modules)
-
-Programların kodunu organize etmek için F# kod dosyaları üst seviye modül tanımı ile başlamalı. Üst seviye modüller aşağıdaki format uygun olarak dosyanın başında ve sol tarafında herhangi bir girinti bırakılmadan tanımlanır.
-
-**module \<Modül Adı\>**
-
-Üst seviye modüllerin içinde yer alan kod blokları da herhangi bir girinti bırakılmadan sola yanaşık bir şekilde tanımlanır.
-
-```fsharp
-(* 03_7_02.fs *)
-module SanalMarket
-
-let MarkaAdı = "Sanal Market"
-let Echo x = 
-    sprintf "%A" x
-
-type Müşteri = {Ad:string;Soyad:string}
-```
-Yukarıdaki örneğimizde **03_7_02.fs** kod dosyasının içinde **SanalMarket** isimli üst seviyede bir modül tanımladık. Bu modülün içinde **MarkaAdı** isimli bir değer, **Echo** isimli bir fonkisyon ve **Müşteri** isimli bir kayıt tipi oluşturduk. SanalMarket modülü içinde tanımlı bu ifadeleri **03_7_03.fsx** script dosyası içinden aşağıdaki gibi kullanabiliriz. 
-
-```fsharp
-(* 03_7_03.fsx *)
-
-#load "03_7_02.fs"
-
-open SanalMarket
-
-printfn "Marka Adı = %s" MarkaAdı
-Echo "Sanal Market Client"
-
-let müşteri = {Ad="Mahmut";Soyad="Tuncer"}
-```
-
-* **#load** FSI direktifi ile modülün bulunduğu dosya ortama yüklenir.
-* **open SanalMarket** ifadesi ile modül açılır ve içeriği kullanılabilir hale gelir.
-
-Modül içeriğine erişmek için **open** komutu ile modül açılmaz ise modülün içindeki değerler, fonksiyonlar ve tipler tam isimleri ile çağırılmalıdır. 
-
-```fsharp
-(* 03_7_03.fsx *)
-#load "03_7_02.fs"
-
-//open SanalMarket
-
-printfn "Marka Adı = %s" SanalMarket.MarkaAdı
-SanalMarket.Echo "Sanal Market Client"
-
-let müşteri = {
-    SanalMarket.Müşteri.Ad="Mahmut"
-    SanalMarket.Müşteri.Soyad="Tuncer"}
-
-```
-
-Modül içindeki ifadelerin tam isimlerinin formatı aşağıdaki gibidir
-
-**\<Üst Modül\>.\<İç Modül\>\<Değer | Fonksiyon | Tip\>**
-
-Tam isim formatında üst modül adından sonra iç modül adları gerekli sayıda nokta ile ayrılmış olarak yazılabilir.
-
->**DİKKAT'**
->
->Örneklerimizdeki **#load** direktifi sadece FSI ile çalışıyorsak kullanılabilir. Bir editör içinde geliştirme yapıyorsanız F# kodunu #load ile yüklemenize gerek olmadan sadece **open** ile modül işlevlerine erişim sağlayabilirsiniz.
-
-
-Üst seviye modüllerin altında kodun organizasyonu açısından gerekli ise iç içe ilave modüller de tanımlanabilir. İç içe modüller üst seviye modülün altında herhangi bir girinti bırakılmadan **module <Modül Adı> =** formatına uygun olarak yazılır. Üst seviye modüller ile iç  modüllerin oluşturulması arasındaki tek fark iç modüller oluşturulurken modül adından sonra **=** operatörünün kullanılmasıdır. İç modüllerin altındaki diğer iç modüller de yine aynı formata uygun olarak fakat seviyesine göre uygun miktarda girintiler bırakılarak tanımlanır.
-
-Yukarıdaki örneğimizi **SanalMarket** üst modülü altında **Sepet** isimli bir iç modül ve bunun altında da **Utils** isimli başka bir iç modül olacak şekilde geliştirelim.
-
-```fsharp
-(* 03_7_02.fs *)
-module SanalMarket
-let MarkaAdı = "Sanal Market"
-let Echo x = 
-    sprintf "%A" x
-
-type Müşteri = {Ad:string;Soyad:string}
-
-// SanalMarket modülü altında alt seviye modül
-module Sepet = 
-    type Ürün={Ad:string;Fiyat:decimal}
-    type Sepet = {Müşteri:Müşteri; Ürünler: Ürün list}
-
-    // Sepet alt modülü altında başka bir alt modül
-    module Utils = 
-        let ürünOluştur ad fiyat = 
-            {Ad="iPhone X";Fiyat=fiyat}
-        let sepetOluştur ad soyad ürünler = 
-                {Müşteri={Ad=ad;Soyad=soyad}; Ürünler= ürünler}
-```
-Bu iki iç modülün işlevlerini **SanalMarket.Sepet** iç modülünü ve bunun altındaki **SanalMarket.Sepet.Utils** iç modülünü **open** ile açarak aşağıdaki gibi kullanırız. 
-
-```fsharp
-(* 03_7_03.fsx *)
-
-//SanalMarket üst modülü altındaki 
-//  Sepet iç modülü 
-//erişime açıyoruz
-open SanalMarket.Sepet
-let iPhone7 = {Ad="iPhone 7";Fiyat=5099M}
-
-//SanalMarket üst modülü altındaki 
-//  Sepet iç modülünün altındaki 
-//      Utils iç modülünü 
-//erişime açıyoruz
-open SanalMarket.Sepet.Utils
-
-let iPhoneX = ürünOluştur "iPhone X" 6099M
-
-// Değer kavrama ile ürünleri oluşturup 
-// listeyi |> ile sepetOluştur fonksiyonuna aktarıyoruz
-
-[
-    for i in 3..6 do
-        yield {Ad= sprintf "iPhone %d" i;Fiyat= decimal(i) * 1000M}
-] |> sepetOluştur "Mahmut" "Tuncer"
-
-```
-
->**BİLGİ**
->
->FSI ile etkileşimli olarak çalıştırılan kod parçalarında modül tanımı yapılmasa bile F# varsayılan olarak yazılan kodu dosya adı ile aynı isimde bir modül altında derler ve yorumlar.
-
-**Alan Adları**
-
-F#'da üst seviye modüller yerine alan adları da **namespace \<Alan Adı\>** formatına uygun olarak tanımlanabilir. Alan adları dosyanın tepesinde ve soldan hiç bir girinti verilmeden tanımlanır. Alan adlarının altında iç içe modül tanımları yapılabilir ancak iç içe alan adı tanımlanması mümkün değildir.
-
-Alan adlarının altında üst seviyedeki modüllerden farklı olarak sadece tip tanımı yapılabilir, alan adları altında doğrudan fonksiyon tanımı yapılamaz veya do
-
-Örneklerimizdeki **SanalSepet** üst seviye modülünü aşağıdaki gibi alan adı kullanacak şekilde düzenleyebiliriz. Ancak, dikkat ederseniz üst seviye modül içinde tanımlı olan **MarkaAdı** değerini ve **Echo** fonksiyonunu alan adı altındaki **Genel** isimli bir iç modüle taşımak zorunda kaldık. **Müşteri** tip tanımını ise alan adı altında bırakabilidik.
-
-```fsharp
-(* 03_7_02.1.fs *)
-
-namespace SanalMarket
-
-type Müşteri = {Ad:string;Soyad:string}
-
-module Genel = 
-    let MarkaAdı = "Sanal Market"
-    let Echo x = 
-        sprintf "%A" x
-
-// SanalMarket modülü altında alt seviye modül
-module Sepet = 
-    type Ürün={Ad:string;Fiyat:decimal}
-    type Sepet = {Müşteri:Müşteri; Ürünler: Ürün list}
-
-    // Sepet alt modülü altında başka bir alt modül
-    module Utils = 
-        let ürünOluştur ad fiyat = 
-            {Ad="iPhone X";Fiyat=fiyat}
-        let sepetOluştur ad soyad ürünler = 
-                {Müşteri={Ad=ad;Soyad=soyad}; Ürünler= ürünler}
-```
-
-**Tip ve Fonksiyonların Organzasyonu**
-Modülleri ve alan adlarını tipleri ve fonksiyonları organize etmek için kullanabiliriz. Normalde nesne yönelimli/tabanlı (object oriented) programlama dillerinde tipler bir sınıf olarak tanımlanır ve sınıf tanımı tipin özellikleri ile birlilkte tipin sağladığı fonksiyonları da içerir. F#'da ise saf fonksiyonel programlama yaparken sınflar kullanılmaz bu nedenle tipleri ve tipler ile ilişkili fonksiyonları organize etmek için iki yöntem kullanılır
-
-**Yöntem-1 :** Tip ve fonksiyonları ayrı ayrı tanımlamak. Bu yöntemde tip tanımı alan adı altında yapılırken, tip ile ilgili fonksiyonlar ise alan adı altında bir iç modül içinde yapılır. Bu yöntem diğer .NET dilleri tarafından kullanılacak olan F# kodlarında tercih edilelidir, çünkü tip isimleri bu yöntemle diğer dil kullanıcıları için açık ve net olarak görünür olur.
-
-```fsharp
-(* 03_7_02.2.fs *)
-
-// --------- 1. Yöntem ---------
-namespace SanalMarket1
-
-// Tip tanımı
-type MüşteriTipi = {Ad:string;Soyad:string}
-
-// Tip adını taşıyan modül
-module Müşteri = 
-   // Tip ile ilgili işlem yapan fonksiyon
-   let oluştur ad soyad =  
-    {Ad=ad;Soyad=soyad}
-
-```
-
-**Yöntem-2 :** Tip ve ilişkili fonksiyonlar beraber tanımlanır. Bu yöntemde modül adı tip adı olarak kullanılır, gerçek tip modül altında basit bir isimle ve fonksiyonlar ile birlikte tanımlanır. Bu yöntem diğer .NET dilleri tarafından kullanılması hedeflenmeyen F# kodlarında tercih edilmelidir. Bu yönetm diğer fonksiyonel dillerdeki iyi uygulama örnekleri (best practice) ile de uyumludur.
-
-```fsharp
-(* 03_7_02.3.fs *)
-
-// --------- 2. Yöntem ---------
-namespace SanalMarket2
-
-// Tipin adını taşıyan modül
-module Müşteri = 
-    // Gerçek tip tanımı basit bir isimle yapılıyor
-    type T = {Ad:string;Soyad:string}
-    
-    // Tip ile ilgili işlem yapan fonksiyon
-    let oluştur ad soyad =  
-        {Ad=ad;Soyad=soyad}
-
-```
-
-Hangi yöntem kullanılırsa kullanılsın tip ve ilişkili fonksiyon çağırıları kullanım açısından çok farklı olmaz. 
-
-```fsharp
-(* 03_7_04.fsx *)
-#load "03_7_02.2.fs"
-#load "03_7_02.3.fs"
-
-// --------- 1. Yöntem TEST---------
-open SanalMarket1
-
-let m1 = Müşteri.oluştur "Mahmut" "Tuncer"
-
-printfn "Müşteri %A" m1
-
-// --------- 2. Yöntem TEST---------
-
-open SanalMarket2
-
-let m2 = Müşteri.oluştur "Mahmut" "Tuncer"
-printfn "Müşteri %A" m1
-```
 
 # Terimler Sözlüğü
 
@@ -4846,17 +4581,14 @@ printfn "Müşteri %A" m1
 * **applicative** -> uygun
 * **applicative order** -> uygun sıralı 
 * **application** -> uygulama
-* **best practice** -> iyi uygulama örneği
 * **binary operator** -> iki operand ile çalışan operatör 
 * **bitwise operators** -> bit bit işlem yapan operatörler
-* **build script** -> kod dosyalarının derlenerek çalıştırılabilir kodun üretilmesi
 * **class** -> sınıf
 * **comment** -> yorum
 * **community** -> topluluk
 * **compiler** -> derleyici
 * **concurrent** -> eş zamanlı
 * **CPU** -> **C**entral **P**rocessing **U**nit kısaltması. **Türkçe:** Merkezi İşlem Birimi, İşlemci
-* **cyclic dependency** -> dairesel bağımlılık
 * **declarative** -> bildirimsel
 * **discriminated union** -> ayrışık bilişim
 * **enumeration** -> numaralı liste
@@ -4876,7 +4608,6 @@ printfn "Müşteri %A" m1
 * **jagged array** -> düzensiz dizi
 * **keyword** -> anahtar kelime
 * **operator** -> operatör
-* **layered architecture** -> katmanlı mimari
 * **lazy evaluation** -> gevşek değerleme
 * **library** -> kütüphane
 * **memoization** -> belleme
