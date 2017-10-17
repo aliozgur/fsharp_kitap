@@ -1,6 +1,5 @@
 (* 03_3_08.fsx *)
 
-
 let ekle x y = x + y
 
 // İmzası val birEkle : (int -> int) olur

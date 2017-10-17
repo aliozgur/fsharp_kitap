@@ -1,4 +1,4 @@
-(* 03_5_04.fsx *)
+(* 05_1_02.fsx *)
 
 let sayı = 2.0
 
@@ -30,4 +30,3 @@ let kareleriAl x =
     ]
 
 kareleriAl [1..10]
-

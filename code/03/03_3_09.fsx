@@ -1,6 +1,5 @@
 (* 03_3_09.fsx *)
 
-
 // Basit bir "kare" fonksiyonu
 let kare x = x * x
 

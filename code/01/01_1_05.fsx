@@ -21,11 +21,3 @@ let dizi3 = [|12..2..20|]
 
 // 1 ile int tipinin en büyük değeri arasındaki sayıları barındıran sekans/silsile
 let sayılar4 = seq{1..System.Int32.MaxValue}
-
-
-
-
-
-
-
-

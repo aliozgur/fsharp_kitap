@@ -1,35 +1,38 @@
 (* 01_1_10.fsx *)
 open System
 
-// Saf fonksiyonel yaklaşıma aykırı olan değeri değiştirilebilir değer ifadeleri.
+// Değişken
 let mutable sayı = 42
 sayı <- 43
 
 let dizi = [|1..100|]
-// Prosedürel programlama dillerindeki for döngü yapısı ve koşullu if yapısı 
+// for ve  if/else yapıları 
 for i in dizi do
     if i % 2 = 0 then
         printfn "Çift Sayı = %d" i
     else
         printfn "Tek Sayı = %d" i
 
-// printfn saf olmayan bir fonksiyon çünkü yan etki olarak ekrana bir çıktı verir
+// yan etkili fonksiyon
+// printfn'in yan etkisi terminale metin yazdırmasıdır
 printfn "Sayının değeri = %d" sayı
 
-// System.Int32 F#'ın değil .NET'in sağladı tam sayı tipidir
-// Aşağıdaki ifade ile System.Int32 tipi için ÇiftMi isimli yeni bir uzantı metodu tanımlanır
+// System.Int32 .NET'in sağladığı tam sayı tipidir
+// Aşağıdaki ifade ile System.Int32 tipi için 
+// ÇiftMi isimli ek metod tanımı
 type System.Int32 with
     member this.ÇiftMi() = this % 2 = 0
 
-// System.Int32 tipinden iki sayı oluşturalım
+// System.Int32 tipinden iki sayı
 let çiftSayı:System.Int32 = 12 
 let tekSayı:System.Int32 = 11 
 
-// Uzantı metodu ile sayıların çift olup olmadığını kontrol edelim
+// sayıların çift olup olmadığını kontrolü
 çiftSayı.ÇiftMi()
 tekSayı.ÇiftMi()
 
 // Nesne tabanlı programlama dillerindeki gibi sınıf tanımları
+[<AbstractClass>]
 type Şekil = 
     abstract member Renk : string
     abstract AlanHesapla : unit -> float 

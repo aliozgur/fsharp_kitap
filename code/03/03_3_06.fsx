@@ -25,6 +25,3 @@ let çarp'' = çarp' 4
 
 // Üç parametreli normal bir fonksiyon tanımı
 let üçSayıyıÇarp' x y z = x * y * z
-
-
-

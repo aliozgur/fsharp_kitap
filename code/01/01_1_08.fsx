@@ -16,5 +16,3 @@ let işlemler = Async.Parallel [ for i in 0..10 -> async {  return fib i } ]
 işlemler 
 |> Async.RunSynchronously // Görevleri çalıştır
 |> Array.iteri ( fun i x -> printfn "fib(%d) = %d" i x) // Sonuçları ekrana yazdır
-
-

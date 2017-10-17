@@ -5,4 +5,3 @@
 let sayı = 42
 
 let Al_i = 12
-

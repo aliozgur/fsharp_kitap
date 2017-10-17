@@ -1,4 +1,4 @@
-(* 03_3_15.fsx *)
+(* 08_2_01.fsx *)
 
 // Biriktirici Yöntemi 
 // n! = n * (n-1) * (n-2) * .... * 1
@@ -16,8 +16,6 @@ faktöriyel 6
  
 // TEST : 1 ile 10 arasındaki sayıların faktöriyeli
 [1..10] |> List.iter ( fun x -> printfn "%d! = %d" x ( faktöriyel x))
-
-(* 03_3_15.fsx *)
 
 // Uzantıların Kullanımı 
 // n! = n * (n-1) * (n-2) * .... * 1

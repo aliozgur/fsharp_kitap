@@ -21,9 +21,9 @@ type Çalışan = {Ad:string;Soyad:string}
 type Kişi = {Ad:string;Soyad:string}
 
 
-// arda ve ali değer ifadelerinin tipini belirtmedik buna rağmen tipinin Kişi olduğu çıkarsanır
-let arda = {Ad="Arda";Soyad="Özgür"}
-let ali = {Ad="Ali";Soyad="Özgür"}
+// çocuk ve baba değer ifadelerinin tipini belirtmedik buna rağmen tipinin Kişi olduğu çıkarsanır
+let çocuk = {Ad="Arda";Soyad="Özgür"}
+let baba = {Ad="Ali";Soyad="Özgür"}
 
-// seniha değer ifadesinin Çalışan tipinden olduğunu biz ifade ettik
-let seniha = {Çalışan.Ad="Seniha";Soyad="Özgür"}
+// anne değer ifadesinin Çalışan tipinden olduğunu biz ifade ettik
+let anne = {Çalışan.Ad="Seniha";Soyad="Özgür"}

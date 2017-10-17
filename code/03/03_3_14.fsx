@@ -1,4 +1,4 @@
-(* 03_3_144.fsx *)
+(* 03_3_14.fsx *)
 
 // Öz yinelemeli döngü fonksiyonu
 let rec döngü f sayaç = 

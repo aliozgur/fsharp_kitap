@@ -1,13 +1,15 @@
 (* 01_1_09.1.fsx *)
-(*
-    MailboxProcessor modülü ile kuyruk örneği
-*)
+// MailboxProcessor 
+// Ajanı oluştur
+let ajan = MailboxProcessor.Start(fun kuyruk -> 
+    let rec mesajDöngüsü() =
+        async{
+            let! msg = kuyruk.Receive()
+            printfn "Gelen Mesaj: %s" msg
+            do! mesajDöngüsü() 
+            }
+    mesajDöngüsü()
+)
 
-// Kuyruğu oluştur
-let kuyruk = MailboxProcessor.Start(fun gelenKutusu -> async{
-	let! msg = gelenKutusu.Receive()
-	printfn "Gelen Mesaj: %s" msg
-	})
-
-// Kuyruğua mesaj koy
-kuyruk.Post "F# ile Fonksiyonel Programlama"
+// Ajana mesaj gönder
+ajan.Post "F# ile Fonksiyonel Programlama"

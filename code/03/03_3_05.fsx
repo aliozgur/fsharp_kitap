@@ -25,8 +25,3 @@ let  ikiDeğeriEkrandaGöster' = tekDeğeriEkrandaGöster 1
 // ikiDeğeriEkrandaGöster' tek parametre alan bir fonksiyon
 // 2 parametresi ile çağırırsak sonuç ikiDeğeriEkranadaGöster ile aynı olur
 ikiDeğeriEkrandaGöster' 2
-
-
-
-
-
