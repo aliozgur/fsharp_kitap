@@ -309,12 +309,12 @@ birArttır 2
 let rec fact x = 
     if x <= 1 then 1 else x * fact (x - 1)
 
-// F#'da fonksiyonların dönüş değerleri dolayılı olarak 
+// F#'da fonksiyonların dönüş değerleri dolaylı olarak 
 // belirlenir, bu nedenle değer döndürmek için "return" 
-// benzeri bir anahtar kelimeye kullanılmaz.
+// benzeri bir anahtar kelime kullanılmaz.
 // Bir fonksiyon bloğundaki son ifade her zaman dönüş değerini oluşturur.
 
-// ======== Desen Eşleme (Pattern Matching) ========
+// ========= Desen Eşleme (Pattern Matching) =========
 // Desen eşleme için Match..with.. yapısı kullanılır.
 let basitDesenEşleme =
    let x = 1
@@ -358,7 +358,7 @@ let üçlü = "a", 2, true
 let dörtlü = ("a", 2, true, System.DateTime.Now)
 
 // Kayıt tiplerinin (record) alanları vardır.
-// Alanları birbirinden ayrımak için noktalı virgül kullanılır.
+// Alanları birbirinden ayırmak için noktalı virgül kullanılır.
 type Öğrenci = { Ad: string; Soyad: string; Numara: int }
 
 let öğrenci1 = { Ad = "Arda"; Soyad = "Özgür"; Numara = 124 }
@@ -387,9 +387,9 @@ type Çalışan =
 let kişi = { Kişi.Ad = "Ali"; Soyad = "Özgür" }
 let işçi = İşçi kişi
 
-// ========= Ekrana çıktı gönderme =========
+// ========= Ekrana Çıktı Gönderme =========
 // F# standard kütüphanesindeki printf/printfn fonksiyonları 
-// ekrana metin yazedırmak için kullanılır
+// ekrana metin yazdırmak için kullanılır
 printfn "Bir int %i, bir float %f ve bir bool %b" 42 3.14 true
 printfn "Metin %s ve tipi ile ilgilinemiyorum : %A" "Merhaba Dünya" [ 1; 2; 3; 4; 5 ]
 
