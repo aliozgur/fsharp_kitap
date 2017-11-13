@@ -8,19 +8,19 @@ Kodlar    : https://github.com/aliozgur/fsharp_kitap
 Ön izleme : http://aliozgur.net/fsharp_kitap/
 ```
 
->**LİNKLER**
->
 >[Örnek Kodlar](https://github.com/aliozgur/fsharp_kitap) | [Ön izleme Versiyonu](http://aliozgur.net/fsharp_kitap/)
 >
 >İletişim : [aliozgur.net](http://aliozgur.net) | [Github](https://github.com/aliozgur) | [Twitter](https://twitter.com/aliozgur) | 
 <hr/>
 
-## İçindekiler - Ön İzleme Versiyonu
+<hr/>
+
+## İçindekiler
+
 <!-- TOC -->
 
 - [F# ile Fonksiyonel Programlama](#f-ile-fonksiyonel-programlama)
-    - [İçindekiler - Ön İzleme Versiyonu](#i̇çindekiler---ön-i̇zleme-versiyonu)
-    - [İçindekiler - Tam Versiyon](#i̇çindekiler---tam-versiyon)
+    - [İçindekiler](#i̇çindekiler)
 - [1. Bölüm : Giriş](#1-bölüm--giriş)
     - [1.1 F# ile Tanışma](#11-f-ile-tanışma)
         - [printfn Fonksiyonu](#printfn-fonksiyonu)
@@ -46,7 +46,7 @@ Kodlar    : https://github.com/aliozgur/fsharp_kitap
     - [2.1 Derleyici ve Yorumlayıcı Kavramları](#21-derleyici-ve-yorumlayıcı-kavramları)
     - [2.2 FSC - F# Derleyicisi (F# Compiler)](#22-fsc---f-derleyicisi-f-compiler)
     - [2.3 FSI - F# Etkileşimli Ortamı](#23-fsi---f-etkileşimli-ortamı)
-    - [2.4 F# Standard Dosya Uzantıları](#24-f-standard-dosya-uzantıları)
+    - [2.4 F# Standart Dosya Uzantıları](#24-f-standart-dosya-uzantıları)
     - [2.5 Derleyici ve Etkileşimli Ortam Değişkenleri](#25-derleyici-ve-etkileşimli-ortam-değişkenleri)
     - [2.6 Geliştirme Araçları](#26-geliştirme-araçları)
     - [2.7 Merhaba F](#27-merhaba-f)
@@ -91,63 +91,6 @@ Kodlar    : https://github.com/aliozgur/fsharp_kitap
 
 <!-- /TOC -->
 
-## İçindekiler - Tam Versiyon
-
-* 4.Bölüm : Fonksiyonel Programlama
-    * 4.1 Desen Eşleme (Pattern Matching)
-    * 4.2 Kayıtlar (Record) 
-    * 4.3 Ayrışık Bileşim (Discriminated Union)
-    * 4.4 Tiplere Davranış Ekleme
-    * 4.5 Tip Genelleme (Generics)
-    * 4.6 Sonradan Değerleme (Lazy Evaluation)
-    * 4.7 Sekanslar (Sequences)
-    * 4.8 yield! (yield bang)
-    
-* 5.Bölüm : Koleksiyonlar
-    * 5.1 Liste (List)
-    * 5.2 Dizi (Array)
-    * 5.3 Sekans (Sequence)
-    * 5.4 yield! (yield bang)
-    * 5.5 Küme (Set)
-    * 5.6 Anahtar Değer Haritası (Map)
-    * 5.7 List Modülü
-    * 5.8 Sorgu İfadeleri (Query Expressions)
-    
-* 6.Bölüm : Genel Amaçlı Programlama
-    * 6.1 Değişkenlere Gerçekten İhtiyacımız Var Mı? 
-    * 6.2 Değer Tipleri ve Referans Tipleri
-    * 6.3 Değişkenler
-    * 6.4 .NET Koleksiyonları
-    * 6.5 Döngü Yapıları (For ve While)
-    * 6.6 Koşullu Dallanma Yapıları (If/Else)
-    * 6.7 İstisnalar (Exceptions)
-    * 6.8 Ölçü Birimleri
-
-* 7.Bölüm : Nesne Yönelimli Programlama
-    * 7.1 Nesne Yönelimli Programlama Nedir?
-    * 7.2 Sınıf Tanımlama
-    * 7.3 Üye Özellikler
-    * 7.4 Üye Metodlar
-    * 7.5 Üye Erişim Kısıtlayıcıları
-    * 7.6 Kalıtım
-    * 7.7 Kontralar/Ara Birimler
-    * 7.8 Sınıflar Arası Tip Dönüşümü
-    * 7.9 IDisposable Kullanım Desenleri
-
-* 8.Bölüm : Gelişmiş Fonksiyonel Programlama Yöntemleri
-    * 8.1 Aktif Desenler 
-    * 8.2 Kuyruk Özyenilemeli Fonksiyonlar
-    * 8.3 Aktarım Operatörleri
-    * 8.4 Fonksiyon Kompozisyonu
-    * 8.5 İpuçları
-
-* 9.Bölüm : Asenkron ve Paralel Programlama
-    * 9.1 Giriş ve Temel Kavramlar
-    * 9.2 Thread Sınıfı
-    * 9.3 Asenkron İş Akışları
-    * 9.4 Task Sınıfı ve Paralel Programlama
-    * 9.5 MailboxProcessor Sınıfı
-
 <hr/>
 
 # 1. Bölüm : Giriş
@@ -161,8 +104,7 @@ Programlama dili kitapları ekrana  "Merhaba Dünya!" yazdırmak için kullanıl
 printfn "F#'dan Merhaba Dünya!"
 ```
 
-F# ile terminale birşeyler yazdırmak işte bu kadar kısa ve basit. Gelin şimdi F# ile günlük çalışmamızda sık sık karşılaşacağımız yapılara göz atıp F#'ın dil yapıları ile tanışalım. 
-
+F# ile terminale bir şeyler yazdırmak işte bu kadar kısa ve basit. Aşağıda günlük çalışmanızda sık sık karşılaşacağımız F# yapılarının büyük çoğunluğu kısa örnekler şeklinde verilmiştir. Yapılan işin karmaşıklığı ve ayrıntısı artsa bile F#'ın sadeliğinden ödün vermediğini ve kodun oldukça şık olduğunu örneklere bakarak rahatlıkla söyleyebiliriz. Yazılan kodun şıklığı, estetik görünüme ilave olarak kolay okunan, kolay anlaşılan ve kolay yönetilebilen kodu simgeler.
 
 ```fsharp
 (* 01_0_03.fsx *)
@@ -183,20 +125,20 @@ let metin = "Merhaba Dünya!"
 // İfadeleri `` `` arasında yazarak 
 // F# anahtar kelimelerini de ifade adı
 // olarak kullanabilirsiniz.
-let ``let`` = "F# ile Fonksiyonel Programlama"
+let ``let``= "F# ile Fonksiyonel Programlama"
 
 // `` `` kullanarak boşluk içeren ifade isimleri 
 // oluşturulabilir. Bu kullanım özellikle 
 // birim testlerin (unit test) fonksiyon isimlerinde 
 // oldukça faydalı olacaktır.
-let ``Cümle gibi değer`` = "Cümle gibi değer ifadesinin değeri"
+let ``Cümle gibi değer``="Cümle gibi değer ifadesinin değeri"
 
 // F# değer ifadelerinin ismi olarak 
 // UTF-8 karakterleri kullanılmasına izin verir.
 let çÇşŞğĞüÜöÖİı = "Türkçe'ye özel karakterler"
 
 
-// ========= Listeler =========
+// ======== Listeler ============
 // Köşeli parantez ile liste tanımlanır
 // liste elemanlarını ; ile ayrılır.
 let pozitifSayılar = [ 1; 2; 3; 4; 5 ]        
@@ -220,7 +162,7 @@ let doğalSayılar = 0 :: pozitifSayılar
 let tamSayılar = [ -5; -4; -3; -2; -1 ] @ doğalSayılar   
 
 // DİKKAT: liste ve dizilerin elemanlarını tanımlarken
-// virgül yerine noktalu virgül kullanılır.
+// virgül yerine noktalı virgül kullanılır.
 
 // ======== Fonksiyonlar ========
 // "let" anahtar kelimesi ile değer ifadelerinin yanı sıra 
@@ -228,17 +170,17 @@ let tamSayılar = [ -5; -4; -3; -2; -1 ] @ doğalSayılar
 
 // Fonksiyon tanımında parantez, süslü parantez veya 
 // noktalı virgül kullanılmaz.
-let küp x = x * x * x
+let küp x = x * x * x      
 
  // Fonksiyonu çalıştıralım.
  // Fonksiyona parametre geçerken parantez kullanmıyoruz!  
-küp 3
+küp 3                      
 
 // ekle fonksiyonunu çağırırken parametreleri geçmek için
 // parantez kullanılmaz. 
 // (1,2) 1 ve 2 değerlerini girdi olarak kullanmak anlamına gelmez
 // (1,2) şeklindeki ifade ile değer grubu (tuple) tanımlanır.
-let ekle x y = x + y
+let ekle x y = x + y        
 ekle 2 3
 
 // Birden fazla satıra yayılmış bir fonksiyon tanımlamak 
@@ -246,7 +188,7 @@ ekle 2 3
 // Kod satırlarının bitişini belirtmek için ; kullanılmaz.
 let çiftSayılar liste =
     // çiftMi fonksiyonunu iç fonksiyon olarak tanımla.
-    let çiftMi x = x % 2 = 0
+    let çiftMi x = x % 2 = 0    
 
     // filter fonksiyonu List modülü içinde tanımlıdır.
     // filter girdi olarak bir fonksiyon parametresi ve 
@@ -257,7 +199,7 @@ let çiftSayılar liste =
 çiftSayılar pozitifSayılar 
 
 
-// Parantezleri işlem önceliğini belirtmek için kullanılabilir. 
+// Parantezler işlem önceliğini belirtmek için kullanılabilir. 
 // Parentezli ifadelerde öncelik içten dışa ve sağdan sola hesaplanır.
 // Önce en içte ve sağdaki parantezli ifade çalıştırılır.
 
@@ -268,7 +210,7 @@ let çiftSayılar liste =
 let küplerinToplamı =
    List.sum ( List.map küp [ 1..100 ] )
 
-// Bir fonksiyonun çıktısını sonraki fonksiyona 
+// Bir fonksiyonun çıktısı sonraki fonksiyona 
 // "|>" (ileri aktarım) operatörü ile aktarılır.
 // Küplerin toplamı fonksiyonu |> kullanılarak 
 // aşağıdaki gibi de yazılabilir
@@ -279,13 +221,13 @@ let küplerinToplamı =
 // List.map fonksyonunun birinci parametresi küp fonksiyonudur.
 // List.map sonucunu List.sum fonksiyonuna girdi olarak aktar.
 let küplerinToplamı2 =
-   [ 1..100 ] |> List.map küp |> List.sum  
+   [ 1 .. 100 ] |> List.map küp |> List.sum  
 
 // "fun" anahtar kelimesini kullanılarak 
 // adsız (anonim) fonksiyonlar tanımlanır.
 let küplerinToplamı3 =
     // fun x -> x * x * x anonim bir fonksiyon tanımıdır.
-   [ 1..100 ] |> List.map (fun x -> x * x * x) |> List.sum
+   [ 1 .. 100 ] |> List.map (fun x -> x * x * x) |> List.sum
 
 
 // Fonksiyonların içinde yerel fonksiyonlar tanımlanabilir.
@@ -309,20 +251,20 @@ birArttır 2
 let rec fact x = 
     if x <= 1 then 1 else x * fact (x - 1)
 
-// F#'da fonksiyonların dönüş değerleri dolaylı olarak 
+// F#'da fonksiyonların dönüş değerleri dolayılı olarak 
 // belirlenir, bu nedenle değer döndürmek için "return" 
 // benzeri bir anahtar kelime kullanılmaz.
 // Bir fonksiyon bloğundaki son ifade her zaman dönüş değerini oluşturur.
 
-// ========= Desen Eşleme (Pattern Matching) =========
-// Desen eşleme için Match..with.. yapısı kullanılır.
+// ======== Desen Eşleme (Pattern Matching) ========
+// Desen eşleme için match..with yapısı kullanılır.
 let basitDesenEşleme =
    let x = 1
    match x with
     | 1 -> printfn "x'in değer 1"
     | 2 -> printfn "x'in değeri 2"
     // _ simgesi herhangi bir değeri eşlemek için 
-    // yer tutucu olarak kullanılır
+    // joker olarak kullanılır
     | _ -> printfn "x'in değeri 1 veya 2 değil"   
 
 // Some(<değer>) ve None, C benzeri dillerdeki null veya 
@@ -348,71 +290,70 @@ optionKullanarakEşleme geçersizDeğer
 
 // ========= Karmaşık Veri Tipleri  =========
 
-// Değer grupları (tuple) farklı tiplerde birden fazla 
+// Değer grupları (tuple) farklı tipte birden fazla 
 // değer barındırabilir. 
 // Değer grubu tanımlanırken virgül kullanılır.
-let ikili = 1, 2
-let üçlü = "a", 2, true
+let ikili = 1,2
+let üçlü = "a",2,true
 
-// Değer grupları tanımlarken parantez kullanımı opsiyoneldir
-let dörtlü = ("a", 2, true, System.DateTime.Now)
+// Değer gruplarını tanımlarken parantez kullanımı opsiyoneldir
+let dörtlü = ("a", 2,true,System.DateTime.Now)
 
 // Kayıt tiplerinin (record) alanları vardır.
-// Alanları birbirinden ayırmak için noktalı virgül kullanılır.
-type Öğrenci = { Ad: string; Soyad: string; Numara: int }
+// Alanları birbirinden ayrımak için noktalı virgül kullanılır.
+type Öğrenci = {Ad:string; Soyad:string; Numara:int}
 
-let öğrenci1 = { Ad = "Arda"; Soyad = "Özgür"; Numara = 124 }
+let öğrenci1 = {Ad="Arda"; Soyad="Özgür";Numara=124}
 
 // Bileşimler (union) birden fazla seçenek tanımlanabilmesini sağlar. 
 // Bunlara ayrışımlı bileşimler (discriminated union) de denir.
 // Bileşimlerin seçenkleri dikine çizgi (|) simgesi ile birbirinden 
 // ayrıştırılırlar.
 type Derece = 
-	| C of float
-	| F of float
+ | C of float
+ | F of float
 let dereceSantigrad = C 20.0
 let dereceFahrenheit = F 68.0
 
-type Kişi = { Ad: string; Soyad: string }
 // Tipler öz yinelemeli olarak karmaşık yapılar (örneğin ağaç yapısı) 
 // oluşturacak şekilde tanımlanabilir.
 // Aşağıdaki örnekte İşçi ve Yönetici olarak ayrışan 
 // öz yinelemeli bir bileşim tanımlanmıştır.
 // Yönetici değer olarak Çalışan listesi alabilir.
+type Kişi = {Ad:string;Soyad:string}
 
 type Çalışan = 
   | İşçi of Kişi
   | Yönetici of Çalışan list
 
-let kişi = { Kişi.Ad = "Ali"; Soyad = "Özgür" }
+let kişi = {Kişi.Ad="Ali";Soyad="Özgür"}
 let işçi = İşçi kişi
 
-// ========= Ekrana Çıktı Gönderme =========
-// F# standard kütüphanesindeki printf/printfn fonksiyonları 
-// ekrana metin yazdırmak için kullanılır
+// ========= Terminale çıktı gönderme =========
+// F# standart kütüphanesindeki printf/printfn fonksiyonları 
+// terminale metin yazdırmak için kullanılır
 printfn "Bir int %i, bir float %f ve bir bool %b" 42 3.14 true
-printfn "Metin %s ve tipi ile ilgilinemiyorum : %A" "Merhaba Dünya" [ 1; 2; 3; 4; 5 ]
+printfn "Metin %s ve tipi ile ilgilinemiyorum : %A" "Merhaba Dünya" [1;2;3;4;5]
 
-// F# tüm karmaşık tipleri ekrana düzgün formatlayarak yazdırır
+// F# tüm karmaşık tipleri terminale düzgün formatlayarak yazdırır
 printfn "ikili=%A,\nkişi=%A,\nişçi=%A"  ikili kişi işçi
 
-// Formatlanmış metni çıktı olarak döndürürmek için 
-// F# standard kütüphanesindeki sprintf fonksiyonu kullanılabilir
+// Formatlanmış metni sonuç olarak döndürmek için 
+// F# standart kütüphanesindeki sprintf fonksiyonu kullanılabilir
 let çıktı1 = sprintf "Bir int %i, bir float %f ve bir bool %b" 42 3.14 true
-let çıktı2 = sprintf "Metin %s ve tipi ile ilgilinemiyorum : %A" "Merhaba Dünya" [ 1; 2; 3; 4; 5 ]
+let çıktı2 = sprintf "Metin %s ve tipi ile ilgilinemiyorum : %A" "Merhaba Dünya" [1;2;3;4;5]
 let çıktı3 = sprintf "ikili=%A,\nkişi=%A,\nişçi=%A"  ikili kişi işçi
 ```
 
-Yukarıdaki örneklere bakıldığında yapılan işin karmaşıklığı ve ayrıntısı artsa bile F#'ın sadeliğinden ödün vermediğini ve kodun oldukça şık göründüğünü söyleyebiliriz. Yazılan kodun şıklığı, estetik görünüme ilave olarak kolay okunan, kolay anlaşılan ve kolay yönetilebilen kodu simgeler.
 
 ### printfn Fonksiyonu
 
-Kitaptaki kod örneklerinde yoğun olarak F# standard kütüphanesinde yer alan **printfn** fonksiyonunu kullanıyoruz. Bu fonksiyon konsol (terminal) ekranına metin yazdırmak için kullanılır. **printfn**'in varyantı olan **printf** ve **sprintf** fonksiyonlarını da örneklerimizde yoğun olarak kullanacağız.
+Kitaptaki kod örneklerinde yoğun olarak F# standart kütüphanesinde yer alan **printfn** fonksiyonunu kullanıyoruz. Bu fonksiyon konsol (terminal) ekranına metin yazdırmak için kullanılır. **printfn**'in varyantı olan **printf** ve **sprintf** fonksiyonlarını da örneklerimizde yoğun olarak kullanacağız.
 
 
 * **printf**, terminale formatlanmış bir metin yazdırmak için kullanılır. Parametre olarak format metni ve format metnindeki yer tutucuların değerlerini alır. 
 * **printfn**, terminale formatlanmış bir metin yazdırıp imleci bir sonraki satıra konumlamak için kullanılır. Parametre olarak format metni ve format metnindeki yer tutucuların değerlerini alır. 
-* **sprintf**,parametre olarak verilen format metnini format metnindeki yer tutucuların değerleri ile yorumlayarak yeni bir metin üretir.
+* **sprintf**, parametre olarak verilen format metnini format metnindeki yer tutucuların değerleri ile yorumlayarak yeni bir metin üretir.
 
 ```fsharp
 printfn "F# ile fonksiyonel programlama"
@@ -457,7 +398,7 @@ printf "Sayı değerileri %d ve %d" 1 2 // Doğru
 ```
 >**BİLGİ**
 >
->Terminale metin yazdırmak için .NET standard kütüphanesindeki Console sınıfının **Write** ve **WriteLine** statik metodları da kullanılabilir. Ancak, F#'ın **printf**, **printfn** ve **sprintf** fonksiyonları tip uyumluluğu ve değer adetlerini kontrol ettiği için daha güvenlidirler. 
+>Terminale metin yazdırmak için .NET standart kütüphanesindeki Console sınıfının **Write** ve **WriteLine** statik metodları da kullanılabilir. Ancak, F#'ın **printf**, **printfn** ve **sprintf** fonksiyonları tip uyumluluğu ve değer adetlerini kontrol ettiği için daha güvenlidirler. 
 
 ## 1.2 Kısa F# Tarihçesi
 
@@ -467,7 +408,7 @@ F#, Türkçe **efşarp** olarak telafuz edilen, yabancı kaynaklarda **FSharp** 
 >
 >"Fonksiyionel programlama dili" ifadesindeki **fonksiyonel** ibaresi ilk etapta "çok faydalı", "işe yarayan" benzeri anlamlar çağırıştırsa da kitapta bu anlamlarda kullanılmamıştır. "Fonksiyonel programlama" programlama dilleri sınıflandırmasında matematikteki fonksiyonları ve özelliklerini temel alan yaklaşımı ifade eder.
 
-F#, Microsoft tarafından tasarlanıp geliştirilen açık kaynak kodlu bir dilidir. F#'ın geliştirilmesindeki temel motivasyon Microsoft'un en önemli platformlarından biri olan **.NET**'in tasarım prensiplerine kadar uzanır. .NET , diller, derleyiciler, standard kütüphaneler ve sanal çalışma ortamı gibi yazılım geliştirme ve bu yazılımların çalıştırıldığı bileşenleri içeren bir yapıdır. .NET'i destekleyen programlama dilleri ile geliştirilmiş programlar dillerin kendilerine özel derleyicileri tarafında derlenir. Derleyiciler tarafından MSIL (Microsoft Intermediate Language) olarak isimlendirilen ara bir dile dönüştürülen programlar ortak dil çalışma ortamı olan CLR (Common Language Runtime) tarafından çalıştırılabilir. 
+F#, Microsoft tarafından tasarlanıp geliştirilen açık kaynak kodlu bir dilidir. F#'ın geliştirilmesindeki temel motivasyon Microsoft'un en önemli platformlarından biri olan **.NET**'in tasarım prensiplerine kadar uzanır. .NET , diller, derleyiciler, standart kütüphaneler ve sanal çalışma ortamı gibi yazılım geliştirme ve bu yazılımların çalıştırıldığı bileşenleri içeren bir yapıdır. .NET'i destekleyen programlama dilleri ile geliştirilmiş programlar dillerin kendilerine özel derleyicileri tarafında derlenir. Derleyiciler tarafından MSIL (Microsoft Intermediate Language) olarak isimlendirilen ara bir dile dönüştürülen programlar ortak dil çalışma ortamı olan CLR (Common Language Runtime) tarafından çalıştırılabilir. 
 
 MSIL, işletim sistemi ve CPU mimarisi bağımsız bir dildir. .NET'i destekleyen programalama dillerinin (C#, VB.NET ve F#) derleyicileri MSIL kodu üretirler. Genelde MSIL kodu elle yazılmaz. .NET'i destekleyen herhangi bir dil ile geliştirilen ve MSIL'e derlenen programlar Windows, Linux ve OSX işletim sistemleri üzerinde CLR içinde çalıştırılabilir. 
 
@@ -526,7 +467,7 @@ let kare x = x * x
 
 // Liste tanımlamak çok basit ve tek satır
 // 1 ile 10 arasındaki sayıları barındıran liste
-let sayılar = [ 1..10 ] 
+let sayılar = [1..10] 
 
 // Tek satırda listedeki sayıların karesini alıp yeni bir liste üretebilirsiniz
 let kareler = sayılar |> List.map kare
@@ -559,15 +500,15 @@ Değer grupları (tuple), kayıt (record) ve ayrışık bileşimler (discriminat
 (* 01_1_03.fsx *)
 
 // Farklı tipte birden fazla değer barındırabilen gruplar (tuple) 
-let çocuk = ("Arda", "Özgür", 10)
-let ad, soyad, yaş = çocuk // değerleri çözümleme
+let çocuk = ("Arda","Özgür",10)
+let ad,soyad,yaş = çocuk // değerleri çözümleme
 
 // Daha yapısal tipler (record)
-type Kişi = { Ad: string; Soyad: string }
+type Kişi = {Ad:string;Soyad:string}
 
 // Yeni kişi kaydı oluşturma
-let arda = { Ad = "Arda"; Soyad = "Özgür" }
-let kuzey = { Ad = "Kuzey"; Soyad = "..." }
+let arda = {Ad="Arda";Soyad="Özgür"}
+let kuzey = {Ad="Kuzey";Soyad="..."}
 
 // Daha karmaşık tip tanımları (discriminated union)
 type Kullanıcı = 
@@ -577,7 +518,7 @@ type Kullanıcı =
 // Öğrenci ve yönetici oluşturma
 let öğrenci1 = Öğrenci arda
 let öğrenci2 = Öğrenci kuzey
-let yönetici = [ öğrenci1; öğrenci2 ]
+let yönetici = [öğrenci1;öğrenci2]
 
 ```
 
@@ -602,25 +543,28 @@ let metin = "Neden F#" // string
 let pi = 3.14 // float
 let evetHayır = true // bool
 
-// Kare alma fonksiyonu. Girdi parametresi ve çıktının int olduğu çıkarsanır
+// Kare alma fonksiyonu. 
+//Girdi parametresi ve çıktının int olduğu çıkarsanır
 let kare x = x * x
 let sonuç1 = kare 12
 //let sonuç2 = kare 3.14 // Hata girdi parametresi int değil
 
-// Ondalık basamaklı sayılar için kare fonksiyonu. Girdi parametresi ve çıktı olarak float olacağını belirttik
-let kare2 (x: float): float = x * x
+// Ondalık basamaklı sayılar için kare fonksiyonu. 
+// Girdi parametresi ve çıktı olarak float olacağını belirttik
+let kare2 (x:float) : float = x * x
 let sonuç3 = kare2 3.14 
 //let sonuç4 = kare2 3 // Hata girdi parametresi float değil
 
 
 // Kişi ve Çalışan tipinde kayıt tanımları
-type Çalışan = { Ad: string; Soyad: string }
-type Kişi = { Ad: string; Soyad: string }
+type Çalışan = {Ad:string;Soyad:string}
+type Kişi = {Ad:string;Soyad:string}
 
 
-// arda ve ali değer ifadelerinin tipini belirtmedik buna rağmen tipinin Kişi olduğu çıkarsanır
-let arda = { Ad = "Arda"; Soyad = "Özgür" }
-let ali = { Ad = "Ali"; Soyad = "Özgür" }
+// arda ve ali değer ifadelerinin tipini belirtmedik 
+// buna rağmen tipinin Kişi olduğu çıkarsanır
+let arda = {Ad="Arda";Soyad="Özgür"}
+let ali = {Ad="Ali";Soyad="Özgür"}
 
 // seniha değer ifadesinin Çalışan tipinden olduğunu biz ifade ettik
 let seniha = {Çalışan.Ad="Seniha";Soyad="Özgür"}
@@ -631,40 +575,40 @@ Tip çıkarsama mekanizması her zaman tutarlı sonuç üretir.Ancak, tip çıka
 
 Yukarıdaki örnekte yer alan
 
-**let anne = { Çalışan.Ad = "Seniha", Soyad = "Özgür" }** 
+**let anne = { Çalışan.Ad = "Seniha"; Soyad = "Özgür" }** 
 
 ifadesini 
 
-**let anne = { Ad = "Seniha", Soyad = "Özgür" }** 
+**let anne = { Ad = "Seniha"; Soyad = "Özgür" }** 
 
 şeklinde yazarsak **Kişi** tipi **Çalışan** tipi tanımından sonra yapıldığı için **anne** değer ifadesinin tipinin **Kişi** olduğu çıkarsanır. Bu durum **anne** değeri tanımında alanlardan ilkinin önüne alanın hangi tipe ait olduğunu **Çalışan.Ad="Seniha"** şeklinde belirterek engellenebilir. Bu yöntem ile F# derleyicisine bir ipucu verilerek tip çıkarsama sırasında varsayım yapması önlenir. 
 
 ### Sade ve Yetenekli Veri Yapıları
 Çok genel bir tanıma göre yazılım programları akış kontrolü, veri alma/verme ve işleme kabiliyeti olan akıllı görünümlü otomasyon sistemleridir. Bu basit tanıma istinaden yazılan kodun önemli bir miktarının fonksiyonlar arasında, tipler arasında, modüller arasında veya diğer yazılımlar ile veri alış verişini sağlayan ifadelerden oluştuğu söylenebilir. 
 
-F#, bu basit tanımda yer verilen işlemler için hem dil seviyesinde hem de standard kütüphanesinde performanslı çalışan ve kullanımı kolay yapılar sunar. Aşağıdaki örnekte F#'ın temel veri yapılarından olan liste, dizi ve sekans (silsile) tiplerinin kullanımını inceleyebilirsiniz.
+F#, bu basit tanımda yer verilen işlemler için hem dil seviyesinde hem de standart kütüphanesinde performanslı çalışan ve kullanımı kolay yapılar sunar. Aşağıdaki örnekte F#'ın temel veri yapılarından olan liste, dizi ve sekans (silsile) tiplerinin kullanımını inceleyebilirsiniz.
 
 ```fsharp
 (* 01_1_05.fsx *)
 open System
 
 // 1 ile 5 arasındaki sayıları barındıran liste
-let list1 = [ 1; 2; 3; 4; 5 ]
+let list1 = [1;2;3;4;5]
 
 // 6 ile 10 arasındaki sayıları barındıran liste
-let liste2 = [ 6..10 ]
+let liste2 = [6..10]
 
 // 12 ile 20 arasındaki çift sayıları barındıran liste
-let liste3 = [ 12..2..20 ]
+let liste3 = [12..2..20]
 
 // 1 ile 5 arasındaki sayıları barındıran dizi
-let dizi1 = [| 1; 2; 3; 4; 5 |]
+let dizi1 = [|1;2;3;4;5|]
 
 // 6 ile 10 arasındaki sayıları barındıran dizi
-let dizi2 = [| 6..10 |]
+let dizi2 = [|6..10|]
 
 // 12 ile 20 arasındaki çift sayıları barındıran dizi
-let dizi3 = [| 12..2..20 |]
+let dizi3 = [|12..2..20|]
 
 // 1 ile int tipinin en büyük değeri arasındaki sayıları barındıran sekans
 let sayılar4 = seq{1..System.Int32.MaxValue}
@@ -672,9 +616,9 @@ let sayılar4 = seq{1..System.Int32.MaxValue}
 
 > **NOT**
 >
-> **seq** (sekans veya silsile) fiziksel bellek kapasitesini izin verdiği ölçüde sınırsız sayıda elemanı barındırabilen standard bir tiptir. **seq** yüksek boyutlu veri işlemlerinde kullanılması önerilen en yüksek performanslı tiplerden birisidir.
+> **seq** (sekans veya silsile) fiziksel bellek kapasitesini izin verdiği ölçüde sınırsız sayıda elemanı barındırabilen standart bir tiptir. **seq** yüksek boyutlu veri işlemlerinde kullanılması önerilen en yüksek performanslı tiplerden birisidir.
 
-Sade ve şık veri yapılarına ilave olarak F# standard kütüphanesindeki **List**, **Seq** ve **Array** modülleri onlarca fonksiyonu hazır olarak kullanımınıza sunar. 
+Sade ve şık veri yapılarına ilave olarak F# standart kütüphanesindeki **List**, **Seq** ve **Array** modülleri onlarca fonksiyonu hazır olarak kullanımınıza sunar. 
 
 Aşağıdaki örnekte **List** modülü içinde yer alan bazı fonksiyonlarını kullanımı gösterilmektedir.
 
@@ -682,7 +626,7 @@ Aşağıdaki örnekte **List** modülü içinde yer alan bazı fonksiyonlarını
 (* 01_1_06.fsx *)
 
 // 1 ile 100 arasındaki değerleri barındıran liste
-let liste = [ 1..100 ]
+let liste = [1..100]
 
 // List.map 
 // Listedeki değerlerin ondalık değerlere çevirip yeni bir liste oluştur 
@@ -702,12 +646,12 @@ let üçlüGruplarListesi = liste |> List.chunkBySize 3
 
 // List.filter
 // Listedeki 50'den küçük sayıları filtrele ve yeni bir liste oluştur
-let küçükSayılar = liste |> List.filter (fun x -> x <= 50)
+let küçükSayılar = liste |> List.filter (fun x -> x <=50)
 
 // @ iki listeyi ekleme operatörü
 // :: listenin başına eleman ekleme operatörü 
 // 200 ile 300 arasındaki sayıları barındıran liste
-let liste2 = [ 200..300 ]
+let liste2 = [200..300]
 
 // liste ve liste2'yi birleştir ve yeni bir liste oluştur
 let liste3 = liste @ liste2
@@ -736,7 +680,7 @@ liste5 |> List.iteri (fun i x -> printfn "Değer %d = %d" i x)
 
 Sahip olunan kaynakları en verimli şekilde kullanıp makul sürede sonuç üretebilmek bulut ekonomisinin en önemli gelişim alanlarından birini oluşturmaktadır. Programlama dillerinin sunduğu eş zamanlı ve paralel işlem yapıları birim zamanda işlenen veriyi ve kurulan bağlantı miktarını arttırdığı için önemli ilerlemelerin ve keşiflerin kapılarını açar. Örneğin, sosyal platformlar ve IoT (nesnelerin interneti) tarafından üretilen büyük verinin düşük birim maliyetler ile işlenebilmesi yapay öğrenme ve davranış analitiği alanında geniş bir yelpazede farklı uygulamaları mümkün kılmaktadır.
 
-F#, eş zamanlı (asenkron) ve paralel işlemler için kullanımı basit dil yapıları, standard kütüphane fonksiyonları ve mesaj tabanlı işlem yapabilmek için çeşitli mekanizmalar sunar.
+F#, eş zamanlı (asenkron) ve paralel işlemler için kullanımı basit dil yapıları, standart kütüphane fonksiyonları ve mesaj tabanlı işlem yapabilmek için çeşitli mekanizmalar sunar.
 
 ```fsharp
 (* 01_1_07.1.fsx *)
@@ -754,7 +698,7 @@ let ekranaYazdır değer =
         }
 
 // Yazdırılacak değerler
-let sites = [ 0..10 ]
+let sites = [0..10]
 
 sites 
 |> List.map ekranaYazdır   // Eş zamanlı görevleri oluştur
@@ -773,8 +717,8 @@ F#'da herhangi bir işlemi asenkron hale getirmek için **async** ifadeler kulla
 // Fibonacci sayısını hesaplayan fonksiyon
 let rec fib n =
     match n with
-    | n when n = 0 -> 0
-    | n when n = 1 -> 1
+    | n when n=0 -> 0
+    | n when n=1 -> 1
     | n -> fib(n - 1) + fib(n - 2)
 
 // Paralel çalışacak görevleri oluştur
@@ -782,16 +726,16 @@ let işlemler = Async.Parallel [ for i in 0..10 -> async {  return fib i } ]
 
 işlemler 
 |> Async.RunSynchronously // Görevleri çalıştır
-|> Array.iteri ( fun i x -> printfn "fib(%d) = %d" i x) // Sonuçları ekrana yazdır
+|> Array.iteri ( fun i x -> printfn "fib(%d) = %d" i x) // Ekrana yazdır
 ```
 
-F# standard kütüphanesindeki **Async** modülünde yer alan **Parallel** ve **RunSynchronously** gibi fonksiyonlar kullanarak arka planda eş zamanlı çalışabilen görevler oluşturulup çalıştırılabilir.
+F# standart kütüphanesindeki **Async** modülünde yer alan **Parallel** ve **RunSynchronously** gibi fonksiyonlar kullanarak arka planda eş zamanlı çalışabilen görevler oluşturulup çalıştırılabilir.
 
 > **BİLGİ**
 >
 > **Async.RunSynchronously** fonksiyonun adında bakıldığında görevleri senkron yani ardı ardına çalıştıracakmış gibi bir izlenim oluşabilir. Ancak bu fonksiyon arka planda çalışacak tüm görevleri eş zamanlı olarak başlatıp hepsi tamamlanana kadar çağırının yapıldığı thread bekletmek için kullanılır. Program akışı ancak ve ancak tüm arka plan görevleri tamamlandığına bir sonraki satırdan devam eder. Eğer arka plan görevlerinin tamamlanması beklenmeden akışın devam etmesi istenirse **Async.Start** vey **Async.StartImmediate** başlatma fonksiyonları kullanılmalıdır.
 
-Bu iki yapıya ilave olarak F# standard kütüphanesi içindeki **MailboxProcessor** tipi ile mesaj tabanlı ve asenkron kuyruk (queue) kullanımını gerektiren işlevler de geliştirilebilir.
+Bu iki yapıya ilave olarak F# standart kütüphanesi içindeki **MailboxProcessor** tipi ile mesaj tabanlı ve asenkron kuyruk (queue) kullanımını gerektiren işlevler de geliştirilebilir.
 
 ```fsharp
 (* 01_1_09.1.fsx *)
@@ -831,7 +775,7 @@ open System
 let mutable sayı = 42
 sayı <- 43
 
-let dizi = [| 1..100 |]
+let dizi = [|1..100|]
 // for ve  if/else yapıları 
 for i in dizi do
     if i % 2 = 0 then
@@ -845,7 +789,7 @@ printfn "Sayının değeri = %d" sayı
 
 // System.Int32 .NET'in sağladığı tam sayı tipidir
 // Aşağıdaki ifade ile System.Int32 tipi için 
-// ÇiftMi isimli ek metod tanımı
+// ÇiftMi isimli ek metod tanımı yapılıyor
 type System.Int32 with
     member this.ÇiftMi() = this % 2 = 0
 
@@ -853,15 +797,16 @@ type System.Int32 with
 let çiftSayı:System.Int32 = 12 
 let tekSayı:System.Int32 = 11 
 
-// sayıların çift olup olmadığını kontrolü
+// sayıların çift olup olmadığı kontrolü
 çiftSayı.ÇiftMi()
 tekSayı.ÇiftMi()
 
 // Nesne tabanlı programlama dillerindeki gibi sınıf tanımları
 [<AbstractClass>]
-type Şekil = 
-    abstract member Renk: string
-    abstract AlanHesapla: unit -> float 
+type Şekil() = 
+    abstract member Renk : string
+    abstract AlanHesapla : unit -> float 
+
 ```
 Bu çoklu yaklaşım (multi-paradigm) sayesinde fonksiyonel olmayan diller (örneğin C# veya Java) ile tecrübesi olan yazılım geliştiriciler tarzlarını çok fazla değiştirmeden olabildiğince hızlı bir şekilde F# kullanmaya başlayabilirler. Ancak prosedürel yaklaşım F#'ın sağladığı avantajları ortadan kaldırır. Uzun vadede F#'ın sağladığı fonksiyonel yapı ve yöntemlere adapte olmanızı tavsiye ediyorum.
 
@@ -909,9 +854,9 @@ Yukarıdaki şekilde yer alan **tanım kümesi** ve **değer kümesi** kavramlar
 <img src="./img/01_01_02_drawio.jpg"/>
 
 Yukarıdaki örnekte
-* Tanım Kümesi A : A{1, 2, 3}
-* Değer Kümesi B : B{a, b, c, d}
-* Görüntü Kümesi : f(A) = {a, d}
+* Tanım Kümesi A : A{1,2,3}
+* Değer Kümesi B : B{a,b,c,d}
+* Görüntü Kümesi : f(A) = {a,d}
 
 f fonksiyonunu da  f(A) = {(1,a),(2,a),(3,d)} şeklindeki eşlemelerin kümesi olarak tanımlarız.
 
@@ -1107,7 +1052,7 @@ Fonksiyonel programlama yaklaşımına göre tasarlanmış programlama dilleri *
 ```fsharp
 (* 01_2_07.fsx *)
 
-let liste = [ 1..10 ] // 1 ile 10 arasındaki sayıları barındıran liste
+let liste = [1..10] // 1 ile 10 arasındaki sayıları barındıran liste
 let kare x = x * x  // Bir sayının karesini alan fonksiyon tanımı
 
 let sonuc = List.map kare liste // List modülü içindeki map fonksiyonu
@@ -1142,7 +1087,7 @@ F# ağırlıklı olarak fonksiyonel (bildirimsel) bir dil olmakla birlikte yorda
 ```fsharp
 (* 01_2_08.1.fsx *)
 (* Yordamsal (fonksiyonel olmayan) yaklaşım *)
-let liste = [ 1..10 ]
+let liste = [1..10]
 
 let mutable ikiyeBölünenler = []
 let mutable ikiyeBölünmeyenler = []
@@ -1160,7 +1105,7 @@ Aşağıda F#’ın dil özellikleri ile uyumlu (idomatic) örnek kod parçasın
 ```fsharp
 (* 01_2_08.1.fsx *)
 (* Bildirimsel (fonksiyonel) yaklaşım *)
-let liste = [ 1..10 ]
+let liste = [1..10]
 let ikiyeBolünebilirMi x = x % 2 = 0
 
 let ikiyeBölünenler = liste |> List.filter ikiyeBolünebilirMi
@@ -1286,30 +1231,30 @@ val it : unit = ()
 
 ```bash
 > 2 + 2;;
-val it: int = 4
+val it : int = 4
 
 > let x = 42;;
-val x: int = 42
+val x : int = 42
 
 > let y = 1;;
-val y: int = 1
+val y : int = 1
 
 > let topla x y = 
 -     x + y
 - ;;
-val topla : x: int -> y: int -> int
+val topla : x:int -> y:int -> int
 
 > topla x y;;
-val it: int = 43
+val it : int = 43
 
 > topla 11 12;;
-val it: int = 23
+val it : int = 23
 
 > let x = -42;;
-val x: int = -42
+val x : int = -42
 
 > topla x y;;
-val it: int = -41
+val it : int = -41
 ```
 
 * **2 + 2;;** basit bir toplama işlemi
@@ -1393,9 +1338,9 @@ printfn "Performans ve zamanlama ölçümü kapatıldı."
 
 <img src="./img/02_02.png"/>
 
-## 2.4 F# Standard Dosya Uzantıları
+## 2.4 F# Standart Dosya Uzantıları
 
-F# için aşağıdaki standard dosya uzantıları kullanılır. 
+F# için aşağıdaki standart dosya uzantıları kullanılır. 
 
 * **fsx:** F# script dosyası. Bu dosyalar Visual Studio gibi geliştirme ortamları tarafından derleyiciye derleme için gönderilmez.
 * **fs:** F# kod dosyası. Bu dosyalar Visual Studio gibi geliştirme ortamları tarafından derleyiciye derleme için gönderilir.
@@ -1739,10 +1684,10 @@ let pi = 3.14
 let cevap = true
 
 // Tek satırda birden fazla değer ifadesi tanımlama
-let a, b, c = 1, 2, 3
+let a,b,c = 1,2,3
 
 // Daha karmaşık değer grubu tipinden değerler de tanımlanabilir
-let x, y, z = (42, "F# ile Fonksiyonel Programlama", 3.14)
+let x,y,z = (42,"F# ile Fonksiyonel Programlama", 3.14)
 
 // Fonksiyon tanımlama
 let küp x = x * x * x
@@ -1860,7 +1805,7 @@ do (1 + 1) |> ignore
 
 > **BİLGİ**
 >
-> **ignore** F# standard kütüphanesi ile gelen bir fonksiyondur. Tek bir giriş parametresi alır ve bu parametrenin tipi ne olursa olsun her zaman **unit** tipinden bir çıktı üretir.
+> **ignore** F# standart kütüphanesi ile gelen bir fonksiyondur. Tek bir giriş parametresi alır ve bu parametrenin tipi ne olursa olsun her zaman **unit** tipinden bir çıktı üretir.
 
 ### Yorum Satırları
 
@@ -1985,7 +1930,7 @@ let kare_fonk x = x * x
 //let kare-alma x = x * x // Hatalı
 
 // Anahtar kelimenin tanımlayıcı olarak kullanımı
-let ``let`` = "Let ifadesi"
+let ``let``= "Let ifadesi"
 //let let = "Let ifadesi" // Hatalı
 
 // Boşluklu tanımlayıcı ismi
@@ -1998,10 +1943,10 @@ let π = 3.14
 let cliché = "Klişe"
 
 // f fonksiyonu
-let f (x: float) = 2.0 * x + 4.0
+let f (x:float) = 2.0 * x + 4.0
 
 // f' fonksiyonu, f fonksiyonun tersi
-let f' (x: float) = 0.5 * x - 2.0
+let f' (x:float) = 0.5 * x - 2.0
 ```
 
 > **DİKKAT!**
@@ -2052,7 +1997,7 @@ F#'da basit tipler olarak adlandırdığımız 16 veri tipi vardır. F# bir .NET
 F#'da "let" ile basit değer ifadesi tanımlama formatı şöyledir
 
 ```
-let <değer adı>: <değer tipi> = <değer>
+let <değer adı>:<değer tipi> = <değer>
 ````
 
 ```fsharp
@@ -2074,8 +2019,8 @@ let <fonksiyon adı> (girdi1:<girdi1 tipi>) (girdi2: <girdi2 tipi>): <sonuç tip
 ```
 
 ```fsharp
-let topla (x: int) (y: int): string = 
-    sprintf "%d + %d = %d" x y (x + y)
+let topla (x:int) (y:int): string = 
+    sprintf "%d + %d = %d" x y (x+y)
 
 topla 42 0
 ```
@@ -2084,16 +2029,16 @@ Fonskiyon girdi parametrelerinin veya dönüş değerinin tipinin tanımlanması
 
 ```fsharp
 let topla x y = 
-    sprintf "%d + %d = %d" x y (x + y)
+    sprintf "%d + %d = %d" x y (x+y)
 
-let topla' (x: int) y = 
-    sprintf "%d + %d = %d" x y (x + y)
+let topla' (x:int) y = 
+    sprintf "%d + %d = %d" x y (x+y)
 
-let topla'' x (y: int) = 
-    sprintf "%d + %d = %d" x y (x + y)
+let topla'' x (y:int) = 
+    sprintf "%d + %d = %d" x y (x+y)
 
-let topla''' x y: string = 
-    sprintf "%d + %d = %d" x y (x + y)
+let topla''' x y : string = 
+    sprintf "%d + %d = %d" x y (x+y)
 
 topla 42 0
 topla' 42 0
@@ -2114,10 +2059,10 @@ F#'da sayısal değer alan ifadeler 2'lik (binary), 8'lik (octal) ve 16'lık (he
 let değer_ifades = 0b[0 veya 1]
 
 // 8'lik (ocatl) ifade formatı
-let değer_ifades = 0o[ 0..7 ]
+let değer_ifades = 0o[0..7]
 
 // 16'lık (hexadecimal) ifade formatı
-let değer_ifadesi_adı = 0x[ 0..1 A..F ]
+let değer_ifadesi_adı = 0x[0..1 A..F]
 ```
 
 ```fsharp
@@ -2194,7 +2139,7 @@ let b' = 0b11111111y // -1y
 let sonuç7 = a' + b' // 127y 
 ```
 
-Toplama, çıkarma, çarpma, bölme, kare alma ve mod alma operatörlerine ilave olarak F# standard kütüphanesinde matematiksel işlemlerde kullanabileceğiniz aşağıdaki fonksiyonlar da yer alır
+Toplama, çıkarma, çarpma, bölme, kare alma ve mod alma operatörlerine ilave olarak F# standart kütüphanesinde matematiksel işlemlerde kullanabileceğiniz aşağıdaki fonksiyonlar da yer alır
 
 <img src="./img/03_04.png" width="480"/>
 
@@ -2222,11 +2167,11 @@ let sayı = 2y
 //let sonuç = kare sayı
 
 // Doğru kullanım
-let doğruSayı = 2 // Tip çıkarsama doğruSayı değerinin tipini int olarak çıkarsadı
+let doğruSayı  = 2 // Tip çıkarsama doğruSayı değerinin tipini int olarak çıkarsadı
 let sonuç = kare doğruSayı
 
 // Fonksiyon girdi parametresinin tipini doğrudan tanımlayarak alternatif yaklaşım
-let kare' (x: sbyte) = x * x
+let kare' (x:sbyte) = x * x
 let sonuç' = kare' sayı 
 
 // 8 bit işaretli sayısı 32 bit işaretli sayıya çevirerek kullanım
@@ -2251,7 +2196,7 @@ Aşağıdaki tabloda basit tipler arasındaki dönüşümler için kullanılan f
 (* *3_2_4a.fsx *)
 
 // işaretsiz byte
-let sayı1 = 42y
+let sayı1= 42y
 
 //işaretli byte
 let sayı2 = byte sayı1
@@ -2276,7 +2221,7 @@ let char1 = char sayı1
 ```
 
 
-Değer aşımlarının F# tarafından kontrol edilmesini ve aşım durumunda hata üretilmesini istiyorsanız F# standard kütüphanesinde yer alan **Checked** modülünü kullanmalısınız. Bu modülü kullanmak için kaynak kodu dosyanızın başında **open Checked** ifadesini yazmanız yeterlidir. Bu satırdan sonraki kod satırlarınız için F# **Checked** modülü içindeki artimetik operatör tip dönüşüm fonksiyonlarını kullanacaktır.
+Değer aşımlarının F# tarafından kontrol edilmesini ve aşım durumunda hata üretilmesini istiyorsanız F# standart kütüphanesinde yer alan **Checked** modülünü kullanmalısınız. Bu modülü kullanmak için kaynak kodu dosyanızın başında **open Checked** ifadesini yazmanız yeterlidir. Bu satırdan sonraki kod satırlarınız için F# **Checked** modülü içindeki artimetik operatör tip dönüşüm fonksiyonlarını kullanacaktır.
 
 ```fsharp
 (* 03_2_4b.fsx *)
@@ -2299,7 +2244,7 @@ let işaretli_16_bit_checked = int16 işaretsiz_16_bit
 ```
 
 ### Karşılaştırma ve Eşitlik
-Sayısal değerleri eşittir, eşit değildir, büyüktür, büyük eşittir,küçüktür ve küçük eşittir operatörleri ve **compare** standard kütüphane fonksiyonu ile karşılaştırabilirsiniz. Karşılaştırma operatörlerinin işlem sonucu her zaman **true** veya **false** mantıksal değerine eşittir. **compare** fonksiyonun dönüş değeri eşitlik durumunda 0, ilk girdi parametresi ikinciden küçük ise -1, ilk girdi parametresi ikinciden büyük ise 1 olur.
+Sayısal değerleri eşittir, eşit değildir, büyüktür, büyük eşittir,küçüktür ve küçük eşittir operatörleri ve **compare** standart kütüphane fonksiyonu ile karşılaştırabilirsiniz. Karşılaştırma operatörlerinin işlem sonucu her zaman **true** veya **false** mantıksal değerine eşittir. **compare** fonksiyonun dönüş değeri eşitlik durumunda 0, ilk girdi parametresi ikinciden küçük ise -1, ilk girdi parametresi ikinciden büyük ise 1 olur.
 
 <img src="./img/03_07.png" width = "420" />
 
@@ -2406,11 +2351,11 @@ F# karakter veri tipi desteği için .NET'in sağladığı imkanları kullanır.
 (* 03_2_05.fsx *)
 
 let üHarfi = 'ü'
-let sesliHarfler = [ 'a'; 'e'; 'ı'; 'i'; 'o'; 'ö'; 'u'; 'ü' ]
+let sesliHarfler = ['a';'e';'ı';'i';'o';'ö';'u';'ü']
 
 // Unicode karakter kodları kullanımı
 let üHarfiUnicode = '\u00FC'
-let sesliHarflerUnicode = [ '\u0061'; '\u0065'; '\u0131'; '\u0069'; '\u006F'; '\u00F6'; '\u0075'; '\u00FC' ]
+let sesliHarflerUnicode = ['\u0061';'\u0065';'\u0131';'\u0069';'\u006F';'\u00F6';'\u0075';'\u00FC']
 ```
 Alfabetik karakterler ilave olarak ASCII kod tablosunda kontrol karakteri olarak tanımlanan tab, yeni satır, satır başı gibi özel karakterler ile tek tırnak ('), çıft tırnak (") ve geri bölü (\) gibi F# dilinde özel anlamı olan karakterler de başlarına geri bölü (\) koyarak kullanılabilir.
 
@@ -2524,7 +2469,7 @@ let <fonksiyon adı> (<girdi1:tip>) ... (<girdi N:tip>) : <çıktı tipi> =
     <fonksiyon gövdesi/kodu>
 
 // Örnek fonksiyon tanımı
-let topla (x:int) (y:int): string =
+let topla (x:int) (y:int) : string =
     sprintf "x + y = %d" (x+y)
 ```
 
@@ -2532,11 +2477,11 @@ Fonksiyon tanımı yapılırken tiplerin kullanımı opsiyoneldir. Örneğin gir
 
 
 ```fsharp
-let topla (x: int) y: string =
-    sprintf "x + y = %d" (x + y)
+let topla (x:int) y : string =
+    sprintf "x + y = %d" (x+y)
 
 let topla' x y : string =
-    sprintf "x + y = %d" (x + y)
+    sprintf "x + y = %d" (x+y)
 ```
 
 F#'da bir fonksiyonun çıktısını döndürmek için diğer bazı dillerde olduğu gibi **return** benzeri bir anahtar kelime kullanımına ihtiyaç duyulmaz. Fonksiyonların çıktısı her zaman fonksiyon gövdesindeki son ifadenin değeridir.
@@ -2559,13 +2504,13 @@ let toplaVeSadeceBas x y =
 ```
 Yukarıdaki fonksiyon gövdesinde son ifade **()** olduğu için fonksiyonun çıktısı unit tipinden olacaktır. Aslında **()** ifadesi kaldırıldığında  **printfn** ifadesi de unit tipinden bir değer döndürdüğü için dolaylı olarak toplaVeSadeceBas fonksiyonunun dönüş tipi de unit olur.
 
-Fonksiyon gövdesindeki son ifadenin dönüş değerini kullanmadan fonksiyonun **unit** dönmesini sağlamak için F# standard kütüphanesi ile gelen **ignore** fonksiyonunu kullanılır.
+Fonksiyon gövdesindeki son ifadenin dönüş değerini kullanmadan fonksiyonun **unit** dönmesini sağlamak için F# standart kütüphanesi ile gelen **ignore** fonksiyonunu kullanılır.
 
 ```fsharp
 
 // ignore normal fonksiyon olarak kullanımı
 let topla x y = 
-    ignore (x + y)
+    ignore (x+y)
 
 // ignore |> operatörü ile kullanımı
 let topla' x y = 
@@ -2592,7 +2537,7 @@ Bir fonksiyonun imzası fonksiyonun girdi parametrelerinin ve çıktısının ti
 
 ```fsharp
 // Tek parametreli fonksiyon
-let kare x = sprintf "Karesi %f" (x ** 2.0)
+let kare x = sprintf "Karesi %f" (x**2.0)
 
 // Çok parametreli fonksiyon
 let topla x y = sprintf "Karesi %f" (x + y)
@@ -2600,13 +2545,13 @@ let topla x y = sprintf "Karesi %f" (x + y)
 ```
 Yukarıdaki kod örneğinde ilk fonksiyon tanımını seçip Alt+ENTER kombinasyonu ile FSI'ya gönderdiğinizde 
 
-**val kare : x: float -> string** şeklinde bir çıktı alacaksınız. 
+**val kare : x:float -> string** şeklinde bir çıktı alacaksınız. 
 
 Bu çıktı şu şekilde okunur; **kare** fonksiyonu **x** isimli **float** tipinden bir girdi parametresi alıp **string** tipinden bir çıktı üretir. 
 
 İkinci fonksiyon tanımı için ise
 
-**val topla : x: float -> y: float -> string** şeklinde bir çıktı üretilir. Dikkat ederseniz girdi parametre sayısının artması imzada önemli bir değişikliğe neden olmadı, ifadenin soluna sadece ilave bir parametre tanımı eklendi.
+**val topla : x:float -> y:float -> string** şeklinde bir çıktı üretilir. Dikkat ederseniz girdi parametre sayısının artması imzada önemli bir değişikliğe neden olmadı, ifadenin soluna sadece ilave bir parametre tanımı eklendi.
 
 >**KURAL**
 >
@@ -2641,15 +2586,15 @@ Aşağıdaki örneğimizde **birArttır** isimli bir fonksiyon tanımlıyoruz. B
 
 ```fsharp
 (* 03_3_02.fsx *)
-let birArttır (loglayıcı: string -> unit) x = 
+let birArttır (loglayıcı: string->unit) x = 
     loglayıcı "İşleme başladım"
     let s = x + 1
     loglayıcı "İşlem tamam"
     s
-let ekranaLogla (x: string)  = 
+let ekranaLogla (x:string)  = 
     printfn "Log : %s" x
 
-let dosyayaLogla (x: string) = 
+let dosyayaLogla (x:string) = 
     // Dosyaya loglama kodu
     ()
 birArttır ekranaLogla 42
@@ -2659,7 +2604,7 @@ birArttır dosyayaLogla 42
 
 **birArttır** fonksiyonun **loglayıcı** fonksiyonunu parametre olarak almasındaki tasarımsal amaç fonksiyon kodunu değiştirmeden farklı loglama mekanizmalarının parametre olarak geşilebilen fonksiyonlar ile desteklenebilmesidir. Bu amaca uygun olarak **ekranaLogla** ve **dosyayaLogla** isimli iki fonksiyon tanımlanıyor. Bu fonksiyonların imzası (aslında tipi de denilebilir) **string -> unit** şeklinde olup **birArttır** fonksiyonun ilk parametresi olarak kullanılmaya uygundur.
 
-Fonksiyon tiplerinin nasıl tanımlandığını ve kullanıldığını öğrendiğimize göre standard kütüphanedeki List modülü içinde bulunan **map** fonksiyonunu kendimiz oluşturmayı deneyelim. List.map fonksiyonun imzası şöyledir
+Fonksiyon tiplerinin nasıl tanımlandığını ve kullanıldığını öğrendiğimize göre standart kütüphanedeki List modülü içinde bulunan **map** fonksiyonunu kendimiz oluşturmayı deneyelim. List.map fonksiyonun imzası şöyledir
 
 **val it : (('a -> 'b) -> 'a list -> 'b list)** 
 
@@ -2668,11 +2613,11 @@ Bu imzaya göre List.map fonksiyonu sonuç olarak da yeni bir liste döndürür 
 ```fsharp
 (* 03_3_03.fsx *)
 
-let map (f: 'a -> 'b) (liste: 'a list): 'b list =    
-    let sonuç = seq{ for x in liste -> (f x) }
+let map  (f:'a->'b) (liste : 'a list) : 'b list =    
+    let sonuç = seq{for x in liste -> (f x)}
     sonuç |> List.ofSeq
 
-[ 1..10 ] |> map (fun x -> x * x)
+[1..10] |> map (fun x -> x * x)
 ```
 Yukarıdaki örneğimizde **map** fonksiyonu 
 * **'a->'b** imzasına sahip ve **f** isimli bir fonksiyonu ilk parametre olarak alır.
@@ -2699,7 +2644,7 @@ let ikininKaresiniAl = kare 2
 
 Örnekteki iki satır Alt+Enter ile FSI'da seçip çalışçalıştırıldığında aşağıdaki gibi bir çıktı göreceksiniz
 
-**val kare : x: int -> int**
+**val kare : x:int -> int**
 
 **val ikininKaresiniAl : int = 4**
 
@@ -2715,7 +2660,7 @@ ikininKaresiniAl() // Fonkisyon çağırısı
 
 Bu ifadeleri FSI'da çalıştırdığımızda niyetimize uygun olarak aşağıdaki çıktıyı alırız
 
-**val kare : x: int -> int**
+**val kare : x:int -> int**
 
 **val ikininKaresiniAl : unit -> int**
 
@@ -2750,16 +2695,16 @@ Ananonim fonksiyonlarda girdi değerleri ve çıktı değerinin tiplerinin kulla
 (* 03_3_01.fsx *)
 
 // 1.0 ile 10.0 arasındaki sayıların listesi
-let list = [ 1.0..10.0 ]
+let list = [1.0..10.0]
 
 // Kare fonksiyonu
-let kare x = x ** 2.0
+let kare x = x**2.0
 
 // Kare fonksiyonu kullanarak listedeki elemanların karesini alma
 list |> List.map kare
 
 // Anonim fonksiyon kullanarak listedeki elemanların karesini alma
-list |> List.map (fun x -> x ** 2.0)
+list |> List.map (fun x -> x**2.0)
 ```
 
 List modülündeki **map** fonksiyonu yüksek dereceli bir fonksiyondur çünkü ilk girdi parametresi olarak başka bir fonksiyon alır ve ikinci girdi parametresi olarak verilen listedeki tüm elemanları için ilk girdi parametresi olan fonksiyonu çalıştırır.
@@ -2877,7 +2822,7 @@ let üçSayıyıÇarp' x y z = x * y * z
 
 Üç sayının çarpımı örneğinde **üçSayıyıÇarp** fonksiyonun imzası FSI tarafından şu şekide ifade edilir
 
-**val üçSayıyıÇarp : x: int -> (int -> int -> int)**
+**val üçSayıyıÇarp : x:int -> (int -> int -> int)**
 
 Bu imza **üçSayıyıÇarp** fonksiyonunun **int** tipinden tek girdi parametresi olan ve çıktı olarak da **(int -> int -> int)** imzasına istinaden 
 * İki tane **int** parametre alan ve 
@@ -2887,7 +2832,7 @@ döndürdüğünü ifade eder.
 
 Örneğimizdeki **üçSayıyıÇarp'** isimli 3 parametreli normal fonksiyon tanımını FSI'da çalıştırdığımızda ise şöyle bir fonksiyon imzası görürüz
 
-**val üçSayıyıÇarp' : x: int -> y: int -> z: int -> int**
+**val üçSayıyıÇarp' : x:int -> y:int -> z:int -> int**
 
 Bu imzanın **üçSayıyıÇarp** imazasından tek farkı () ile gruplanmış 3 parametrelik bir ifadenin varlığıdır. Pratikte parantezlerin olması ile olmaması arasında önemli bir fark yoktur. Ancak, kod yazarken hatalı kullanıma mahal vermemek için () ile gruplanmış ifadelerin girdinizin veya çıktınızın basit tipli bir değer değil fonksiyon değeri olduğunu belirttiğini unutmayın.
 
@@ -2959,7 +2904,7 @@ let kare x = x * x
 let kareleriniAl = List.map kare 
 
 // "kareleriniAl" [1..10] listesi parametresi ile çağırılır 
-kareleriniAl [ 1..10 ]
+kareleriniAl [1..10]
 ```
 Bu örneğimizde önce **kare** isimli basit bir fonksiyon tanımladık. Daha sonra da **List.map** fonksiyonun ilk parametresi olarak bu **kare** fonksiyonunu geçerek sabitledik, List.map'in beklediği ikinci parametreyi vermedik. Sonuçta **kareleriniAl** isimli girdi olarak int listesi alıp çıktı olarak da int listesi döndüren bir fonksiyon değeri oluşturduk. **kareleriniAl** fonksiyonunu [1..10] listesini parametre olarak kullanarak çalıştırdık.
 
@@ -2972,7 +2917,7 @@ Esnek kullanımı hedefleyen fonksiyonlar kodlarken aşağıdaki iki soruya odak
 1. Fonksiyonun kendi başına yaptığı çok önemli iş nedir
 2. Fonksiyon, bu çok önemli işi yapması için dışarıdan hangi veri ve fonksiyonlara ihtiyaç duyar
 
-Örneğin F# standard kütüphanesindeki **List** modülünü bir fonksiyonu olan **map** fonksiyonu için bu iki sorunun cevabını şöyle verebiliriz
+Örneğin F# standart kütüphanesindeki **List** modülünü bir fonksiyonu olan **map** fonksiyonu için bu iki sorunun cevabını şöyle verebiliriz
 
 1. Fonksiyonun yaptığı önemli iş bir liste üzerinde her bir elemanı sırasıyla ziyaret ederek bir fonksiyon çalıştırmaktır
 2. Bu önemli işi yaparken de üzerinde döneceği bir liste ve bu liste üzerinde dönerken çalıştıracağı bir fonksiyona ihtiyaç duyar
@@ -3000,7 +2945,7 @@ Aşağıdaki örnekte List.map fonksiyonunun tanımını ve bu fonksiyon ile nas
 let küp x = x * x * x
 
 // test listemiz 1 ile 10 arasındaki değerleri barındırır
-let liste = [ 1..10 ]
+let liste = [1..10]
 
 // List.map fonksiyonun normal kullanımı
 List.map küp liste
@@ -3032,7 +2977,7 @@ liste |> hepsininKüpünüAl
 (* 03_3_11.fsx *)
 
 let küp x = x * x * x
-let liste = [ 1..10 ]
+let liste = [1..10]
 
 //------ KISMİ UYGULAMA UYUMLU OLMAYAN YAKLAŞIM ------//
 // Paremetreleri kısmi uygulama için uygun sıralanmamış
@@ -3040,7 +2985,7 @@ let liste = [ 1..10 ]
 // İlk parametre bir liste
 // Son parametre bir fonksiyon
 let map' liste f =    
-    let sonuç = seq{ for x in liste -> (f x) }
+    let sonuç = seq{for x in liste -> (f x)}
     sonuç |> List.ofSeq
 
 
@@ -3062,7 +3007,7 @@ liste |> hepsininKüpünüAl
 // İlk parametre bir fonksiyon
 // Son parametre bir liste
 let map'' f liste =    
-    let sonuç = seq{ for x in liste -> (f x) }
+    let sonuç = seq{for x in liste -> (f x)}
     sonuç |> List.ofSeq
 
 // map'' fonksiyonunu kullanarak bir listenin tüm değerlerinin
@@ -3098,7 +3043,7 @@ let rec fibonacci n =
 fibonacci 4
 
 // TEST : 1 ile 10 arasındaki Fibonacci sayıları
-[ 1..10 ] |> List.iter ( fun x -> printfn "%d. fibonaci sayısı = %d" x ( fibonacci x))
+[1..10] |> List.iter ( fun x -> printfn "%d. fibonaci sayısı = %d" x ( fibonacci x))
 ```
 
 **Faktöriyel Hesaplama:** Bir sayının faktöriyeli 1 ile kendisi arasındaki pozitif tam sayıların çarpımının sonucudur ve **n!** olarak ifade edilir. Örneğin; 5! = 5\*4\*3\*2\*1 = 120 olarak hesaplanır. 
@@ -3108,18 +3053,18 @@ fibonacci 4
 (* 03_3_12.fsx *)
 
 // Faktöriyel Hesaplama
-// n! = n * (n - 1) * (n - 2) * .... * 1
+// n! = n * (n-1) * (n-2) * .... * 1
 let rec faktöriyel n = 
     if n < 1 then
         1
     else 
-        n * faktöriyel(n - 1)
+        n * faktöriyel(n-1)
 
 // TEST : 6'nın faktöriyeli
 faktöriyel 6
  
 // TEST : 1 ile 10 arasındaki sayıların faktöriyeli
-[ 1..10 ] |> List.iter ( fun x -> printfn "%d! = %d" x ( faktöriyel x))
+[1..10] |> List.iter ( fun x -> printfn "%d! = %d" x ( faktöriyel x))
 ```
 
 İç içe fonksiyon çağırılarında program akış kontrolü, fonksiyon girdi parametreleri ve fonksiyon dönüş değerleri işletim sistemi tarafından **yığın** (stack) adı verilen veri yapısı kullanılarak takip edilir. Örneğin A fonksiyonu B fonksiyonunu çağırsın. A fonksiyonu çalışmaya başlayıp B'nin çağırıldığı satıra gelindiğinde işletim sistemi yığına 
@@ -3150,7 +3095,7 @@ Fibonacci sayısını hesaplayan fonksiyon örneğimizde girdi parametresinin de
 ```fsharp
 // Sonlanma koşulu olmayan hatalı öz yinelemeli fonksiyon
 let rec fibonacci' n = 
-    fibonacci (n - 1) + fibonacci(n - 2) 
+    fibonacci (n-1) + fibonacci(n-2) 
 
 fibonacci' 2147483647 //En büyük işaretli 32-bit tam sayı 
 ```
@@ -3166,7 +3111,7 @@ Prosedürel dillerde döngü oluşturmak için kullanılan **for** ve **while** 
 void Main()
 {
 
-	for(int i = 5; i >= 0; i--) // döngü ve i sayacı 
+	for(int i=5; i>=0;i--) // döngü ve i sayacı 
 	{
    		// Döngü gövdesi başlangıcı
 		
@@ -3191,12 +3136,12 @@ let rec döngü f sayaç =
         //Girdi olarak verilen fonksiyonunu
         // sayaç değeri ile çağır
         f(sayaç) // f fonksiyonunu sayaç parametresi ile çağır
-        döngü f (sayaç - 1) // tekrar döngü çağır
+        döngü f (sayaç-1) // tekrar döngü çağır
 
 
 // TEST
 let sayaç = 5
-döngü (fun i -> printfn "Döngü, sayaç = %d" i) sayaç
+döngü (fun i-> printfn "Döngü, sayaç = %d" i) sayaç
 ```
 Örneğimizde **döngü** isimli bir öz yinelemeli fonksiyon tanımlıyoruz. Bu fonksiyonun ilk parametresi her bir dönüşte çalıştırılması istenen kodu temsil eden bir **f** fonksiyonu, ikinci parametre ise bitiş koşulunu kontrol eden **sayaç** değeridir. Fonksiyonel dillerde iafdelerin değerleri değişmez (immutable) olduğu için C#'da yaptığımız gibi bir **i** sayaç değişkenin değerini azaltmak yerine öz yinelemeli fonksiyon çağırısında **sayaç** değerinin bir eksiğini bir sonraki çağırıya parametre olarak geçiyoruz.   
 
@@ -3352,13 +3297,13 @@ Basit veri tipleri (tam sayı, ondalık sayı, metin, karakter vs) ile bir çok 
 
 ### Unit
 
-F# ile ister basit bir değer ifadesi tanımlayın isterseniz bir fonksiyon tanımlayın istisnasız tüm ifadelerin bir değeri olmalıdır. İlk bakışta bu çok kısıtlayıcı bir kural gibi görünür, çünkü değeri olmayan veya hiç bir değer döndürmeyen fonksiyonların tanımlanmasını imkansız kılar. Ancak, biliyoruz ki **printfn** gibi bazı standard kütüphane fonksiyonları herhangi bir değer döndürmez ve yalnızca yan etkileri için kullanılır. 
+F# ile ister basit bir değer ifadesi tanımlayın isterseniz bir fonksiyon tanımlayın istisnasız tüm ifadelerin bir değeri olmalıdır. İlk bakışta bu çok kısıtlayıcı bir kural gibi görünür, çünkü değeri olmayan veya hiç bir değer döndürmeyen fonksiyonların tanımlanmasını imkansız kılar. Ancak, biliyoruz ki **printfn** gibi bazı standart kütüphane fonksiyonları herhangi bir değer döndürmez ve yalnızca yan etkileri için kullanılır. 
 
 F#'da **hiç bir şey** değerini ifade etmek için adı **unit**, değeri **()** (çift parantez) olan bir tip kullanılır. **unit** tipini C, C++, Java veya C# gibi prosedürel dillerdeki **void** tipine benzetebiliriz. Programlama dillerinde tipler kavramsal modelleme için kullanılır, bu nedenle **hiç birşeyi** modellemek için **unit** gibi bir tipin olması sizi şaşırtmamalı.
 
 >**AÇIKLAMA**
 >
->printfn fonksiyonunun yan etkisi standard giriş/çıkış birimine (genelde ekrana) verilen metni yazmasıdır. 
+>printfn fonksiyonunun yan etkisi standart giriş/çıkış birimine (genelde ekrana) verilen metni yazmasıdır. 
 
 ```fsharp
 (* 03_5_01.fsx *)
@@ -3391,7 +3336,7 @@ let fonksiyon3 x y =
     printfn "Toplama yapıldı ancak sonuç yutuldu"
  
 // Son parametresi unit tipinde olan fonksiyion
-let fonksiyon4 x y z: unit = 
+let fonksiyon4 x y z:unit = 
     x + y |> ignore // toplama sonucu yutuldu
     printfn "Toplama yapıldı ancak sonuç yutuldu"
 
@@ -3410,13 +3355,13 @@ F#'da doğrudan **null** değerler tanımlamak mümkün değildir. Ancak, eğer 
 (* 03_5_01_null*)
 
 // Kişi isimli kayıt tipi tanımı
-type Kişi = { Ad: string; Soyad: string }
+type Kişi = {Ad:string;Soyad:string}
 
 // Yeni bir kişi oluşturma
-let kişi = { Kişi.Ad = "Ali"; Kişi.Soyad = "Özgür" }
+let kişi = {Kişi.Ad="Ali"; Kişi.Soyad = "Özgür"}
 
 // kişi' ifadesine null değer vermek mümkün değil 
-//let kişi': Kişi = null
+//let kişi':Kişi = null
 
 let tarihiÇözümle (str: string) =
     let (success, res) = DateTime.TryParse(str, null, System.Globalization.DateTimeStyles.AssumeUniversal)
@@ -3427,7 +3372,7 @@ let tarihiÇözümle (str: string) =
 
 tarihiÇözümle "2017-09-25 10:00:00"
 ```
-Örneğimizdeki **tarihiÇözümle** fonksiyonu standard .NET kütüphanesindeki **DateTime** sınıfı için tanımlı olan **TryParse** fonksiyonunu kullanıyor. Bu fonksiyonun ikinci parametresi olan **provider** parametresinin değeri null geçiliyor.
+Örneğimizdeki **tarihiÇözümle** fonksiyonu standart .NET kütüphanesindeki **DateTime** sınıfı için tanımlı olan **TryParse** fonksiyonunu kullanıyor. Bu fonksiyonun ikinci parametresi olan **provider** parametresinin değeri null geçiliyor.
 
 
 Eğer F# içinden oluşturduğunuz tiplerin değerlerinin **null** olmasına izin vermek istiyorsanız tipinizi **AllowNullLiteralAttribute** özelliği ile dekore etmeniz gerekir.
@@ -3437,24 +3382,24 @@ Eğer F# içinden oluşturduğunuz tiplerin değerlerinin **null** olmasına izi
 
 // Araba isimli sınıf tanımı
 [<AllowNullLiteral>]
-type Araba (marka: string, model: string, modelYılı: int) = 
+type Araba (marka:string,model:string,modelYılı:int) = 
     member this.Marka = marka
     member this.Model = model
     member this.ModelYılı = modelYılı
 
-let hondaCrv = Araba(marka = "Honda", model = "CRV", modelYılı = 2017) 
-let hondaHrv: Araba = null
+let hondaCrv = Araba(marka="Honda",model="CRV",modelYılı=2017) 
+let hondaHrv:Araba = null
 ```
 
 Örnekte **null** değerlere **\[\<AllowNullLiteral\>\]** ile dekore ederek izin verdiğimiz **Araba** isimli bir sınıf tanımlanıyor. Bu sınıftan oluşturulan ilk değer (hondCrv) normak bir değer, ikinci değer (hondaHrv) ise null. 
 
-null değerlere izin verilen F# tiplerinde veya .NET standard kütüphanesindeki fonksiyonların **null** olabilen dönüş değerleri için **null** değer kontrolü F#'da normal tip ve değerler için yapılan kontroller ile aynı şekilde yapılır. 
+null değerlere izin verilen F# tiplerinde veya .NET standart kütüphanesindeki fonksiyonların **null** olabilen dönüş değerleri için **null** değer kontrolü F#'da normal tip ve değerler için yapılan kontroller ile aynı şekilde yapılır. 
 
 ```fsharp
 (* 03_5_01_null*)
 
 // Araba sınıfında null değerlere izin verdik
-let markayıGetir (a: Araba) : string = 
+let markayıGetir (a:Araba) : string = 
     if a = null then 
         "Geçerli bir araba örneği verilmemiş!"
     else 
@@ -3465,7 +3410,7 @@ markayıGetir hondaCrv
 markayıGetir hondaHrv
 ```
 
-Eğer fonksiyonunuza geçilecek paramerenin değerinin null olup olamayacağını net olarak bilmiyorsanız ve **null** için özel davranış kodlamanız gerekiyorsa F# standard kütüphanesindeki **box** fonksiyonunu veya F# 4 kullanıyorsanız **isNull** fonksiyonun aşağıdaki gibi kullanabilirsiniz.
+Eğer fonksiyonunuza geçilecek paramerenin değerinin null olup olamayacağını net olarak bilmiyorsanız ve **null** için özel davranış kodlamanız gerekiyorsa F# standart kütüphanesindeki **box** fonksiyonunu veya F# 4 kullanıyorsanız **isNull** fonksiyonun aşağıdaki gibi kullanabilirsiniz.
 
 ```fsharp
 (* 03_5_01_null*)
@@ -3488,7 +3433,7 @@ nullMu' hondaHrv
 ### Tuple (Değer Grubu)
 Farklı tiplerde değerleri gruplamak için kullanılan tipe **değer grubu** (tuple) denir. F#'da değer gruplar virgül ile ayrılmış değerler şeklinde aşağıdaki formata uygun olarak tanımlanır. 
 
-**let değer_adı = (değer1, değer2, değer3)**
+**let değer_adı = (değer1,değer2,değer3)**
 
 >**İPUCU**
 >
@@ -3499,25 +3444,25 @@ Değer gruplarının tipi **değer1_tipi \* değer2_tipi \* değer3_tipi** şekl
 ```fsharp
 (* 03_5_02.fsx *)
 
-let yazar = ("Ali", "Özgür", 1979, 9)
+let yazar = ("Ali","Özgür",1979,9)
 // Değer grubunun imzası şöyledir
 // val yazar : string * string * int * int
 
 // Değer tipleri tanımlı değer grubu
-let kardeş : string * string = ("Ersel", "Özgür")
+let kardeş : string * string = ("Ersel","Özgür")
 ```
 
 Değer grupları başka değer gruplarını da barındırabilir. Aşağıdaki örnekte **baba** isimli değer grubunun 3. elemanı yine bir değer grubudur.
 
 ```fsharp
-let baba = ("Ali", "Özgür", ("Arda", "Özgür"))
+let baba = ("Ali","Özgür", ("Arda","Özgür"))
 ```
 
-Sadece iki değeri olan grupların elemanlarının değerlerini sökmek için **fst** ve **snd** standard kütüphane fonksiyonları kullanılabilir.
+Sadece iki değeri olan grupların elemanlarının değerlerini sökmek için **fst** ve **snd** standart kütüphane fonksiyonları kullanılabilir.
 
 ```fsharp
 
-let çocuk = ("Arda", "Özgür")
+let çocuk = ("Arda","Özgür")
 let çocukAd = fst çocuk 
 let çocukSoyad = snd çocuk
 ``` 
@@ -3528,17 +3473,17 @@ Değer grubundaki tüm elemanların değerleri tek bir satırda aşağıdaki gib
 (* 03_5_02.fsx *)
 
 // Tüm değerleri ayrı ayrı birer ifadeye atayalım
-let babaAd, babaSoyad, doğumYılı, doğumAyı = yazar
+let babaAd,babaSoyad,doğumYılı,doğumAyı = yazar
 
 // Bazı değerleri _ ile sökme sırasında görmezden gelelim
-let kişiAd, kişiSoyad, _ = baba
-let kişiAd', _, çocuğu = baba
+let kişiAd,kişiSoyad,_ = baba
+let kişiAd',_,çocuğu = baba
 ```
 
 Değer grubunun eleman sayısından daha az veya daha fazla eleman sökülmek istenirse derleyici hata verir.
 
 ```fsharp
-let kişiAd, kişiSoyad = baba
+let kişiAd,kişiSoyad = baba
 // Derleyici aşağıdaki hatayı verir
 (*
 Error FS0001: Type mismatch. Expecting a
@@ -3555,30 +3500,30 @@ Değer gruplarını fonksiyonlara girdi parametresi olarak geçip fonksiyonlarda
 (* 03_5_02.fsx *)
 
 // Değer grubu parametresi alan fonksiyon
-let topla (x, y) = x + y
+let topla (x,y) = x + y
 
-topla (43, -1)
+topla (43,-1)
 
 // Değer grubu parametresi alıp 
 // değer grubu döndüren fonksiyon
-let topla' (x, y) = 
+let topla' (x,y) = 
     let t = x + y
-    (t, sprintf "%d + %d = %d" x y t)
+    (t,sprintf "%d + %d = %d" x y t)
 
-let toplam, metin = topla'(43, -1)
+let toplam,metin = topla'(43,-1)
 ```
 
 Değerlerinin tipi olmayan değer gruplarının imzası **'a \* 'b** şeklindedir
 
 ```fsharp
 
-let değerleriYazdır (x, y) = 
+let değerleriYazdır (x,y) = 
     printfn "Değerler x=%A, y=%A" x y
 // Fonksiyonun imzası şöyledir
-// val değerleriYazdır : x: 'a * y: 'b -> unit
+// val değerleriYazdır : x:'a * y:'b -> unit
 
-değerleriYazdır (baba, çocuk)
-değerleriYazdır (42, 0)
+değerleriYazdır (baba,çocuk)
+değerleriYazdır (42,0)
 ```
 
 >**DİKKAT!**
@@ -3590,17 +3535,17 @@ F#'da fonksiyonlarınız tasarlarken girdi parametrelerini tanımlamak için mü
 
 İfadelere, fonksiyon girdi parametresi veya dönüş değerlerine değer grubu tiplerini tanımlamak için aşağıdaki şablona uygulmalıdır.
 
-**(ifade1, ifade2): değerTipi1 \* değerTipi2**
+**(ifade1,ifade2): değerTipi1 \* değerTipi2**
 
 ```fsharp
 (* 03_5_02.fsx *)
 
 // Değer tipleri tanımlı değer grubu parametresi
-let çarp ( (x, y): int * int ) : int * string = 
+let çarp ( (x,y):int*int ) : int * string = 
     let ç = x * y
-    (ç, sprintf "%d * %d = %d" x y ç)
+    (ç,sprintf "%d * %d = %d" x y ç)
     
-çarp (42, 1)
+çarp (42,1)
 ```
 Örneğimizdeki **çarp** fonksiyonuna bakarsanız **( (x,y):int * int )** ile iki değeri de tam sayı olan bir değer grubunu parametre olarak aldığını **:int * string**  ile de ilk elemanı tam sayı (int) ikinci elemanı metin (string) olan bir değer grubu döndürdüğünü anlarız.
 
@@ -3608,7 +3553,7 @@ let çarp ( (x, y): int * int ) : int * string =
 >
 >Aşağıdaki fonksiyon tanımlarını yaparak imzalarını karşılaştırın.
 >
->let topla(x, y) = x + y
+>let topla(x,y) = x + y
 >
 >let topla' x y = x + y
 >
@@ -3618,11 +3563,11 @@ let çarp ( (x, y): int * int ) : int * string =
 İki değer grubu eleman sayısı, elemanlarını tipleri ve elemanlarının değerleri aynı ise birbirine eşittir. Elaman sayısı farklı olan veya eleman sayısı aynı olan ancak tipleri farklı olan değer grupları karşılaştırılamaz, derleyici hata verir. 
 
 ```fsharp
-(1, 2) = (1, 2) // true
-(1, 2) = (2, 1) // false
-(1, "Ali") = (1, "Arda") // false
-(1, 2, 3) = (1, 2) // Derleyici hata verir
-(1, 2) = ("1", 2) // Derleyici hata verir
+(1,2) = (1,2) // true
+(1,2) = (2,1) // false
+(1,"Ali") = (1,"Arda") // false
+(1,2,3) = (1,2) // Derleyici hata verir
+(1,2) = ("1",2) // Derleyici hata verir
 ```
 
 
@@ -3653,10 +3598,10 @@ Opsiyonların değer barındırıp barındırmadığı **Option** modülü için
 // ----- option tipinden parametre kullanımı ----- 
 
 // Araba isimli kayıt tipi
-type Araba = { Marka: string; Model: string }
+type Araba = {Marka:string;Model:string}
 
 // None kontrolü ve Option.get kullanımı 
-let arabaBilgisiniVer (a: Araba option): string = 
+let arabaBilgisiniVer (a: Araba option):string = 
     if a = None then
         "Araba nesnesi belirtilmemiş"
     else
@@ -3664,7 +3609,7 @@ let arabaBilgisiniVer (a: Araba option): string =
         sprintf "Marka = %s, Model = %s" araba.Marka araba.Model
 
 // Option.isNone ve Option.get kullanımı
-let arabaBilgisiniVer' (a: Araba option): string = 
+let arabaBilgisiniVer' (a: Araba option):string = 
     if Option.isNone a then
         "Araba nesnesi belirtilmemiş"
     else
@@ -3673,7 +3618,7 @@ let arabaBilgisiniVer' (a: Araba option): string =
 
 
 // Option.isSome ve Option.get kullanmı
-let arabaBilgisiniVer'' (a: Araba option): string = 
+let arabaBilgisiniVer'' (a: Araba option):string = 
     if Option.isSome a then
         let araba = Option.get a
         sprintf "Marka = %s, Model = %s" araba.Marka araba.Model
@@ -3681,7 +3626,7 @@ let arabaBilgisiniVer'' (a: Araba option): string =
         "Araba nesnesi belirtilmemiş"
 
 let araba1 = None
-let araba2 = Some({ Marka = "Honda"; Model = "CRV" })
+let araba2 = Some({Marka="Honda";Model="CRV"})
 
 arabaBilgisiniVer araba1
 arabaBilgisiniVer araba2
@@ -3701,7 +3646,7 @@ Opsiyonlar fonksiyonlardan **null** değeri kullanılmadan bazı koşullarda bir
 (* 03_5_03.fsx *)
 // ----- option tipinden değer döndürme ----- 
 
-let bölüm' (x: float) (y: float) = 
+let bölüm' (x:float) (y:float) = 
     match y with
     | 0.0 -> None // 0'a bölme işlemi tanımsız
     | _ -> Some(x / y)
@@ -3737,14 +3682,14 @@ Yapısal eşitliğin ne olduğunu daha iyi anlamak için önce C#'da referans e�
 ```csharp
 public class Kişi
 {
-    public string Ad{ get; set; }
-    public string Soyad{ get; set; }
+    public string Ad{get;set;}
+    public string Soyad{get;set;}
 }
 
 void Main()
 {
-    var kişi1 = new Kişi{ Ad = "Ali", Soyad = "Özgür" };
-    var kişi2 = new Kişi{ Ad = "Ali", Soyad = "Özgür" };
+    var kişi1 = new Kişi{Ad = "Ali", Soyad = "Özgür"};
+    var kişi2 = new Kişi{Ad = "Ali", Soyad = "Özgür"};
     var kişi3 = kişi1;
 
     Console.WriteLine("kişi1 == kişi2 : {0}", kişi1 == kişi2);
@@ -3762,8 +3707,8 @@ C#'da **==** operatörü karşılaştırma için kullanılır ve sınıflar içi
 ```csharp
 public class Kişi
 {
-    public string Ad{ get; set; }
-    public string Soyad{ get; set; }
+    public string Ad{get;set;}
+    public string Soyad{get;set;}
 	
     /*
         Equals Sytem.Object tipinin metodu
@@ -3782,8 +3727,8 @@ public class Kişi
 
 void Main()
 {
-    var kişi1 = new Kişi{ Ad = "Ali", Soyad = "Özgür" };
-    var kişi2 = new Kişi{ Ad = "Ali", Soyad = "Özgür" };
+    var kişi1 = new Kişi{Ad = "Ali", Soyad = "Özgür"};
+    var kişi2 = new Kişi{Ad = "Ali", Soyad = "Özgür"};
     var kişi3 = kişi1;
 	
     // İçerik eşitliği
@@ -3812,14 +3757,14 @@ C# örneğimizi F# ile tekrarladığımızda içerik eşitliği kontrollerini il
 (* 03_6_03.fsx *)
 
 // Kişi isimli kayıt tipi
-type Kişi = { Ad: string; Soyad: string }
+type Kişi = {Ad:string;Soyad:string}
 
 // kişi1, kişi2 ve kişi3 değerler
-let kişi1 = { Ad = "Ali"; Soyad = "Özgür" }
-let kişi2 = { Ad = "Ali"; Soyad = "Özgür" }
+let kişi1 = {Ad="Ali";Soyad="Özgür"}
+let kişi2 = {Ad="Ali";Soyad="Özgür"}
 let kişi3 = kişi1
 
-let kişi4 = { Ad = "Arda"; Soyad = "Özgür" }
+let kişi4 = {Ad="Arda";Soyad="Özgür"}
 
 
 printfn "kişi1 = kişi2 : %b" (kişi1 = kişi2)
@@ -3859,10 +3804,10 @@ Bu koşullar derleyici tarafından kontrol edilir, eğer bir uyumsuzluk varsa de
 (* 03_6_04.fsx *)
 
 // ---- Değer Grupları (tuple) Eşitliği ve Karşılaştırma ---- 
-let değerGrubu1 = (1, 2)
-let değerGrubu2 = (1, 2)
-let değerGrubu3 = (2, 1)
-let değerGrubu4 = (2, 3)
+let değerGrubu1 = (1,2)
+let değerGrubu2 = (1,2)
+let değerGrubu3 = (2,1)
+let değerGrubu4 = (2,3)
 
 değerGrubu1 = değerGrubu2 // true
 değerGrubu1 = değerGrubu3 // false
@@ -3872,8 +3817,8 @@ değerGrubu4 > değerGrubu3 // true
 
 
 // ---- Liste (list) Eşitliği ve Karşılaştırma ---- 
-let liste1 = [ 1..5 ]
-let liste2 = [ 1..5 ]
+let liste1 = [1..5]
+let liste2 = [1..5]
 let liste3 = [
     for i in 1..5 do
         if i = 1 then
@@ -3898,8 +3843,8 @@ liste3 > liste1 // true
 liste4 > liste1 // false
 
 // ---- Dizi (Array) Eşitliği ve Karşılaştırma ---- 
-let dizi1 = [ 1..5 ]
-let dizi2 = [ 1..5 ]
+let dizi1 = [1..5]
+let dizi2 = [1..5]
 let dizi3 = [
     for i in 1..5 do
         if i = 1 then
@@ -3936,13 +3881,13 @@ opsiyon3 > opsiyon1 // true
 
 
 // ---- Kayıt (Record) Eşitliği ve Karşılaştırma ---- 
-type Kişi = { Ad: string; Soyad: string; DoğumYılı: int }
+type Kişi = {Ad:string;Soyad:string;DoğumYılı:int}
 
 // kişi1, kişi2 ve kişi3 değerler
-let kişi1 = { Ad = "Ali"; Soyad = "Özgür"; DoğumYılı = 1979 }
-let kişi2 = { Ad = "Ali"; Soyad = "Özgür"; DoğumYılı = 1979 }
-let kişi3 = { Ad = "Ali"; Soyad = "Özgür"; DoğumYılı = 1980 }
-let kişi4 = { Ad = "Arda"; Soyad = "Özgür"; DoğumYılı = 1979 }
+let kişi1 = {Ad="Ali";Soyad="Özgür";DoğumYılı=1979}
+let kişi2 = {Ad="Ali";Soyad="Özgür";DoğumYılı=1979}
+let kişi3 = {Ad="Ali";Soyad="Özgür";DoğumYılı=1980}
+let kişi4 = {Ad="Arda";Soyad="Özgür";DoğumYılı=1979}
 
 kişi1 = kişi2 // true
 kişi1 = kişi3 // false
@@ -3956,16 +3901,16 @@ type Nokta =
     struct
         val x: float
         val y: float
-        new(x, y) = { x = x; y = y }
+        new(x,y) = {x=x;y=y}
     end
 
-let nokta1 = Nokta(1.0, 0.0)
-let nokta2 = Nokta(1.0, 0.0)
+let nokta1 = Nokta(1.0,0.0)
+let nokta2 = Nokta(1.0,0.0)
 
-let nokta3 = Nokta(1.0, 2.0)
-let nokta4 = Nokta(2.0, 0.0)
+let nokta3 = Nokta(1.0,2.0)
+let nokta4 = Nokta(2.0,0.0)
 
-let nokta5 = Nokta(0.0, 2.0)
+let nokta5 = Nokta(0.0,2.0)
 
 nokta1 = nokta2 // true
 nokta1 = nokta3 // false
@@ -3976,7 +3921,7 @@ nokta5 > nokta1 //false
 
 // ---- Bileşimler (union)  Eşitliği ve Karşılaştırma ---- 
 
-type Şehir = Adana | Bursa | İstanbul
+type Şehir = Adana|Bursa|İstanbul
 
 let bursa = Bursa
 let bursa' = Bursa
@@ -4019,11 +3964,11 @@ public class Program
 	
     public static void Main()
     {
-        var kişi = new Kişi{ Ad = "Arda", Soyad = "Özgür" };	
-        Console.WriteLine($"Kişi bilgisi : { kişi }");
+        var kişi = new Kişi{Ad="Arda",Soyad="Özgür"};	
+        Console.WriteLine($"Kişi bilgisi : {kişi}");
 
         var test = TestMetodu();
-        Console.WriteLine($"Test metod sonucu : { test }"); 
+        Console.WriteLine($"Test metod sonucu : {test}"); 
         
     }
 	
@@ -4035,12 +3980,12 @@ public class Program
 
 public class Kişi
 {
-    public string Ad{ get; set; }
-    public string Soyad{ get; set; }
+    public string Ad{get;set;}
+    public string Soyad{get;set;}
 
     public override string ToString()
     {
-        return $"{ this.Ad } { this.Soyad }";
+        return $"{this.Ad} {this.Soyad}";
     }
 }
 ``` 
@@ -4049,7 +3994,7 @@ C# örneğinde **Kişi** sınıfı kullanıldığı **Program** sınıfının **
 ```fsharp
 (* 03_7_01.fsx *)
 // Kişi tipinden değer
-let kişi = { Ad = "Arda"; Soyad = "Özgür" }
+let kişi = {Ad="Arda";Soyad="Özgür"}
 
 // kişi değerini ekrana yazdırma
 printfn "Kişi bilgisi : %s" (kişiBilgisi kişi)
@@ -4060,7 +4005,7 @@ let kişiBilgisi (k:Kişi) =
 
 
 // Kişi kayıt tipi tanımı
-type Kişi = { Ad: string; Soyad: string }
+type Kişi = {Ad:string;Soyad:string}
 
 ```
 
@@ -4070,14 +4015,14 @@ Yukarıdaki F# kod parçasında **Kişi** tipi ve **kişiBilgisi** fonksiyonlar�
 (* 03_7_01.1.fsx *)
 
 // Kişi kayıt tipi tanımı
-type Kişi = { Ad: string; Soyad: string }
+type Kişi = {Ad:string;Soyad:string}
 
 // Kişi bilgisi fonksiyonu tanımı
 let kişiBilgisi (k:Kişi) = 
     sprintf "%s %s" k.Ad k.Soyad
 
 // Kişi tipinden değer
-let kişi = { Ad = "Arda"; Soyad = "Özgür" }
+let kişi = {Ad="Arda";Soyad="Özgür"}
 
 // kişi değerini ekrana yazdırma
 printfn "Kişi bilgisi : %s" (kişiBilgisi kişi)
@@ -4128,7 +4073,7 @@ let MarkaAdı = "Sanal Market"
 let Echo x = 
     sprintf "%A" x
 
-type Müşteri = { Ad: string; Soyad: string }
+type Müşteri = {Ad:string;Soyad:string}
 ```
 Yukarıdaki örneğimizde **03_7_02.fs** kod dosyasının içinde **SanalMarket** isimli üst seviyede bir modül tanımladık. Bu modülün içinde **MarkaAdı** isimli bir değer, **Echo** isimli bir fonkisyon ve **Müşteri** isimli bir kayıt tipi oluşturduk. SanalMarket modülü içinde tanımlı bu ifadeleri **03_7_03.fsx** script dosyası içinden aşağıdaki gibi kullanabiliriz. 
 
@@ -4142,7 +4087,7 @@ open SanalMarket
 printfn "Marka Adı = %s" MarkaAdı
 Echo "Sanal Market Client"
 
-let müşteri = { Ad = "Mahmut"; Soyad = "Tuncer" }
+let müşteri = {Ad="Mahmut";Soyad="Tuncer"}
 ```
 
 * **#load** FSI direktifi ile modülün bulunduğu dosya ortama yüklenir.
@@ -4160,8 +4105,8 @@ printfn "Marka Adı = %s" SanalMarket.MarkaAdı
 SanalMarket.Echo "Sanal Market Client"
 
 let müşteri = {
-    SanalMarket.Müşteri.Ad = "Mahmut"
-    SanalMarket.Müşteri.Soyad = "Tuncer" }
+    SanalMarket.Müşteri.Ad="Mahmut"
+    SanalMarket.Müşteri.Soyad="Tuncer"}
 
 ```
 
@@ -4187,19 +4132,19 @@ let MarkaAdı = "Sanal Market"
 let Echo x = 
     sprintf "%A" x
 
-type Müşteri = { Ad: string; Soyad: string }
+type Müşteri = {Ad:string;Soyad:string}
 
 // SanalMarket modülü altında alt seviye modül
 module Sepet = 
-    type Ürün = { Ad: string; Fiyat: decimal }
-    type Sepet = { Müşteri: Müşteri; Ürünler: Ürün list }
+    type Ürün={Ad:string;Fiyat:decimal}
+    type Sepet = {Müşteri:Müşteri; Ürünler: Ürün list}
 
     // Sepet alt modülü altında başka bir alt modül
     module Utils = 
         let ürünOluştur ad fiyat = 
-            { Ad = "iPhone X"; Fiyat = fiyat }
+            {Ad="iPhone X";Fiyat=fiyat}
         let sepetOluştur ad soyad ürünler = 
-                { Müşteri = { Ad = ad; Soyad = soyad }; Ürünler = ürünler }
+                {Müşteri={Ad=ad;Soyad=soyad}; Ürünler= ürünler}
 ```
 Bu iki iç modülün işlevlerini **SanalMarket.Sepet** iç modülünü ve bunun altındaki **SanalMarket.Sepet.Utils** iç modülünü **open** ile açarak aşağıdaki gibi kullanırız. 
 
@@ -4210,7 +4155,7 @@ Bu iki iç modülün işlevlerini **SanalMarket.Sepet** iç modülünü ve bunun
 //  Sepet iç modülü 
 //erişime açıyoruz
 open SanalMarket.Sepet
-let iPhone7 = { Ad = "iPhone 7"; Fiyat = 5099M }
+let iPhone7 = {Ad="iPhone 7";Fiyat=5099M}
 
 //SanalMarket üst modülü altındaki 
 //  Sepet iç modülünün altındaki 
@@ -4225,7 +4170,7 @@ let iPhoneX = ürünOluştur "iPhone X" 6099M
 
 [
     for i in 3..6 do
-        yield { Ad = sprintf "iPhone %d" i; Fiyat = decimal(i) * 1000M }
+        yield {Ad= sprintf "iPhone %d" i;Fiyat= decimal(i) * 1000M}
 ] |> sepetOluştur "Mahmut" "Tuncer"
 
 ```
@@ -4238,7 +4183,7 @@ let iPhoneX = ürünOluştur "iPhone X" 6099M
 
 F#'da üst seviye modüller yerine alan adları da **namespace alan-adı** formatına uygun olarak tanımlanabilir. Alan adları dosyanın tepesinde ve soldan hiç bir girinti verilmeden tanımlanır. Alan adlarının altında iç içe modül tanımları yapılabilir ancak iç içe alan adı tanımlanması mümkün değildir.
 
-Alan adlarının altında üst seviyedeki modüllerden farklı olarak sadece tip tanımı yapılabilir, alan adları altında doğrudan fonksiyon tanımı yapılamaz veya do
+Alan adlarının altında üst seviyedeki modüllerden farklı olarak sadece tip tanımı yapılabilir, alan adları altında doğrudan fonksiyon tanımı yapılamaz veya do ifadeleri kullanılamaz.
 
 Örneklerimizdeki **SanalSepet** üst seviye modülünü aşağıdaki gibi alan adı kullanacak şekilde düzenleyebiliriz. Ancak, dikkat ederseniz üst seviye modül içinde tanımlı olan **MarkaAdı** değerini ve **Echo** fonksiyonunu alan adı altındaki **Genel** isimli bir iç modüle taşımak zorunda kaldık. **Müşteri** tip tanımını ise alan adı altında bırakabilidik.
 
@@ -4247,7 +4192,7 @@ Alan adlarının altında üst seviyedeki modüllerden farklı olarak sadece tip
 
 namespace SanalMarket
 
-type Müşteri = { Ad: string; Soyad: string }
+type Müşteri = {Ad:string;Soyad:string}
 
 module Genel = 
     let MarkaAdı = "Sanal Market"
@@ -4256,15 +4201,15 @@ module Genel =
 
 // SanalMarket modülü altında alt seviye modül
 module Sepet = 
-    type Ürün = {Ad: string; Fiyat: decimal }
-    type Sepet = { Müşteri: Müşteri; Ürünler: Ürün list }
+    type Ürün={Ad:string;Fiyat:decimal}
+    type Sepet = {Müşteri:Müşteri; Ürünler: Ürün list}
 
     // Sepet alt modülü altında başka bir alt modül
     module Utils = 
         let ürünOluştur ad fiyat = 
-            { Ad = "iPhone X"; Fiyat = fiyat }
-        let sepetOluştur ad soyad ürünler =
-                { Müşteri = { Ad = ad; Soyad = soyad }; Ürünler = ürünler }
+            {Ad="iPhone X";Fiyat=fiyat}
+        let sepetOluştur ad soyad ürünler = 
+                {Müşteri={Ad=ad;Soyad=soyad}; Ürünler= ürünler}
 ```
 
 **Tip ve Fonksiyonların Organzasyonu**
@@ -4279,13 +4224,13 @@ Modülleri ve alan adlarını tipleri ve fonksiyonları organize etmek için kul
 namespace SanalMarket1
 
 // Tip tanımı
-type MüşteriTipi = { Ad: string; Soyad: string }
+type MüşteriTipi = {Ad:string;Soyad:string}
 
 // Tip adını taşıyan modül
 module Müşteri = 
    // Tip ile ilgili işlem yapan fonksiyon
    let oluştur ad soyad =  
-    { Ad = ad; Soyad = soyad }
+    {Ad=ad;Soyad=soyad}
 
 ```
 
@@ -4300,11 +4245,11 @@ namespace SanalMarket2
 // Tipin adını taşıyan modül
 module Müşteri = 
     // Gerçek tip tanımı basit bir isimle yapılıyor
-    type T = { Ad: string; Soyad: string }
+    type T = {Ad:string;Soyad:string}
     
     // Tip ile ilgili işlem yapan fonksiyon
     let oluştur ad soyad =  
-        { Ad = ad; Soyad = soyad }
+        {Ad=ad;Soyad=soyad}
 
 ```
 
